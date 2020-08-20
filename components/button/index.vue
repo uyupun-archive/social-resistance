@@ -6,8 +6,8 @@
 -->
 
 <template>
-  <nuxt-link v-if="to" :to="to">{{ text }}</nuxt-link>
-  <button v-else type="button">{{ text }}</button>
+  <nuxt-link v-if="to" :to="to" class="btn">{{ text }}</nuxt-link>
+  <button v-else type="button" class="btn">{{ text }}</button>
 </template>
 
 <script>
@@ -25,4 +25,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.btn {
+  color: #ffffff;
+  background: #111111;
+}
+</style>

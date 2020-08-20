@@ -1,9 +1,10 @@
 <template>
   <div>
-    <h1>Social Resistance</h1>
-    <h5>STAY HOME</h5>
-    <Button to="/gohome" text="はじめる" />
-    <Button to="/rule" text="あそびかた" />
+    <h3>gohome</h3>
+    <div>
+      <Button text="単語" />
+    </div>
+    <Button to="/" text="おつかれ" />
   </div>
 </template>
 

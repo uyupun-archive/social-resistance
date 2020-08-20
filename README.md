@@ -7,6 +7,7 @@
 |||
 |:--|:--|
 |モック(Figma)|https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=1%3A2|
+|text8コーパス(日本語版)|https://github.com/Hironsan/ja.text8|
 
 ### 環境構築(フロントエンド)
 
@@ -17,10 +18,8 @@ $ yarn dev
 
 ### 環境構築(Word2vec)
 
-python 3.7
-pipenv
-
 ```bash
 # Python3とPipenvがインストールされている前提です
-make setup
+$ cd word2vec
+$ make setup
 ```

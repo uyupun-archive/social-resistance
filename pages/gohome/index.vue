@@ -1,12 +1,21 @@
 <template>
   <div>
     <h3>gohome</h3>
-    <nuxt-link to="/">おつかれ</nuxt-link>
+    <div>
+      <Button text="単語" />
+    </div>
+    <Button to="/" text="おつかれ" />
   </div>
 </template>
 
 <script>
-export default {}
+import Button from '~/components/button/index.vue'
+
+export default {
+  components: {
+    Button,
+  },
+}
 </script>
 
 <style></style>

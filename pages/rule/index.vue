@@ -4,12 +4,18 @@
     <div>
       ここにルールが入ります。
     </div>
-    <nuxt-link to="/">もどる</nuxt-link>
+    <Button to="/" text="もどる" />
   </div>
 </template>
 
 <script>
-export default {}
+import Button from '~/components/button/index.vue'
+
+export default {
+  components: {
+    Button,
+  },
+}
 </script>
 
 <style></style>

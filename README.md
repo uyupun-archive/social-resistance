@@ -1,26 +1,26 @@
-# social-resistance
+# Social Resistance
 
-## ドキュメント
+**STAY HOME**
 
-|ドキュメント|概要|
+### ドキュメント
+
+|||
 |:--|:--|
-|[comps](https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=1%3A2)|カンプ(Figma)|
+|モック(Figma)|https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=1%3A2|
 
-## Build Setup
+### 環境構築(フロントエンド)
 
 ```bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
+$ yarn
 $ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+### 環境構築(Word2vec)
+
+python 3.7
+pipenv
+
+```bash
+# Python3とPipenvがインストールされている前提です
+make setup
+```

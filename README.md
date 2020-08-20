@@ -23,3 +23,9 @@ $ yarn dev
 $ cd word2vec
 $ make setup
 ```
+
+### Word2vecのテスト
+
+```bash
+$ pipenv run python3 test.py <word>
+```

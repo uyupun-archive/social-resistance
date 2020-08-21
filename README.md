@@ -1,6 +1,6 @@
-# Social Resistance
+# SOCIAL RESISTANCE
 
-**STAY HOME**
+**death is not a go home**
 
 ### ドキュメント
 

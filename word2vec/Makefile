@@ -4,3 +4,4 @@ setup:
 	unzip corpus.zip
 	mv ja.text8 corpus
 	pipenv run python3 train.py
+	pipenv run python3 pca.py

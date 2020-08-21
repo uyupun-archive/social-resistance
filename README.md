@@ -26,6 +26,8 @@ $ make setup
 
 ### Word2vecのテスト
 
+単語の分散表現(200次元)、類似度が近い単語トップ10、２単語間の類似度の測定をテストできます。
+
 ```bash
-$ pipenv run python3 test.py <word>
+$ pipenv run python3 test.py <word1> <word2>
 ```

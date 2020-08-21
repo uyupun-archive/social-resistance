@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <h1>Social Resistance</h1>
-    <h5>STAY HOME</h5>
-    <Button to="/gohome" text="はじめる" />
-    <Button to="/rule" text="あそびかた" />
+  <div class="container">
+    <h1 class="title">Social Resistance</h1>
+    <h5 class="subtitle">STAY HOME</h5>
+    <div class="btn-start">
+      <Button to="/gohome" text="はじめる" />
+    </div>
+    <div class="btn-rule">
+      <Button to="/rule" text="あそびかた" />
+    </div>
   </div>
 </template>
 
@@ -17,4 +21,29 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.container {
+  padding: 180px 0 0;
+  text-align: center;
+}
+
+.title {
+  font-size: 9.6rem;
+  line-height: 1;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 4.8rem;
+  margin: 0 0 150px;
+}
+
+.btn {
+  &-start {
+    margin: 0 0 80px;
+  }
+  &-rule {
+    margin: 0 0 20px;
+  }
+}
+</style>

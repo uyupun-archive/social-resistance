@@ -30,7 +30,7 @@ $ make setup
 
 ```bash
 # 単語の分散表現(200次元)、類似度が近い単語トップ10、２単語間の類似度の測定をテストできます
-$ pipenv run python3 test.py <word1> <word2>
+$ pipenv run python3 test_word2vec.py <word1> <word2>
 # 単語の分散表現(2次元)をグラフに表示する
-$ pipenv run python3 graph.py
+$ pipenv run python3 test_graph.py
 ```

@@ -17,7 +17,7 @@ export default {
   },
   created() {
     const firstWord = this.$getFirstWord()
-    const words = this.$getWords()
+    const words = this.$getWords(firstWord)
     console.log(firstWord)
     console.log(words)
   },

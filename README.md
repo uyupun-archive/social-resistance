@@ -22,6 +22,9 @@ $ yarn run lint --fix
 
 ### 環境構築(Word2vec)
 
+※ ただし学習・整形済みのWord2Vecのデータが `assets/json/word2vec.json` に既にあるのでこちらの環境構築は飛ばしても構いません。  
+※ このプロセスは `assets/json/word2vec.json` を新規に作成する場合と、下記のテストを行う場合に必要です。
+
 ```bash
 # Python3とPipenvがインストールされている前提です
 $ cd word2vec

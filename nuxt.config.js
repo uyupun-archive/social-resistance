@@ -29,14 +29,12 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    {src: '~assets/css/styles.scss'}
-  ],
+  css: [{ src: '~assets/css/styles.scss' }],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: ['@/plugins/word2vec'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

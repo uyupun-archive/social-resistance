@@ -15,6 +15,12 @@ export default {
   components: {
     Button,
   },
+  created() {
+    const firstWord = this.$getFirstWord()
+    const words = this.$getWords()
+    console.log(firstWord)
+    console.log(words)
+  },
 }
 </script>
 

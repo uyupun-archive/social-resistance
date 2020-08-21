@@ -1,5 +1,6 @@
 {
   "name": "social-resistance",
+  "description": "death is not a go home",
   "version": "1.0.0",
   "private": true,
   "scripts": {

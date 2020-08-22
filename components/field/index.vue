@@ -13,21 +13,38 @@ export default {
   },
   mounted() {
     this.createCanvas()
-    this.drawRectangle()
+    this.drawGrid()
+    this.drawCharacter()
   },
   methods: {
     createCanvas() {
       const field = document.getElementById('field')
       this.ctx = field.getContext('2d')
     },
-    drawRectangle() {
-      this.ctx.beginPath()
-      this.ctx.rect(50, 50, 75, 50)
-      this.ctx.fillStyle = 'rgba(255,0,0,0.8)'
-      this.ctx.fill()
-      this.ctx.strokeStyle = 'purple'
-      this.ctx.lineWidth = 8
+    drawGrid() {
+      for (let x = 0; x < 1000; x += 10) {
+        this.ctx.moveTo(x, 0)
+        this.ctx.lineTo(x, 500)
+      }
+      for (let y = 0; y < 500; y += 10) {
+        this.ctx.moveTo(0, y)
+        this.ctx.lineTo(1000, y)
+      }
+      this.ctx.strokeStyle = '#eee'
       this.ctx.stroke()
+    },
+    drawCharacter() {
+      const character = new Image()
+      character.src = require('~/assets/images/characters/pekora.gif')
+      character.onload = () => {
+        this.ctx.drawImage(
+          character,
+          100,
+          100,
+          character.naturalWidth * 0.15,
+          character.naturalHeight * 0.15
+        )
+      }
     },
   },
 }

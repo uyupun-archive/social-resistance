@@ -14,6 +14,7 @@ export default {
   mounted() {
     this.createCanvas()
     this.drawGrid()
+    this.drawCharacter()
   },
   methods: {
     createCanvas() {
@@ -31,6 +32,19 @@ export default {
       }
       this.ctx.strokeStyle = '#eee'
       this.ctx.stroke()
+    },
+    drawCharacter() {
+      const character = new Image()
+      character.src = require('~/assets/images/characters/pekora.gif')
+      character.onload = () => {
+        this.ctx.drawImage(
+          character,
+          100,
+          100,
+          character.naturalWidth * 0.15,
+          character.naturalHeight * 0.15
+        )
+      }
     },
   },
 }

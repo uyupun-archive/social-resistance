@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div class="logo"></div>
     <h1 class="title">SOCIAL RESISTANCE</h1>
     <h5 class="subtitle">death is not a go home</h5>
     <div class="btn-start">
@@ -23,8 +24,16 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  padding: 180px 0 0;
   text-align: center;
+}
+
+.logo {
+  margin: 10px auto;
+  width: 300px;
+  height: 300px;
+  background-image: url('~assets/images/logo_white.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .title {
@@ -37,12 +46,12 @@ export default {
 .subtitle {
   font-family: 'Roboto-Thin';
   font-size: 4.8rem;
-  margin: 0 0 150px;
+  margin: 0 0 50px;
 }
 
 .btn {
   &-start {
-    margin: 0 0 80px;
+    margin: 0 0 40px;
   }
   &-rule {
     margin: 0 0 20px;

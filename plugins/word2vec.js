@@ -22,6 +22,7 @@ const getWords = (baseWord) => {
     const word = word2vec[idx]
     word.index = idx
     word.correct_x = _getCorrectX(baseWord, word)
+    word.about_direction = _getAboutDirection(baseWord, word)
     words.push(word)
   }
   return words
@@ -49,6 +50,23 @@ const _getCorrectX = (baseWord, word) => {
     return correctX
   }
   return word.x
+}
+
+/**
+ * 単語の選択によって今の場所から大まかに上に移動するか、下に移動するか、ほぼ真っすぐ移動するかを返す
+ * TODO: 小数点までピッタリ合うことは無いので、keepの幅にもう少し余裕を持たせる
+ *
+ * @param {*} baseWord
+ * @param {*} word
+ */
+const _getAboutDirection = (baseWord, word) => {
+  if (word.y > baseWord.y) {
+    return 'left'
+  }
+  if (word.y < baseWord.y) {
+    return 'right'
+  }
+  return 'straight'
 }
 
 /* eslint-disable */

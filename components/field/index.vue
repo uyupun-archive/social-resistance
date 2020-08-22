@@ -46,6 +46,9 @@ export default {
         )
       }
     },
+    moveCharacter() {
+      console.log('foo')
+    },
   },
 }
 </script>

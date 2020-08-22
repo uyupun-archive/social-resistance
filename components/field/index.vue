@@ -33,21 +33,26 @@ export default {
       this.ctx.strokeStyle = '#eee'
       this.ctx.stroke()
     },
-    drawCharacter() {
+    generateCharacter() {
+      this.drawCharacter()
+    },
+    moveCharacter() {
+      const x = Math.round(Math.random() * 500)
+      const y = Math.round(Math.random() * 500)
+      this.drawCharacter(x, y)
+    },
+    drawCharacter(x = null, y = null) {
       const character = new Image()
       character.src = require('~/assets/images/characters/pekora.gif')
       character.onload = () => {
         this.ctx.drawImage(
           character,
           0,
-          250 - (character.naturalHeight * 0.15) / 2,
-          character.naturalWidth * 0.15,
+          x || 250 - (character.naturalHeight * 0.15) / 2,
+          y || character.naturalWidth * 0.15,
           character.naturalHeight * 0.15
         )
       }
-    },
-    moveCharacter() {
-      console.log('foo')
     },
   },
 }

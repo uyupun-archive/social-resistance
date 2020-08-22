@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h3>gohome</h3>
+    <Field></Field>
     <div>
-      <Button text="単語" />
+      <Button :text="word.word" v-for="word in words" :key="word.index" />
     </div>
     <Button to="/" text="おつかれ" />
-    <Field></Field>
   </div>
 </template>
 
@@ -18,11 +17,25 @@ export default {
     Button,
     Field,
   },
-  created() {
-    const firstWord = this.$getFirstWord()
-    const words = this.$getWords(firstWord)
-    console.log(firstWord)
-    console.log(words)
+  data() {
+    return {
+      firstWord: null,
+      words: null,
+    }
+  },
+  mounted() {
+    this.getFirstWord()
+    this.getWords()
+    console.log(this.firstWord)
+    console.log(this.words)
+  },
+  methods: {
+    getFirstWord() {
+      this.firstWord = this.$getFirstWord()
+    },
+    getWords() {
+      this.words = this.$getWords(this.firstWord)
+    },
   },
 }
 </script>

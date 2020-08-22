@@ -4,12 +4,15 @@
 
 **death is not a go home**
 
-### ドキュメント
+### リンク
 
 |||
 |:--|:--|
 |モック(Figma)|https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=1%3A2|
 |text8コーパス(日本語版)|https://github.com/Hironsan/ja.text8|
+|デプロイ環境１(独自ドメイン)|https://social-resistance.uyupun.tech/|
+|デプロイ環境２(Vercel)|https://social-resistance.vercel.app/|
+
 
 ### 環境構築(フロントエンド)
 
@@ -43,8 +46,3 @@ $ pipenv run python3 test_graph.py
 # ベースとなる単語を原点としたときにマイナス方向にある単語をプラス方向に変換するテスト
 $ pipenv run python3 test_play.py
 ```
-
-### デプロイ環境
-Let's encryptのSSL対応済  
-[http://social-resistance.uyupun.tech/](http://social-resistance.uyupun.tech/)  
-[https://social-resistance.vercel.app/](https://social-resistance.vercel.app/)

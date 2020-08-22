@@ -4,12 +4,15 @@
 
 **death is not a go home**
 
-### ドキュメント
+### リンク
 
 |||
 |:--|:--|
 |モック(Figma)|https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=1%3A2|
 |text8コーパス(日本語版)|https://github.com/Hironsan/ja.text8|
+|デプロイ環境１(独自ドメイン)|https://social-resistance.uyupun.tech/|
+|デプロイ環境２(Vercel)|https://social-resistance.vercel.app/|
+
 
 ### 環境構築(フロントエンド)
 

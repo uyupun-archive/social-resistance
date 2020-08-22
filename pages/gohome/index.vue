@@ -5,15 +5,18 @@
       <Button text="単語" />
     </div>
     <Button to="/" text="おつかれ" />
+    <Field></Field>
   </div>
 </template>
 
 <script>
 import Button from '~/components/button/index.vue'
+import Field from '~/components/field/index.vue'
 
 export default {
   components: {
     Button,
+    Field,
   },
   created() {
     const firstWord = this.$getFirstWord()

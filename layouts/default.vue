@@ -7,6 +7,11 @@
 </template>
 
 <style lang="scss">
+@font-face {
+  font-family: 'Roboto-Thin';
+  src: url('~assets/fonts/Roboto-Thin.ttf') format('truetype');
+}
+
 html {
   font-size: 10px;
 }

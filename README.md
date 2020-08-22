@@ -1,5 +1,7 @@
 # SOCIAL RESISTANCE
 
+<img src="./assets/images/logo_black.png" width="200px">
+
 **death is not a go home**
 
 ### ドキュメント

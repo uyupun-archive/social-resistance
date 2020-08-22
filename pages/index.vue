@@ -31,7 +31,7 @@ export default {
   margin: 10px auto;
   width: 300px;
   height: 300px;
-  background-image: url('~assets/images/logo_white.svg');
+  background-image: url('~assets/images/logo/logo_white.svg');
   background-repeat: no-repeat;
   background-size: contain;
 }

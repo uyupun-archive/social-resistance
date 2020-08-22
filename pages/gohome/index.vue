@@ -2,7 +2,7 @@
   <div>
     <Field></Field>
     <div>
-      <Button :text="word.word" v-for="word in words" :key="word.index" />
+      <Button v-for="word in words" :key="word.index" :text="word.word" />
     </div>
     <Button to="/" text="おつかれ" />
   </div>

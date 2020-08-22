@@ -43,3 +43,8 @@ $ pipenv run python3 test_graph.py
 # ベースとなる単語を原点としたときにマイナス方向にある単語をプラス方向に変換するテスト
 $ pipenv run python3 test_play.py
 ```
+
+### デプロイ環境
+Let's encryptのSSL対応済  
+[http://social-resistance.uyupun.tech/](http://social-resistance.uyupun.tech/)  
+[https://social-resistance.vercel.app/](https://social-resistance.vercel.app/)

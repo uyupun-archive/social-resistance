@@ -5,28 +5,25 @@
 </template>
 
 <script>
+import Player from '~/components/player/index.js'
+
 export default {
   data() {
     return {
       ctx: null,
-      player: {
-        image: new Image(),
-        width: null,
-        height: null,
-        x: null,
-        y: null,
-      },
+      player: null,
     }
   },
   mounted() {
     this.createCanvas()
     this.drawGrid()
-    this.spawnPlayer()
+    this.player.spawnPlayer()
   },
   methods: {
     createCanvas() {
       const field = document.getElementById('field')
       this.ctx = field.getContext('2d')
+      this.player = new Player(this.ctx)
     },
     drawGrid() {
       for (let x = 0; x < 1000; x += 10) {
@@ -40,48 +37,8 @@ export default {
       this.ctx.strokeStyle = '#eee'
       this.ctx.stroke()
     },
-    spawnPlayer() {
-      this.player.image.src = require('~/assets/images/characters/pekora.gif')
-      this.movePlayer()
-    },
-    departPlayer() {
-      const x = Math.round(Math.random() * 500)
-      const y = Math.round(Math.random() * 500)
-      this.movePlayer(x, y)
-    },
-    movePlayer(x = null, y = null) {
-      // 初回(スポーン時)
-      this.player.image.onload = () => {
-        this.player.width = this.player.image.naturalWidth * 0.15
-        this.player.height = this.player.image.naturalHeight * 0.15
-        this.clearUnnecessaryPlayer(this.player.width, this.player.height)
-        this.drawPlayer(x, y)
-        this.recalcCurrentPosition(x, y)
-      }
-      // ２回目以降(移動時)
-      if (x && y) {
-        this.clearUnnecessaryPlayer(this.player.width, this.player.height)
-        this.drawPlayer(x, y)
-        this.recalcCurrentPosition(x, y)
-      }
-    },
-    drawPlayer(x, y) {
-      this.ctx.drawImage(
-        this.player.image,
-        x || 0,
-        y || 250 - this.player.height / 2,
-        this.player.width,
-        this.player.height
-      )
-    },
-    clearUnnecessaryPlayer(width, height) {
-      if (this.player.x !== null && this.player.y !== null) {
-        this.ctx.clearRect(this.player.x, this.player.y, width, height)
-      }
-    },
-    recalcCurrentPosition(x, y) {
-      this.player.x = x || 0
-      this.player.y = y || 250 - this.player.height / 2
+    movePlayer() {
+      this.player.departPlayer()
     },
   },
 }

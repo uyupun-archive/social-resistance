@@ -9,11 +9,13 @@ export default {
   data() {
     return {
       ctx: null,
-      x: null,
-      y: null,
-      width: null,
-      height: null,
-      character: new Image(),
+      player: {
+        image: new Image(),
+        width: null,
+        height: null,
+        x: null,
+        y: null,
+      },
     }
   },
   mounted() {
@@ -39,7 +41,7 @@ export default {
       this.ctx.stroke()
     },
     spawnCharacter() {
-      this.character.src = require('~/assets/images/characters/pekora.gif')
+      this.player.image.src = require('~/assets/images/characters/pekora.gif')
       this.moveCharacter()
     },
     departCharacter() {
@@ -49,37 +51,37 @@ export default {
     },
     moveCharacter(x = null, y = null) {
       // 初回(スポーン時)
-      this.character.onload = () => {
-        this.width = this.character.naturalWidth * 0.15
-        this.height = this.character.naturalHeight * 0.15
-        this.clearUnnecessaryCharacter(this.width, this.height)
+      this.player.image.onload = () => {
+        this.player.width = this.player.image.naturalWidth * 0.15
+        this.player.height = this.player.image.naturalHeight * 0.15
+        this.clearUnnecessaryCharacter(this.player.width, this.player.height)
         this.drawCharacter(x, y)
         this.recalcCurrentPosition(x, y)
       }
       // ２回目以降(移動時)
       if (x && y) {
-        this.clearUnnecessaryCharacter(this.width, this.height)
+        this.clearUnnecessaryCharacter(this.player.width, this.player.height)
         this.drawCharacter(x, y)
         this.recalcCurrentPosition(x, y)
       }
     },
     drawCharacter(x, y) {
       this.ctx.drawImage(
-        this.character,
+        this.player.image,
         x || 0,
-        y || 250 - this.height / 2,
-        this.width,
-        this.height
+        y || 250 - this.player.height / 2,
+        this.player.width,
+        this.player.height
       )
     },
     clearUnnecessaryCharacter(width, height) {
-      if (this.x !== null && this.y !== null) {
-        this.ctx.clearRect(this.x, this.y, width, height)
+      if (this.player.x !== null && this.player.y !== null) {
+        this.ctx.clearRect(this.player.x, this.player.y, width, height)
       }
     },
     recalcCurrentPosition(x, y) {
-      this.x = x || 0
-      this.y = y || 250 - this.height / 2
+      this.player.x = x || 0
+      this.player.y = y || 250 - this.player.height / 2
     },
   },
 }

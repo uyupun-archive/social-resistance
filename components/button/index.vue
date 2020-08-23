@@ -33,13 +33,16 @@ export default {
 .btn {
   position: relative;
   display: inline-block;
+  min-width: 250px;
   padding: 16px 40px;
   border: 5px solid #ffffff;
   color: #ffffff;
   background: #111111;
   font-size: 3.6rem;
+  text-align: center;
   cursor: pointer;
   line-height: 1;
+  box-sizing: border-box;
   outline: none;
   transform: skewX(-30deg);
 
@@ -69,7 +72,8 @@ export default {
   }
 
   &-link {
-    padding: 22px 100px;
+    min-width: 450px;
+    padding: 22px 40px;
     font-size: 4.8rem;
     text-decoration: none;
   }

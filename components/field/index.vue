@@ -11,6 +11,8 @@ export default {
       ctx: null,
       x: null,
       y: null,
+      width: null,
+      height: null,
       character: new Image(),
     }
   },
@@ -37,6 +39,7 @@ export default {
       this.ctx.stroke()
     },
     spawnCharacter() {
+      this.character.src = require('~/assets/images/characters/pekora.gif')
       this.drawCharacter()
     },
     moveCharacter() {
@@ -45,21 +48,31 @@ export default {
       this.drawCharacter(x, y)
     },
     drawCharacter(x = null, y = null) {
-      this.character.src = require('~/assets/images/characters/pekora.gif')
+      // 初回
       this.character.onload = () => {
-        const width = this.character.naturalWidth * 0.15
-        const height = this.character.naturalHeight * 0.15
-        this.clearUnnecessaryCharacter(width, height)
-        this.ctx.drawImage(
-          this.character,
-          x || 0,
-          y || 250 - height / 2,
-          width,
-          height
-        )
+        this.width = this.character.naturalWidth * 0.15
+        this.height = this.character.naturalHeight * 0.15
+        this.clearUnnecessaryCharacter(this.width, this.height)
+        this.foo(x, y)
         this.x = x || 0
-        this.y = y || 250 - height / 2
+        this.y = y || 250 - this.height / 2
       }
+      // ２回目以降
+      if (x && y) {
+        this.clearUnnecessaryCharacter(this.width, this.height)
+        this.foo(x, y)
+        this.x = x || 0
+        this.y = y || 250 - this.height / 2
+      }
+    },
+    foo(x, y) {
+      this.ctx.drawImage(
+        this.character,
+        x || 0,
+        y || 250 - this.height / 2,
+        this.width,
+        this.height
+      )
     },
     clearUnnecessaryCharacter(width, height) {
       if (this.x !== null && this.y !== null) {

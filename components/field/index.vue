@@ -40,32 +40,30 @@ export default {
     },
     spawnCharacter() {
       this.character.src = require('~/assets/images/characters/pekora.gif')
-      this.drawCharacter()
+      this.moveCharacter()
     },
-    moveCharacter() {
+    departCharacter() {
       const x = Math.round(Math.random() * 500)
       const y = Math.round(Math.random() * 500)
-      this.drawCharacter(x, y)
+      this.moveCharacter(x, y)
     },
-    drawCharacter(x = null, y = null) {
-      // 初回
+    moveCharacter(x = null, y = null) {
+      // 初回(スポーン時)
       this.character.onload = () => {
         this.width = this.character.naturalWidth * 0.15
         this.height = this.character.naturalHeight * 0.15
         this.clearUnnecessaryCharacter(this.width, this.height)
-        this.foo(x, y)
-        this.x = x || 0
-        this.y = y || 250 - this.height / 2
+        this.drawCharacter(x, y)
+        this.recalcCurrentPosition(x, y)
       }
-      // ２回目以降
+      // ２回目以降(移動時)
       if (x && y) {
         this.clearUnnecessaryCharacter(this.width, this.height)
-        this.foo(x, y)
-        this.x = x || 0
-        this.y = y || 250 - this.height / 2
+        this.drawCharacter(x, y)
+        this.recalcCurrentPosition(x, y)
       }
     },
-    foo(x, y) {
+    drawCharacter(x, y) {
       this.ctx.drawImage(
         this.character,
         x || 0,
@@ -78,6 +76,10 @@ export default {
       if (this.x !== null && this.y !== null) {
         this.ctx.clearRect(this.x, this.y, width, height)
       }
+    },
+    recalcCurrentPosition(x, y) {
+      this.x = x || 0
+      this.y = y || 250 - this.height / 2
     },
   },
 }

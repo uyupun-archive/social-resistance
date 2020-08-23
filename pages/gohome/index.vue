@@ -42,7 +42,7 @@ export default {
       this.words = this.$getWords(this.firstWord)
     },
     moveCharacter() {
-      this.$refs.field.moveCharacter()
+      this.$refs.field.departCharacter()
     },
   },
 }

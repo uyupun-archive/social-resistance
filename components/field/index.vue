@@ -47,9 +47,9 @@ export default {
       character.onload = () => {
         this.ctx.drawImage(
           character,
-          0,
-          x || 250 - (character.naturalHeight * 0.15) / 2,
-          y || character.naturalWidth * 0.15,
+          x || 0,
+          y || 250 - (character.naturalHeight * 0.15) / 2,
+          character.naturalWidth * 0.15,
           character.naturalHeight * 0.15
         )
       }

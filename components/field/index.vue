@@ -9,6 +9,8 @@ export default {
   data() {
     return {
       ctx: null,
+      x: null,
+      y: null,
     }
   },
   mounted() {
@@ -45,6 +47,14 @@ export default {
       const character = new Image()
       character.src = require('~/assets/images/characters/pekora.gif')
       character.onload = () => {
+        if (this.x !== null && this.y !== null) {
+          this.ctx.clearRect(
+            this.x,
+            this.y,
+            character.naturalWidth * 0.15,
+            character.naturalHeight * 0.15
+          )
+        }
         this.ctx.drawImage(
           character,
           x || 0,
@@ -52,6 +62,8 @@ export default {
           character.naturalWidth * 0.15,
           character.naturalHeight * 0.15
         )
+        this.x = x || 0
+        this.y = y || 250 - (character.naturalHeight * 0.15) / 2
       }
     },
   },

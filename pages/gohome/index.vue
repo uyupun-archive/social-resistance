@@ -1,8 +1,13 @@
 <template>
   <div>
-    <Field></Field>
+    <Field ref="field"></Field>
     <div>
-      <Button v-for="word in words" :key="word.index" :text="word.word" />
+      <Button
+        v-for="word in words"
+        :key="word.index"
+        :text="word.word"
+        @click.native="moveCharacter"
+      />
     </div>
     <Button to="/" text="おつかれ" />
   </div>
@@ -35,6 +40,9 @@ export default {
     },
     getWords() {
       this.words = this.$getWords(this.firstWord)
+    },
+    moveCharacter() {
+      this.$refs.field.moveCharacter()
     },
   },
 }

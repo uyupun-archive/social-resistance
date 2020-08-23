@@ -6,7 +6,7 @@
         v-for="word in words"
         :key="word.index"
         :text="word.word"
-        @click.native="moveCharacter"
+        @click.native="movePlayer"
       />
     </div>
     <Button to="/" text="おつかれ" />
@@ -41,8 +41,8 @@ export default {
     getWords() {
       this.words = this.$getWords(this.firstWord)
     },
-    moveCharacter() {
-      this.$refs.field.departCharacter()
+    movePlayer() {
+      this.$refs.field.departPlayer()
     },
   },
 }

@@ -21,7 +21,7 @@ export default {
   mounted() {
     this.createCanvas()
     this.drawGrid()
-    this.spawnCharacter()
+    this.spawnPlayer()
   },
   methods: {
     createCanvas() {
@@ -40,32 +40,32 @@ export default {
       this.ctx.strokeStyle = '#eee'
       this.ctx.stroke()
     },
-    spawnCharacter() {
+    spawnPlayer() {
       this.player.image.src = require('~/assets/images/characters/pekora.gif')
-      this.moveCharacter()
+      this.movePlayer()
     },
-    departCharacter() {
+    departPlayer() {
       const x = Math.round(Math.random() * 500)
       const y = Math.round(Math.random() * 500)
-      this.moveCharacter(x, y)
+      this.movePlayer(x, y)
     },
-    moveCharacter(x = null, y = null) {
+    movePlayer(x = null, y = null) {
       // 初回(スポーン時)
       this.player.image.onload = () => {
         this.player.width = this.player.image.naturalWidth * 0.15
         this.player.height = this.player.image.naturalHeight * 0.15
-        this.clearUnnecessaryCharacter(this.player.width, this.player.height)
-        this.drawCharacter(x, y)
+        this.clearUnnecessaryPlayer(this.player.width, this.player.height)
+        this.drawPlayer(x, y)
         this.recalcCurrentPosition(x, y)
       }
       // ２回目以降(移動時)
       if (x && y) {
-        this.clearUnnecessaryCharacter(this.player.width, this.player.height)
-        this.drawCharacter(x, y)
+        this.clearUnnecessaryPlayer(this.player.width, this.player.height)
+        this.drawPlayer(x, y)
         this.recalcCurrentPosition(x, y)
       }
     },
-    drawCharacter(x, y) {
+    drawPlayer(x, y) {
       this.ctx.drawImage(
         this.player.image,
         x || 0,
@@ -74,7 +74,7 @@ export default {
         this.player.height
       )
     },
-    clearUnnecessaryCharacter(width, height) {
+    clearUnnecessaryPlayer(width, height) {
       if (this.player.x !== null && this.player.y !== null) {
         this.ctx.clearRect(this.player.x, this.player.y, width, height)
       }

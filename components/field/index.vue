@@ -9,12 +9,19 @@ export default {
   data() {
     return {
       ctx: null,
+      player: {
+        image: new Image(),
+        width: null,
+        height: null,
+        x: null,
+        y: null,
+      },
     }
   },
   mounted() {
     this.createCanvas()
     this.drawGrid()
-    this.drawCharacter()
+    this.spawnPlayer()
   },
   methods: {
     createCanvas() {
@@ -33,26 +40,48 @@ export default {
       this.ctx.strokeStyle = '#eee'
       this.ctx.stroke()
     },
-    generateCharacter() {
-      this.drawCharacter()
+    spawnPlayer() {
+      this.player.image.src = require('~/assets/images/characters/pekora.gif')
+      this.movePlayer()
     },
-    moveCharacter() {
+    departPlayer() {
       const x = Math.round(Math.random() * 500)
       const y = Math.round(Math.random() * 500)
-      this.drawCharacter(x, y)
+      this.movePlayer(x, y)
     },
-    drawCharacter(x = null, y = null) {
-      const character = new Image()
-      character.src = require('~/assets/images/characters/pekora.gif')
-      character.onload = () => {
-        this.ctx.drawImage(
-          character,
-          x || 0,
-          y || 250 - (character.naturalHeight * 0.15) / 2,
-          character.naturalWidth * 0.15,
-          character.naturalHeight * 0.15
-        )
+    movePlayer(x = null, y = null) {
+      // 初回(スポーン時)
+      this.player.image.onload = () => {
+        this.player.width = this.player.image.naturalWidth * 0.15
+        this.player.height = this.player.image.naturalHeight * 0.15
+        this.clearUnnecessaryPlayer(this.player.width, this.player.height)
+        this.drawPlayer(x, y)
+        this.recalcCurrentPosition(x, y)
       }
+      // ２回目以降(移動時)
+      if (x && y) {
+        this.clearUnnecessaryPlayer(this.player.width, this.player.height)
+        this.drawPlayer(x, y)
+        this.recalcCurrentPosition(x, y)
+      }
+    },
+    drawPlayer(x, y) {
+      this.ctx.drawImage(
+        this.player.image,
+        x || 0,
+        y || 250 - this.player.height / 2,
+        this.player.width,
+        this.player.height
+      )
+    },
+    clearUnnecessaryPlayer(width, height) {
+      if (this.player.x !== null && this.player.y !== null) {
+        this.ctx.clearRect(this.player.x, this.player.y, width, height)
+      }
+    },
+    recalcCurrentPosition(x, y) {
+      this.player.x = x || 0
+      this.player.y = y || 250 - this.player.height / 2
     },
   },
 }

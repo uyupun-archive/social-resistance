@@ -15,7 +15,7 @@
       </template>
       <template v-slot:btns>
         <Button text="よくない" @click.native="closeModalNative" />
-        <Button text="よい" @click.native="moveCharacter" />
+        <Button text="よい" @click.native="movePlayer" />
       </template>
     </Modal>
     <Button to="/" text="おつかれ" />
@@ -54,8 +54,8 @@ export default {
     getWords() {
       this.words = this.$getWords(this.firstWord)
     },
-    moveCharacter() {
-      this.$refs.field.moveCharacter()
+    movePlayer() {
+      this.$refs.field.departPlayer()
       this.$refs.modal.close()
     },
     openModal(word) {

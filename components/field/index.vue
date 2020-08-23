@@ -17,7 +17,7 @@ export default {
   mounted() {
     this.createCanvas()
     this.drawGrid()
-    this.generateCharacter()
+    this.spawnCharacter()
   },
   methods: {
     createCanvas() {
@@ -36,7 +36,7 @@ export default {
       this.ctx.strokeStyle = '#eee'
       this.ctx.stroke()
     },
-    generateCharacter() {
+    spawnCharacter() {
       this.drawCharacter()
     },
     moveCharacter() {
@@ -47,23 +47,23 @@ export default {
     drawCharacter(x = null, y = null) {
       this.character.src = require('~/assets/images/characters/pekora.gif')
       this.character.onload = () => {
-        if (this.x !== null && this.y !== null) {
-          this.ctx.clearRect(
-            this.x,
-            this.y,
-            this.character.naturalWidth * 0.15,
-            this.character.naturalHeight * 0.15
-          )
-        }
+        const width = this.character.naturalWidth * 0.15
+        const height = this.character.naturalHeight * 0.15
+        this.clearUnnecessaryCharacter(width, height)
         this.ctx.drawImage(
           this.character,
           x || 0,
-          y || 250 - (this.character.naturalHeight * 0.15) / 2,
-          this.character.naturalWidth * 0.15,
-          this.character.naturalHeight * 0.15
+          y || 250 - height / 2,
+          width,
+          height
         )
         this.x = x || 0
-        this.y = y || 250 - (this.character.naturalHeight * 0.15) / 2
+        this.y = y || 250 - height / 2
+      }
+    },
+    clearUnnecessaryCharacter(width, height) {
+      if (this.x !== null && this.y !== null) {
+        this.ctx.clearRect(this.x, this.y, width, height)
       }
     },
   },

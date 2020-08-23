@@ -11,12 +11,13 @@ export default {
       ctx: null,
       x: null,
       y: null,
+      character: new Image(),
     }
   },
   mounted() {
     this.createCanvas()
     this.drawGrid()
-    this.drawCharacter()
+    this.generateCharacter()
   },
   methods: {
     createCanvas() {
@@ -44,26 +45,25 @@ export default {
       this.drawCharacter(x, y)
     },
     drawCharacter(x = null, y = null) {
-      const character = new Image()
-      character.src = require('~/assets/images/characters/pekora.gif')
-      character.onload = () => {
+      this.character.src = require('~/assets/images/characters/pekora.gif')
+      this.character.onload = () => {
         if (this.x !== null && this.y !== null) {
           this.ctx.clearRect(
             this.x,
             this.y,
-            character.naturalWidth * 0.15,
-            character.naturalHeight * 0.15
+            this.character.naturalWidth * 0.15,
+            this.character.naturalHeight * 0.15
           )
         }
         this.ctx.drawImage(
-          character,
+          this.character,
           x || 0,
-          y || 250 - (character.naturalHeight * 0.15) / 2,
-          character.naturalWidth * 0.15,
-          character.naturalHeight * 0.15
+          y || 250 - (this.character.naturalHeight * 0.15) / 2,
+          this.character.naturalWidth * 0.15,
+          this.character.naturalHeight * 0.15
         )
         this.x = x || 0
-        this.y = y || 250 - (character.naturalHeight * 0.15) / 2
+        this.y = y || 250 - (this.character.naturalHeight * 0.15) / 2
       }
     },
   },

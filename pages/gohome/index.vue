@@ -2,19 +2,9 @@
   <div>
     <Field ref="field" />
     <Turn ref="turn" />
-    <div v-if="$refs.turn % 2 === 0">
-      <p>ばいきん</p>
+    <div>
       <Button
-        v-for="word in baikinKun.words"
-        :key="word.index"
-        :text="word.word"
-        @click.native="openModal(word.word)"
-      />
-    </div>
-    <div v-else>
-      <p>ぺこら</p>
-      <Button
-        v-for="word in pekora.words"
+        v-for="word in words"
         :key="word.index"
         :text="word.word"
         @click.native="openModal(word.word)"
@@ -50,12 +40,11 @@ export default {
     return {
       pekora: {
         baseWord: null,
-        words: null,
       },
       baikinKun: {
         baseWord: null,
-        words: null,
       },
+      words: null,
       selectedWord: '',
       showModal: false,
     }
@@ -70,10 +59,13 @@ export default {
       this.baikinKun.baseWord = this.$getFirstWord()
     },
     getWords() {
-      if (this.$refs.turn.get() % 2 === 0)
-        this.baikinKun.words = this.$getWords(this.baikinKun.baseWord)
-      else this.pekora.words = this.$getWords(this.pekora.baseWord)
-      console.log(this.pekora.words, this.baikinKun.words)
+      this.$nextTick(() => {
+        this.words = this.$getWords(
+          this.$refs.turn.get() % 2 === 0
+            ? this.baikinKun.baseWord
+            : this.pekora.baseWord
+        )
+      })
     },
     updateBaseWord(word) {
       if (this.$refs.turn.get() % 2 === 0) this.baikinKun.baseWord = word

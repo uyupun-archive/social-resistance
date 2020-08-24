@@ -16,13 +16,7 @@
       </template>
       <template v-slot:btns>
         <Button text="よくない" @click.native="closeModalNative" />
-        <Button
-          text="よい"
-          @click.native="
-            movePlayer()
-            addTurn()
-          "
-        />
+        <Button text="よい" @click.native="turn" />
       </template>
     </Modal>
     <Button to="/" text="おつかれ" />
@@ -63,6 +57,21 @@ export default {
     getWords() {
       this.words = this.$getWords(this.firstWord)
     },
+    openModal(word) {
+      this.selectedWord = word
+      this.showModal = true
+    },
+    closeModal() {
+      this.showModal = false
+    },
+    closeModalNative() {
+      this.$refs.modal.close()
+    },
+    turn() {
+      this.movePlayer()
+      this.addTurn()
+      // TODO: wordの更新
+    },
     movePlayer() {
       if (this.$refs.turn.get() % 2 === 0) this.$refs.field.moveBaikinKun()
       else this.$refs.field.movePekora()
@@ -70,16 +79,6 @@ export default {
     },
     addTurn() {
       this.$refs.turn.add()
-    },
-    openModal(word) {
-      this.selectedWord = word
-      this.showModal = true
-    },
-    closeModalNative() {
-      this.$refs.modal.close()
-    },
-    closeModal() {
-      this.showModal = false
     },
   },
 }

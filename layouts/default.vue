@@ -13,7 +13,7 @@
 }
 
 @font-face {
-  font-family: 'Sawarabi Gothic';
+  font-family: 'Sawarabi-Gothic';
   src: url('~assets/fonts/SawarabiGothic-Regular.ttf') format('truetype');
 }
 
@@ -29,6 +29,6 @@ body {
   background: #111111;
   font-size: 1.4rem;
   box-sizing: border-box;
-  font-family: 'Sawarabi Gothic', sans-serif;
+  font-family: 'Sawarabi-Gothic', sans-serif;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Field ref="field"></Field>
+    <Field ref="field" />
+    <Turn ref="turn" />
     <div>
       <Button
         v-for="word in words"
@@ -15,7 +16,13 @@
       </template>
       <template v-slot:btns>
         <Button text="よくない" @click.native="closeModalNative" />
-        <Button text="よい" @click.native="movePlayer" />
+        <Button
+          text="よい"
+          @click.native="
+            movePlayer()
+            addTurn()
+          "
+        />
       </template>
     </Modal>
     <Button to="/" text="おつかれ" />
@@ -26,12 +33,14 @@
 import Button from '~/components/button/index.vue'
 import Field from '~/components/field/index.vue'
 import Modal from '~/components/modal/index.vue'
+import Turn from '~/components/turn/index.vue'
 
 export default {
   components: {
     Button,
     Field,
     Modal,
+    Turn,
   },
   data() {
     return {
@@ -57,6 +66,9 @@ export default {
     movePlayer() {
       this.$refs.field.movePekora()
       this.$refs.modal.close()
+    },
+    addTurn() {
+      this.$refs.turn.addTurn()
     },
     openModal(word) {
       this.selectedWord = word

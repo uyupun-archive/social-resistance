@@ -7,7 +7,7 @@ export default class Pekora extends Player {
    * @param {*} x
    */
   spawn(x = null) {
-    this._image.src = require('~/assets/images/characters/pekora.gif')
+    this._image.src = require('~/assets/images/objects/pekora.gif')
     this._move(x)
   }
 

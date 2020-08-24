@@ -37,14 +37,14 @@ export default {
 }
 
 .title {
-  font-family: 'Roboto-Thin';
+  font-family: 'Roboto-Thin', sans-serif;
   font-size: 9.6rem;
   line-height: 1;
   margin: 0;
 }
 
 .subtitle {
-  font-family: 'Roboto-Thin';
+  font-family: 'Roboto-Thin', sans-serif;
   font-size: 4.8rem;
   margin: 0 0 50px;
 }

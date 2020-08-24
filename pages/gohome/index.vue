@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="container">
     <Field ref="field"></Field>
     <div class="aaa">
@@ -9,7 +10,34 @@
           @click.native="moveCharacter"
         />
         </div>
+=======
+  <div>
+    <Field ref="field" />
+    <Turn ref="turn" />
+    <div>
+      <Button
+        v-for="word in words"
+        :key="word.index"
+        :text="word.word"
+        @click.native="openModal(word.word)"
+      />
+>>>>>>> c8dd27e08864d2b5e90568882de8a2e83647f425
     </div>
+    <Modal v-if="showModal" ref="modal" @close="closeModal">
+      <template v-slot:content>
+        <p>『{{ selectedWord }}』でよろしいですか？</p>
+      </template>
+      <template v-slot:btns>
+        <Button text="よくない" @click.native="closeModalNative" />
+        <Button
+          text="よい"
+          @click.native="
+            movePlayer()
+            addTurn()
+          "
+        />
+      </template>
+    </Modal>
     <Button to="/" text="おつかれ" />
   </div>
 </template>
@@ -17,16 +45,22 @@
 <script>
 import Button from '~/components/button/index.vue'
 import Field from '~/components/field/index.vue'
+import Modal from '~/components/modal/index.vue'
+import Turn from '~/components/turn/index.vue'
 
 export default {
   components: {
     Button,
     Field,
+    Modal,
+    Turn,
   },
   data() {
     return {
       firstWord: null,
       words: null,
+      selectedWord: '',
+      showModal: false,
     }
   },
   mounted() {
@@ -42,8 +76,23 @@ export default {
     getWords() {
       this.words = this.$getWords(this.firstWord)
     },
-    moveCharacter() {
-      this.$refs.field.moveCharacter()
+    movePlayer() {
+      if (this.$refs.turn.get() % 2 === 0) this.$refs.field.moveBaikinKun()
+      else this.$refs.field.movePekora()
+      this.$refs.modal.close()
+    },
+    addTurn() {
+      this.$refs.turn.add()
+    },
+    openModal(word) {
+      this.selectedWord = word
+      this.showModal = true
+    },
+    closeModalNative() {
+      this.$refs.modal.close()
+    },
+    closeModal() {
+      this.showModal = false
     },
   },
 }

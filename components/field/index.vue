@@ -5,21 +5,29 @@
 </template>
 
 <script>
+import Pekora from '~/components/pekora/index.js'
+import BaikinKun from '~/components/baikin-kun/index.js'
+
 export default {
   data() {
     return {
       ctx: null,
+      pekora: null,
+      baikinKun: null,
     }
   },
   mounted() {
     this.createCanvas()
     this.drawGrid()
-    this.drawCharacter()
+    this.pekora.spawn(0)
+    this.baikinKun.spawn(900)
   },
   methods: {
     createCanvas() {
       const field = document.getElementById('field')
       this.ctx = field.getContext('2d')
+      this.pekora = new Pekora(this.ctx)
+      this.baikinKun = new BaikinKun(this.ctx)
     },
     drawGrid() {
       for (let x = 0; x < 1000; x += 10) {
@@ -33,26 +41,11 @@ export default {
       this.ctx.strokeStyle = '#eee'
       this.ctx.stroke()
     },
-    generateCharacter() {
-      this.drawCharacter()
+    movePekora() {
+      this.pekora.depart()
     },
-    moveCharacter() {
-      const x = Math.round(Math.random() * 500)
-      const y = Math.round(Math.random() * 500)
-      this.drawCharacter(x, y)
-    },
-    drawCharacter(x = null, y = null) {
-      const character = new Image()
-      character.src = require('~/assets/images/characters/pekora.gif')
-      character.onload = () => {
-        this.ctx.drawImage(
-          character,
-          x || 0,
-          y || 250 - (character.naturalHeight * 0.15) / 2,
-          character.naturalWidth * 0.15,
-          character.naturalHeight * 0.15
-        )
-      }
+    moveBaikinKun() {
+      this.baikinKun.depart()
     },
   },
 }

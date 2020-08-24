@@ -5,25 +5,25 @@
 </template>
 
 <script>
-import Player from '~/components/player/index.js'
+import Pekora from '~/components/pekora/index.js'
 
 export default {
   data() {
     return {
       ctx: null,
-      player: null,
+      pekora: null,
     }
   },
   mounted() {
     this.createCanvas()
     this.drawGrid()
-    this.player.spawnPlayer()
+    this.pekora.spawn()
   },
   methods: {
     createCanvas() {
       const field = document.getElementById('field')
       this.ctx = field.getContext('2d')
-      this.player = new Player(this.ctx)
+      this.pekora = new Pekora(this.ctx)
     },
     drawGrid() {
       for (let x = 0; x < 1000; x += 10) {
@@ -38,7 +38,7 @@ export default {
       this.ctx.stroke()
     },
     movePlayer() {
-      this.player.departPlayer()
+      this.pekora.depart()
     },
   },
 }

@@ -11,18 +11,18 @@ export default class Player {
   /**
    * 初回(スポーン時)
    */
-  spawnPlayer() {
+  spawn() {
     this._image.src = require('~/assets/images/characters/pekora.gif')
-    this._movePlayer()
+    this._move()
   }
 
   /**
    * ２回目以降(移動時)
    */
-  departPlayer() {
+  depart() {
     const x = Math.round(Math.random() * 500)
     const y = Math.round(Math.random() * 500)
-    this._movePlayer(x, y)
+    this._move(x, y)
   }
 
   /**
@@ -31,19 +31,19 @@ export default class Player {
    * @param {*} x
    * @param {*} y
    */
-  _movePlayer(x = null, y = null) {
+  _move(x = null, y = null) {
     // 初回(スポーン時)
     this._image.onload = () => {
       this._width = this._image.naturalWidth * 0.15
       this._height = this._image.naturalHeight * 0.15
-      this._clearUnnecessaryPlayer(this._width, this._height)
-      this._drawPlayer(x, y)
+      this._clear(this._width, this._height)
+      this._draw(x, y)
       this._recalcCurrentPosition(x, y)
     }
     // ２回目以降(移動時)
     if (x && y) {
-      this._clearUnnecessaryPlayer(this._width, this._height)
-      this._drawPlayer(x, y)
+      this._clear(this._width, this._height)
+      this._draw(x, y)
       this._recalcCurrentPosition(x, y)
     }
   }
@@ -54,7 +54,7 @@ export default class Player {
    * @param {*} width
    * @param {*} height
    */
-  _clearUnnecessaryPlayer(width, height) {
+  _clear(width, height) {
     if (this._x !== null && this._y !== null) {
       this._ctx.clearRect(this._x, this._y, width, height)
     }
@@ -66,7 +66,7 @@ export default class Player {
    * @param {*} x
    * @param {*} y
    */
-  _drawPlayer(x, y) {
+  _draw(x, y) {
     this._ctx.drawImage(
       this._image,
       x || 0,

@@ -44,13 +44,15 @@ export default class Player {
     this._image.onload = () => {
       this._width = this._image.naturalWidth * 0.15
       this._height = this._image.naturalHeight * 0.15
-      this._clear(this._width, this._height)
+      this._clear()
+      this._drawSocialDistance(x, y)
       this._draw(x, y)
       this._recalcCurrentPosition(x, y)
     }
     // ２回目以降(移動時)
     if (y) {
-      this._clear(this._width, this._height)
+      this._clear()
+      this._drawSocialDistance(x, y)
       this._draw(x, y)
       this._recalcCurrentPosition(x, y)
     }
@@ -58,13 +60,10 @@ export default class Player {
 
   /**
    * 移動前の画像の削除
-   *
-   * @param {*} width
-   * @param {*} height
    */
-  _clear(width, height) {
+  _clear() {
     if (this._x !== null && this._y !== null) {
-      this._ctx.clearRect(this._x, this._y, width, height)
+      this._drawCircle(this._x, this._y, '#fff', 61)
     }
   }
 
@@ -82,6 +81,38 @@ export default class Player {
       this._width,
       this._height
     )
+  }
+
+  /**
+   * ソーシャルディスタンスゾーンの描画
+   *
+   * @param {*} x
+   * @param {*} y
+   */
+  _drawSocialDistance(x, y) {
+    this._drawCircle(x, y, '#ef857d')
+  }
+
+  /**
+   * 円の描画
+   *
+   * @param {*} x
+   * @param {*} y
+   * @param {*} color
+   * @param {*} radius
+   */
+  _drawCircle(x, y, color = 'red', radius = 60) {
+    this._ctx.fillStyle = color
+    this._ctx.beginPath()
+    this._ctx.arc(
+      x + this._width / 2,
+      y ? y + this._height / 2 : 250,
+      radius,
+      0,
+      2 * Math.PI
+    )
+    this._ctx.fill()
+    this._ctx.closePath()
   }
 
   /**

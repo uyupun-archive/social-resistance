@@ -55,7 +55,7 @@ export default {
       this.words = this.$getWords(this.firstWord)
     },
     movePlayer() {
-      this.$refs.field.movePlayer()
+      this.$refs.field.movePekora()
       this.$refs.modal.close()
     },
     openModal(word) {

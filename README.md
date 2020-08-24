@@ -8,6 +8,7 @@
 
 |||
 |:--|:--|
+|元ネタ(ウサギと猟犬)|https://en.wikipedia.org/wiki/Hare_games|
 |モック(Figma)|https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=1%3A2|
 |text8コーパス(日本語版)|https://github.com/Hironsan/ja.text8|
 |デプロイ環境１(独自ドメイン)|https://social-resistance.uyupun.tech|

@@ -63,7 +63,9 @@ export default class Player {
    */
   _clear() {
     if (this._x !== null && this._y !== null) {
+      this._ctx.globalCompositeOperation = 'destination-out'
       this._drawCircle(this._x, this._y, '#fff', 61)
+      this._ctx.globalCompositeOperation = 'source-over'
     }
   }
 

@@ -2,13 +2,9 @@
   <div class="container">
     <Field ref="field" />
     <Turn ref="turn" />
-    <div class="aaa">
-      <div v-for="word in words" class="bbb">
-        <Button
-          :key="word.index"
-          :text="word.word"
-          @click.native="openModal(word.word)"
-        />
+    <div class="word-wrapper">
+      <div v-for="word in words" :key="word.index" class="word">
+        <Button :text="word.word" @click.native="openModal(word.word)" />
       </div>
     </div>
     <Modal v-if="showModal" ref="modal" @close="closeModal">
@@ -90,18 +86,18 @@ export default {
 .container {
   text-align: center;
 }
-.aaa {
+
+.word-wrapper {
   margin: 0px 180px 40px 180px;
   display: flex;
   flex-wrap: wrap;
-  // -webkit-justify-content: space-around;
   justify-content: space-around;
-  // -webkit-align-items: center;
   align-items: center;
   align-content: space-around;
 }
-.bbb{
-  margin :10px 20px 30px 20px;
-   width: 20% ;
+
+.word {
+  margin: 10px 20px 30px 20px;
+  width: 20%;
 }
 </style>

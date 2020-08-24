@@ -33,7 +33,7 @@ export default class BaikinKun extends Player {
    * @param {*} y
    */
   _recalcCurrentPosition(x, y) {
-    this._x = x || 0
+    this._x = x || 900
     this._y = y || 250 - this._height / 2
   }
 }

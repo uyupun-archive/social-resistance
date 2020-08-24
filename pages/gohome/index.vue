@@ -64,11 +64,12 @@ export default {
       this.words = this.$getWords(this.firstWord)
     },
     movePlayer() {
-      this.$refs.field.movePekora()
+      if (this.$refs.turn.get() % 2 === 0) this.$refs.field.moveBaikinKun()
+      else this.$refs.field.movePekora()
       this.$refs.modal.close()
     },
     addTurn() {
-      this.$refs.turn.addTurn()
+      this.$refs.turn.add()
     },
     openModal(word) {
       this.selectedWord = word

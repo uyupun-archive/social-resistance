@@ -10,7 +10,10 @@ export default {
     }
   },
   methods: {
-    addTurn() {
+    get() {
+      return this.count
+    },
+    add() {
       this.count++
     },
   },

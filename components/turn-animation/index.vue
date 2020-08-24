@@ -31,6 +31,9 @@ export default {
 
 <style scoped lang="scss">
 .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -41,18 +44,14 @@ export default {
 }
 
 .content {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  min-width: 800px;
   text-align: center;
   color: #ffffff;
   font-weight: bold;
   background: #111111;
   padding: 16px 40px;
   border: 5px solid #ffffff;
-  transform: skewX(-30deg) translate(22.5%, -50%);
-  animation: content 2s forwards linear;
+  transform: skewX(-30deg) translateX(calc(-100vw - 100px));
+  animation: content 3s forwards linear;
 
   &-player {
     font-size: 9.6rem;
@@ -67,16 +66,16 @@ export default {
 
 @keyframes content {
   0% {
-    transform: skewX(-30deg) translate(calc(-100vw - 100px), -50%);
+    transform: skewX(-30deg) translateX(calc(-100vw - 1000px));
   }
-  30% {
-    transform: skewX(-30deg) translate(22.5%, -50%);
+  35% {
+    transform: skewX(-30deg) translateX(0);
   }
-  70% {
-    transform: skewX(-30deg) translate(22.5%, -50%);
+  65% {
+    transform: skewX(-30deg) translateX(0);
   }
   100% {
-    transform: skewX(-30deg) translate(calc(100vw + 100px), -50%);
+    transform: skewX(-30deg) translateX(calc(100vw + 1000px));
   }
 }
 </style>

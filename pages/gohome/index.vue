@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Field ref="field" />
+    <World ref="world" />
     <Turn ref="turn" />
     <div>
       <Button
@@ -25,14 +25,14 @@
 
 <script>
 import Button from '~/components/button/index.vue'
-import Field from '~/components/field/index.vue'
+import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
 import Turn from '~/components/turn/index.vue'
 
 export default {
   components: {
     Button,
-    Field,
+    World,
     Modal,
     Turn,
   },
@@ -88,8 +88,8 @@ export default {
       this.getWords()
     },
     movePlayer() {
-      if (this.$refs.turn.get() % 2 === 0) this.$refs.field.moveBaikinKun()
-      else this.$refs.field.movePekora()
+      if (this.$refs.turn.get() % 2 === 0) this.$refs.world.moveBaikinKun()
+      else this.$refs.world.movePekora()
       this.$refs.modal.close()
     },
     addTurn() {

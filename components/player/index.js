@@ -6,7 +6,23 @@ export default class Player {
     this._height = null
     this._x = null
     this._y = null
+    this.checkIsImplemented()
   }
+
+  /**
+   * 必須のメソッドが実装されているかのチェック機構
+   * 擬似的な抽象メソッドみたいな
+   */
+  checkIsImplemented() {
+    if (!(this.spawn && this._draw && this._recalcCurrentPosition)) {
+      throw new Error('Necessary methods are not implemented.')
+    }
+  }
+
+  /**
+   * 初回(スポーン時)
+   */
+  spawn() {}
 
   /**
    * ２回目以降(移動時)
@@ -51,4 +67,14 @@ export default class Player {
       this._ctx.clearRect(this._x, this._y, width, height)
     }
   }
+
+  /**
+   * 移動後の画像の描画
+   */
+  _draw() {}
+
+  /**
+   * 現在位置の再計算
+   */
+  _recalcCurrentPosition() {}
 }

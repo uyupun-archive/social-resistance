@@ -2,9 +2,19 @@
   <div>
     <Field ref="field" />
     <Turn ref="turn" />
-    <div>
+    <div v-if="$refs.turn % 2 === 0">
+      <p>ばいきん</p>
       <Button
-        v-for="word in words"
+        v-for="word in baikinKun.words"
+        :key="word.index"
+        :text="word.word"
+        @click.native="openModal(word.word)"
+      />
+    </div>
+    <div v-else>
+      <p>ぺこら</p>
+      <Button
+        v-for="word in pekora.words"
         :key="word.index"
         :text="word.word"
         @click.native="openModal(word.word)"
@@ -16,7 +26,7 @@
       </template>
       <template v-slot:btns>
         <Button text="よくない" @click.native="closeModalNative" />
-        <Button text="よい" @click.native="turn" />
+        <Button text="よい" @click.native="turn(selectedWord)" />
       </template>
     </Modal>
     <Button to="/" text="おつかれ" />
@@ -38,8 +48,14 @@ export default {
   },
   data() {
     return {
-      firstWord: null,
-      words: null,
+      pekora: {
+        baseWord: null,
+        words: null,
+      },
+      baikinKun: {
+        baseWord: null,
+        words: null,
+      },
       selectedWord: '',
       showModal: false,
     }
@@ -47,15 +63,21 @@ export default {
   mounted() {
     this.getFirstWord()
     this.getWords()
-    console.log(this.firstWord)
-    console.log(this.words)
   },
   methods: {
     getFirstWord() {
-      this.firstWord = this.$getFirstWord()
+      this.pekora.baseWord = this.$getFirstWord()
+      this.baikinKun.baseWord = this.$getFirstWord()
     },
     getWords() {
-      this.words = this.$getWords(this.firstWord)
+      if (this.$refs.turn.get() % 2 === 0)
+        this.baikinKun.words = this.$getWords(this.baikinKun.baseWord)
+      else this.pekora.words = this.$getWords(this.pekora.baseWord)
+      console.log(this.pekora.words, this.baikinKun.words)
+    },
+    updateBaseWord(word) {
+      if (this.$refs.turn.get() % 2 === 0) this.baikinKun.baseWord = word
+      else this.pekora.baseWord = word
     },
     openModal(word) {
       this.selectedWord = word
@@ -67,10 +89,11 @@ export default {
     closeModalNative() {
       this.$refs.modal.close()
     },
-    turn() {
+    turn(word) {
       this.movePlayer()
+      this.updateBaseWord(word)
       this.addTurn()
-      // TODO: wordの更新
+      this.getWords()
     },
     movePlayer() {
       if (this.$refs.turn.get() % 2 === 0) this.$refs.field.moveBaikinKun()

@@ -16,13 +16,7 @@
       </template>
       <template v-slot:btns>
         <Button text="よくない" @click.native="closeModalNative" />
-        <Button
-          text="よい"
-          @click.native="
-            movePlayer()
-            addTurn()
-          "
-        />
+        <Button text="よい" @click.native="turn(selectedWord)" />
       </template>
     </Modal>
     <Button to="/" text="おつかれ" />
@@ -44,7 +38,12 @@ export default {
   },
   data() {
     return {
-      firstWord: null,
+      pekora: {
+        baseWord: null,
+      },
+      baikinKun: {
+        baseWord: null,
+      },
       words: null,
       selectedWord: '',
       showModal: false,
@@ -53,15 +52,40 @@ export default {
   mounted() {
     this.getFirstWord()
     this.getWords()
-    console.log(this.firstWord)
-    console.log(this.words)
   },
   methods: {
     getFirstWord() {
-      this.firstWord = this.$getFirstWord()
+      this.pekora.baseWord = this.$getFirstWord()
+      this.baikinKun.baseWord = this.$getFirstWord()
     },
     getWords() {
-      this.words = this.$getWords(this.firstWord)
+      this.$nextTick(() => {
+        this.words = this.$getWords(
+          this.$refs.turn.get() % 2 === 0
+            ? this.baikinKun.baseWord
+            : this.pekora.baseWord
+        )
+      })
+    },
+    updateBaseWord(word) {
+      if (this.$refs.turn.get() % 2 === 0) this.baikinKun.baseWord = word
+      else this.pekora.baseWord = word
+    },
+    openModal(word) {
+      this.selectedWord = word
+      this.showModal = true
+    },
+    closeModal() {
+      this.showModal = false
+    },
+    closeModalNative() {
+      this.$refs.modal.close()
+    },
+    turn(word) {
+      this.movePlayer()
+      this.updateBaseWord(word)
+      this.addTurn()
+      this.getWords()
     },
     movePlayer() {
       if (this.$refs.turn.get() % 2 === 0) this.$refs.field.moveBaikinKun()
@@ -70,16 +94,6 @@ export default {
     },
     addTurn() {
       this.$refs.turn.add()
-    },
-    openModal(word) {
-      this.selectedWord = word
-      this.showModal = true
-    },
-    closeModalNative() {
-      this.$refs.modal.close()
-    },
-    closeModal() {
-      this.showModal = false
     },
   },
 }

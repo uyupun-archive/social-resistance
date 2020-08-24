@@ -20,6 +20,7 @@ export default {
   mounted() {
     this.createCanvas()
     this.drawGrid()
+    this.drawGoalLine()
     this.pekora.spawn(0)
     this.baikinKun.spawn(900)
     this.house.draw()
@@ -33,25 +34,34 @@ export default {
       this.house = new House(this.ctx)
     },
     drawGrid() {
-      // for (let x = 0; x < 1000; x += 10) {
-      //   this.ctx.moveTo(x, 0)
-      //   this.ctx.lineTo(x, 500)
-      // }
-      // for (let y = 0; y < 500; y += 10) {
-      //   this.ctx.moveTo(0, y)
-      //   this.ctx.lineTo(1000, y)
-      // }
-      // this.ctx.strokeStyle = '#eee'
+      this.ctx.beginPath()
+      for (let x = 0; x < 1000; x += 50) {
+        this.ctx.moveTo(x, 0)
+        this.ctx.lineTo(x, 500)
+      }
+      for (let y = 0; y < 1000; y += 50) {
+        this.ctx.moveTo(0, y)
+        this.ctx.lineTo(1000, y)
+      }
+      this.ctx.strokeStyle = '#eee'
+      this.ctx.stroke()
+      this.ctx.closePath()
+    },
+    drawGoalLine() {
+      this.ctx.beginPath()
+      this.ctx.strokeStyle = '#ccc'
       this.ctx.moveTo(1000, 0)
       this.ctx.lineTo(1000, 500)
-      this.ctx.strokeType = '000'
       this.ctx.stroke()
+      this.ctx.closePath()
     },
     movePekora() {
       this.pekora.depart()
+      this.drawGrid()
     },
     moveBaikinKun() {
       this.baikinKun.depart()
+      this.drawGrid()
     },
   },
 }

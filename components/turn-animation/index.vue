@@ -51,7 +51,7 @@ export default {
   padding: 16px 40px;
   border: 5px solid #ffffff;
   transform: skewX(-30deg) translateX(calc(-100vw - 100px));
-  animation: content 3s forwards linear;
+  animation: content 2.5s forwards;
 
   &-player {
     font-size: 9.6rem;

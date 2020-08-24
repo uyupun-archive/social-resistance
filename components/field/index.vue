@@ -19,8 +19,8 @@ export default {
   mounted() {
     this.createCanvas()
     this.drawGrid()
-    this.pekora.spawn()
-    this.baikinKun.spawn()
+    this.pekora.spawn(0)
+    this.baikinKun.spawn(900)
   },
   methods: {
     createCanvas() {

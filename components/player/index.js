@@ -49,7 +49,7 @@ export default class Player {
       this._recalcCurrentPosition(x, y)
     }
     // ２回目以降(移動時)
-    if (x && y) {
+    if (y) {
       this._clear(this._width, this._height)
       this._draw(x, y)
       this._recalcCurrentPosition(x, y)
@@ -70,8 +70,19 @@ export default class Player {
 
   /**
    * 移動後の画像の描画
+   *
+   * @param {*} x
+   * @param {*} y
    */
-  _draw() {}
+  _draw(x, y) {
+    this._ctx.drawImage(
+      this._image,
+      x,
+      y || 250 - this._height / 2,
+      this._width,
+      this._height
+    )
+  }
 
   /**
    * 現在位置の再計算

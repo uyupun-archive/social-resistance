@@ -39,6 +39,7 @@ export default {
   color: #ffffff;
   background: #111111;
   font-size: 3.6rem;
+  font-family: 'Sawarabi Gothic', sans-serif;
   text-align: center;
   cursor: pointer;
   line-height: 1;

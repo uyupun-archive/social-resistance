@@ -9,8 +9,12 @@
 <style lang="scss">
 @font-face {
   font-family: 'Roboto-Thin';
-  src: url('~assets/fonts/Roboto-Thin.ttf') format('truetype'),
-    url('~assets/fonts/SawarabiGothic-Regular.ttf') format('truetype');
+  src: url('~assets/fonts/Roboto-Thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Sawarabi Gothic';
+  src: url('~assets/fonts/SawarabiGothic-Regular.ttf') format('truetype');
 }
 
 html {

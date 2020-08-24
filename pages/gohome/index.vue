@@ -1,27 +1,15 @@
 <template>
-<<<<<<< HEAD
   <div class="container">
-    <Field ref="field"></Field>
+    <Field ref="field" />
+    <Turn ref="turn" />
     <div class="aaa">
       <div v-for="word in words" class="bbb">
         <Button
           :key="word.index"
           :text="word.word"
-          @click.native="moveCharacter"
+          @click.native="openModal(word.word)"
         />
-        </div>
-=======
-  <div>
-    <Field ref="field" />
-    <Turn ref="turn" />
-    <div>
-      <Button
-        v-for="word in words"
-        :key="word.index"
-        :text="word.word"
-        @click.native="openModal(word.word)"
-      />
->>>>>>> c8dd27e08864d2b5e90568882de8a2e83647f425
+      </div>
     </div>
     <Modal v-if="showModal" ref="modal" @close="closeModal">
       <template v-slot:content>

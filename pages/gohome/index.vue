@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <Field ref="field" />
     <World ref="world" />
     <Turn ref="turn" />
     <div class="word-wrapper">

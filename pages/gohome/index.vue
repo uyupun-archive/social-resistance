@@ -22,8 +22,8 @@
     <TurnAnimation
       v-if="showTurnAnimation"
       :count="$refs.turn && $refs.turn.get() ? $refs.turn.get() : 1"
-      firstPlayer="うさぎさん"
-      secondPlayer="ばいきんくん"
+      first-player="うさぎさん"
+      second-player="ばいきんくん"
     />
     <Button to="/" text="おつかれ" />
   </div>
@@ -93,15 +93,20 @@ export default {
     },
     turn(word) {
       this.movePlayer()
+      if (this.checkIsHit()) {
+        console.log('ばいきんくんのかち！')
+        // TODO: XXのかち！のモーダルを出す
+        return
+      }
       this.updateBaseWord(word)
       this.addTurn()
       this.getWords()
       this.playTurnAnimation()
     },
     movePlayer() {
+      this.$refs.modal.close()
       if (this.$refs.turn.get() % 2 === 0) this.$refs.world.moveBaikinKun()
       else this.$refs.world.movePekora()
-      this.$refs.modal.close()
     },
     addTurn() {
       this.$refs.turn.add()
@@ -111,6 +116,9 @@ export default {
       setTimeout(() => {
         this.showTurnAnimation = false
       }, 2500)
+    },
+    checkIsHit() {
+      return this.$refs.world.checkIsHit()
     },
   },
 }

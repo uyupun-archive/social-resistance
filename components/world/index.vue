@@ -9,6 +9,7 @@
 import Pekora from '~/components/pekora/index.js'
 import BaikinKun from '~/components/baikin-kun/index.js'
 import House from '~/components/house/index.js'
+import HitBox from '~/components/hit-box/index.js'
 
 export default {
   data() {
@@ -19,6 +20,7 @@ export default {
       },
       pekora: null,
       baikinKun: null,
+      hitBox: null,
     }
   },
   mounted() {
@@ -33,6 +35,7 @@ export default {
     createCanvas() {
       this.createFieldLayer()
       this.createPlayerLayer()
+      this.createHitBox()
     },
     createFieldLayer() {
       const field = document.getElementById('field-layer')
@@ -44,6 +47,9 @@ export default {
       this.ctx.player = player.getContext('2d')
       this.pekora = new Pekora(this.ctx.player)
       this.baikinKun = new BaikinKun(this.ctx.player)
+    },
+    createHitBox() {
+      this.hitBox = new HitBox()
     },
     drawGrid() {
       this.ctx.field.beginPath()
@@ -74,6 +80,12 @@ export default {
     moveBaikinKun() {
       this.baikinKun.depart()
       this.drawGrid()
+    },
+    checkIsHit() {
+      return this.hitBox.isHit(
+        this.pekora.coordinate,
+        this.baikinKun.coordinate
+      )
     },
   },
 }

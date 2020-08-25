@@ -14,7 +14,7 @@ export default class Player {
    * 擬似的な抽象メソッドみたいな
    */
   checkIsImplemented() {
-    if (!(this.spawn && this._draw && this._recalcCurrentPosition)) {
+    if (!(this.spawn && this._drawPlayer && this._recalcCurrentPosition)) {
       throw new Error('Necessary methods are not implemented.')
     }
   }
@@ -44,34 +44,78 @@ export default class Player {
     this._image.onload = () => {
       this._width = this._image.naturalWidth * 0.15
       this._height = this._image.naturalHeight * 0.15
-      this._clear(this._width, this._height)
-      this._draw(x, y)
+      this._clear()
+      this._drawSocialDistance(x, y)
+      this._drawPlayer(x, y)
       this._recalcCurrentPosition(x, y)
     }
     // ２回目以降(移動時)
-    if (x && y) {
-      this._clear(this._width, this._height)
-      this._draw(x, y)
+    if (y) {
+      this._clear()
+      this._drawSocialDistance(x, y)
+      this._drawPlayer(x, y)
       this._recalcCurrentPosition(x, y)
     }
   }
 
   /**
    * 移動前の画像の削除
-   *
-   * @param {*} width
-   * @param {*} height
    */
-  _clear(width, height) {
+  _clear() {
     if (this._x !== null && this._y !== null) {
-      this._ctx.clearRect(this._x, this._y, width, height)
+      this._ctx.globalCompositeOperation = 'destination-out'
+      this._drawCircle(this._x, this._y, '#fff', 61)
+      this._ctx.globalCompositeOperation = 'source-over'
     }
   }
 
   /**
    * 移動後の画像の描画
+   *
+   * @param {*} x
+   * @param {*} y
    */
-  _draw() {}
+  _drawPlayer(x, y) {
+    this._ctx.drawImage(
+      this._image,
+      x,
+      y || 250 - this._height / 2,
+      this._width,
+      this._height
+    )
+  }
+
+  /**
+   * ソーシャルディスタンスゾーンの描画
+   *
+   * @param {*} x
+   * @param {*} y
+   */
+  _drawSocialDistance(x, y) {
+    this._drawCircle(x, y, '#ef857d')
+  }
+
+  /**
+   * 円の描画
+   *
+   * @param {*} x
+   * @param {*} y
+   * @param {*} color
+   * @param {*} radius
+   */
+  _drawCircle(x, y, color = 'red', radius = 60) {
+    this._ctx.fillStyle = color
+    this._ctx.beginPath()
+    this._ctx.arc(
+      x + this._width / 2,
+      y ? y + this._height / 2 : 250,
+      radius,
+      0,
+      2 * Math.PI
+    )
+    this._ctx.fill()
+    this._ctx.closePath()
+  }
 
   /**
    * 現在位置の再計算

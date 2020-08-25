@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Field ref="field" />
+    <World ref="world" />
     <Turn ref="turn" />
     <div>
       <Button
@@ -16,13 +16,7 @@
       </template>
       <template v-slot:btns>
         <Button text="よくない" @click.native="closeModalNative" />
-        <Button
-          text="よい"
-          @click.native="
-            movePlayer()
-            addTurn()
-          "
-        />
+        <Button text="よい" @click.native="turn(selectedWord)" />
       </template>
     </Modal>
     <Button to="/" text="おつかれ" />
@@ -31,20 +25,25 @@
 
 <script>
 import Button from '~/components/button/index.vue'
-import Field from '~/components/field/index.vue'
+import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
 import Turn from '~/components/turn/index.vue'
 
 export default {
   components: {
     Button,
-    Field,
+    World,
     Modal,
     Turn,
   },
   data() {
     return {
-      firstWord: null,
+      pekora: {
+        baseWord: null,
+      },
+      baikinKun: {
+        baseWord: null,
+      },
       words: null,
       selectedWord: '',
       showModal: false,
@@ -53,33 +52,48 @@ export default {
   mounted() {
     this.getFirstWord()
     this.getWords()
-    console.log(this.firstWord)
-    console.log(this.words)
   },
   methods: {
     getFirstWord() {
-      this.firstWord = this.$getFirstWord()
+      this.pekora.baseWord = this.$getFirstWord()
+      this.baikinKun.baseWord = this.$getFirstWord()
     },
     getWords() {
-      this.words = this.$getWords(this.firstWord)
+      this.$nextTick(() => {
+        this.words = this.$getWords(
+          this.$refs.turn.get() % 2 === 0
+            ? this.baikinKun.baseWord
+            : this.pekora.baseWord
+        )
+      })
     },
-    movePlayer() {
-      if (this.$refs.turn.get() % 2 === 0) this.$refs.field.moveBaikinKun()
-      else this.$refs.field.movePekora()
-      this.$refs.modal.close()
-    },
-    addTurn() {
-      this.$refs.turn.add()
+    updateBaseWord(word) {
+      if (this.$refs.turn.get() % 2 === 0) this.baikinKun.baseWord = word
+      else this.pekora.baseWord = word
     },
     openModal(word) {
       this.selectedWord = word
       this.showModal = true
     },
+    closeModal() {
+      this.showModal = false
+    },
     closeModalNative() {
       this.$refs.modal.close()
     },
-    closeModal() {
-      this.showModal = false
+    turn(word) {
+      this.movePlayer()
+      this.updateBaseWord(word)
+      this.addTurn()
+      this.getWords()
+    },
+    movePlayer() {
+      if (this.$refs.turn.get() % 2 === 0) this.$refs.world.moveBaikinKun()
+      else this.$refs.world.movePekora()
+      this.$refs.modal.close()
+    },
+    addTurn() {
+      this.$refs.turn.add()
     },
   },
 }

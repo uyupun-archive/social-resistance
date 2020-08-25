@@ -14,7 +14,7 @@ export default class Player {
    * 擬似的な抽象メソッドみたいな
    */
   checkIsImplemented() {
-    if (!(this.spawn && this._draw && this._recalcCurrentPosition)) {
+    if (!(this.spawn && this._drawPlayer && this._recalcCurrentPosition)) {
       throw new Error('Necessary methods are not implemented.')
     }
   }
@@ -46,14 +46,14 @@ export default class Player {
       this._height = this._image.naturalHeight * 0.15
       this._clear()
       this._drawSocialDistance(x, y)
-      this._draw(x, y)
+      this._drawPlayer(x, y)
       this._recalcCurrentPosition(x, y)
     }
     // ２回目以降(移動時)
     if (y) {
       this._clear()
       this._drawSocialDistance(x, y)
-      this._draw(x, y)
+      this._drawPlayer(x, y)
       this._recalcCurrentPosition(x, y)
     }
   }
@@ -63,7 +63,9 @@ export default class Player {
    */
   _clear() {
     if (this._x !== null && this._y !== null) {
+      this._ctx.globalCompositeOperation = 'destination-out'
       this._drawCircle(this._x, this._y, '#fff', 61)
+      this._ctx.globalCompositeOperation = 'source-over'
     }
   }
 
@@ -73,7 +75,7 @@ export default class Player {
    * @param {*} x
    * @param {*} y
    */
-  _draw(x, y) {
+  _drawPlayer(x, y) {
     this._ctx.drawImage(
       this._image,
       x,

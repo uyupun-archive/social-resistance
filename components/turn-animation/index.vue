@@ -16,14 +16,17 @@ export default {
     count: {
       type: Number,
       require: true,
+      default: 1,
     },
     firstPlayer: {
       type: String,
       require: true,
+      default: '',
     },
     secondPlayer: {
       type: String,
       require: true,
+      default: '',
     },
   },
 }

@@ -1,7 +1,15 @@
 <template>
   <div class="container">
     <World ref="world" />
-    <Turn ref="turn" />
+    <div class="turn-box">
+      <div :class="{ 'active-turn': pekora.active }">
+        うさぎさんのターン
+      </div>
+      <Turn ref="turn" />
+      <div :class="{ 'active-turn': baikinKun.active }">
+        ばいきんくんのターン
+      </div>
+    </div>
     <div class="word-wrapper">
       <div v-for="word in words" :key="word.index" class="word">
         <Button :text="word.word" @click.native="openModal(word.word)" />
@@ -36,9 +44,11 @@ export default {
   data() {
     return {
       pekora: {
+        active: true,
         baseWord: null,
       },
       baikinKun: {
+        active: false,
         baseWord: null,
       },
       words: null,
@@ -82,6 +92,7 @@ export default {
       this.movePlayer()
       this.updateBaseWord(word)
       this.addTurn()
+      this.setActiveTurn()
       this.getWords()
     },
     movePlayer() {
@@ -92,6 +103,10 @@ export default {
     addTurn() {
       this.$refs.turn.add()
     },
+    setActiveTurn() {
+      this.pekora.active = !this.pekora.active
+      this.baikinKun.active = !this.baikinKun.active
+    },
   },
 }
 </script>
@@ -99,6 +114,34 @@ export default {
 <style scoped lang="scss">
 .container {
   text-align: center;
+}
+
+.turn-box {
+  display: flex;
+  justify-content: space-around;
+}
+
+.turn-box div {
+  position: relative;
+  display: inline-block;
+  font-size: 3.6rem;
+  margin: 60px 0px 80px;
+  font-family: 'Sawarabi-Gothic', sans-serif;
+  text-align: center;
+  border: 5px solid;
+  padding: 16px 40px;
+  box-sizing: border-box;
+  color: #808080;
+  border-color: #808080;
+}
+
+.turn-box p {
+  font-size: 7.2rem;
+}
+
+.active-turn {
+  color: #ffffff !important;
+  border-color: #ffffff !important ;
 }
 
 .word-wrapper {

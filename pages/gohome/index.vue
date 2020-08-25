@@ -19,6 +19,12 @@
         <Button text="よい" @click.native="turn(selectedWord)" />
       </template>
     </Modal>
+    <TurnAnimation
+      v-if="showTurnAnimation"
+      :count="$refs.turn && $refs.turn.get() ? $refs.turn.get() : 1"
+      firstPlayer="うさぎさん"
+      secondPlayer="ばいきんくん"
+    />
     <Button to="/" text="おつかれ" />
   </div>
 </template>
@@ -28,6 +34,7 @@ import Button from '~/components/button/index.vue'
 import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
 import Turn from '~/components/turn/index.vue'
+import TurnAnimation from '~/components/turn-animation/index.vue'
 
 export default {
   components: {
@@ -35,6 +42,7 @@ export default {
     World,
     Modal,
     Turn,
+    TurnAnimation,
   },
   data() {
     return {
@@ -47,11 +55,13 @@ export default {
       words: null,
       selectedWord: '',
       showModal: false,
+      showTurnAnimation: true,
     }
   },
   mounted() {
     this.getFirstWord()
     this.getWords()
+    this.playTurnAnimation()
   },
   methods: {
     getFirstWord() {
@@ -86,6 +96,7 @@ export default {
       this.updateBaseWord(word)
       this.addTurn()
       this.getWords()
+      this.playTurnAnimation()
     },
     movePlayer() {
       if (this.$refs.turn.get() % 2 === 0) this.$refs.world.moveBaikinKun()
@@ -94,6 +105,12 @@ export default {
     },
     addTurn() {
       this.$refs.turn.add()
+    },
+    playTurnAnimation() {
+      this.showTurnAnimation = true
+      setTimeout(() => {
+        this.showTurnAnimation = false
+      }, 2500)
     },
   },
 }

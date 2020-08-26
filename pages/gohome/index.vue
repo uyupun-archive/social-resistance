@@ -24,13 +24,20 @@
         <Button text="よい" @click.native="turn(selectedWord)" />
       </template>
     </Modal>
+    <Modal v-if="showWinModal">
+      <template v-slot:content>
+        <p class="win-modal_text">『{{ winner }}』のかち！</p>
+      </template>
+      <template v-slot:btns>
+        <Button to="/" text="おつかれ" />
+      </template>
+    </Modal>
     <TurnAnimation
       v-if="showTurnAnimation"
       :count="$refs.turn && $refs.turn.get() ? $refs.turn.get() : 1"
       first-player="うさぎさん"
       second-player="ばいきんくん"
     />
-    <Button to="/" text="おつかれ" />
   </div>
 </template>
 
@@ -63,7 +70,9 @@ export default {
       words: null,
       selectedWord: '',
       showModal: false,
+      showWinModal: false,
       showTurnAnimation: true,
+      winner: '',
     }
   },
   mounted() {
@@ -102,13 +111,13 @@ export default {
     turn(word) {
       this.movePlayer()
       if (this.isGoal()) {
-        console.log('うさぎさんのかち！')
-        // TODO: うさぎさんのかち！のモーダルを出す
+        this.winner = 'うさぎさん'
+        this.showWinModal = true
         return
       }
       if (this.isHit()) {
-        console.log('ばいきんくんのかち！')
-        // TODO: ばいきんくんのかち！のモーダルを出す
+        this.winner = 'ばいきんくん'
+        this.showWinModal = true
         return
       }
       this.updateBaseWord(word)
@@ -190,5 +199,9 @@ export default {
 .word {
   margin: 0 20px 30px 20px;
   width: 20%;
+}
+
+.win-modal_text {
+  text-align: center;
 }
 </style>

@@ -84,6 +84,9 @@ export default {
     isHit() {
       return this.judge.isHit(this.pekora.coordinate, this.baikinKun.coordinate)
     },
+    isGoal() {
+      return this.judge.isGoal(this.pekora.coordinate.y)
+    },
   },
 }
 </script>

@@ -36,8 +36,8 @@ export default class Player {
    */
   depart() {
     const x = Math.round(Math.random() * 500)
-    const y = Math.round(Math.random() * 500)
-    this._move(x, y)
+    // const y = Math.round(Math.random() * 500)
+    this._move(x, 1000)
   }
 
   /**

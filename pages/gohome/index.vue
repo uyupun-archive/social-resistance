@@ -93,9 +93,14 @@ export default {
     },
     turn(word) {
       this.movePlayer()
+      if (this.isGoal()) {
+        console.log('うさぎさんのかち！')
+        // TODO: うさぎさんのかち！のモーダルを出す
+        return
+      }
       if (this.isHit()) {
         console.log('ばいきんくんのかち！')
-        // TODO: XXのかち！のモーダルを出す
+        // TODO: ばいきんくんのかち！のモーダルを出す
         return
       }
       this.updateBaseWord(word)
@@ -119,6 +124,9 @@ export default {
     },
     isHit() {
       return this.$refs.world.isHit()
+    },
+    isGoal() {
+      return this.$refs.world.isGoal()
     },
   },
 }

@@ -147,30 +147,31 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  text-align: center;
+  padding: 25px 0 0;
+  margin: 0 25px;
 }
 
 .turn-box {
   display: flex;
-  justify-content: space-around;
-}
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0 0;
+  margin: 0 0 30px;
 
-.turn-box div {
-  position: relative;
-  display: inline-block;
-  font-size: 3.6rem;
-  margin: 60px 0px 80px;
-  font-family: 'Sawarabi-Gothic', sans-serif;
-  text-align: center;
-  border: 5px solid;
-  padding: 16px 40px;
-  box-sizing: border-box;
-  color: #808080;
-  border-color: #808080;
-}
+  & div {
+    display: inline-block;
+    font-size: 3.6rem;
+    text-align: center;
+    padding: 16px 40px;
+    box-sizing: border-box;
+    color: #808080;
+    border: 5px solid #808080;
+  }
 
-.turn-box p {
-  font-size: 7.2rem;
+  & p {
+    font-size: 7.2rem;
+    margin: 0;
+  }
 }
 
 .active-turn {
@@ -179,16 +180,15 @@ export default {
 }
 
 .word-wrapper {
-  margin: 0px 180px 40px 180px;
+  margin: 0 50px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  align-content: space-around;
 }
 
 .word {
-  margin: 10px 20px 30px 20px;
+  margin: 0 20px 30px 20px;
   width: 20%;
 }
 </style>

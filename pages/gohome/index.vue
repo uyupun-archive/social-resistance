@@ -1,14 +1,19 @@
 <template>
-  <div>
+  <div class="container">
     <World ref="world" />
-    <Turn ref="turn" />
-    <div>
-      <Button
-        v-for="word in words"
-        :key="word.index"
-        :text="word.word"
-        @click.native="openModal(word.word)"
-      />
+    <div class="turn-box">
+      <div :class="{ 'active-turn': pekora.active }">
+        うさぎさんのターン
+      </div>
+      <Turn ref="turn" />
+      <div :class="{ 'active-turn': baikinKun.active }">
+        ばいきんくんのターン
+      </div>
+    </div>
+    <div class="word-wrapper">
+      <div v-for="word in words" :key="word.index" class="word">
+        <Button :text="word.word" @click.native="openModal(word.word)" />
+      </div>
     </div>
     <Modal v-if="showModal" ref="modal" @close="closeModal">
       <template v-slot:content>
@@ -48,9 +53,11 @@ export default {
   data() {
     return {
       pekora: {
+        active: true,
         baseWord: null,
       },
       baikinKun: {
+        active: false,
         baseWord: null,
       },
       words: null,
@@ -106,6 +113,7 @@ export default {
       }
       this.updateBaseWord(word)
       this.addTurn()
+      this.setActiveTurn()
       this.getWords()
       this.playTurnAnimation()
     },
@@ -116,6 +124,10 @@ export default {
     },
     addTurn() {
       this.$refs.turn.add()
+    },
+    setActiveTurn() {
+      this.pekora.active = !this.pekora.active
+      this.baikinKun.active = !this.baikinKun.active
     },
     playTurnAnimation() {
       this.showTurnAnimation = true
@@ -133,4 +145,50 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.container {
+  padding: 25px 0 0;
+  margin: 0 25px;
+}
+
+.turn-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0 0;
+  margin: 0 0 30px;
+
+  & div {
+    display: inline-block;
+    font-size: 3.6rem;
+    text-align: center;
+    padding: 16px 40px;
+    box-sizing: border-box;
+    color: #808080;
+    border: 5px solid #808080;
+  }
+
+  & p {
+    font-size: 7.2rem;
+    margin: 0;
+  }
+}
+
+.active-turn {
+  color: #ffffff !important;
+  border-color: #ffffff !important ;
+}
+
+.word-wrapper {
+  margin: 0 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.word {
+  margin: 0 20px 30px 20px;
+  width: 20%;
+}
+</style>

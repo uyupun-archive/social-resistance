@@ -37,7 +37,7 @@ import Turn from '~/components/turn/index.vue'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 
 export default {
-  middleware: 'redirect',
+  middleware: 'redirectToTop',
   components: {
     Button,
     World,

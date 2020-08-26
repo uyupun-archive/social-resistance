@@ -10,6 +10,13 @@ export default class Player {
   }
 
   /**
+   * 座標のゲッター
+   */
+  get coordinate() {
+    return { x: this._x, y: this._y }
+  }
+
+  /**
    * 必須のメソッドが実装されているかのチェック機構
    * 擬似的な抽象メソッドみたいな
    */

@@ -24,6 +24,12 @@
         <Button text="よい" @click.native="turn(selectedWord)" />
       </template>
     </Modal>
+    <TurnAnimation
+      v-if="showTurnAnimation"
+      :count="$refs.turn && $refs.turn.get() ? $refs.turn.get() : 1"
+      first-player="うさぎさん"
+      second-player="ばいきんくん"
+    />
     <Button to="/" text="おつかれ" />
   </div>
 </template>
@@ -33,13 +39,16 @@ import Button from '~/components/button/index.vue'
 import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
 import Turn from '~/components/turn/index.vue'
+import TurnAnimation from '~/components/turn-animation/index.vue'
 
 export default {
+  middleware: 'redirectToTop',
   components: {
     Button,
     World,
     Modal,
     Turn,
+    TurnAnimation,
   },
   data() {
     return {
@@ -54,11 +63,13 @@ export default {
       words: null,
       selectedWord: '',
       showModal: false,
+      showTurnAnimation: true,
     }
   },
   mounted() {
     this.getFirstWord()
     this.getWords()
+    this.playTurnAnimation()
   },
   methods: {
     getFirstWord() {
@@ -90,15 +101,26 @@ export default {
     },
     turn(word) {
       this.movePlayer()
+      if (this.isGoal()) {
+        console.log('うさぎさんのかち！')
+        // TODO: うさぎさんのかち！のモーダルを出す
+        return
+      }
+      if (this.isHit()) {
+        console.log('ばいきんくんのかち！')
+        // TODO: ばいきんくんのかち！のモーダルを出す
+        return
+      }
       this.updateBaseWord(word)
       this.addTurn()
       this.setActiveTurn()
       this.getWords()
+      this.playTurnAnimation()
     },
     movePlayer() {
+      this.$refs.modal.close()
       if (this.$refs.turn.get() % 2 === 0) this.$refs.world.moveBaikinKun()
       else this.$refs.world.movePekora()
-      this.$refs.modal.close()
     },
     addTurn() {
       this.$refs.turn.add()
@@ -106,6 +128,18 @@ export default {
     setActiveTurn() {
       this.pekora.active = !this.pekora.active
       this.baikinKun.active = !this.baikinKun.active
+    },
+    playTurnAnimation() {
+      this.showTurnAnimation = true
+      setTimeout(() => {
+        this.showTurnAnimation = false
+      }, 2500)
+    },
+    isHit() {
+      return this.$refs.world.isHit()
+    },
+    isGoal() {
+      return this.$refs.world.isGoal()
     },
   },
 }

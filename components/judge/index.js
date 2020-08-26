@@ -1,4 +1,4 @@
-export default class HitBox {
+export default class Judge {
   /**
    * 当たり判定
    *

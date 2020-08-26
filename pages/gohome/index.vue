@@ -93,7 +93,7 @@ export default {
     },
     turn(word) {
       this.movePlayer()
-      if (this.checkIsHit()) {
+      if (this.isHit()) {
         console.log('ばいきんくんのかち！')
         // TODO: XXのかち！のモーダルを出す
         return
@@ -117,8 +117,8 @@ export default {
         this.showTurnAnimation = false
       }, 2500)
     },
-    checkIsHit() {
-      return this.$refs.world.checkIsHit()
+    isHit() {
+      return this.$refs.world.isHit()
     },
   },
 }

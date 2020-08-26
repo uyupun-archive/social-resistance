@@ -1,6 +1,15 @@
-export default class HitBox {
+export default class Judge {
   /**
-   * 当たり判定
+   * うさぎさんの勝利判定
+   */
+  isGoal(y) {
+    // フィールドの幅 - ソーシャルディスタンスゾーンの直径
+    if (y >= 1000 - 120) return true
+    return false
+  }
+
+  /**
+   * 当たり判定(ばいきんくんの勝利判定)
    *
    * @param {*} coordinateA
    * @param {*} coordinateB

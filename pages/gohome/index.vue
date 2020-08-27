@@ -3,21 +3,29 @@
     <World ref="world" class="world" />
     <div class="turn-box">
       <div
+        class="turn-which"
         :class="{
           'turn-active': pekora.active,
           'turn-inactive': !pekora.active,
         }"
       >
-        うさぎさんのターン
+        <p class="turn-which-player">うさぎさんのターン</p>
+        <p class="turn-which-word">
+          [{{ pekora.baseWord ? pekora.baseWord.word : '' }}]
+        </p>
       </div>
       <p class="turn-count">{{ turn.count }}</p>
       <div
+        class="turn-which"
         :class="{
           'turn-active': baikinKun.active,
           'turn-inactive': !baikinKun.active,
         }"
       >
-        ばいきんくんのターン
+        <p class="turn-which-player">ばいきんくんのターン</p>
+        <p class="turn-which-word">
+          [{{ baikinKun.baseWord ? baikinKun.baseWord.word : '' }}]
+        </p>
       </div>
     </div>
     <div class="word-wrapper">
@@ -171,22 +179,30 @@ export default {
     margin: 0;
   }
 
-  &-inactive {
+  &-which {
     display: inline-block;
+    padding: 10px 10px;
     font-size: 2.5rem;
     text-align: center;
-    padding: 10px 10px;
-    color: #808080;
     border: 5px solid #808080;
+
+    &-player {
+      margin: 0;
+    }
+
+    &-word {
+      margin: 0;
+    }
+  }
+
+  &-inactive {
+    color: #808080;
+    border-color: #808080;
   }
 
   &-active {
-    display: inline-block;
-    font-size: 2.5rem;
-    text-align: center;
-    padding: 10px 10px;
     color: #ffffff;
-    border: 5px solid #ffffff;
+    border-color: #ffffff;
   }
 }
 

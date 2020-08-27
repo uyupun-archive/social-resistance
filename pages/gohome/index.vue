@@ -30,7 +30,6 @@
       first-player="うさぎさん"
       second-player="ばいきんくん"
     />
-    <Button to="/" text="おつかれ" />
   </div>
 </template>
 

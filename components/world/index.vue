@@ -74,12 +74,10 @@ export default {
       this.ctx.field.closePath()
     },
     movePekora(baseWord, word) {
-      console.log(baseWord, word)
-      this.pekora.depart()
+      this.pekora.depart(word.move.x, word.move.y)
     },
     moveBaikinKun(baseWord, word) {
-      console.log(baseWord, word)
-      this.baikinKun.depart()
+      this.baikinKun.depart(word.move.x, word.move.y)
     },
     isHit() {
       return this.judge.isHit(this.pekora.coordinate, this.baikinKun.coordinate)

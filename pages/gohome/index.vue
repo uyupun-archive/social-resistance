@@ -184,7 +184,7 @@ export default {
     padding: 10px 10px;
     font-size: 2.5rem;
     text-align: center;
-    border: 5px solid #808080;
+    border: 5px solid $gray;
 
     &-player {
       margin: 0;
@@ -196,13 +196,13 @@ export default {
   }
 
   &-inactive {
-    color: #808080;
-    border-color: #808080;
+    color: $gray;
+    border-color: $gray;
   }
 
   &-active {
-    color: #ffffff;
-    border-color: #ffffff;
+    color: $white;
+    border-color: $white;
   }
 }
 

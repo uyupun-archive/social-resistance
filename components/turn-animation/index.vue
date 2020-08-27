@@ -69,11 +69,11 @@ export default {
 
 .content {
   text-align: center;
-  color: #ffffff;
+  color: $white;
   font-weight: bold;
-  background: #111111;
+  background: $black;
   padding: 16px 40px;
-  border: 5px solid #ffffff;
+  border: 5px solid $white;
   transform: skewX(-30deg) translateX(calc(-100vw - 100px));
   animation: content 2.5s forwards;
 

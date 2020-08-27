@@ -29,12 +29,15 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    '~/assets/scss/_fonts.scss',
+    '~/assets/scss/_variable.scss',
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/word2vec'],
+  plugins: ['~/plugins/word2vec'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -50,10 +53,16 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: [
+    '@nuxtjs/style-resources',
+  ],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
+
+  styleResources: {
+    scss: ['./assets/scss/*.scss'],
+  },
 }

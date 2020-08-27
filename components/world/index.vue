@@ -107,7 +107,7 @@ export default {
   position: relative;
   width: 1200px;
   height: 500px;
-  background: white;
+  background: $white;
 }
 
 .canvas-wrapper canvas {

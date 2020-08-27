@@ -12,12 +12,12 @@
     </div>
     <div class="word-wrapper">
       <div v-for="word in words" :key="word.index" class="word">
-        <Button :text="word.word" @click.native="openModal(word.word)" />
+        <Button :text="word.word" @click.native="openModal(word)" />
       </div>
     </div>
     <Modal v-if="showModal" ref="modal" @close="closeModal">
       <template v-slot:content>
-        <p>『{{ selectedWord }}』でよろしいですか？</p>
+        <p>『{{ selectedWord.word }}』でよろしいですか？</p>
       </template>
       <template v-slot:btns>
         <Button text="よくない" @click.native="closeModalNative" />
@@ -88,15 +88,13 @@ export default {
     getWords() {
       this.$nextTick(() => {
         this.words = this.$getWords(
-          this.$refs.turn.get() % 2 === 0
-            ? this.baikinKun.baseWord
-            : this.pekora.baseWord
+          this.isPekoraTurn() ? this.pekora.baseWord : this.baikinKun.baseWord
         )
       })
     },
     updateBaseWord(word) {
-      if (this.$refs.turn.get() % 2 === 0) this.baikinKun.baseWord = word
-      else this.pekora.baseWord = word
+      if (this.isPekoraTurn()) this.pekora.baseWord = word
+      else this.baikinKun.baseWord = word
     },
     openModal(word) {
       this.selectedWord = word
@@ -109,30 +107,28 @@ export default {
       this.$refs.modal.close()
     },
     turn(word) {
-      this.movePlayer()
-      if (this.isGoal()) {
+      this.closeModalNative()
+      this.movePlayer(word)
+      if (this.$refs.world.isGoal()) {
         this.winner = 'うさぎさん'
         this.showWinModal = true
         return
       }
-      if (this.isHit()) {
+      if (this.$refs.world.isHit()) {
         this.winner = 'ばいきんくん'
         this.showWinModal = true
         return
       }
       this.updateBaseWord(word)
-      this.addTurn()
+      this.$refs.turn.add()
       this.setActiveTurn()
       this.getWords()
       this.playTurnAnimation()
     },
-    movePlayer() {
-      this.$refs.modal.close()
-      if (this.$refs.turn.get() % 2 === 0) this.$refs.world.moveBaikinKun()
-      else this.$refs.world.movePekora()
-    },
-    addTurn() {
-      this.$refs.turn.add()
+    movePlayer(word) {
+      if (this.isPekoraTurn())
+        this.$refs.world.movePekora(this.pekora.baseWord, word)
+      else this.$refs.world.moveBaikinKun(this.baikinKun.baseWord, word)
     },
     setActiveTurn() {
       this.pekora.active = !this.pekora.active
@@ -144,11 +140,8 @@ export default {
         this.showTurnAnimation = false
       }, 2500)
     },
-    isHit() {
-      return this.$refs.world.isHit()
-    },
-    isGoal() {
-      return this.$refs.world.isGoal()
+    isPekoraTurn() {
+      return this.$refs.turn.get() % 2 !== 0
     },
   },
 }

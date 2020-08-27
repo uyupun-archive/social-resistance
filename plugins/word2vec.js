@@ -45,11 +45,12 @@ const _getRandomIdx = () => {
  * @param {*} word
  */
 const _getCorrectX = (baseWord, word) => {
-  if (word.x < baseWord.x) {
-    const correctX = baseWord.x + (Math.abs(word.x) - Math.abs(baseWord.x))
+  if (word.move.x < baseWord.move.x) {
+    const correctX =
+      baseWord.move.x + (Math.abs(word.move.x) - Math.abs(baseWord.move.x))
     return correctX
   }
-  return word.x
+  return word.move.x
 }
 
 /**
@@ -60,10 +61,10 @@ const _getCorrectX = (baseWord, word) => {
  * @param {*} word
  */
 const _getAboutDirection = (baseWord, word) => {
-  if (word.y > baseWord.y) {
+  if (word.move.y > baseWord.move.y) {
     return 'left'
   }
-  if (word.y < baseWord.y) {
+  if (word.move.y < baseWord.move.y) {
     return 'right'
   }
   return 'straight'

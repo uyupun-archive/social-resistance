@@ -73,13 +73,13 @@ export default {
       this.ctx.field.stroke()
       this.ctx.field.closePath()
     },
-    movePekora() {
+    movePekora(baseWord, word) {
+      console.log(baseWord, word)
       this.pekora.depart()
-      this.drawGrid()
     },
-    moveBaikinKun() {
+    moveBaikinKun(baseWord, word) {
+      console.log(baseWord, word)
       this.baikinKun.depart()
-      this.drawGrid()
     },
     isHit() {
       return this.judge.isHit(this.pekora.coordinate, this.baikinKun.coordinate)

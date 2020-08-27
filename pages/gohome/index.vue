@@ -36,8 +36,24 @@
       ref="turnAnimation"
       :count="$refs.turn && $refs.turn.get() ? $refs.turn.get() : 1"
       pekora="うさぎさん"
-      baikinKun="ばいきんくん"
+      baikin-kun="ばいきんくん"
     />
+    <div class="btn-pause">
+      <Button text="ポーズ" @click.native="openpauseModal()" />
+    </div>
+    <Modal ref="pauseModal" :is-wrap="true">
+      <template v-slot:content>
+        <p>メニュー</p>
+      </template>
+      <template v-slot:btns>
+        <div class="pause-choices">
+          <Button text="さいかい" @click.native="closepauseModal" />
+        </div>
+        <div class="pause-choices"><Button text="やりなおし" /></div>
+        <!--  -->
+        <div class="pause-choices"><Button text="やめる" to="/" /></div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -99,6 +115,12 @@ export default {
     },
     closeWordModal() {
       this.$refs.wordModal.close()
+    },
+    openpauseModal() {
+      this.$refs.pauseModal.open()
+    },
+    closepauseModal() {
+      this.$refs.pauseModal.close()
     },
     turn(word) {
       this.closeWordModal()
@@ -187,5 +209,21 @@ export default {
 .word {
   margin: 0 20px 30px 20px;
   width: 20%;
+}
+
+.btn-pause {
+  margin: 40px;
+  box-sizing: border-box;
+  float: right;
+}
+
+.pause-choices {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 25px;
+
+  &:last-of-type {
+    margin: 0;
+  }
 }
 </style>

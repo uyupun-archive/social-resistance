@@ -12,12 +12,12 @@
     </div>
     <div class="word-wrapper">
       <div v-for="word in words" :key="word.index" class="word">
-        <Button :text="word.word" @click.native="openModal(word.word)" />
+        <Button :text="word.word" @click.native="openModal(word)" />
       </div>
     </div>
     <Modal v-if="showModal" ref="modal" @close="closeModal">
       <template v-slot:content>
-        <p>『{{ selectedWord }}』でよろしいですか？</p>
+        <p>『{{ selectedWord.word }}』でよろしいですか？</p>
       </template>
       <template v-slot:btns>
         <Button text="よくない" @click.native="closeModalNative" />
@@ -99,7 +99,7 @@ export default {
     },
     turn(word) {
       this.closeModalNative()
-      this.movePlayer()
+      this.movePlayer(word)
       if (this.$refs.world.isGoal()) {
         console.log('うさぎさんのかち！')
         // TODO: うさぎさんのかち！のモーダルを出す
@@ -116,9 +116,10 @@ export default {
       this.getWords()
       this.playTurnAnimation()
     },
-    movePlayer() {
-      if (this.isPekoraTurn()) this.$refs.world.movePekora()
-      else this.$refs.world.moveBaikinKun()
+    movePlayer(word) {
+      if (this.isPekoraTurn())
+        this.$refs.world.movePekora(this.pekora.baseWord, word)
+      else this.$refs.world.moveBaikinKun(this.baikinKun.baseWord, word)
     },
     setActiveTurn() {
       this.pekora.active = !this.pekora.active

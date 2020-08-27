@@ -15,7 +15,7 @@
         <Button :text="word.word" @click.native="openWordModal(word)" />
       </div>
     </div>
-    <Modal v-if="showWordModal" ref="wordModal" @close="closeWordModal">
+    <Modal ref="wordModal">
       <template v-slot:content>
         <p>『{{ selectedWord.word }}』でよろしいですか？</p>
       </template>
@@ -24,7 +24,7 @@
         <Button text="よい" @click.native="turn(selectedWord)" />
       </template>
     </Modal>
-    <Modal v-if="showWinModal" :show-always="true">
+    <Modal ref="winModal" :show-always="true">
       <template v-slot:content>
         <p>『{{ winner }}』のかち！</p>
       </template>
@@ -69,8 +69,6 @@ export default {
       },
       words: null,
       selectedWord: '',
-      showWordModal: false,
-      showWinModal: false,
       showTurnAnimation: true,
       winner: '',
     }
@@ -98,10 +96,7 @@ export default {
     },
     openWordModal(word) {
       this.selectedWord = word
-      this.showWordModal = true
-    },
-    closeWordModal() {
-      this.showWordModal = false
+      this.$refs.wordModal.open()
     },
     closeWordModalNative() {
       this.$refs.wordModal.close()
@@ -111,12 +106,12 @@ export default {
       this.movePlayer(word)
       if (this.$refs.world.isGoal()) {
         this.winner = 'うさぎさん'
-        this.showWinModal = true
+        this.$refs.winModal.open()
         return
       }
       if (this.$refs.world.isHit()) {
         this.winner = 'ばいきんくん'
-        this.showWinModal = true
+        this.$refs.winModal.open()
         return
       }
       this.updateBaseWord(word)

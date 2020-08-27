@@ -5,12 +5,14 @@
 -->
 
 <template>
-  <div class="container" @click.self="close">
-    <div :class="{ modal: true, close: isClose }">
-      <div class="modal-content">
-        <slot name="content" />
-        <div class="modal-btns">
-          <slot name="btns" />
+  <div v-if="showModal">
+    <div class="container" @click.self="close">
+      <div :class="{ modal: true, close: isClose }">
+        <div class="modal-content">
+          <slot name="content" />
+          <div class="modal-btns">
+            <slot name="btns" />
+          </div>
         </div>
       </div>
     </div>
@@ -28,13 +30,20 @@ export default {
   data() {
     return {
       isClose: false,
+      showModal: false,
     }
   },
   methods: {
     close() {
       if (this.showAlways) return
       this.isClose = true
-      setTimeout(this.$emit.bind(this, 'close'), 300)
+      setTimeout(() => {
+        this.isClose = false
+        this.showModal = false
+      }, 300)
+    },
+    open() {
+      this.showModal = true
     },
   },
 }

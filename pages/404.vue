@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <div class="logo"></div>
-    <h1 class="title">404NotFound</h1>
-    <div class="btn-rule">
-      <Button to="/" text="もどる" />
+    <div class="box">
+      <h1 class="title">みせられないよ</h1>
+      <div class="btn-rule">
+        <Button to="/" text="はじめにもどる" />
+      </div>
     </div>
   </div>
 </template>
@@ -21,22 +23,29 @@ export default {
 <style scoped lang="scss">
 .container {
   text-align: center;
+  width: 60%;
+  margin: auto;
+  margin-top: 5%;
 }
 
 .logo {
-  margin: 10px auto;
-  width: 300px;
-  height: 300px;
-  background-image: url('~assets/images/logo/logo_white.svg');
+  width: 100%;
+  height: 100px;
+  background-image: url('~assets/images/objects/pekora.gif'),
+    url('~assets/images/objects/baikin_1.gif'),
+    url('~assets/images/objects/baikin_2.gif');
+  background-position: left 0, 100% 0, 90% 0;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .title {
-  font-family: 'Roboto-Thin', sans-serif;
   font-size: 9.6rem;
   line-height: 1;
-  margin: 0;
+}
+
+.box {
+  border: 5px solid white;
 }
 
 .subtitle {
@@ -47,10 +56,10 @@ export default {
 
 .btn {
   &-start {
-    margin: 0 0 40px;
+    margin: 0 0 10%;
   }
   &-rule {
-    margin: 0 0 20px;
+    margin: 0 0 10%;
   }
 }
 </style>

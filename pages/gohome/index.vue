@@ -33,10 +33,10 @@
       </template>
     </Modal>
     <TurnAnimation
-      v-if="showTurnAnimation"
+      ref="turnAnimation"
       :count="$refs.turn && $refs.turn.get() ? $refs.turn.get() : 1"
-      first-player="うさぎさん"
-      second-player="ばいきんくん"
+      pekora="うさぎさん"
+      baikinKun="ばいきんくん"
     />
   </div>
 </template>
@@ -69,14 +69,13 @@ export default {
       },
       words: null,
       selectedWord: '',
-      showTurnAnimation: true,
       winner: '',
     }
   },
   mounted() {
     this.getFirstWord()
     this.getWords()
-    this.playTurnAnimation()
+    this.showTurnAnimation()
   },
   methods: {
     getFirstWord() {
@@ -118,7 +117,7 @@ export default {
       this.$refs.turn.add()
       this.setActiveTurn()
       this.getWords()
-      this.playTurnAnimation()
+      this.showTurnAnimation()
     },
     movePlayer(word) {
       if (this.isPekoraTurn())
@@ -129,11 +128,8 @@ export default {
       this.pekora.active = !this.pekora.active
       this.baikinKun.active = !this.baikinKun.active
     },
-    playTurnAnimation() {
-      this.showTurnAnimation = true
-      setTimeout(() => {
-        this.showTurnAnimation = false
-      }, 2500)
+    showTurnAnimation() {
+      this.$refs.turnAnimation.show()
     },
     isPekoraTurn() {
       return this.$refs.turn.get() % 2 !== 0

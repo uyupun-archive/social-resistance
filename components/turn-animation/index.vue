@@ -1,11 +1,13 @@
 <template>
-  <div class="container">
-    <div class="content">
-      <div v-if="count % 2 === 1" class="content-player">
-        先攻:&nbsp;{{ firstPlayer }}
+  <div v-if="showAnimation">
+    <div class="container">
+      <div class="content">
+        <div v-if="count % 2 === 1" class="content-player">
+          先攻:&nbsp;{{ pekora }}
+        </div>
+        <div v-else class="content-player">後攻:&nbsp;{{ baikinKun }}</div>
+        <div class="content-turn">ターン{{ count }}</div>
       </div>
-      <div v-else class="content-player">後攻:&nbsp;{{ secondPlayer }}</div>
-      <div class="content-turn">ターン{{ count }}</div>
     </div>
   </div>
 </template>
@@ -18,15 +20,34 @@ export default {
       require: true,
       default: 1,
     },
-    firstPlayer: {
+    pekora: {
       type: String,
       require: true,
       default: '',
     },
-    secondPlayer: {
+    baikinKun: {
       type: String,
       require: true,
       default: '',
+    },
+  },
+  data() {
+    return {
+      showAnimation: false,
+    }
+  },
+  mounted() {
+    this.playAnimation()
+  },
+  methods: {
+    playAnimation() {
+      setTimeout(() => {
+        this.showAnimation = false
+      }, 2500)
+    },
+    show() {
+      this.showAnimation = true
+      this.playAnimation()
     },
   },
 }

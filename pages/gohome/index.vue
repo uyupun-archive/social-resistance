@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <World ref="world" />
+    <World ref="world" class="world" />
     <div class="turn-box">
       <div :class="{ 'active-turn': pekora.active }">
         うさぎさんのターン
@@ -141,8 +141,12 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  padding: 25px 0 0;
-  margin: 0 25px;
+  margin: 0 auto;
+  width: 1200px;
+}
+
+.world {
+  margin: 40px auto;
 }
 
 .turn-box {

@@ -2,11 +2,21 @@
   <div class="container">
     <World ref="world" class="world" />
     <div class="turn-box">
-      <div :class="{ 'active-turn': pekora.active }">
+      <div
+        :class="{
+          'turn-active': pekora.active,
+          'turn-inactive': !pekora.active,
+        }"
+      >
         うさぎさんのターン
       </div>
-      <Turn ref="turn" />
-      <div :class="{ 'active-turn': baikinKun.active }">
+      <p class="turn-count">{{ turn.count }}</p>
+      <div
+        :class="{
+          'turn-active': baikinKun.active,
+          'turn-inactive': !baikinKun.active,
+        }"
+      >
         ばいきんくんのターン
       </div>
     </div>
@@ -21,7 +31,7 @@
       </template>
       <template v-slot:btns>
         <Button text="よくない" @click.native="closeWordModal" />
-        <Button text="よい" @click.native="turn(selectedWord)" />
+        <Button text="よい" @click.native="turnProcess(selectedWord)" />
       </template>
     </Modal>
     <Modal ref="winModal" :show-always="true">
@@ -34,7 +44,7 @@
     </Modal>
     <TurnAnimation
       ref="turnAnimation"
-      :count="$refs.turn && $refs.turn.get() ? $refs.turn.get() : 1"
+      :count="turn.count"
       pekora="うさぎさん"
       baikin-kun="ばいきんくん"
     />
@@ -45,7 +55,7 @@
 import Button from '~/components/button/index.vue'
 import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
-import Turn from '~/components/turn/index.vue'
+import Turn from '~/components/turn/index.js'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 
 export default {
@@ -54,7 +64,6 @@ export default {
     Button,
     World,
     Modal,
-    Turn,
     TurnAnimation,
   },
   data() {
@@ -70,6 +79,7 @@ export default {
       words: null,
       selectedWord: '',
       winner: '',
+      turn: new Turn(),
     }
   },
   mounted() {
@@ -100,7 +110,7 @@ export default {
     closeWordModal() {
       this.$refs.wordModal.close()
     },
-    turn(word) {
+    turnProcess(word) {
       this.closeWordModal()
       this.movePlayer(word)
       if (this.$refs.world.isGoal()) {
@@ -114,7 +124,7 @@ export default {
         return
       }
       this.updateBaseWord(word)
-      this.$refs.turn.add()
+      this.turn.add()
       this.setActiveTurn()
       this.getWords()
       this.showTurnAnimation()
@@ -132,7 +142,7 @@ export default {
       this.$refs.turnAnimation.show()
     },
     isPekoraTurn() {
-      return this.$refs.turn.get() % 2 !== 0
+      return this.turn.count % 2 !== 0
     },
   },
 }
@@ -145,35 +155,39 @@ export default {
 }
 
 .world {
-  margin: 40px auto;
+  margin: 10px auto;
 }
 
-.turn-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 0 0;
-  margin: 0 0 30px;
+.turn {
+  &-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 10px;
+  }
 
-  & div {
+  &-count {
+    font-size: 5rem;
+    margin: 0;
+  }
+
+  &-inactive {
     display: inline-block;
-    font-size: 3.6rem;
+    font-size: 2.5rem;
     text-align: center;
-    padding: 16px 40px;
-    box-sizing: border-box;
+    padding: 10px 10px;
     color: #808080;
     border: 5px solid #808080;
   }
 
-  & p {
-    font-size: 7.2rem;
-    margin: 0;
+  &-active {
+    display: inline-block;
+    font-size: 2.5rem;
+    text-align: center;
+    padding: 10px 10px;
+    color: #ffffff;
+    border: 5px solid #ffffff;
   }
-}
-
-.active-turn {
-  color: #ffffff !important;
-  border-color: #ffffff !important ;
 }
 
 .word-wrapper {

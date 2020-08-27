@@ -34,9 +34,7 @@ export default class Player {
   /**
    * ２回目以降(移動時)
    */
-  depart() {
-    const x = Math.round(Math.random() * 500)
-    const y = Math.round(Math.random() * 500)
+  depart(x, y) {
     this._move(x, y)
   }
 
@@ -58,10 +56,12 @@ export default class Player {
     }
     // ２回目以降(移動時)
     if (y) {
+      const newX = this._x + x * 100
+      const newY = this._y + y * 100
       this._clear()
-      this._drawSocialDistance(x, y)
-      this._drawPlayer(x, y)
-      this._recalcCurrentPosition(x, y)
+      this._drawSocialDistance(newX, newY)
+      this._drawPlayer(newX, newY)
+      this._recalcCurrentPosition(newX, newY)
     }
   }
 

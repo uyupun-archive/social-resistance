@@ -10,6 +10,11 @@ import Pekora from '~/components/pekora/index.js'
 import BaikinKun from '~/components/baikin-kun/index.js'
 import House from '~/components/house/index.js'
 import Judge from '~/components/judge/index.js'
+import {
+  FIELD_HEIGHT,
+  FIELD_GRID_INTERVAL,
+  PLAYER_MOVABLE_FIELD_WIDTH,
+} from '~/components/constants/index.js'
 
 export default {
   data() {
@@ -53,13 +58,21 @@ export default {
     },
     drawGrid() {
       this.ctx.field.beginPath()
-      for (let x = 0; x < 1000; x += 50) {
+      for (
+        let x = 0;
+        x < PLAYER_MOVABLE_FIELD_WIDTH;
+        x += FIELD_GRID_INTERVAL
+      ) {
         this.ctx.field.moveTo(x, 0)
-        this.ctx.field.lineTo(x, 500)
+        this.ctx.field.lineTo(x, FIELD_HEIGHT)
       }
-      for (let y = 0; y < 1000; y += 50) {
+      for (
+        let y = 0;
+        y < PLAYER_MOVABLE_FIELD_WIDTH;
+        y += FIELD_GRID_INTERVAL
+      ) {
         this.ctx.field.moveTo(0, y)
-        this.ctx.field.lineTo(1000, y)
+        this.ctx.field.lineTo(PLAYER_MOVABLE_FIELD_WIDTH, y)
       }
       this.ctx.field.strokeStyle = '#eee'
       this.ctx.field.stroke()
@@ -68,8 +81,8 @@ export default {
     drawGoalLine() {
       this.ctx.field.beginPath()
       this.ctx.field.strokeStyle = '#ccc'
-      this.ctx.field.moveTo(1000, 0)
-      this.ctx.field.lineTo(1000, 500)
+      this.ctx.field.moveTo(PLAYER_MOVABLE_FIELD_WIDTH, 0)
+      this.ctx.field.lineTo(PLAYER_MOVABLE_FIELD_WIDTH, FIELD_HEIGHT)
       this.ctx.field.stroke()
       this.ctx.field.closePath()
     },
@@ -94,7 +107,7 @@ export default {
   position: relative;
   width: 1200px;
   height: 500px;
-  background: white;
+  background: $white;
 }
 
 .canvas-wrapper canvas {

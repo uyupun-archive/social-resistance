@@ -67,9 +67,9 @@ export default {
   width: 650px;
   transform: scale(0);
   transform-origin: center;
-  background: #111111;
+  background: $black;
   padding: 120px 40px 100px;
-  border: 5px solid #ffffff;
+  border: 5px solid $white;
   box-sizing: border-box;
   animation: modal 0.3s forwards;
 

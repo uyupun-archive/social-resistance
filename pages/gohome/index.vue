@@ -79,15 +79,13 @@ export default {
     getWords() {
       this.$nextTick(() => {
         this.words = this.$getWords(
-          this.$refs.turn.get() % 2 === 0
-            ? this.baikinKun.baseWord
-            : this.pekora.baseWord
+          this.isPekoraTurn() ? this.pekora.baseWord : this.baikinKun.baseWord
         )
       })
     },
     updateBaseWord(word) {
-      if (this.$refs.turn.get() % 2 === 0) this.baikinKun.baseWord = word
-      else this.pekora.baseWord = word
+      if (this.isPekoraTurn()) this.pekora.baseWord = word
+      else this.baikinKun.baseWord = word
     },
     openModal(word) {
       this.selectedWord = word
@@ -100,30 +98,27 @@ export default {
       this.$refs.modal.close()
     },
     turn(word) {
+      this.closeModalNative()
       this.movePlayer()
-      if (this.isGoal()) {
+      if (this.$refs.world.isGoal()) {
         console.log('うさぎさんのかち！')
         // TODO: うさぎさんのかち！のモーダルを出す
         return
       }
-      if (this.isHit()) {
+      if (this.$refs.world.isHit()) {
         console.log('ばいきんくんのかち！')
         // TODO: ばいきんくんのかち！のモーダルを出す
         return
       }
       this.updateBaseWord(word)
-      this.addTurn()
+      this.$refs.turn.add()
       this.setActiveTurn()
       this.getWords()
       this.playTurnAnimation()
     },
     movePlayer() {
-      this.$refs.modal.close()
-      if (this.$refs.turn.get() % 2 === 0) this.$refs.world.moveBaikinKun()
-      else this.$refs.world.movePekora()
-    },
-    addTurn() {
-      this.$refs.turn.add()
+      if (this.isPekoraTurn()) this.$refs.world.movePekora()
+      else this.$refs.world.moveBaikinKun()
     },
     setActiveTurn() {
       this.pekora.active = !this.pekora.active
@@ -135,11 +130,9 @@ export default {
         this.showTurnAnimation = false
       }, 2500)
     },
-    isHit() {
-      return this.$refs.world.isHit()
-    },
-    isGoal() {
-      return this.$refs.world.isGoal()
+    isPekoraTurn() {
+      if (this.$refs.turn.get() % 2 !== 0) return true
+      return false
     },
   },
 }

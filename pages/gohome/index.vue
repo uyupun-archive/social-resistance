@@ -36,7 +36,7 @@
       ref="turnAnimation"
       :count="$refs.turn && $refs.turn.get() ? $refs.turn.get() : 1"
       pekora="うさぎさん"
-      baikinKun="ばいきんくん"
+      baikin-kun="ばいきんくん"
     />
   </div>
 </template>

@@ -56,13 +56,39 @@ export default class Player {
     }
     // ２回目以降(移動時)
     if (y) {
-      const newX = this._x + x * 100
-      const newY = this._y + y * 100
+      const newX = this._correctCoordinateX(this._x + x * 100)
+      const newY = this._correctCoordinateY(this._y + y * 100)
       this._clear()
       this._drawSocialDistance(newX, newY)
       this._drawPlayer(newX, newY)
       this._recalcCurrentPosition(newX, newY)
     }
+  }
+
+  /**
+   * プレイヤーがワールドからはみ出していたらはみ出さないように補正する(x座標)
+   *
+   * @param {*} x
+   */
+  _correctCoordinateX(x) {
+    // xのマイナス方向の限界値を超えていないか
+    if (x < 0) x = 0
+    // xのプラス方向の限界値を超えていないか
+    if (x > 1000 - 120) x = 1000 - 120
+    return x
+  }
+
+  /**
+   * プレイヤーがワールドからはみ出していたらはみ出さないように補正する(y座標)
+   *
+   * @param {*} y
+   */
+  _correctCoordinateY(y) {
+    // yのマイナス方向の限界値を超えていないか
+    if (y > 500 - 120) y = 500 - 120
+    // yのプラス方向の限界値を超えていないか
+    if (y < 0) y = 0
+    return y
   }
 
   /**

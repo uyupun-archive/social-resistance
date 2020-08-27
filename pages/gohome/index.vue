@@ -12,16 +12,24 @@
     </div>
     <div class="word-wrapper">
       <div v-for="word in words" :key="word.index" class="word">
-        <Button :text="word.word" @click.native="openModal(word)" />
+        <Button :text="word.word" @click.native="openWordModal(word)" />
       </div>
     </div>
-    <Modal v-if="showModal" ref="modal" @close="closeModal">
+    <Modal ref="wordModal">
       <template v-slot:content>
         <p>『{{ selectedWord.word }}』でよろしいですか？</p>
       </template>
       <template v-slot:btns>
-        <Button text="よくない" @click.native="closeModalNative" />
+        <Button text="よくない" @click.native="closeWordModal" />
         <Button text="よい" @click.native="turn(selectedWord)" />
+      </template>
+    </Modal>
+    <Modal ref="winModal" :show-always="true">
+      <template v-slot:content>
+        <p>『{{ winner }}』のかち！</p>
+      </template>
+      <template v-slot:btns>
+        <Button to="/" text="おつかれ" />
       </template>
     </Modal>
     <TurnAnimation
@@ -61,8 +69,8 @@ export default {
       },
       words: null,
       selectedWord: '',
-      showModal: false,
       showTurnAnimation: true,
+      winner: '',
     }
   },
   mounted() {
@@ -86,27 +94,24 @@ export default {
       if (this.isPekoraTurn()) this.pekora.baseWord = word
       else this.baikinKun.baseWord = word
     },
-    openModal(word) {
+    openWordModal(word) {
       this.selectedWord = word
-      this.showModal = true
+      this.$refs.wordModal.open()
     },
-    closeModal() {
-      this.showModal = false
-    },
-    closeModalNative() {
-      this.$refs.modal.close()
+    closeWordModal() {
+      this.$refs.wordModal.close()
     },
     turn(word) {
-      this.closeModalNative()
+      this.closeWordModal()
       this.movePlayer(word)
       if (this.$refs.world.isGoal()) {
-        console.log('うさぎさんのかち！')
-        // TODO: うさぎさんのかち！のモーダルを出す
+        this.winner = 'うさぎさん'
+        this.$refs.winModal.open()
         return
       }
       if (this.$refs.world.isHit()) {
-        console.log('ばいきんくんのかち！')
-        // TODO: ばいきんくんのかち！のモーダルを出す
+        this.winner = 'ばいきんくん'
+        this.$refs.winModal.open()
         return
       }
       this.updateBaseWord(word)
@@ -131,8 +136,7 @@ export default {
       }, 2500)
     },
     isPekoraTurn() {
-      if (this.$refs.turn.get() % 2 !== 0) return true
-      return false
+      return this.$refs.turn.get() % 2 !== 0
     },
   },
 }

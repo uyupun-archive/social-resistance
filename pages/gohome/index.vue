@@ -20,7 +20,7 @@
         <p>『{{ selectedWord.word }}』でよろしいですか？</p>
       </template>
       <template v-slot:btns>
-        <Button text="よくない" @click.native="closeWordModalNative" />
+        <Button text="よくない" @click.native="closeWordModal" />
         <Button text="よい" @click.native="turn(selectedWord)" />
       </template>
     </Modal>
@@ -98,11 +98,11 @@ export default {
       this.selectedWord = word
       this.$refs.wordModal.open()
     },
-    closeWordModalNative() {
+    closeWordModal() {
       this.$refs.wordModal.close()
     },
     turn(word) {
-      this.closeWordModalNative()
+      this.closeWordModal()
       this.movePlayer(word)
       if (this.$refs.world.isGoal()) {
         this.winner = 'うさぎさん'

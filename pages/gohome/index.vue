@@ -12,21 +12,21 @@
     </div>
     <div class="word-wrapper">
       <div v-for="word in words" :key="word.index" class="word">
-        <Button :text="word.word" @click.native="openModal(word)" />
+        <Button :text="word.word" @click.native="openWordModal(word)" />
       </div>
     </div>
-    <Modal v-if="showModal" ref="modal" @close="closeModal">
+    <Modal v-if="showWordModal" ref="wordModal" @close="closeWordModal">
       <template v-slot:content>
         <p>『{{ selectedWord.word }}』でよろしいですか？</p>
       </template>
       <template v-slot:btns>
-        <Button text="よくない" @click.native="closeModalNative" />
+        <Button text="よくない" @click.native="closeWordModalNative" />
         <Button text="よい" @click.native="turn(selectedWord)" />
       </template>
     </Modal>
-    <Modal v-if="showWinModal">
+    <Modal v-if="showWinModal" :show-always="true">
       <template v-slot:content>
-        <p class="win-modal_text">『{{ winner }}』のかち！</p>
+        <p>『{{ winner }}』のかち！</p>
       </template>
       <template v-slot:btns>
         <Button to="/" text="おつかれ" />
@@ -69,7 +69,7 @@ export default {
       },
       words: null,
       selectedWord: '',
-      showModal: false,
+      showWordModal: false,
       showWinModal: false,
       showTurnAnimation: true,
       winner: '',
@@ -96,18 +96,18 @@ export default {
       if (this.isPekoraTurn()) this.pekora.baseWord = word
       else this.baikinKun.baseWord = word
     },
-    openModal(word) {
+    openWordModal(word) {
       this.selectedWord = word
-      this.showModal = true
+      this.showWordModal = true
     },
-    closeModal() {
-      this.showModal = false
+    closeWordModal() {
+      this.showWordModal = false
     },
-    closeModalNative() {
-      this.$refs.modal.close()
+    closeWordModalNative() {
+      this.$refs.wordModal.close()
     },
     turn(word) {
-      this.closeModalNative()
+      this.closeWordModalNative()
       this.movePlayer(word)
       if (this.$refs.world.isGoal()) {
         this.winner = 'うさぎさん'
@@ -192,9 +192,5 @@ export default {
 .word {
   margin: 0 20px 30px 20px;
   width: 20%;
-}
-
-.win-modal_text {
-  text-align: center;
 }
 </style>

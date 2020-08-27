@@ -19,6 +19,12 @@
 
 <script>
 export default {
+  props: {
+    showAlways: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       isClose: false,
@@ -26,6 +32,7 @@ export default {
   },
   methods: {
     close() {
+      if (this.showAlways) return
       this.isClose = true
       setTimeout(this.$emit.bind(this, 'close'), 300)
     },
@@ -60,6 +67,7 @@ export default {
   &-content {
     width: 100%;
     & p {
+      text-align: center;
       font-size: 3.6rem;
       margin: 0 0 100px;
     }

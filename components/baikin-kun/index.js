@@ -14,12 +14,12 @@ export default class BaikinKun extends Player {
   }
 
   /**
-   * 現在位置の再計算
+   * 現在位置の計算
    *
    * @param {*} x
    * @param {*} y
    */
-  _recalcCurrentPosition(x, y) {
+  _calcCurrentPosition(x, y) {
     this._x = x || 900
     this._y = y || FIELD_HEIGHT / 2 - this._height / 2
   }

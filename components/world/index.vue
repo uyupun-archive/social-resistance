@@ -30,6 +30,7 @@ export default {
   },
   mounted() {
     this.createCanvas()
+    this.createJudge()
     this.drawGrid()
     this.drawGoalLine()
     this.pekora.spawn(0)
@@ -40,7 +41,6 @@ export default {
     createCanvas() {
       this.createFieldLayer()
       this.createPlayerLayer()
-      this.createJudge()
     },
     createFieldLayer() {
       const field = document.getElementById('field-layer')

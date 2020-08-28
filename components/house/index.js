@@ -1,3 +1,9 @@
+import {
+  FIELD_HEIGHT,
+  PLAYER_MOVABLE_FIELD_WIDTH,
+  PLAYER_SIZE_SCALE,
+} from '~/components/constants/index.js'
+
 export default class House {
   constructor(ctx) {
     this._ctx = ctx
@@ -9,10 +15,10 @@ export default class House {
     this._image.onload = () => {
       this._ctx.drawImage(
         this._image,
-        1050,
-        250 - (this._image.naturalHeight * 0.15) / 2,
-        this._image.naturalWidth * 0.15,
-        this._image.naturalHeight * 0.15
+        PLAYER_MOVABLE_FIELD_WIDTH + 50,
+        FIELD_HEIGHT / 2 - (this._image.naturalHeight * PLAYER_SIZE_SCALE) / 2,
+        this._image.naturalWidth * PLAYER_SIZE_SCALE,
+        this._image.naturalHeight * PLAYER_SIZE_SCALE
       )
     }
   }

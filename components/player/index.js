@@ -29,7 +29,7 @@ export default class Player {
    * 擬似的な抽象メソッドみたいな
    */
   checkIsImplemented() {
-    if (!(this.spawn && this._drawPlayer && this._recalcCurrentPosition)) {
+    if (!(this.spawn && this._drawPlayer && this._calcCurrentPosition)) {
       throw new Error('Necessary methods are not implemented.')
     }
   }
@@ -57,10 +57,9 @@ export default class Player {
     this._image.onload = () => {
       this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
       this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
-      this._clear()
       this._drawSocialDistance(x, y)
       this._drawPlayer(x, y)
-      this._recalcCurrentPosition(x, y)
+      this._calcCurrentPosition(x, y)
     }
     // ２回目以降(移動時)
     if (y) {
@@ -69,7 +68,7 @@ export default class Player {
       this._clear()
       this._drawSocialDistance(newX, newY)
       this._drawPlayer(newX, newY)
-      this._recalcCurrentPosition(newX, newY)
+      this._calcCurrentPosition(newX, newY)
     }
   }
 
@@ -163,5 +162,5 @@ export default class Player {
   /**
    * 現在位置の再計算
    */
-  _recalcCurrentPosition() {}
+  _calcCurrentPosition() {}
 }

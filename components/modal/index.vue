@@ -63,7 +63,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(17, 17, 17, 0.3);
+  background: rgba($black, 0.3);
   z-index: 999;
 }
 

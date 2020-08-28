@@ -1,4 +1,5 @@
 import word2vec from '@/assets/json/word2vec.json'
+import { WORD_COUNT } from '@/components/constants/index.js'
 
 /**
  * 最初の１単語を返す
@@ -17,12 +18,11 @@ const getFirstWord = () => {
  */
 const getWords = (baseWord) => {
   const words = []
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < WORD_COUNT; i++) {
     const idx = _getRandomIdx()
     const word = word2vec[idx]
     word.index = idx
-    word.correct_x = _getCorrectX(baseWord, word)
-    word.about_direction = _getAboutDirection(baseWord, word)
+    word.direction = _getDirection(baseWord, word)
     words.push(word)
   }
   return words
@@ -37,37 +37,25 @@ const _getRandomIdx = () => {
 }
 
 /**
- * ベースとなる単語のxの値よりも比較対象の単語のxの値が小さい場合、
- * 後退してしまうのでそのための措置
- * TODO: 猟犬サイドの場合は計算が逆転する。修正が必要
+ * 単語の選択によって現在の位置から大まかにどの方向へ移動するかのガイド
+ * 四象限で表現
  *
  * @param {*} baseWord
  * @param {*} word
  */
-const _getCorrectX = (baseWord, word) => {
-  if (word.move.x < baseWord.move.x) {
-    const correctX =
-      baseWord.move.x + (Math.abs(word.move.x) - Math.abs(baseWord.move.x))
-    return correctX
+const _getDirection = (baseWord, word) => {
+  const direction = {
+    top_right: false,
+    top_left: false,
+    bottom_left: false,
+    bottom_right: false,
   }
-  return word.move.x
-}
-
-/**
- * 単語の選択によって今の場所から大まかに上に移動するか、下に移動するか、ほぼ真っすぐ移動するかを返す
- * TODO: 小数点までピッタリ合うことは無いので、keepの幅にもう少し余裕を持たせる
- *
- * @param {*} baseWord
- * @param {*} word
- */
-const _getAboutDirection = (baseWord, word) => {
-  if (word.move.y > baseWord.move.y) {
-    return 'left'
-  }
-  if (word.move.y < baseWord.move.y) {
-    return 'right'
-  }
-  return 'straight'
+  if (word.move.x > baseWord.move.x) {
+    if (word.move.y > baseWord.move.y) direction.bottom_right = true
+    else direction.top_right = true
+  } else if (word.move.y > baseWord.move.y) direction.bottom_left = true
+  else direction.top_left = true
+  return direction
 }
 
 /* eslint-disable */

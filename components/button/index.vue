@@ -13,13 +13,38 @@
   >
     <span class="btn-text">{{ text }}</span>
   </nuxt-link>
-  <button v-else type="button" class="btn">
-    <span class="btn-text">{{ text }}</span>
+  <button
+    v-else
+    type="button"
+    :class="{
+      btn: true,
+      isCompass,
+      topLeft,
+      topRight,
+      bottomLeft,
+      bottomRight,
+    }"
+  >
+    <span class="btn-text">
+      {{ text }}
+      <Compass
+        v-if="isCompass"
+        :top-left="topLeft"
+        :top-right="topRight"
+        :bottom-left="bottomLeft"
+        :bottom-right="bottomRight"
+      />
+    </span>
   </button>
 </template>
 
 <script>
+import Compass from '~/components/compass/index.vue'
+
 export default {
+  components: {
+    Compass,
+  },
   props: {
     to: {
       type: String,
@@ -30,6 +55,26 @@ export default {
       required: true,
     },
     notLinkStyle: {
+      type: Boolean,
+      default: false,
+    },
+    isCompass: {
+      type: Boolean,
+      default: false,
+    },
+    topLeft: {
+      type: Boolean,
+      default: false,
+    },
+    topRight: {
+      type: Boolean,
+      default: false,
+    },
+    bottomLeft: {
+      type: Boolean,
+      default: false,
+    },
+    bottomRight: {
       type: Boolean,
       default: false,
     },
@@ -91,6 +136,54 @@ export default {
     display: inline-block;
     z-index: 1;
     transform: skewX(30deg);
+  }
+}
+
+.isCompass {
+  &:hover {
+    & span > div {
+      border: 1px solid $black;
+    }
+  }
+}
+
+.topLeft {
+  &:hover {
+    & span > div {
+      &:after {
+        border-left: 16px solid $black;
+      }
+    }
+  }
+}
+
+.topRight {
+  &:hover {
+    & span > div {
+      &:after {
+        border-top: 16px solid $black;
+      }
+    }
+  }
+}
+
+.bottomLeft {
+  &:hover {
+    & span > div {
+      &:after {
+        border-bottom: 16px solid $black;
+      }
+    }
+  }
+}
+
+.bottomRight {
+  &:hover {
+    & span > div {
+      &:after {
+        border-right: 16px solid $black;
+      }
+    }
   }
 }
 </style>

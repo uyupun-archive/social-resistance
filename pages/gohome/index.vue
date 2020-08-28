@@ -1,61 +1,74 @@
 <template>
-  <div class="container">
-    <World ref="world" class="world" />
-    <div class="turn-box">
-      <div
-        class="turn-which"
-        :class="{
-          'turn-active': pekora.active,
-          'turn-inactive': !pekora.active,
-        }"
-      >
-        <p class="turn-which-player">うさぎさんのターン</p>
-        <p class="turn-which-word">
-          [{{ pekora.baseWord ? pekora.baseWord.word : '' }}]
-        </p>
+  <div>
+    <div class="container">
+      <World ref="world" class="world" />
+      <div class="turn-box">
+        <div
+          class="turn-which"
+          :class="{
+            'turn-active': pekora.active,
+            'turn-inactive': !pekora.active,
+          }"
+        >
+          <p class="turn-which-player">うさぎさんのターン</p>
+          <p class="turn-which-word">
+            [{{ pekora.baseWord ? pekora.baseWord.word : '' }}]
+          </p>
+        </div>
+        <p class="turn-count">{{ turn.count }}</p>
+        <div
+          class="turn-which"
+          :class="{
+            'turn-active': baikinKun.active,
+            'turn-inactive': !baikinKun.active,
+          }"
+        >
+          <p class="turn-which-player">ばいきんくんのターン</p>
+          <p class="turn-which-word">
+            [{{ baikinKun.baseWord ? baikinKun.baseWord.word : '' }}]
+          </p>
+        </div>
       </div>
-      <p class="turn-count">{{ turn.count }}</p>
-      <div
-        class="turn-which"
-        :class="{
-          'turn-active': baikinKun.active,
-          'turn-inactive': !baikinKun.active,
-        }"
-      >
-        <p class="turn-which-player">ばいきんくんのターン</p>
-        <p class="turn-which-word">
-          [{{ baikinKun.baseWord ? baikinKun.baseWord.word : '' }}]
-        </p>
+      <div class="word-wrapper">
+        <div v-for="word in words" :key="word.index" class="word">
+          <Button
+            :text="word.word"
+            :is-compass="true"
+            :top-left="word.direction.top_left"
+            :top-right="word.direction.top_right"
+            :bottom-left="word.direction.bottom_left"
+            :bottom-right="word.direction.bottom_right"
+            @click.native="openWordModal(word)"
+          />
+        </div>
       </div>
+      <Modal ref="wordModal">
+        <template v-slot:content>
+          <p>『{{ selectedWord.word }}』でよろしいですか？</p>
+        </template>
+        <template v-slot:btns>
+          <Button text="よくない" @click.native="closeWordModal" />
+          <Button text="よい" @click.native="turnProcess(selectedWord)" />
+        </template>
+      </Modal>
     </div>
-    <div class="word-wrapper">
-      <div v-for="word in words" :key="word.index" class="word">
-        <Button
-          :text="word.word"
-          :is-compass="true"
-          :top-left="word.direction.top_left"
-          :top-right="word.direction.top_right"
-          :bottom-left="word.direction.bottom_left"
-          :bottom-right="word.direction.bottom_right"
-          @click.native="openWordModal(word)"
-        />
-      </div>
+    <div class="btn-pause">
+      <Button text="ポーズ" size="small" @click.native="openPauseModal" />
     </div>
-    <Modal ref="wordModal">
+    <Modal ref="pauseModal" :is-wrap="true">
       <template v-slot:content>
-        <p>『{{ selectedWord.word }}』でよろしいですか？</p>
+        <p>ポーズ</p>
       </template>
       <template v-slot:btns>
-        <Button text="よくない" @click.native="closeWordModal" />
-        <Button text="よい" @click.native="turnProcess(selectedWord)" />
-      </template>
-    </Modal>
-    <Modal ref="winModal" :show-always="true">
-      <template v-slot:content>
-        <p>『{{ winner }}』のかち！</p>
-      </template>
-      <template v-slot:btns>
-        <Button to="/" text="おつかれ" />
+        <div class="pause-choices">
+          <Button text="さいかい" @click.native="closePauseModal" />
+        </div>
+        <div class="pause-choices">
+          <Button text="やりなおし" />
+        </div>
+        <div class="pause-choices">
+          <Button text="やめる" to="/" />
+        </div>
       </template>
     </Modal>
     <TurnAnimation
@@ -64,6 +77,14 @@
       pekora="うさぎさん"
       baikin-kun="ばいきんくん"
     />
+    <Modal ref="winModal" :show-always="true">
+      <template v-slot:content>
+        <p>『{{ winner }}』のかち！</p>
+      </template>
+      <template v-slot:btns>
+        <Button to="/" text="おつかれ" size="large" />
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -126,6 +147,12 @@ export default {
     closeWordModal() {
       this.$refs.wordModal.close()
     },
+    openPauseModal() {
+      this.$refs.pauseModal.open()
+    },
+    closePauseModal() {
+      this.$refs.pauseModal.close()
+    },
     turnProcess(word) {
       this.closeWordModal()
       this.movePlayer(word)
@@ -166,7 +193,7 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  margin: 0 auto;
+  margin: 0 auto 50px;
   width: 1200px;
 }
 
@@ -225,5 +252,20 @@ export default {
 .word {
   margin: 0 20px 30px 20px;
   width: 20%;
+}
+
+.btn-pause {
+  text-align: right;
+  margin: 0 25px 20px;
+}
+
+.pause-choices {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 30px;
+
+  &:last-of-type {
+    margin: 0;
+  }
 }
 </style>

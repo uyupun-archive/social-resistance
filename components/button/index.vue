@@ -6,7 +6,15 @@
 -->
 
 <template>
-  <nuxt-link v-if="to" :to="to" class="btn btn-link">
+  <nuxt-link
+    v-if="to"
+    :to="to"
+    :class="{
+      btn: true,
+      'btn-small': size === 'small',
+      'btn-large': size === 'large',
+    }"
+  >
     <span class="btn-text">{{ text }}</span>
   </nuxt-link>
   <button
@@ -14,6 +22,8 @@
     type="button"
     :class="{
       btn: true,
+      'btn-small': size === 'small',
+      'btn-large': size === 'large',
       isCompass,
       topLeft,
       topRight,
@@ -50,6 +60,10 @@ export default {
       type: String,
       required: true,
     },
+    size: {
+      type: String, // 'small' | 'middle' | 'large'
+      default: 'middle',
+    },
     isCompass: {
       type: Boolean,
       default: false,
@@ -80,10 +94,10 @@ export default {
   display: inline-block;
   min-width: 250px;
   padding: 16px 40px;
+  font-size: 3.6rem;
   border: 5px solid $white;
   color: $white;
   background: $black;
-  font-size: 3.6rem;
   font-family: 'Sawarabi-Gothic', sans-serif;
   text-align: center;
   cursor: pointer;
@@ -91,6 +105,7 @@ export default {
   box-sizing: border-box;
   outline: none;
   transform: skewX(-30deg);
+  text-decoration: none;
 
   &:after {
     content: '';
@@ -117,11 +132,16 @@ export default {
     outline: none;
   }
 
-  &-link {
+  &-small {
+    min-width: 150px;
+    padding: 10px 16px;
+    font-size: 2.8rem;
+  }
+
+  &-large {
     min-width: 450px;
     padding: 22px 40px;
     font-size: 4.8rem;
-    text-decoration: none;
   }
 
   &-text {

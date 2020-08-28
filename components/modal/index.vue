@@ -10,7 +10,7 @@
       <div :class="{ modal: true, close: isClose }">
         <div class="modal-content">
           <slot name="content" />
-          <div class="modal-btns">
+          <div :class="{ 'modal-btns': true, wrap: isWrap, nowrap: !isWrap }">
             <slot name="btns" />
           </div>
         </div>
@@ -23,6 +23,10 @@
 export default {
   props: {
     showAlways: {
+      type: Boolean,
+      default: false,
+    },
+    isWrap: {
       type: Boolean,
       default: false,
     },
@@ -84,13 +88,20 @@ export default {
 
   &-btns {
     display: flex;
-    flex-wrap: nowrap;
     justify-content: space-around;
   }
 }
 
 .close {
   animation: close 0.3s forwards;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.nowrap {
+  flex-wrap: nowrap;
 }
 
 @keyframes modal {

@@ -1,4 +1,7 @@
-import { FIELD_HEIGHT } from '~/components/constants/index.js'
+import {
+  FIELD_HEIGHT,
+  PLAYER_PEKORA_START_POINT,
+} from '~/components/constants/index.js'
 import Player from '~/components/player/index.js'
 
 export default class Pekora extends Player {
@@ -7,9 +10,9 @@ export default class Pekora extends Player {
    *
    * @param {*} x
    */
-  spawn(x = null) {
+  spawn() {
     this._image.src = require('~/assets/images/objects/pekora.gif')
-    this._move(x)
+    this._move(PLAYER_PEKORA_START_POINT)
   }
 
   /**

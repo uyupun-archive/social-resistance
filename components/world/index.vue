@@ -33,8 +33,8 @@ export default {
     this.createJudge()
     this.drawGrid()
     this.drawGoalLine()
-    this.pekora.spawn(0)
-    this.baikinKun.spawn(900)
+    this.pekora.spawn()
+    this.baikinKun.spawn()
     this.house.draw()
   },
   methods: {

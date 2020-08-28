@@ -9,7 +9,7 @@ export default class BaikinKun extends Player {
    */
   spawn(x = null) {
     const n = Math.ceil(Math.random() * 2)
-    this._image.src = require(`~/assets/images/objects/baikin_${n}.gif`)
+    this._image.src = require(`~/assets/images/objects/baikinkun_${n}.gif`)
     this._move(x)
   }
 

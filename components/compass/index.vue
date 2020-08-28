@@ -1,15 +1,22 @@
 <template>
-  <span class="compass">
-    <span
-      :class="{
-        needle: true,
-        topLeft,
-        topRight,
-        bottomLeft,
-        bottomRight,
-      }"
-    ></span>
-  </span>
+  <div
+    :class="{
+      compass: true,
+      topLeft,
+      topRight,
+      bottomLeft,
+      bottomRight,
+    }"
+  />
+  <!--<span-->
+  <!--:class="{-->
+  <!--needle: true,-->
+  <!--topLeft,-->
+  <!--topRight,-->
+  <!--bottomLeft,-->
+  <!--bottomRight,-->
+  <!--}"-->
+  <!--&gt;</span>-->
 </template>
 
 <script>
@@ -40,38 +47,45 @@ export default {
   position: relative;
   display: inline-block;
   box-sizing: border-box;
-  width: 50px;
-  height: 50px;
-  background: $black;
+  width: 32px;
+  height: 32px;
   border: 1px solid $white;
   border-radius: 50%;
-}
 
-.needle {
-  display: inline-block;
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  transform: rotate(45deg);
-  width: 0;
-  height: 0;
-  border: 25px solid transparent;
-  border-radius: 50%;
+  &:after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    transform: rotate(45deg);
+    width: 0;
+    height: 0;
+    border: 16px solid transparent;
+    border-radius: 50%;
+  }
 }
 
 .topLeft {
-  border-left: 25px solid $white;
+  &:after {
+    border-left: 16px solid $white;
+  }
 }
 
 .topRight {
-  border-top: 25px solid $white;
+  &:after {
+    border-top: 16px solid $white;
+  }
 }
 
 .bottomLeft {
-  border-bottom: 25px solid $white;
+  &:after {
+    border-bottom: 16px solid $white;
+  }
 }
 
 .bottomRight {
-  border-right: 25px solid $white;
+  &:after {
+    border-right: 16px solid $white;
+  }
 }
 </style>

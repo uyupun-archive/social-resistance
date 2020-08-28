@@ -1,4 +1,7 @@
-import { FIELD_HEIGHT } from '~/components/constants/index.js'
+import {
+  FIELD_HEIGHT,
+  PLAYER_BAIKINKUN_START_POINT,
+} from '~/components/constants/index.js'
 import Player from '~/components/player/index.js'
 
 export default class BaikinKun extends Player {
@@ -7,10 +10,10 @@ export default class BaikinKun extends Player {
    *
    * @param {*} x
    */
-  spawn(x = null) {
+  spawn() {
     const n = Math.ceil(Math.random() * 2)
     this._image.src = require(`~/assets/images/objects/baikinkun_${n}.gif`)
-    this._move(x)
+    this._move(PLAYER_BAIKINKUN_START_POINT)
   }
 
   /**

@@ -10,6 +10,9 @@ export default class House {
     this._image = new Image()
   }
 
+  /**
+   * 家の描画
+   */
   draw() {
     this._image.src = require('~/assets/images/objects/house.gif')
     this._image.onload = () => {

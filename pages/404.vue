@@ -3,9 +3,7 @@
     <div class="logo"></div>
     <div class="box">
       <h1 class="title">みせられないよ</h1>
-      <div class="btn-rule">
-        <Button to="/" text="はじめにもどる" />
-      </div>
+      <Button to="/" text="はじめにもどる" />
     </div>
   </div>
 </template>
@@ -24,8 +22,7 @@ export default {
 .container {
   text-align: center;
   width: 60%;
-  margin: auto;
-  margin-top: 5%;
+  margin: 5% auto 0;
 }
 
 .logo {
@@ -42,24 +39,17 @@ export default {
 .title {
   font-size: 9.6rem;
   line-height: 1;
+  margin: 0 0 50px;
 }
 
 .box {
-  border: 5px solid white;
+  padding: 60px 40px;
+  border: 5px solid $white;
 }
 
 .subtitle {
   font-family: 'Roboto-Thin', sans-serif;
   font-size: 4.8rem;
   margin: 0 0 50px;
-}
-
-.btn {
-  &-start {
-    margin: 0 0 10%;
-  }
-  &-rule {
-    margin: 0 0 10%;
-  }
 }
 </style>

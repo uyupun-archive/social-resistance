@@ -38,6 +38,9 @@
 import Compass from '~/components/compass/index.vue'
 
 export default {
+  components: {
+    Compass,
+  },
   props: {
     to: {
       type: String,
@@ -67,9 +70,6 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  components: {
-    Compass,
   },
 }
 </script>

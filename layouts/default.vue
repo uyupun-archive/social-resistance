@@ -11,10 +11,10 @@
 <style lang="scss">
 .page-enter {
   opacity: 0;
-}
 
-.page-enter-active {
-  transition: opacity 1.5s;
+  &-active {
+    transition: opacity 1.5s;
+  }
 }
 
 html {

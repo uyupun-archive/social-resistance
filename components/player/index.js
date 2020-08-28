@@ -1,3 +1,11 @@
+import {
+  FIELD_HEIGHT,
+  SOCIAL_DISTANCE_ZONE_RADIUS,
+  PLAYER_SIZE_SCALE,
+  PLAYER_MOVE_SCALE,
+  PLAYER_MOVABLE_FIELD_WIDTH,
+} from '~/components/constants/index.js'
+
 export default class Player {
   constructor(ctx) {
     this._ctx = ctx
@@ -34,9 +42,7 @@ export default class Player {
   /**
    * ２回目以降(移動時)
    */
-  depart() {
-    const x = Math.round(Math.random() * 500)
-    const y = Math.round(Math.random() * 500)
+  depart(x, y) {
     this._move(x, y)
   }
 
@@ -49,8 +55,8 @@ export default class Player {
   _move(x = null, y = null) {
     // 初回(スポーン時)
     this._image.onload = () => {
-      this._width = this._image.naturalWidth * 0.15
-      this._height = this._image.naturalHeight * 0.15
+      this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
+      this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
       this._clear()
       this._drawSocialDistance(x, y)
       this._drawPlayer(x, y)
@@ -58,11 +64,41 @@ export default class Player {
     }
     // ２回目以降(移動時)
     if (y) {
+      const newX = this._correctCoordinateX(this._x + x * PLAYER_MOVE_SCALE)
+      const newY = this._correctCoordinateY(this._y + y * PLAYER_MOVE_SCALE)
       this._clear()
-      this._drawSocialDistance(x, y)
-      this._drawPlayer(x, y)
-      this._recalcCurrentPosition(x, y)
+      this._drawSocialDistance(newX, newY)
+      this._drawPlayer(newX, newY)
+      this._recalcCurrentPosition(newX, newY)
     }
+  }
+
+  /**
+   * プレイヤーがワールドからはみ出していたらはみ出さないように補正する(x座標)
+   *
+   * @param {*} x
+   */
+  _correctCoordinateX(x) {
+    // xのマイナス方向の限界値を超えていないか
+    if (x < 0) x = 0
+    // xのプラス方向の限界値を超えていないか
+    if (x > PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS * 2)
+      x = PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS * 2
+    return x
+  }
+
+  /**
+   * プレイヤーがワールドからはみ出していたらはみ出さないように補正する(y座標)
+   *
+   * @param {*} y
+   */
+  _correctCoordinateY(y) {
+    // yのマイナス方向の限界値を超えていないか
+    if (y > FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS * 2)
+      y = FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS * 2
+    // yのプラス方向の限界値を超えていないか
+    if (y < 0) y = 0
+    return y
   }
 
   /**
@@ -86,7 +122,7 @@ export default class Player {
     this._ctx.drawImage(
       this._image,
       x,
-      y || 250 - this._height / 2,
+      y || FIELD_HEIGHT / 2 - this._height / 2,
       this._width,
       this._height
     )
@@ -115,7 +151,7 @@ export default class Player {
     this._ctx.beginPath()
     this._ctx.arc(
       x + this._width / 2,
-      y ? y + this._height / 2 : 250,
+      y ? y + this._height / 2 : FIELD_HEIGHT / 2,
       radius,
       0,
       2 * Math.PI

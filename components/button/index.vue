@@ -43,9 +43,9 @@ export default {
   display: inline-block;
   min-width: 250px;
   padding: 16px 40px;
-  border: 5px solid #ffffff;
-  color: #ffffff;
-  background: #111111;
+  border: 5px solid $white;
+  color: $white;
+  background: $black;
   font-size: 3.6rem;
   font-family: 'Sawarabi-Gothic', sans-serif;
   text-align: center;
@@ -62,14 +62,14 @@ export default {
     left: -5px;
     width: 0;
     height: calc(100% + 10px);
-    background: #ffffff;
+    background: $white;
     z-index: -1;
     transition: 0.3s;
   }
 
   &:hover {
     transition: 0.3s;
-    color: #111111;
+    color: $black;
 
     &:after {
       width: calc(100% + 10px);

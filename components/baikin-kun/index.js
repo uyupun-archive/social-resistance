@@ -1,3 +1,4 @@
+import { FIELD_HEIGHT } from '~/components/constants/index.js'
 import Player from '~/components/player/index.js'
 
 export default class BaikinKun extends Player {
@@ -20,6 +21,6 @@ export default class BaikinKun extends Player {
    */
   _recalcCurrentPosition(x, y) {
     this._x = x || 900
-    this._y = y || 250 - this._height / 2
+    this._y = y || FIELD_HEIGHT / 2 - this._height / 2
   }
 }

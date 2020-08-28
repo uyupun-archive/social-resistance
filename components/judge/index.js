@@ -1,10 +1,16 @@
+import {
+  PLAYER_MOVABLE_FIELD_WIDTH,
+  SOCIAL_DISTANCE_ZONE_RADIUS,
+} from '~/components/constants/index.js'
+
 export default class Judge {
   /**
    * うさぎさんの勝利判定
    */
   isGoal(y) {
     // フィールドの幅 - ソーシャルディスタンスゾーンの直径
-    if (y >= 1000 - 120) return true
+    if (y >= PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS * 2)
+      return true
     return false
   }
 
@@ -20,9 +26,8 @@ export default class Judge {
       (coordinateB.x - coordinateA.x) ** 2 +
         (coordinateB.y - coordinateA.y) ** 2
     )
-    const radius = 60
     // 二点間の距離が各Playerの和以下なら衝突している
-    if (distance <= radius * 2) return true
+    if (distance <= SOCIAL_DISTANCE_ZONE_RADIUS * 2) return true
     return false
   }
 }

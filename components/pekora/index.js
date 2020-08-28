@@ -18,7 +18,7 @@ export default class Pekora extends Player {
    * @param {*} x
    * @param {*} y
    */
-  _recalcCurrentPosition(x, y) {
+  _calcCurrentPosition(x, y) {
     this._x = x || 0
     this._y = y || FIELD_HEIGHT / 2 - this._height / 2
   }

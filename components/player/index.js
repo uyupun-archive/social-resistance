@@ -14,6 +14,7 @@ export default class Player {
     this._height = null
     this._x = null
     this._y = null
+    this._spawned = false
     this.checkIsImplemented()
   }
 
@@ -29,7 +30,7 @@ export default class Player {
    * 擬似的な抽象メソッドみたいな
    */
   checkIsImplemented() {
-    if (!(this.spawn && this._drawPlayer && this._calcCurrentPosition)) {
+    if (!(this.spawn && this._drawPlayer && this._calcCurrentCoordinate)) {
       throw new Error('Necessary methods are not implemented.')
     }
   }
@@ -47,28 +48,29 @@ export default class Player {
   }
 
   /**
-   * 移動前の画像の削除、移動後の画像の描画、現在位置の再計算の呼び出し
+   * 移動前の画像の削除、移動後の画像の描画、現在位置の計算の呼び出し
    *
    * @param {*} x
    * @param {*} y
    */
-  _move(x = null, y = null) {
+  _move(x, y) {
     // 初回(スポーン時)
     this._image.onload = () => {
       this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
       this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
+      this._spawned = true
       this._drawSocialDistance(x, y)
       this._drawPlayer(x, y)
-      this._calcCurrentPosition(x, y)
+      this._calcCurrentCoordinate(x, y)
     }
     // ２回目以降(移動時)
-    if (y) {
+    if (this._spawned) {
       const newX = this._correctCoordinateX(this._x + x * PLAYER_MOVE_SCALE)
       const newY = this._correctCoordinateY(this._y + y * PLAYER_MOVE_SCALE)
       this._clear()
       this._drawSocialDistance(newX, newY)
       this._drawPlayer(newX, newY)
-      this._calcCurrentPosition(newX, newY)
+      this._calcCurrentCoordinate(newX, newY)
     }
   }
 
@@ -79,10 +81,10 @@ export default class Player {
    */
   _correctCoordinateX(x) {
     // xのマイナス方向の限界値を超えていないか
-    if (x < 0) x = 0
+    if (x < SOCIAL_DISTANCE_ZONE_RADIUS) x = SOCIAL_DISTANCE_ZONE_RADIUS
     // xのプラス方向の限界値を超えていないか
-    if (x > PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS * 2)
-      x = PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS * 2
+    else if (x > PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS)
+      x = PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS
     return x
   }
 
@@ -93,10 +95,10 @@ export default class Player {
    */
   _correctCoordinateY(y) {
     // yのマイナス方向の限界値を超えていないか
-    if (y > FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS * 2)
-      y = FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS * 2
+    if (y < SOCIAL_DISTANCE_ZONE_RADIUS) y = SOCIAL_DISTANCE_ZONE_RADIUS
     // yのプラス方向の限界値を超えていないか
-    if (y < 0) y = 0
+    else if (y > FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS)
+      y = FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS
     return y
   }
 
@@ -104,11 +106,9 @@ export default class Player {
    * 移動前の画像の削除
    */
   _clear() {
-    if (this._x !== null && this._y !== null) {
-      this._ctx.globalCompositeOperation = 'destination-out'
-      this._drawCircle(this._x, this._y, '#fff', 61)
-      this._ctx.globalCompositeOperation = 'source-over'
-    }
+    this._ctx.globalCompositeOperation = 'destination-out'
+    this._drawCircle(this._x, this._y, '#fff', SOCIAL_DISTANCE_ZONE_RADIUS + 1)
+    this._ctx.globalCompositeOperation = 'source-over'
   }
 
   /**
@@ -120,8 +120,8 @@ export default class Player {
   _drawPlayer(x, y) {
     this._ctx.drawImage(
       this._image,
-      x,
-      y || FIELD_HEIGHT / 2 - this._height / 2,
+      x - this._width / 2,
+      y - this._height / 2,
       this._width,
       this._height
     )
@@ -148,19 +148,19 @@ export default class Player {
   _drawCircle(x, y, color = 'red', radius = 60) {
     this._ctx.fillStyle = color
     this._ctx.beginPath()
-    this._ctx.arc(
-      x + this._width / 2,
-      y ? y + this._height / 2 : FIELD_HEIGHT / 2,
-      radius,
-      0,
-      2 * Math.PI
-    )
+    this._ctx.arc(x, y, radius, 0, 2 * Math.PI)
     this._ctx.fill()
     this._ctx.closePath()
   }
 
   /**
    * 現在位置の再計算
+   *
+   * @param {*} x
+   * @param {*} y
    */
-  _calcCurrentPosition() {}
+  _calcCurrentCoordinate(x, y) {
+    this._x = x
+    this._y = y
+  }
 }

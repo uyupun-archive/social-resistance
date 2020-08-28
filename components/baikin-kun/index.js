@@ -1,3 +1,4 @@
+import { SOCIAL_DISTANCE_ZONE_RADIUS } from '../constants'
 import {
   FIELD_HEIGHT,
   PLAYER_BAIKINKUN_START_POINT,
@@ -13,17 +14,9 @@ export default class BaikinKun extends Player {
   spawn() {
     const n = Math.ceil(Math.random() * 2)
     this._image.src = require(`~/assets/images/objects/baikinkun_${n}.gif`)
-    this._move(PLAYER_BAIKINKUN_START_POINT)
-  }
-
-  /**
-   * 現在位置の計算
-   *
-   * @param {*} x
-   * @param {*} y
-   */
-  _calcCurrentPosition(x, y) {
-    this._x = x || 900
-    this._y = y || FIELD_HEIGHT / 2 - this._height / 2
+    this._move(
+      PLAYER_BAIKINKUN_START_POINT + SOCIAL_DISTANCE_ZONE_RADIUS,
+      FIELD_HEIGHT / 2
+    )
   }
 }

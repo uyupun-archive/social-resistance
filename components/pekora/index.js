@@ -1,3 +1,4 @@
+import { SOCIAL_DISTANCE_ZONE_RADIUS } from '../constants'
 import {
   FIELD_HEIGHT,
   PLAYER_PEKORA_START_POINT,
@@ -12,17 +13,9 @@ export default class Pekora extends Player {
    */
   spawn() {
     this._image.src = require('~/assets/images/objects/pekora.gif')
-    this._move(PLAYER_PEKORA_START_POINT)
-  }
-
-  /**
-   * 現在位置の再計算
-   *
-   * @param {*} x
-   * @param {*} y
-   */
-  _calcCurrentPosition(x, y) {
-    this._x = x || 0
-    this._y = y || FIELD_HEIGHT / 2 - this._height / 2
+    this._move(
+      PLAYER_PEKORA_START_POINT + SOCIAL_DISTANCE_ZONE_RADIUS,
+      FIELD_HEIGHT / 2
+    )
   }
 }

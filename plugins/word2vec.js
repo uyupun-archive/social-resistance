@@ -1,5 +1,5 @@
 import word2vec from '@/assets/json/word2vec.json'
-import { WORD_COUNT, WORD_DIRECTION } from '@/components/constants/index.js'
+import { WORD_COUNT } from '@/components/constants/index.js'
 
 /**
  * 最初の１単語を返す
@@ -44,12 +44,20 @@ const _getRandomIdx = () => {
  * @param {*} word
  */
 const _getDirection = (baseWord, word) => {
-  if (word.move.x > baseWord.move.x) {
-    if (word.move.y > baseWord.move.y) return WORD_DIRECTION.BOTTOM_RIGHT
-    return WORD_DIRECTION.TOP_RIGHT
+  const direction = {
+    top_right: false,
+    top_left: false,
+    bottom_left: false,
+    bottom_right: false,
   }
-  if (word.move.y > baseWord.move.y) return WORD_DIRECTION.BOTTOM_LEFT
-  return WORD_DIRECTION.TOP_LEFT
+  if (word.move.x > baseWord.move.x) {
+    if (word.move.y > baseWord.move.y) direction.bottom_right = true
+    direction.top_right = true
+  } else {
+    if (word.move.y > baseWord.move.y) direction.bottom_left = true
+    direction.top_left = true
+  }
+  return direction
 }
 
 /* eslint-disable */

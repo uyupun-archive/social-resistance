@@ -6,15 +6,11 @@
 </template>
 
 <script>
+import Field from '~/components/field/index.js'
 import Pekora from '~/components/pekora/index.js'
 import BaikinKun from '~/components/baikin-kun/index.js'
 import House from '~/components/house/index.js'
 import Judge from '~/components/judge/index.js'
-import {
-  FIELD_HEIGHT,
-  FIELD_GRID_INTERVAL,
-  PLAYER_MOVABLE_FIELD_WIDTH,
-} from '~/components/constants/index.js'
 
 export default {
   data() {
@@ -23,6 +19,7 @@ export default {
         field: null,
         player: null,
       },
+      field: null,
       pekora: null,
       baikinKun: null,
       judge: null,
@@ -31,11 +28,8 @@ export default {
   mounted() {
     this.createCanvas()
     this.createJudge()
-    this.drawGrid()
-    this.drawGoalLine()
-    this.pekora.spawn()
-    this.baikinKun.spawn()
-    this.house.draw()
+    this.initFieldLayer()
+    this.initPlayerLayer()
   },
   methods: {
     createCanvas() {
@@ -45,6 +39,7 @@ export default {
     createFieldLayer() {
       const field = document.getElementById('field-layer')
       this.ctx.field = field.getContext('2d')
+      this.field = new Field(this.ctx.field)
       this.house = new House(this.ctx.field)
     },
     createPlayerLayer() {
@@ -53,38 +48,17 @@ export default {
       this.pekora = new Pekora(this.ctx.player)
       this.baikinKun = new BaikinKun(this.ctx.player)
     },
+    initFieldLayer() {
+      this.field.drawGrid()
+      this.field.drawGoalLine()
+      this.house.draw()
+    },
+    initPlayerLayer() {
+      this.pekora.spawn()
+      this.baikinKun.spawn()
+    },
     createJudge() {
       this.judge = new Judge()
-    },
-    drawGrid() {
-      this.ctx.field.beginPath()
-      for (
-        let x = 0;
-        x < PLAYER_MOVABLE_FIELD_WIDTH;
-        x += FIELD_GRID_INTERVAL
-      ) {
-        this.ctx.field.moveTo(x, 0)
-        this.ctx.field.lineTo(x, FIELD_HEIGHT)
-      }
-      for (
-        let y = 0;
-        y < PLAYER_MOVABLE_FIELD_WIDTH;
-        y += FIELD_GRID_INTERVAL
-      ) {
-        this.ctx.field.moveTo(0, y)
-        this.ctx.field.lineTo(PLAYER_MOVABLE_FIELD_WIDTH, y)
-      }
-      this.ctx.field.strokeStyle = '#eee'
-      this.ctx.field.stroke()
-      this.ctx.field.closePath()
-    },
-    drawGoalLine() {
-      this.ctx.field.beginPath()
-      this.ctx.field.strokeStyle = '#ccc'
-      this.ctx.field.moveTo(PLAYER_MOVABLE_FIELD_WIDTH, 0)
-      this.ctx.field.lineTo(PLAYER_MOVABLE_FIELD_WIDTH, FIELD_HEIGHT)
-      this.ctx.field.stroke()
-      this.ctx.field.closePath()
     },
     movePekora(baseWord, word) {
       this.pekora.depart(word.move.x, word.move.y)

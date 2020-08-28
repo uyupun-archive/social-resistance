@@ -9,7 +9,7 @@
   <nuxt-link
     v-if="to"
     :to="to"
-    :class="{ btn: true, 'btn-link': !notLinkStyle }"
+    :class="{ btn: true, 'btn-link': !notLinkStyle, 'btn-small': isSmall }"
   >
     <span class="btn-text">{{ text }}</span>
   </nuxt-link>
@@ -18,6 +18,7 @@
     type="button"
     :class="{
       btn: true,
+      'btn-small': isSmall,
       isCompass,
       topLeft,
       topRight,
@@ -53,6 +54,10 @@ export default {
     text: {
       type: String,
       required: true,
+    },
+    isSmall: {
+      type: Boolean,
+      default: false,
     },
     notLinkStyle: {
       type: Boolean,
@@ -136,6 +141,12 @@ export default {
     display: inline-block;
     z-index: 1;
     transform: skewX(30deg);
+  }
+
+  &-small {
+    min-width: 150px;
+    padding: 10px 16px;
+    font-size: 2.8rem;
   }
 }
 

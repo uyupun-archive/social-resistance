@@ -52,11 +52,9 @@ const _getDirection = (baseWord, word) => {
   }
   if (word.move.x > baseWord.move.x) {
     if (word.move.y > baseWord.move.y) direction.bottom_right = true
-    direction.top_right = true
-  } else {
-    if (word.move.y > baseWord.move.y) direction.bottom_left = true
-    direction.top_left = true
-  }
+    else direction.top_right = true
+  } else if (word.move.y > baseWord.move.y) direction.bottom_left = true
+  else direction.top_left = true
   return direction
 }
 

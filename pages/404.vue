@@ -2,7 +2,7 @@
   <div class="container">
     <div class="logo"></div>
     <div class="box">
-      <h1 class="title">みせられないよ</h1>
+      <h1 class="title">みせられないよ！</h1>
       <Button to="/" text="はじめにもどる" />
     </div>
   </div>
@@ -29,8 +29,8 @@ export default {
   width: 100%;
   height: 100px;
   background-image: url('~assets/images/objects/pekora.gif'),
-    url('~assets/images/objects/baikin_1.gif'),
-    url('~assets/images/objects/baikin_2.gif');
+    url('~assets/images/objects/baikinkun_1.gif'),
+    url('~assets/images/objects/baikinkun_2.gif');
   background-position: left 0, 100% 0, 90% 0;
   background-repeat: no-repeat;
   background-size: contain;

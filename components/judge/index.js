@@ -8,10 +8,7 @@ export default class Judge {
    * うさぎさんの勝利判定
    */
   isGoal(x) {
-    if (
-      x + SOCIAL_DISTANCE_ZONE_RADIUS * 2 >=
-      PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS
-    )
+    if (x + SOCIAL_DISTANCE_ZONE_RADIUS >= PLAYER_MOVABLE_FIELD_WIDTH)
       return true
     return false
   }

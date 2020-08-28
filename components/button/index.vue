@@ -6,7 +6,11 @@
 -->
 
 <template>
-  <nuxt-link v-if="to" :to="to" class="btn btn-link">
+  <nuxt-link
+    v-if="to"
+    :to="to"
+    :class="{ btn: true, 'btn-link': !notLinkStyle }"
+  >
     <span class="btn-text">{{ text }}</span>
   </nuxt-link>
   <button v-else type="button" class="btn">
@@ -24,6 +28,10 @@ export default {
     text: {
       type: String,
       required: true,
+    },
+    notLinkStyle: {
+      type: Boolean,
+      default: false,
     },
   },
 }

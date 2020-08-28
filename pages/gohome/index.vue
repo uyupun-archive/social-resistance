@@ -49,9 +49,11 @@
         <div class="pause-choices">
           <Button text="さいかい" @click.native="closepauseModal" />
         </div>
+        <!-- :TODO やり直し機能 -->
         <div class="pause-choices"><Button text="やりなおし" /></div>
-        <!--  -->
-        <div class="pause-choices"><Button text="やめる" to="/" /></div>
+        <div class="pause-choices">
+          <Button text="やめる" to="/" :not-link-style="true" />
+        </div>
       </template>
     </Modal>
   </div>

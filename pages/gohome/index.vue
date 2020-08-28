@@ -42,12 +42,22 @@
         <Button text="よい" @click.native="turnProcess(selectedWord)" />
       </template>
     </Modal>
-    <Modal ref="winModal" :show-always="true">
+    <div class="btn-pause">
+      <Button text="ポーズ" @click.native="openPauseModal()" />
+    </div>
+    <Modal ref="pauseModal" :is-wrap="true">
       <template v-slot:content>
-        <p>『{{ winner }}』のかち！</p>
+        <p>メニュー</p>
       </template>
       <template v-slot:btns>
-        <Button to="/" text="おつかれ" />
+        <div class="pause-choices">
+          <Button text="さいかい" @click.native="closePauseModal" />
+        </div>
+        <!-- :TODO やり直し機能 -->
+        <div class="pause-choices"><Button text="やりなおし" /></div>
+        <div class="pause-choices">
+          <Button text="やめる" to="/" :not-link-style="true" />
+        </div>
       </template>
     </Modal>
     <TurnAnimation
@@ -56,22 +66,12 @@
       pekora="うさぎさん"
       baikin-kun="ばいきんくん"
     />
-    <div class="btn-pause">
-      <Button text="ポーズ" @click.native="openpauseModal()" />
-    </div>
-    <Modal ref="pauseModal" :is-wrap="true">
+    <Modal ref="winModal" :show-always="true">
       <template v-slot:content>
-        <p>メニュー</p>
+        <p>『{{ winner }}』のかち！</p>
       </template>
       <template v-slot:btns>
-        <div class="pause-choices">
-          <Button text="さいかい" @click.native="closepauseModal" />
-        </div>
-        <!-- :TODO やり直し機能 -->
-        <div class="pause-choices"><Button text="やりなおし" /></div>
-        <div class="pause-choices">
-          <Button text="やめる" to="/" :not-link-style="true" />
-        </div>
+        <Button to="/" text="おつかれ" />
       </template>
     </Modal>
   </div>
@@ -136,10 +136,10 @@ export default {
     closeWordModal() {
       this.$refs.wordModal.close()
     },
-    openpauseModal() {
+    openPauseModal() {
       this.$refs.pauseModal.open()
     },
-    closepauseModal() {
+    closePauseModal() {
       this.$refs.pauseModal.close()
     },
     turnProcess(word) {
@@ -252,7 +252,7 @@ export default {
 .pause-choices {
   width: 100%;
   text-align: center;
-  margin: 0 0 25px;
+  margin: 0 0 30px;
 
   &:last-of-type {
     margin: 0;

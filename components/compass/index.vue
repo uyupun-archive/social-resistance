@@ -8,15 +8,6 @@
       bottomRight,
     }"
   />
-  <!--<span-->
-  <!--:class="{-->
-  <!--needle: true,-->
-  <!--topLeft,-->
-  <!--topRight,-->
-  <!--bottomLeft,-->
-  <!--bottomRight,-->
-  <!--}"-->
-  <!--&gt;</span>-->
 </template>
 
 <script>

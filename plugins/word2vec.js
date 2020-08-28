@@ -21,8 +21,8 @@ const getWords = (baseWord) => {
     const idx = _getRandomIdx()
     const word = word2vec[idx]
     word.index = idx
-    word.correct_x = _getCorrectX(baseWord, word)
-    word.about_direction = _getAboutDirection(baseWord, word)
+    word.move.correct_x = _getCorrectX(baseWord, word)
+    word.direction = _getDirection(baseWord, word)
     words.push(word)
   }
   return words
@@ -54,20 +54,27 @@ const _getCorrectX = (baseWord, word) => {
 }
 
 /**
- * 単語の選択によって今の場所から大まかに上に移動するか、下に移動するか、ほぼ真っすぐ移動するかを返す
- * TODO: 小数点までピッタリ合うことは無いので、keepの幅にもう少し余裕を持たせる
+ * 単語の選択によって現在の位置から大まかにどの方向へ移動するかのガイド
+ * 四象限で表現
  *
  * @param {*} baseWord
  * @param {*} word
  */
-const _getAboutDirection = (baseWord, word) => {
+const _getDirection = (baseWord, word) => {
+  if (word.move.x > baseWord.move.x) {
+    if (word.move.y > baseWord.move.y) {
+      // 第四象限
+      return 'bottom-right'
+    }
+    // 第一象限
+    return 'top-right'
+  }
   if (word.move.y > baseWord.move.y) {
-    return 'left'
+    // 第二象限
+    return 'bottom-left'
   }
-  if (word.move.y < baseWord.move.y) {
-    return 'right'
-  }
-  return 'straight'
+  // 第三象限
+  return 'top-left'
 }
 
 /* eslint-disable */

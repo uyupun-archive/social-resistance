@@ -19,6 +19,7 @@ export const PLAYER_MOVE_SCALE = 100
 // ぺこらのスタートポイント
 export const PLAYER_PEKORA_START_POINT = 0
 // ばいきんくんのスタートポイント
-export const PLAYER_BAIKINKUN_START_POINT = 880
+export const PLAYER_BAIKINKUN_START_POINT =
+  PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS * 2
 // 選択肢の単語数
 export const WORD_COUNT = 8

@@ -70,7 +70,7 @@ export default {
       return this.judge.isHit(this.pekora.coordinate, this.baikinKun.coordinate)
     },
     isGoal() {
-      return this.judge.isGoal(this.pekora.coordinate.y)
+      return this.judge.isGoal(this.pekora.coordinate.x)
     },
   },
 }

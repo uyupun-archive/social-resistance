@@ -4,10 +4,10 @@
     <h1 class="title">SOCIAL RESISTANCE</h1>
     <h5 class="subtitle">death is not a go home</h5>
     <div class="btn-start">
-      <Button to="/gohome" text="はじめる" />
+      <Button to="/gohome" text="はじめる" size="large" />
     </div>
     <div class="btn-rule">
-      <Button to="/rule" text="あそびかた" />
+      <Button to="/rule" text="あそびかた" size="large" />
     </div>
   </div>
 </template>

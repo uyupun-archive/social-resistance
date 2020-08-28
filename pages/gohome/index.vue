@@ -53,7 +53,7 @@
       </Modal>
     </div>
     <div class="btn-pause">
-      <Button text="ポーズ" :is-small="true" @click.native="openPauseModal" />
+      <Button text="ポーズ" size="small" @click.native="openPauseModal" />
     </div>
     <Modal ref="pauseModal" :is-wrap="true">
       <template v-slot:content>
@@ -67,7 +67,7 @@
           <Button text="やりなおし" />
         </div>
         <div class="pause-choices">
-          <Button text="やめる" to="/" :not-link-style="true" />
+          <Button text="やめる" to="/" />
         </div>
       </template>
     </Modal>
@@ -82,7 +82,7 @@
         <p>『{{ winner }}』のかち！</p>
       </template>
       <template v-slot:btns>
-        <Button to="/" text="おつかれ" />
+        <Button to="/" text="おつかれ" size="large" />
       </template>
     </Modal>
   </div>

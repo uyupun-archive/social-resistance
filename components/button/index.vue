@@ -9,7 +9,11 @@
   <nuxt-link
     v-if="to"
     :to="to"
-    :class="{ btn: true, 'btn-link': !notLinkStyle, 'btn-small': isSmall }"
+    :class="{
+      btn: true,
+      'btn-small': size === 'small',
+      'btn-large': size === 'large',
+    }"
   >
     <span class="btn-text">{{ text }}</span>
   </nuxt-link>
@@ -18,7 +22,8 @@
     type="button"
     :class="{
       btn: true,
-      'btn-small': isSmall,
+      'btn-small': size === 'small',
+      'btn-large': size === 'large',
       isCompass,
       topLeft,
       topRight,
@@ -55,13 +60,9 @@ export default {
       type: String,
       required: true,
     },
-    isSmall: {
-      type: Boolean,
-      default: false,
-    },
-    notLinkStyle: {
-      type: Boolean,
-      default: false,
+    size: {
+      type: String, // 'small' | 'middle' | 'large'
+      default: 'middle',
     },
     isCompass: {
       type: Boolean,
@@ -93,10 +94,10 @@ export default {
   display: inline-block;
   min-width: 250px;
   padding: 16px 40px;
+  font-size: 3.6rem;
   border: 5px solid $white;
   color: $white;
   background: $black;
-  font-size: 3.6rem;
   font-family: 'Sawarabi-Gothic', sans-serif;
   text-align: center;
   cursor: pointer;
@@ -104,6 +105,7 @@ export default {
   box-sizing: border-box;
   outline: none;
   transform: skewX(-30deg);
+  text-decoration: none;
 
   &:after {
     content: '';
@@ -130,23 +132,22 @@ export default {
     outline: none;
   }
 
-  &-link {
+  &-small {
+    min-width: 150px;
+    padding: 10px 16px;
+    font-size: 2.8rem;
+  }
+
+  &-large {
     min-width: 450px;
     padding: 22px 40px;
     font-size: 4.8rem;
-    text-decoration: none;
   }
 
   &-text {
     display: inline-block;
     z-index: 1;
     transform: skewX(30deg);
-  }
-
-  &-small {
-    min-width: 150px;
-    padding: 10px 16px;
-    font-size: 2.8rem;
   }
 }
 

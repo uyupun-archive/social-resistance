@@ -3,7 +3,7 @@
     <div class="logo"></div>
     <div class="box">
       <h1 class="title">みせられないよ！</h1>
-      <Button to="/" text="はじめにもどる" />
+      <Button to="/" text="はじめにもどる" size="large" />
     </div>
   </div>
 </template>

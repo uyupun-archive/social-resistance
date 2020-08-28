@@ -61,10 +61,10 @@
       </template>
       <template v-slot:btns>
         <div class="pause-choices">
-          <Button text="さいかい" @click.native="closePauseModal" />
+          <Button text="さいかい" @click.native="restartGame" />
         </div>
         <div class="pause-choices">
-          <Button text="やりなおし" />
+          <Button text="やりなおし" @click.native="freshGame" />
         </div>
         <div class="pause-choices">
           <Button text="やめる" to="/" />
@@ -120,11 +120,14 @@ export default {
     }
   },
   mounted() {
-    this.getFirstWord()
-    this.getWords()
-    this.showTurnAnimation()
+    this.initGame()
   },
   methods: {
+    initGame() {
+      this.getFirstWord()
+      this.getWords()
+      this.showTurnAnimation()
+    },
     getFirstWord() {
       this.pekora.baseWord = this.$getFirstWord()
       this.baikinKun.baseWord = this.$getFirstWord()
@@ -150,8 +153,12 @@ export default {
     openPauseModal() {
       this.$refs.pauseModal.open()
     },
-    closePauseModal() {
+    restartGame() {
       this.$refs.pauseModal.close()
+    },
+    freshGame() {
+      this.$refs.pauseModal.close()
+      this.initGame()
     },
     turnProcess(word) {
       this.closeWordModal()

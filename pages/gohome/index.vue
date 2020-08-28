@@ -30,7 +30,15 @@
     </div>
     <div class="word-wrapper">
       <div v-for="word in words" :key="word.index" class="word">
-        <Button :text="word.word" @click.native="openWordModal(word)" />
+        <Button
+          :text="word.word"
+          :is-compass="true"
+          :top-left="word.direction.top_left"
+          :top-right="word.direction.top_right"
+          :bottom-left="word.direction.bottom_left"
+          :bottom-right="word.direction.bottom_right"
+          @click.native="openWordModal(word)"
+        />
       </div>
     </div>
     <Modal ref="wordModal">

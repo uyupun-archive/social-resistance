@@ -47,7 +47,7 @@
     </div>
     <Modal ref="pauseModal" :is-wrap="true">
       <template v-slot:content>
-        <p>メニュー</p>
+        <p>ポーズ</p>
       </template>
       <template v-slot:btns>
         <div class="pause-choices">
@@ -244,9 +244,8 @@ export default {
 }
 
 .btn-pause {
-  margin: 40px;
-  box-sizing: border-box;
-  float: right;
+  width: 200px;
+  margin: 30px 20px 40px auto;
 }
 
 .pause-choices {

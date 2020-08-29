@@ -4,7 +4,7 @@
     <div class="outer">
       <div class="text">
         <p>{{ showText }}</p>
-        <img :src="showImage" alt="rule image" />
+        <img :src="showImage" alt="rule image" class="image" />
       </div>
       <div class="btns">
         <Button v-if="!isFirst" text="まえへ" @click.native="prevRule" />

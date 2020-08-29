@@ -15,13 +15,16 @@ words = model.wv.index2word
 
 # PCAするための前準備
 # JanomeのTokenizerによって品詞分解、名詞のみを抽出している
+# TODO: これを学習の段階でやりたい
 vectors =[]
 names = []
 t = Tokenizer()
 for word in words:
     tokens = t.tokenize(word)
+    length = 0
     for token in tokens:
-        if (token.part_of_speech.split(',')[0] == '名詞'):
+        length += 1
+        if ((token.part_of_speech.split(',')[0] == '名詞') and (length == 1)):
             vectors.append(model[word])
             names.append(word)
 

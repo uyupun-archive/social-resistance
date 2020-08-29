@@ -10,6 +10,7 @@ gensim = "*"
 sklearn = "*"
 matplotlib = "*"
 japanize-matplotlib = "*"
+janome = "*"
 
 [requires]
 python_version = "3.8"

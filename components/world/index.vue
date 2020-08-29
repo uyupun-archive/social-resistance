@@ -66,11 +66,14 @@ export default {
     moveBaikinKun(baseWord, word) {
       this.baikinKun.depart(word.move.x, word.move.y)
     },
-    isHit() {
-      return this.judge.isHit(this.pekora.coordinate, this.baikinKun.coordinate)
-    },
-    isGoal() {
-      return this.judge.isGoal(this.pekora.coordinate.x)
+    judgeWinner() {
+      if (this.judge.isHit(this.pekora.coordinate, this.baikinKun.coordinate)) {
+        return 'ばいきんくん'
+      }
+      if (this.judge.isGoal(this.pekora.coordinate.x)) {
+        return 'うさぎさん'
+      }
+      return null
     },
   },
 }

@@ -1,0 +1,11 @@
+<div v-if="showAnimation">
+  <div class="container">
+    <div class="content">
+      <div v-if="count % 2 === 1" class="content-player">
+        先攻:&nbsp;{{ pekora }}
+      </div>
+      <div v-else class="content-player">後攻:&nbsp;{{ baikinKun }}</div>
+      <div class="content-turn">ターン{{ count }}</div>
+    </div>
+  </div>
+</div>

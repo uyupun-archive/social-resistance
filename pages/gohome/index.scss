@@ -1,0 +1,76 @@
+.container {
+  margin: 0 auto 50px;
+  width: 1200px;
+}
+
+.world {
+  margin: 10px auto;
+}
+
+.turn {
+  &-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 10px;
+  }
+
+  &-count {
+    font-size: 5rem;
+    margin: 0;
+  }
+
+  &-which {
+    display: inline-block;
+    padding: 10px 10px;
+    font-size: 2.5rem;
+    text-align: center;
+    border: 5px solid $gray;
+
+    &-player {
+      margin: 0;
+    }
+
+    &-word {
+      margin: 0;
+    }
+  }
+
+  &-inactive {
+    color: $gray;
+    border-color: $gray;
+  }
+
+  &-active {
+    color: $white;
+    border-color: $white;
+  }
+}
+
+.word-wrapper {
+  margin: 0 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.word {
+  margin: 0 20px 30px 20px;
+  width: 20%;
+}
+
+.btn-pause {
+  text-align: right;
+  margin: 0 25px 20px;
+}
+
+.pause-choices {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 30px;
+
+  &:last-of-type {
+    margin: 0;
+  }
+}

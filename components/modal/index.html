@@ -1,0 +1,12 @@
+<div v-if="showModal">
+  <div class="container" @click.self="close">
+    <div :class="{ modal: true, close: isClose }">
+      <div class="modal-content">
+        <slot name="content" />
+        <div :class="{ 'modal-btns': true, wrap: isWrap, nowrap: !isWrap }">
+          <slot name="btns" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

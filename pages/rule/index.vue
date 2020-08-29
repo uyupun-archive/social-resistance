@@ -7,15 +7,15 @@
         <img :src="showImage" alt="説明画像" />
       </div>
       <div class="btns">
-        <Button text="まえへ" @click.native="prevRule" />
+        <Button v-if="!isFirst" text="まえへ" @click.native="prevRule" />
         <Button
-          text="つぎへ"
           v-if="isLast === false"
+          text="つぎへ"
           @click.native="nextRule"
         />
       </div>
     </div>
-    <div class="btn-rule">
+    <div class="btn-back">
       <Button to="/" text="トップにもどる" />
     </div>
   </div>
@@ -23,91 +23,38 @@
 
 <script>
 import Button from '~/components/button/index.vue'
+import rules from '~/assets/json/rule.json'
 
 export default {
   components: {
     Button,
-    // Modal,
   },
   data() {
     return {
-      ruleIndex: null,
+      ruleIndex: 0,
       showText: '',
       showImage: '',
-      rules: [
-        {
-          text: 'うさぎさんサイドとばいきんくんサイドに分かれます。',
-          image:
-            'https://placehold.jp/800x450.png?text=%E3%83%AB%E3%83%BC%E3%83%AB1',
-          isLast: false,
-        },
-        {
-          text: 'うさぎさんはおうちに向かって移動していきます。',
-          image:
-            'https://placehold.jp/800x450.png?text=%E3%83%AB%E3%83%BC%E3%83%AB2',
-          isLast: false,
-        },
-        {
-          text: 'ばいきんくんはうさぎさんを捕まえる方向に移動していきます。',
-          image:
-            'https://placehold.jp/800x450.png?text=%E3%83%AB%E3%83%BC%E3%83%AB3',
-          isLast: false,
-        },
-        {
-          text:
-            'それぞれの移動は画面の下に表示される言葉を選んでおこないます。',
-          image:
-            'https://placehold.jp/800x450.png?text=%E3%83%AB%E3%83%BC%E3%83%AB4',
-          isLast: false,
-        },
-        {
-          text:
-            'その言葉を選ぶとどの方向に進んでいくかを、右側に出ている円の白い部分で知ることができます。',
-          image:
-            'https://placehold.jp/800x450.png?text=%E3%83%AB%E3%83%BC%E3%83%AB5',
-          isLast: false,
-        },
-        {
-          text: 'うさぎさんとばいきんくんで交互に移動していきます。',
-          image:
-            'https://placehold.jp/800x450.png?text=%E3%83%AB%E3%83%BC%E3%83%AB6',
-          isLast: false,
-        },
-        {
-          text: 'うさぎさんは距離を保ちつつおうちにたどり着ければ勝利です。',
-          image:
-            'https://placehold.jp/800x450.png?text=%E3%83%AB%E3%83%BC%E3%83%AB7',
-          isLast: false,
-        },
-        {
-          text:
-            'うさぎさんとばいきんくん、お互いのソーシャルディスタンス(赤いエリア)が重なってしまうとばいきんくんの勝利です。',
-          image:
-            'https://placehold.jp/800x450.png?text=%E3%83%AB%E3%83%BC%E3%83%AB8',
-          isLast: true,
-        },
-      ],
+      rules: [],
+      isFirst: true,
+      isLast: false,
     }
   },
   mounted() {
-    this.ruleIndex = 0
+    this.rules = rules
     this.setRule(this.rules[this.ruleIndex])
   },
   methods: {
     setRule(rule) {
-      console.log(rule)
       this.showText = rule.text
-      this.showImage = rule.image
-      this.isLast = rule.isLast
+      // this.showImage = rule.image
+      this.isFirst = this.ruleIndex === 0
+      this.isLast = this.rules.length === this.ruleIndex + 1
     },
     nextRule() {
       this.setRule(this.rules[++this.ruleIndex])
     },
     prevRule() {
-      if (--this.ruleIndex < 0) {
-        this.$router.push('/')
-      }
-      this.setRule(this.rules[this.ruleIndex])
+      this.setRule(this.rules[--this.ruleIndex])
     },
   },
 }
@@ -116,11 +63,12 @@ export default {
 <style scoped lang="scss">
 .container {
   text-align: center;
+  padding: 50px 0 0;
 }
+
 .title {
   font-family: 'Roboto-Thin', sans-serif;
   font-size: 6rem;
-  line-height: 1;
   margin: 0;
 }
 
@@ -144,6 +92,12 @@ export default {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
+  }
+}
+
+.btn {
+  &-back {
+    margin: 0 0 20px;
   }
 }
 </style>

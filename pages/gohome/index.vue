@@ -159,6 +159,9 @@ export default {
     freshGame() {
       this.$refs.pauseModal.close()
       this.initGame()
+      this.turn = new Turn()
+      this.pekora.active = true
+      this.baikinKun.active = false
     },
     turnProcess(word) {
       this.closeWordModal()

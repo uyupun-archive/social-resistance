@@ -1,0 +1,20 @@
+<div class="container">
+  <h3 class="title">あそびかた</h3>
+  <div class="outer">
+    <div class="text">
+      <p>{{ showText }}</p>
+      <img v-if="showImage" :src="showImage" alt="rule image" class="image" />
+    </div>
+    <div class="btns">
+      <Button v-if="!isFirst" text="まえへ" @click.native="prevRule" />
+      <Button
+        v-if="isLast === false"
+        text="つぎへ"
+        @click.native="nextRule"
+      />
+    </div>
+  </div>
+  <div class="btn-back">
+    <Button to="/" text="トップにもどる" />
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<nuxt-link
+  v-if="to"
+  :to="to"
+  :class="{
+    btn: true,
+    'btn-small': size === 'small',
+    'btn-large': size === 'large',
+  }"
+>
+  <span class="btn-text">{{ text }}</span>
+</nuxt-link>
+<button
+  v-else
+  type="button"
+  :class="{
+    btn: true,
+    'btn-small': size === 'small',
+    'btn-large': size === 'large',
+    isSonar,
+    topLeft,
+    topRight,
+    bottomLeft,
+    bottomRight,
+  }"
+>
+  <span class="btn-text">
+    {{ text }}
+    <Sonar
+      v-if="isSonar"
+      :top-left="topLeft"
+      :top-right="topRight"
+      :bottom-left="bottomLeft"
+      :bottom-right="bottomRight"
+    />
+  </span>
+</button>

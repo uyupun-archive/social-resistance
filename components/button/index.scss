@@ -1,0 +1,109 @@
+.btn {
+  position: relative;
+  display: inline-block;
+  min-width: 250px;
+  padding: 16px 40px;
+  font-size: 3.6rem;
+  border: 5px solid $white;
+  color: $white;
+  background: $black;
+  font-family: 'Sawarabi-Gothic', sans-serif;
+  text-align: center;
+  cursor: pointer;
+  line-height: 1;
+  box-sizing: border-box;
+  outline: none;
+  transform: skewX(-30deg);
+  text-decoration: none;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 0;
+    height: calc(100% + 10px);
+    background: $white;
+    z-index: -1;
+    transition: 0.3s;
+  }
+
+  &:hover {
+    transition: 0.3s;
+    color: $black;
+
+    &:after {
+      width: calc(100% + 10px);
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &-small {
+    min-width: 150px;
+    padding: 10px 16px;
+    font-size: 2.8rem;
+  }
+
+  &-large {
+    min-width: 450px;
+    padding: 22px 40px;
+    font-size: 4.8rem;
+  }
+
+  &-text {
+    display: inline-block;
+    z-index: 1;
+    transform: skewX(30deg);
+  }
+}
+
+.isSonar {
+  &:hover {
+    & span > div {
+      border: 1px solid $black;
+    }
+  }
+}
+
+.topLeft {
+  &:hover {
+    & span > div {
+      &:after {
+        border-left: 16px solid $black;
+      }
+    }
+  }
+}
+
+.topRight {
+  &:hover {
+    & span > div {
+      &:after {
+        border-top: 16px solid $black;
+      }
+    }
+  }
+}
+
+.bottomLeft {
+  &:hover {
+    & span > div {
+      &:after {
+        border-bottom: 16px solid $black;
+      }
+    }
+  }
+}
+
+.bottomRight {
+  &:hover {
+    & span > div {
+      &:after {
+        border-right: 16px solid $black;
+      }
+    }
+  }
+}

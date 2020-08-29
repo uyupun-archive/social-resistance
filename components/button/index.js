@@ -1,8 +1,8 @@
-import Compass from '~/components/compass/index.vue'
+import Sonar from '~/components/sonar/index.vue'
 
 export default {
   components: {
-    Compass,
+    Sonar,
   },
   props: {
     to: {
@@ -17,7 +17,7 @@ export default {
       type: String, // 'small' | 'middle' | 'large'
       default: 'middle',
     },
-    isCompass: {
+    isSonar: {
       type: Boolean,
       default: false,
     },

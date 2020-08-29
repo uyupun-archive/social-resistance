@@ -1,4 +1,4 @@
-.compass {
+.sonar {
   position: relative;
   display: inline-block;
   box-sizing: border-box;
@@ -20,25 +20,25 @@
   }
 }
 
-.topLeft {
+.top-left {
   &:after {
     border-left: 16px solid $white;
   }
 }
 
-.topRight {
+.top-right {
   &:after {
     border-top: 16px solid $white;
   }
 }
 
-.bottomLeft {
+.bottom-left {
   &:after {
     border-bottom: 16px solid $white;
   }
 }
 
-.bottomRight {
+.bottom-right {
   &:after {
     border-right: 16px solid $white;
   }

@@ -16,7 +16,7 @@
     btn: true,
     'btn-small': size === 'small',
     'btn-large': size === 'large',
-    isCompass,
+    isSonar,
     topLeft,
     topRight,
     bottomLeft,
@@ -25,8 +25,8 @@
 >
   <span class="btn-text">
     {{ text }}
-    <Compass
-      v-if="isCompass"
+    <Sonar
+      v-if="isSonar"
       :top-left="topLeft"
       :top-right="topRight"
       :bottom-left="bottomLeft"

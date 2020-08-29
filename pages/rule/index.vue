@@ -4,7 +4,7 @@
     <div class="outer">
       <div class="text">
         <p>{{ showText }}</p>
-        <img :src="showImage" alt="rule image" class="image" />
+        <img v-if="showImage" :src="showImage" alt="rule image" class="image" />
       </div>
       <div class="btns">
         <Button v-if="!isFirst" text="まえへ" @click.native="prevRule" />
@@ -23,16 +23,7 @@
 
 <script>
 import Button from '~/components/button/index.vue'
-import rules from '~/assets/json/rule.json'
-
-import rule1 from '~/assets/images/rules/rule1.png'
-import rule2 from '~/assets/images/rules/rule2.png'
-import rule3 from '~/assets/images/rules/rule3.png'
-import rule4 from '~/assets/images/rules/rule4.png'
-import rule5 from '~/assets/images/rules/rule5.png'
-import rule6 from '~/assets/images/rules/rule6.png'
-import rule7 from '~/assets/images/rules/rule7.png'
-import rule8 from '~/assets/images/rules/rule8.png'
+import rules from '~/assets/json/rules.json'
 
 export default {
   components: {
@@ -40,61 +31,31 @@ export default {
   },
   data() {
     return {
+      rules: [],
       ruleIndex: 0,
       showText: '',
       showImage: null,
-      rules: [],
       isFirst: true,
       isLast: false,
     }
   },
   mounted() {
     this.rules = rules
-    this.setRule(this.rules[this.ruleIndex])
+    this.setRule(this.ruleIndex)
   },
   methods: {
-    setRule(rule) {
+    setRule(idx) {
+      const rule = this.rules[idx]
       this.showText = rule.text
-      this.showImage = this.getImage(this.ruleIndex + 1)
+      this.showImage = require(`~/assets/images/rules/rule_${idx + 1}.png`)
       this.isFirst = this.ruleIndex === 0
       this.isLast = this.rules.length === this.ruleIndex + 1
     },
     nextRule() {
-      this.setRule(this.rules[++this.ruleIndex])
+      this.setRule(++this.ruleIndex)
     },
     prevRule() {
-      this.setRule(this.rules[--this.ruleIndex])
-    },
-    getImage(imageNo) {
-      switch (imageNo) {
-        case 1: {
-          return rule1
-        }
-        case 2: {
-          return rule2
-        }
-        case 3: {
-          return rule3
-        }
-        case 4: {
-          return rule4
-        }
-        case 5: {
-          return rule5
-        }
-        case 6: {
-          return rule6
-        }
-        case 7: {
-          return rule7
-        }
-        case 8: {
-          return rule8
-        }
-        default: {
-          return null
-        }
-      }
+      this.setRule(--this.ruleIndex)
     },
   },
 }

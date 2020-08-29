@@ -163,13 +163,7 @@ export default {
     turnProcess(word) {
       this.closeWordModal()
       this.movePlayer(word)
-      if (this.$refs.world.isGoal()) {
-        this.winner = 'うさぎさん'
-        this.$refs.winModal.open()
-        return
-      }
-      if (this.$refs.world.isHit()) {
-        this.winner = 'ばいきんくん'
+      if ((this.winner = this.$refs.world.judgeWinner())) {
         this.$refs.winModal.open()
         return
       }

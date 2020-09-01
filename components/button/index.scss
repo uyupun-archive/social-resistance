@@ -98,7 +98,7 @@
 
 .bottomRight {
   &:hover {
-    & span > div {  
+    & span > div {
       &:after {
         border-right: 16px solid $black;
       }

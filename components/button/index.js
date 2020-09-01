@@ -14,7 +14,9 @@ export default {
       required: true,
     },
     size: {
-      type: String, // 'small' | 'middle' | 'large'
+      validator: (size) => {
+        return ['small', 'middle', 'large'].includes(size)
+      },
       default: 'middle',
     },
     isSonar: {

@@ -1,14 +1,14 @@
-<nuxt-link
+<a
   v-if="to"
-  :to="to"
   :class="{
     btn: true,
     'btn-small': size === 'small',
     'btn-large': size === 'large',
   }"
+  @click="routerPush"
 >
-  <span class="btn-text">{{ text }}</span>
-</nuxt-link>
+  <slot name="text" />
+</a>
 <button
   v-else
   type="button"
@@ -16,21 +16,11 @@
     btn: true,
     'btn-small': size === 'small',
     'btn-large': size === 'large',
-    isSonar,
     topLeft,
     topRight,
     bottomLeft,
     bottomRight,
   }"
 >
-  <span class="btn-text">
-    {{ text }}
-    <Sonar
-      v-if="isSonar"
-      :topLeft="topLeft"
-      :topRight="topRight"
-      :bottomLeft="bottomLeft"
-      :bottomRight="bottomRight"
-    />
-  </span>
+  <slot name="text" />
 </button>

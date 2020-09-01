@@ -53,14 +53,12 @@
     font-size: 4.8rem;
   }
 
-  &-text {
+  & span {
     display: inline-block;
     z-index: 1;
     transform: skewX(30deg);
   }
-}
 
-.isSonar {
   &:hover {
     & span > div {
       border: 1px solid $black;
@@ -100,7 +98,7 @@
 
 .bottomRight {
   &:hover {
-    & span > div {
+    & span > div {  
       &:after {
         border-right: 16px solid $black;
       }

@@ -1,16 +1,4 @@
-<a
-  v-if="to"
-  :class="{
-    btn: true,
-    'btn-small': size === 'small',
-    'btn-large': size === 'large',
-  }"
-  @click="routerPush"
->
-  <slot name="text" />
-</a>
 <button
-  v-else
   type="button"
   :class="{
     btn: true,
@@ -21,6 +9,7 @@
     bottomLeft,
     bottomRight,
   }"
+  @click="routerPush"
 >
   <slot name="text" />
 </button>

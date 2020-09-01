@@ -67,7 +67,7 @@ export default class Player {
     if (this._spawned) {
       const newX = this._correctCoordinateX(this._x + x * PLAYER_MOVE_SCALE)
       const newY = this._correctCoordinateY(this._y + y * PLAYER_MOVE_SCALE)
-      this._clear()
+      this.clear()
       this._drawSocialDistance(newX, newY)
       this._drawPlayer(newX, newY)
       this._calcCurrentCoordinate(newX, newY)
@@ -105,7 +105,7 @@ export default class Player {
   /**
    * 移動前の画像の削除
    */
-  _clear() {
+  clear() {
     this._ctx.globalCompositeOperation = 'destination-out'
     this._drawCircle(this._x, this._y, '#fff', SOCIAL_DISTANCE_ZONE_RADIUS + 1)
     this._ctx.globalCompositeOperation = 'source-over'

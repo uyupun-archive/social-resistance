@@ -18,12 +18,15 @@ export default {
     }
   },
   mounted() {
-    this.createCanvas()
-    this.createJudge()
-    this.initFieldLayer()
-    this.initPlayerLayer()
+    this.initWorld()
   },
   methods: {
+    initWorld() {
+      this.createCanvas()
+      this.createJudge()
+      this.initFieldLayer()
+      this.initPlayerLayer()
+    },
     createCanvas() {
       this.createFieldLayer()
       this.createPlayerLayer()
@@ -66,6 +69,11 @@ export default {
         return 'うさぎさん'
       }
       return null
+    },
+    freshWorld() {
+      this.pekora.clear()
+      this.baikinKun.clear()
+      this.initWorld()
     },
   },
 }

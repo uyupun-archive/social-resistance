@@ -31,14 +31,24 @@
     <div class="word-wrapper">
       <div v-for="word in words" :key="word.index" class="word">
         <Button
-          :text="word.word"
-          :isSonar="true"
           :topLeft="word.direction.top_left"
           :topRight="word.direction.top_right"
           :bottomLeft="word.direction.bottom_left"
           :bottomRight="word.direction.bottom_right"
           @click.native="openWordModal(word)"
-        />
+        >
+          <template v-slot:text>
+            <span>
+              {{ word.word }}
+              <Sonar
+                :topLeft="word.direction.top_left"
+                :topRight="word.direction.top_right"
+                :bottomLeft="word.direction.bottom_left"
+                :bottomRight="word.direction.bottom_right"
+              />
+            </span>
+          </template>
+        </Button>
       </div>
     </div>
     <Modal ref="wordModal">
@@ -46,13 +56,25 @@
         <p>『{{ selectedWord.word }}』でよろしいですか？</p>
       </template>
       <template v-slot:btns>
-        <Button text="よくない" @click.native="closeWordModal" />
-        <Button text="よい" @click.native="turnProcess(selectedWord)" />
+        <Button @click.native="closeWordModal">
+          <template v-slot:text>
+            <span>よくない</span>
+          </template>
+        </Button>
+        <Button text="よい" @click.native="turnProcess(selectedWord)">
+          <template v-slot:text>
+            <span>よい</span>
+          </template>
+        </Button>
       </template>
     </Modal>
   </div>
   <div class="btn-pause">
-    <Button text="ポーズ" size="small" @click.native="openPauseModal" />
+    <Button size="small" @click.native="openPauseModal">
+      <template v-slot:text>
+        <span>ポーズ</span>
+      </template>
+    </Button>
   </div>
   <Modal ref="pauseModal" :is-wrap="true">
     <template v-slot:content>
@@ -60,13 +82,25 @@
     </template>
     <template v-slot:btns>
       <div class="pause-choices">
-        <Button text="さいかい" @click.native="restartGame" />
+        <Button @click.native="restartGame">
+          <template v-slot:text>
+            <span>さいかい</span>
+          </template>
+        </Button>
       </div>
       <div class="pause-choices">
-        <Button text="やりなおし" @click.native="freshGame" />
+        <Button @click.native="freshGame">
+          <template v-slot:text>
+            <span>やりなおし</span>
+          </template>
+        </Button>
       </div>
       <div class="pause-choices">
-        <Button text="やめる" to="/" />
+        <Button to="/">
+          <template v-slot:text>
+            <span>やめる</span>
+          </template>
+        </Button>
       </div>
     </template>
   </Modal>
@@ -81,7 +115,11 @@
       <p>『{{ winner }}』のかち！</p>
     </template>
     <template v-slot:btns>
-      <Button to="/" text="おつかれ" size="large" />
+      <Button to="/" size="large">
+        <template v-slot:text>
+          <span>おつかれ</span>
+        </template>
+      </Button>
     </template>
   </Modal>
 </div>

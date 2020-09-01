@@ -3,6 +3,7 @@ import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
 import Turn from '~/components/turn/index.js'
 import TurnAnimation from '~/components/turn-animation/index.vue'
+import Sonar from '~/components/sonar/index.vue'
 
 export default {
   middleware: 'redirectToTop',
@@ -11,6 +12,7 @@ export default {
     World,
     Modal,
     TurnAnimation,
+    Sonar,
   },
   data() {
     return {

@@ -28,6 +28,8 @@ export default {
       selectedWord: '',
       winner: '',
       turn: new Turn(),
+      countdown: 30,
+      countdownTimerID: null,
     }
   },
   mounted() {
@@ -38,6 +40,7 @@ export default {
       this.getFirstWord()
       this.getWords()
       this.showTurnAnimation()
+      this.startTimer()
     },
     getFirstWord() {
       this.pekora.baseWord = this.$getFirstWord()
@@ -87,6 +90,7 @@ export default {
       this.setActiveTurn()
       this.getWords()
       this.showTurnAnimation()
+      this.startTimer()
     },
     movePlayer(word) {
       if (this.isPekoraTurn())
@@ -102,6 +106,32 @@ export default {
     },
     isPekoraTurn() {
       return this.turn.count % 2 !== 0
+    },
+    startTimer() {
+      clearTimeout(this.countdownTimerID)
+      this.countdown = 30
+      setTimeout(() => {
+        this.countdownTimer()
+      }, 2500)
+    },
+    countdownTimer() {
+      if (this.countdown > 0) {
+        this.countdownTimerID = setTimeout(() => {
+          this.countdown -= 1
+          this.countdownTimer()
+        }, 1000)
+      } else {
+        this.forceSelectWord()
+      }
+    },
+    forceSelectWord() {
+      const randomIndex = Math.floor(Math.random() * this.words.length)
+      this.selectedWord = this.words[randomIndex]
+      this.$refs.forceSelectWordModal.open()
+      setTimeout(() => {
+        this.$refs.forceSelectWordModal.close()
+        this.turnProcess(this.selectedWord)
+      }, 3000)
     },
   },
 }

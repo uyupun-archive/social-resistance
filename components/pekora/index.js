@@ -1,6 +1,6 @@
-import { SOCIAL_DISTANCE_ZONE_RADIUS } from '../constants'
 import {
   FIELD_HEIGHT,
+  SOCIAL_DISTANCE_ZONE_RADIUS,
   PLAYER_PEKORA_START_POINT,
 } from '~/components/constants/index.js'
 import Player from '~/components/player/index.js'

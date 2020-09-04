@@ -122,7 +122,7 @@
       </Button>
     </template>
   </Modal>
-  <Modal ref="forceSelectWordModal">
+  <Modal ref="forceSelectWordModal" :not-click-self="true">
     <template v-slot:content>
       <p>持ち時間が過ぎたため 『{{ selectedWord.word }}』を選択しました</p>
     </template>

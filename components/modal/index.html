@@ -1,9 +1,23 @@
 <div v-if="showModal">
-  <div class="container" @click.self="close">
+  <div v-if="notClickSelf" class="container">
     <div :class="{ modal: true, close: isClose }">
       <div class="modal-content">
-        <slot name="content" />
-        <div :class="{ 'modal-btns': true, wrap: isWrap, nowrap: !isWrap }">
+        <div>
+          <slot name="content" />
+        </div>
+        <div v-if="$slots.btns" :class="{ 'modal-btns': true, wrap: isWrap, nowrap: !isWrap }">
+          <slot name="btns" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-else class="container" @click.self="close">
+    <div :class="{ modal: true, close: isClose }">
+      <div class="modal-content">
+        <div>
+          <slot name="content" />
+        </div>
+        <div v-if="$slots.btns" :class="{ 'modal-btns': true, wrap: isWrap, nowrap: !isWrap }">
           <slot name="btns" />
         </div>
       </div>

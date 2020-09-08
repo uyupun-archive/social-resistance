@@ -14,7 +14,13 @@
           [{{ pekora.baseWord ? pekora.baseWord.word : '' }}]
         </p>
       </div>
-      <p class="turn-count">{{ turn.count }}</p>
+      <div class="turn-info">
+        <p class="turn-count">ターン数:&nbsp;{{turn.count}}</p>
+        <p class="turn-countdown">
+          のこり:&nbsp;
+          <span :class="{'danger': countdown <= 5}">{{ countdown }}</span>
+        </p>
+      </div>
       <div
         class="turn-which"
         :class="{
@@ -61,7 +67,7 @@
             <span>よくない</span>
           </template>
         </Button>
-        <Button text="よい" @click.native="turnProcess(selectedWord)">
+        <Button @click.native="turnProcess(selectedWord)">
           <template v-slot:text>
             <span>よい</span>
           </template>
@@ -120,6 +126,11 @@
           <span>おつかれ</span>
         </template>
       </Button>
+    </template>
+  </Modal>
+  <Modal ref="forceSelectWordModal" :not-click-self="true">
+    <template v-slot:content>
+      <p>持ち時間が過ぎたため 『{{ selectedWord.word }}』を選択しました</p>
     </template>
   </Modal>
 </div>

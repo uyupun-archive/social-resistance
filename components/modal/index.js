@@ -8,6 +8,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    notClickSelf: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {

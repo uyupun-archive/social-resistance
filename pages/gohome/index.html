@@ -14,12 +14,13 @@
           [{{ pekora.baseWord ? pekora.baseWord.word : '' }}]
         </p>
       </div>
-      <p
-        class="turn-count"
-        :class="{'danger': countdown <= 5}"
-      >
-        {{ countdown }}
-      </p>
+      <div class="turn-info">
+        <p class="turn-count">ターン数:&nbsp;{{turn.count}}</p>
+        <p class="turn-countdown">
+          のこり:&nbsp;
+          <span :class="{'danger': countdown <= 5}">{{ countdown }}</span>
+        </p>
+      </div>
       <div
         class="turn-which"
         :class="{

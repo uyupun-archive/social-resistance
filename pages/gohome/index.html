@@ -14,7 +14,12 @@
           [{{ pekora.baseWord ? pekora.baseWord.word : '' }}]
         </p>
       </div>
-      <p class="turn-count">{{ this.countdown }}</p>
+      <p
+        class="turn-count"
+        :class="{'danger': countdown <= 5}"
+      >
+        {{ countdown }}
+      </p>
       <div
         class="turn-which"
         :class="{

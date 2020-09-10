@@ -27,7 +27,7 @@ export default class Turn {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         this._countdown().then(() => {
-          resolve('unko')
+          resolve()
         })
       }, 2500)
     })
@@ -52,7 +52,7 @@ export default class Turn {
   }
 
   /**
-   * 次ターンへ移行
+   * 次ターンへの準備
    */
   _prepare() {
     clearTimeout(this._timerId)

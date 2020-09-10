@@ -90,9 +90,8 @@ export default {
       this.startTurn()
     },
     movePlayer(word) {
-      if (this.isPekoraTurn())
-        this.$refs.world.movePekora(this.pekora.baseWord, word)
-      else this.$refs.world.moveBaikinKun(this.baikinKun.baseWord, word)
+      if (this.isPekoraTurn()) this.$refs.world.movePekora(word)
+      else this.$refs.world.moveBaikinKun(word)
     },
     setActiveTurn() {
       this.pekora.active = !this.pekora.active

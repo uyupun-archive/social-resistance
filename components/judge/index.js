@@ -16,14 +16,13 @@ export default class Judge {
   /**
    * 当たり判定(ばいきんくんの勝利判定)
    *
-   * @param {*} coordinateA
-   * @param {*} coordinateB
+   * @param {*} positionA
+   * @param {*} positionB
    */
-  isHit(coordinateA, coordinateB) {
+  isHit(positionA, positionB) {
     // 二点間の距離
     const distance = Math.sqrt(
-      (coordinateB.x - coordinateA.x) ** 2 +
-        (coordinateB.y - coordinateA.y) ** 2
+      (positionB.x - positionA.x) ** 2 + (positionB.y - positionA.y) ** 2
     )
     // 二点間の距離が各Playerの和以下なら衝突している
     if (distance <= SOCIAL_DISTANCE_ZONE_RADIUS * 2) return true

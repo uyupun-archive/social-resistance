@@ -55,17 +55,17 @@ export default {
     createJudge() {
       this.judge = new Judge()
     },
-    movePekora(baseWord, word) {
+    movePekora(word) {
       this.pekora.depart(word.move.x, word.move.y)
     },
-    moveBaikinKun(baseWord, word) {
+    moveBaikinKun(word) {
       this.baikinKun.depart(word.move.x, word.move.y)
     },
     judgeWinner() {
-      if (this.judge.isHit(this.pekora.coordinate, this.baikinKun.coordinate)) {
+      if (this.judge.isHit(this.pekora.position, this.baikinKun.position)) {
         return 'ばいきんくん'
       }
-      if (this.judge.isGoal(this.pekora.coordinate.x)) {
+      if (this.judge.isGoal(this.pekora.position.x)) {
         return 'うさぎさん'
       }
       return null

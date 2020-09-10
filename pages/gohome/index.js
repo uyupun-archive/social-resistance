@@ -69,9 +69,9 @@ export default {
     restartGame() {
       this.$refs.pauseModal.close()
     },
-    freshGame() {
+    refreshGame() {
       this.$refs.pauseModal.close()
-      this.$refs.world.freshWorld()
+      this.$refs.world.refreshWorld()
       this.initGame()
       this.turn = new Turn()
       this.pekora.active = true

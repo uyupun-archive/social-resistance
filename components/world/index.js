@@ -70,7 +70,7 @@ export default {
       }
       return null
     },
-    freshWorld() {
+    refreshWorld() {
       this.pekora.clear()
       this.baikinKun.clear()
       this.initWorld()

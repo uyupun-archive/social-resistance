@@ -28,8 +28,6 @@ export default {
       selectedWord: '',
       winner: '',
       turn: new Turn(),
-      countdown: 30,
-      countdownTimerID: null,
     }
   },
   mounted() {
@@ -108,21 +106,11 @@ export default {
       return this.turn.count % 2 !== 0
     },
     startTimer() {
-      clearTimeout(this.countdownTimerID)
-      this.countdown = 30
       setTimeout(() => {
-        this.countdownTimer()
+        this.turn.start().then(() => {
+          this.forceSelectWord()
+        })
       }, 2500)
-    },
-    countdownTimer() {
-      if (this.countdown > 0) {
-        this.countdownTimerID = setTimeout(() => {
-          this.countdown -= 1
-          this.countdownTimer()
-        }, 1000)
-      } else {
-        this.forceSelectWord()
-      }
     },
     forceSelectWord() {
       const randomIndex = Math.floor(Math.random() * this.words.length)

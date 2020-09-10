@@ -15,10 +15,10 @@
         </p>
       </div>
       <div class="turn-info">
-        <p class="turn-count">ターン数:&nbsp;{{turn.count}}</p>
+        <p class="turn-count">ターン数:&nbsp;{{ turn.count }}</p>
         <p class="turn-countdown">
           のこり:&nbsp;
-          <span :class="{'danger': countdown <= 5}">{{ countdown }}</span>
+          <span :class="{'danger': turn.timeLimit <= 5}">{{ turn.timeLimit }}</span>
         </p>
       </div>
       <div

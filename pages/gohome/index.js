@@ -18,11 +18,9 @@ export default {
     return {
       pekora: {
         active: true,
-        baseWord: null,
       },
       baikinKun: {
         active: false,
-        baseWord: null,
       },
       words: null,
       selectedWord: '',
@@ -35,20 +33,16 @@ export default {
   },
   methods: {
     initGame() {
-      this.getFirstWord()
       this.getWords()
-      this.spawnPlayer()
       this.showTurnAnimation()
       this.startTurn()
-    },
-    getFirstWord() {
-      this.pekora.baseWord = this.$getFirstWord()
-      this.baikinKun.baseWord = this.$getFirstWord()
     },
     getWords() {
       this.$nextTick(() => {
         this.words = this.$getWords(
-          this.isPekoraTurn() ? this.pekora.baseWord : this.baikinKun.baseWord
+          this.isPekoraTurn()
+            ? this.$refs.world.getBaseWord('ぺこら')
+            : this.$refs.world.getBaseWord('ばいきんくん')
         )
       })
     },
@@ -84,17 +78,10 @@ export default {
         this.$refs.winModal.open()
         return
       }
-      this.updateBaseWord(word)
       this.setActiveTurn()
       this.getWords()
       this.showTurnAnimation()
       this.startTurn()
-    },
-    spawnPlayer() {
-      this.$refs.world.spawnPlayer(
-        this.pekora.baseWord,
-        this.baikinKun.baseWord
-      )
     },
     movePlayer(word) {
       if (this.isPekoraTurn()) this.$refs.world.movePekora(word)

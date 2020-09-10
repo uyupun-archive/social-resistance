@@ -8,19 +8,12 @@ import Player from '~/components/player/index.js'
 export default class Pekora extends Player {
   /**
    * 初回(スポーン時)
-   *
-   * @param {*} baseWord
    */
-  spawn(baseWord) {
+  spawn() {
     this._image.src = require('~/assets/images/objects/pekora.gif')
-    const position = {
-      x: PLAYER_PEKORA_START_POINT + SOCIAL_DISTANCE_ZONE_RADIUS,
-      y: FIELD_HEIGHT / 2,
-    }
-    const movement = {
-      x: baseWord.move.x,
-      y: baseWord.move.y,
-    }
-    this._move(position, movement)
+    this._move(
+      PLAYER_PEKORA_START_POINT + SOCIAL_DISTANCE_ZONE_RADIUS,
+      FIELD_HEIGHT / 2
+    )
   }
 }

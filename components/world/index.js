@@ -24,8 +24,6 @@ export default {
     initWorld() {
       this.createCanvas()
       this.createJudge()
-      this.initFieldLayer()
-      // this.initPlayerLayer()
     },
     createCanvas() {
       this.createFieldLayer()
@@ -36,30 +34,26 @@ export default {
       this.ctx.field = field.getContext('2d')
       this.field = new Field(this.ctx.field)
       this.house = new House(this.ctx.field)
-    },
-    createPlayerLayer() {
-      const player = document.getElementById('player-layer')
-      this.ctx.player = player.getContext('2d')
-      this.pekora = new Pekora(this.ctx.player)
-      this.baikinKun = new BaikinKun(this.ctx.player)
-    },
-    initFieldLayer() {
       this.field.drawGrid()
       this.field.drawGoalLine()
       this.house.draw()
     },
-    spawnPlayer(pekoraBaseWord, baikinKunBaseWord) {
-      this.pekora.spawn(pekoraBaseWord)
-      this.baikinKun.spawn(baikinKunBaseWord)
+    createPlayerLayer() {
+      const player = document.getElementById('player-layer')
+      this.ctx.player = player.getContext('2d')
+      this.pekora = new Pekora(this.ctx.player, this.$getFirstWord)
+      this.baikinKun = new BaikinKun(this.ctx.player, this.$getFirstWord)
+      this.pekora.spawn()
+      this.baikinKun.spawn()
     },
     createJudge() {
       this.judge = new Judge()
     },
     movePekora(word) {
-      this.pekora.depart(word.move.x, word.move.y)
+      this.pekora.depart(word)
     },
     moveBaikinKun(word) {
-      this.baikinKun.depart(word.move.x, word.move.y)
+      this.baikinKun.depart(word)
     },
     judgeWinner() {
       if (this.judge.isHit(this.pekora.position, this.baikinKun.position)) {
@@ -74,6 +68,10 @@ export default {
       this.pekora.clear()
       this.baikinKun.clear()
       this.initWorld()
+    },
+    getBaseWord(player) {
+      if (player === 'ぺこら') return this.pekora.baseWord
+      return this.baikinKun.baseWord
     },
   },
 }

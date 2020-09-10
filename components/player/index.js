@@ -7,15 +7,12 @@ import {
 } from '~/components/constants/index.js'
 
 export default class Player {
-  constructor(ctx) {
+  constructor(ctx, getFitstWord) {
     this._ctx = ctx
     this._image = new Image()
     this._width = null
     this._height = null
-    this._movement = {
-      x: null,
-      y: null,
-    }
+    this._baseWord = getFitstWord()
     this._position = {
       x: null,
       y: null,
@@ -29,6 +26,13 @@ export default class Player {
    */
   get position() {
     return this._position
+  }
+
+  /**
+   * 前回選択した単語のゲッター
+   */
+  get baseWord() {
+    return this._baseWord
   }
 
   /**
@@ -48,41 +52,43 @@ export default class Player {
 
   /**
    * ２回目以降(移動時)
+   *
+   * @param {*} word
    */
-  depart(x, y) {
-    this._move(null, { x, y })
+  depart(word) {
+    this._move(word.move.x, word.move.y, word)
   }
 
   /**
-   * 移動前の画像の削除、移動後の画像の描画、現在位置の計算の呼び出し
+   * 移動前のプレイヤーの描画をクリア、移動後のプレイヤーの描画、ポジションの再計算
    *
    * @param {*} x
    * @param {*} y
+   * @param {*} word
    */
-  _move(position, movement) {
+  _move(x, y, word = null) {
     // 初回(スポーン時)
     this._image.onload = () => {
       this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
       this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
       this._spawned = true
-      this._drawSocialDistance(position.x, position.y)
-      this._drawPlayer(position.x, position.y)
-      this._calcPosition(position.x, position.y)
-      this._calcMovement(movement.x, movement.y)
+      this._drawSocialDistance(x, y)
+      this._drawPlayer(x, y)
+      this._calcPosition(x, y)
     }
     // ２回目以降(移動時)
     if (this._spawned) {
       const newX = this._correctPositionX(
-        this._position.x + movement.x * PLAYER_MOVE_SCALE
+        this._position.x + x * PLAYER_MOVE_SCALE
       )
       const newY = this._correctPositionY(
-        this._position.y + movement.y * PLAYER_MOVE_SCALE
+        this._position.y + y * PLAYER_MOVE_SCALE
       )
       this.clear()
       this._drawSocialDistance(newX, newY)
       this._drawPlayer(newX, newY)
       this._calcPosition(newX, newY)
-      this._calcMovement(movement.x, movement.y)
+      this._baseWord = word
     }
   }
 
@@ -179,16 +185,5 @@ export default class Player {
   _calcPosition(x, y) {
     this._position.x = x
     this._position.y = y
-  }
-
-  /**
-   * 現在選択中の単語のベクトル(移動量)の計算
-   *
-   * @param {*} x
-   * @param {*} y
-   */
-  _calcMovement(x, y) {
-    this._movement.x = x
-    this._movement.y = y
   }
 }

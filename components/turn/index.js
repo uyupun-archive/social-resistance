@@ -30,8 +30,7 @@ export default class Turn {
           resolve(false)
         }, 1000)
       } else {
-        clearTimeout(this._timerId)
-        this._timeLimit = 30
+        this._next()
         resolve(true)
       }
     }).then((isTimeLimit) => {
@@ -40,9 +39,11 @@ export default class Turn {
   }
 
   /**
-   * ターン数の更新
+   * 次ターンへ移行
    */
-  add() {
+  _next() {
+    clearTimeout(this._timerId)
+    this._timeLimit = 30
     this._count++
   }
 }

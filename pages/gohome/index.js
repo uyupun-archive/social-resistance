@@ -38,7 +38,7 @@ export default {
       this.getFirstWord()
       this.getWords()
       this.showTurnAnimation()
-      this.startTimer()
+      this.startTurn()
     },
     getFirstWord() {
       this.pekora.baseWord = this.$getFirstWord()
@@ -84,11 +84,10 @@ export default {
         return
       }
       this.updateBaseWord(word)
-      this.turn.add()
       this.setActiveTurn()
       this.getWords()
       this.showTurnAnimation()
-      this.startTimer()
+      this.startTurn()
     },
     movePlayer(word) {
       if (this.isPekoraTurn())
@@ -105,7 +104,7 @@ export default {
     isPekoraTurn() {
       return this.turn.count % 2 !== 0
     },
-    startTimer() {
+    startTurn() {
       setTimeout(() => {
         this.turn.start().then(() => {
           this.forceSelectWord()

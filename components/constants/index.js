@@ -18,6 +18,8 @@ export const PLAYER_SIZE_SCALE = 0.15
 export const PLAYER_MOVE_SCALE = 100
 // ぺこらの名前
 export const PLAYER_PEKORA_NAME = 'ぺこら'
+// ぺこらの名前２(版権的に『ぺこら』はアウトなので)
+export const PLAYER_PEKORA_ALIAS_NAME = 'うさぎさん'
 // ばいきんくんの名前
 export const PLAYER_BAIKINKUN_NAME = 'ばいきんくん'
 // ぺこらのスタートポイント

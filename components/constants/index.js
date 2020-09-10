@@ -16,6 +16,10 @@ export const SOCIAL_DISTANCE_ZONE_RADIUS = 60
 export const PLAYER_SIZE_SCALE = 0.15
 // プレイヤーの移動量の倍率
 export const PLAYER_MOVE_SCALE = 100
+// ぺこらの名前
+export const PLAYER_PEKORA_NAME = 'ぺこら'
+// ばいきんくんの名前
+export const PLAYER_BAIKINKUN_NAME = 'ばいきんくん'
 // ぺこらのスタートポイント
 export const PLAYER_PEKORA_START_POINT = 0
 // ばいきんくんのスタートポイント

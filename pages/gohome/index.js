@@ -20,12 +20,6 @@ export default {
   },
   data() {
     return {
-      pekora: {
-        active: true,
-      },
-      baikinKun: {
-        active: false,
-      },
       words: null,
       selectedWord: '',
       winner: '',
@@ -54,8 +48,6 @@ export default {
       this.$refs.world.refreshWorld()
       this.stepFirstTurn()
       this.turn = new Turn()
-      this.pekora.active = true
-      this.baikinKun.active = false
     },
     stepFirstTurn() {
       this.getWords()
@@ -69,31 +61,23 @@ export default {
         this.$refs.winModal.open()
         return
       }
-      this.setActiveTurn()
       this.getWords()
       this.showTurnAnimation()
       this.proceedTurn()
     },
     movePlayer(word) {
-      if (this.isPekoraTurn()) this.$refs.world.movePekora(word)
+      if (this.turn.active.pekora) this.$refs.world.movePekora(word)
       else this.$refs.world.moveBaikinKun(word)
-    },
-    setActiveTurn() {
-      this.pekora.active = !this.pekora.active
-      this.baikinKun.active = !this.baikinKun.active
     },
     getWords() {
       this.words = this.$getWords(
-        this.isPekoraTurn()
+        this.turn.active.pekora
           ? this.$refs.world.getBaseWord(PLAYER_PEKORA_NAME)
           : this.$refs.world.getBaseWord(PLAYER_BAIKINKUN_NAME)
       )
     },
     showTurnAnimation() {
       this.$refs.turnAnimation.show()
-    },
-    isPekoraTurn() {
-      return this.turn.count % 2 !== 0
     },
     proceedTurn() {
       this.turn.proceed().then(() => {

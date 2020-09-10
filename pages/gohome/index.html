@@ -5,8 +5,8 @@
       <div
         class="turn-which"
         :class="{
-          'turn-active': pekora.active,
-          'turn-inactive': !pekora.active,
+          'turn-active': turn.active.pekora,
+          'turn-inactive': !turn.active.pekora,
         }"
       >
         <p class="turn-which-player">うさぎさんのターン</p>
@@ -24,8 +24,8 @@
       <div
         class="turn-which"
         :class="{
-          'turn-active': baikinKun.active,
-          'turn-inactive': !baikinKun.active,
+          'turn-active': turn.active.baikinKun,
+          'turn-inactive': !turn.active.baikinKun,
         }"
       >
         <p class="turn-which-player">ばいきんくんのターン</p>

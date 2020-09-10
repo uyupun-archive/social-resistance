@@ -3,6 +3,10 @@ export default class Turn {
     this._count = 1
     this._timeLimit = 30
     this._timerId = null
+    this._active = {
+      pekora: true,
+      baikinKun: false,
+    }
   }
 
   /**
@@ -17,6 +21,13 @@ export default class Turn {
    */
   get timeLimit() {
     return this._timeLimit
+  }
+
+  /**
+   * どちらのプレイヤーのターンかを返すゲッター
+   */
+  get active() {
+    return this._active
   }
 
   /**
@@ -58,5 +69,7 @@ export default class Turn {
     clearTimeout(this._timerId)
     this._timeLimit = 30
     this._count++
+    this._active.pekora = !this._active.pekora
+    this._active.baikinKun = !this.active.baikinKun
   }
 }

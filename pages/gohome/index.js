@@ -90,9 +90,8 @@ export default {
       this.startTurn()
     },
     movePlayer(word) {
-      if (this.isPekoraTurn())
-        this.$refs.world.movePekora(this.pekora.baseWord, word)
-      else this.$refs.world.moveBaikinKun(this.baikinKun.baseWord, word)
+      if (this.isPekoraTurn()) this.$refs.world.movePekora(word)
+      else this.$refs.world.moveBaikinKun(word)
     },
     setActiveTurn() {
       this.pekora.active = !this.pekora.active
@@ -105,11 +104,9 @@ export default {
       return this.turn.count % 2 !== 0
     },
     startTurn() {
-      setTimeout(() => {
-        this.turn.start().then(() => {
-          this.forceSelectWord()
-        })
-      }, 2500)
+      this.turn.proceed().then(() => {
+        this.forceSelectWord()
+      })
     },
     forceSelectWord() {
       const randomIndex = Math.floor(Math.random() * this.words.length)

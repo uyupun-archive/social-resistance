@@ -11,7 +11,7 @@
       >
         <p class="turn-which-player">うさぎさんのターン</p>
         <p class="turn-which-word">
-          [{{ $refs.world ? $refs.world.getBaseWord('ぺこら').word : '' }}]
+          [{{ getBaseWord('ぺこら').word }}]
         </p>
       </div>
       <div class="turn-info">
@@ -30,7 +30,7 @@
       >
         <p class="turn-which-player">ばいきんくんのターン</p>
         <p class="turn-which-word">
-          [{{ $refs.world ? $refs.world.getBaseWord('ばいきんくん').word : '' }}]
+          [{{ getBaseWord('ばいきんくん').word }}]
         </p>
       </div>
     </div>

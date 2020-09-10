@@ -72,8 +72,8 @@ export default {
     getWords() {
       this.words = this.$getWords(
         this.turn.active.pekora
-          ? this.$refs.world.getBaseWord(PLAYER_PEKORA_NAME)
-          : this.$refs.world.getBaseWord(PLAYER_BAIKINKUN_NAME)
+          ? this.getBaseWord(PLAYER_PEKORA_NAME)
+          : this.getBaseWord(PLAYER_BAIKINKUN_NAME)
       )
     },
     showTurnAnimation() {
@@ -92,6 +92,10 @@ export default {
         this.$refs.forceSelectWordModal.close()
         this.stepAfterSecondTurn(this.selectedWord)
       }, 3000)
+    },
+    getBaseWord(player) {
+      if (this.$refs.world) return this.$refs.world.getBaseWord(player)
+      return ''
     },
   },
 }

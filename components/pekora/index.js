@@ -11,7 +11,7 @@ export default class Pekora extends Player {
    */
   spawn() {
     this._image.src = require('~/assets/images/objects/pekora.gif')
-    this._move(
+    super.spawn(
       PLAYER_PEKORA_START_POINT + SOCIAL_DISTANCE_ZONE_RADIUS,
       FIELD_HEIGHT / 2
     )

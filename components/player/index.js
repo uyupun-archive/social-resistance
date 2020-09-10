@@ -17,7 +17,6 @@ export default class Player {
       x: null,
       y: null,
     }
-    this._spawned = false
     this.checkIsImplemented()
   }
 
@@ -36,19 +35,28 @@ export default class Player {
   }
 
   /**
-   * 必須のメソッドが実装されているかのチェック機構
-   * 擬似的な抽象メソッドみたいな
+   * 必須のメソッドが継承先で実装されているかのチェック機構
+   * 擬似的な抽象メソッドみたいな感じ
    */
   checkIsImplemented() {
-    if (!(this.spawn && this._drawPlayer && this._calcPosition)) {
-      throw new Error('Necessary methods are not implemented.')
-    }
+    if (!this.spawn) throw new Error('Necessary methods are not implemented.')
   }
 
   /**
    * 初回(スポーン時)
+   *
+   * @param {*} x
+   * @param {*} y
    */
-  spawn() {}
+  spawn(x, y) {
+    this._image.onload = () => {
+      this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
+      this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
+      this._drawSocialDistance(x, y)
+      this._drawPlayer(x, y)
+      this._calcPosition(x, y)
+    }
+  }
 
   /**
    * ２回目以降(移動時)
@@ -56,40 +64,17 @@ export default class Player {
    * @param {*} word
    */
   depart(word) {
-    this._move(word.move.x, word.move.y, word)
-  }
-
-  /**
-   * 移動前のプレイヤーの描画をクリア、移動後のプレイヤーの描画、ポジションの再計算
-   *
-   * @param {*} x
-   * @param {*} y
-   * @param {*} word
-   */
-  _move(x, y, word = null) {
-    // 初回(スポーン時)
-    this._image.onload = () => {
-      this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
-      this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
-      this._spawned = true
-      this._drawSocialDistance(x, y)
-      this._drawPlayer(x, y)
-      this._calcPosition(x, y)
-    }
-    // ２回目以降(移動時)
-    if (this._spawned) {
-      const newX = this._correctPositionX(
-        this._position.x + x * PLAYER_MOVE_SCALE
-      )
-      const newY = this._correctPositionY(
-        this._position.y + y * PLAYER_MOVE_SCALE
-      )
-      this.clear()
-      this._drawSocialDistance(newX, newY)
-      this._drawPlayer(newX, newY)
-      this._calcPosition(newX, newY)
-      this._baseWord = word
-    }
+    const newX = this._correctPositionX(
+      this._position.x + word.move.x * PLAYER_MOVE_SCALE
+    )
+    const newY = this._correctPositionY(
+      this._position.y + word.move.y * PLAYER_MOVE_SCALE
+    )
+    this.clear()
+    this._drawSocialDistance(newX, newY)
+    this._drawPlayer(newX, newY)
+    this._calcPosition(newX, newY)
+    this._baseWord = word
   }
 
   /**

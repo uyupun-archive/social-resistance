@@ -20,9 +20,23 @@ export default class Turn {
   }
 
   /**
-   * ターンの開始 ≒ 持ち時間のカウントダウン
+   * ターンの進行
    */
-  start() {
+  proceed() {
+    if (this._timerId) this._prepare()
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this._countdown().then(() => {
+          resolve('unko')
+        })
+      }, 2500)
+    })
+  }
+
+  /**
+   * 持ち時間のカウントダウン
+   */
+  _countdown() {
     return new Promise((resolve, reject) => {
       if (this._timeLimit > 0) {
         this._timerId = setTimeout(() => {
@@ -30,18 +44,17 @@ export default class Turn {
           resolve(false)
         }, 1000)
       } else {
-        this._next()
         resolve(true)
       }
     }).then((isTimeLimit) => {
-      if (!isTimeLimit) return this.start()
+      if (!isTimeLimit) return this._countdown()
     })
   }
 
   /**
    * 次ターンへ移行
    */
-  _next() {
+  _prepare() {
     clearTimeout(this._timerId)
     this._timeLimit = 30
     this._count++

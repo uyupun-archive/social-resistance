@@ -104,11 +104,9 @@ export default {
       return this.turn.count % 2 !== 0
     },
     startTurn() {
-      setTimeout(() => {
-        this.turn.start().then(() => {
-          this.forceSelectWord()
-        })
-      }, 2500)
+      this.turn.proceed().then(() => {
+        this.forceSelectWord()
+      })
     },
     forceSelectWord() {
       const randomIndex = Math.floor(Math.random() * this.words.length)

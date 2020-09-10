@@ -4,6 +4,10 @@ import Modal from '~/components/modal/index.vue'
 import Turn from '~/components/turn/index.js'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
+import {
+  PLAYER_PEKORA_NAME,
+  PLAYER_BAIKINKUN_NAME,
+} from '~/components/constants/index.js'
 
 export default {
   middleware: 'redirectToTop',
@@ -16,14 +20,6 @@ export default {
   },
   data() {
     return {
-      pekora: {
-        active: true,
-        baseWord: null,
-      },
-      baikinKun: {
-        active: false,
-        baseWord: null,
-      },
       words: null,
       selectedWord: '',
       winner: '',
@@ -31,30 +27,9 @@ export default {
     }
   },
   mounted() {
-    this.initGame()
+    this.stepFirstTurn()
   },
   methods: {
-    initGame() {
-      this.getFirstWord()
-      this.getWords()
-      this.showTurnAnimation()
-      this.startTurn()
-    },
-    getFirstWord() {
-      this.pekora.baseWord = this.$getFirstWord()
-      this.baikinKun.baseWord = this.$getFirstWord()
-    },
-    getWords() {
-      this.$nextTick(() => {
-        this.words = this.$getWords(
-          this.isPekoraTurn() ? this.pekora.baseWord : this.baikinKun.baseWord
-        )
-      })
-    },
-    updateBaseWord(word) {
-      if (this.isPekoraTurn()) this.pekora.baseWord = word
-      else this.baikinKun.baseWord = word
-    },
     openWordModal(word) {
       this.selectedWord = word
       this.$refs.wordModal.open()
@@ -68,42 +43,43 @@ export default {
     restartGame() {
       this.$refs.pauseModal.close()
     },
-    freshGame() {
+    refreshGame() {
       this.$refs.pauseModal.close()
-      this.$refs.world.freshWorld()
-      this.initGame()
+      this.$refs.world.refreshWorld()
+      this.stepFirstTurn()
       this.turn = new Turn()
-      this.pekora.active = true
-      this.baikinKun.active = false
     },
-    turnProcess(word) {
+    stepFirstTurn() {
+      this.getWords()
+      this.showTurnAnimation()
+      this.proceedTurn()
+    },
+    stepAfterSecondTurn(word) {
       this.closeWordModal()
       this.movePlayer(word)
       if ((this.winner = this.$refs.world.judgeWinner())) {
         this.$refs.winModal.open()
         return
       }
-      this.updateBaseWord(word)
-      this.setActiveTurn()
       this.getWords()
       this.showTurnAnimation()
-      this.startTurn()
+      this.proceedTurn()
     },
     movePlayer(word) {
-      if (this.isPekoraTurn()) this.$refs.world.movePekora(word)
+      if (this.turn.active.pekora) this.$refs.world.movePekora(word)
       else this.$refs.world.moveBaikinKun(word)
     },
-    setActiveTurn() {
-      this.pekora.active = !this.pekora.active
-      this.baikinKun.active = !this.baikinKun.active
+    getWords() {
+      this.words = this.$getWords(
+        this.turn.active.pekora
+          ? this.getBaseWord(PLAYER_PEKORA_NAME)
+          : this.getBaseWord(PLAYER_BAIKINKUN_NAME)
+      )
     },
     showTurnAnimation() {
       this.$refs.turnAnimation.show()
     },
-    isPekoraTurn() {
-      return this.turn.count % 2 !== 0
-    },
-    startTurn() {
+    proceedTurn() {
       this.turn.proceed().then(() => {
         this.forceSelectWord()
       })
@@ -114,8 +90,12 @@ export default {
       this.$refs.forceSelectWordModal.open()
       setTimeout(() => {
         this.$refs.forceSelectWordModal.close()
-        this.turnProcess(this.selectedWord)
+        this.stepAfterSecondTurn(this.selectedWord)
       }, 3000)
+    },
+    getBaseWord(player) {
+      if (this.$refs.world) return this.$refs.world.getBaseWord(player)
+      return ''
     },
   },
 }

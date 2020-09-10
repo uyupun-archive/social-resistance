@@ -5,13 +5,13 @@
       <div
         class="turn-which"
         :class="{
-          'turn-active': pekora.active,
-          'turn-inactive': !pekora.active,
+          'turn-active': turn.active.pekora,
+          'turn-inactive': !turn.active.pekora,
         }"
       >
         <p class="turn-which-player">うさぎさんのターン</p>
         <p class="turn-which-word">
-          [{{ pekora.baseWord ? pekora.baseWord.word : '' }}]
+          [{{ getBaseWord('ぺこら').word }}]
         </p>
       </div>
       <div class="turn-info">
@@ -24,13 +24,13 @@
       <div
         class="turn-which"
         :class="{
-          'turn-active': baikinKun.active,
-          'turn-inactive': !baikinKun.active,
+          'turn-active': turn.active.baikinKun,
+          'turn-inactive': !turn.active.baikinKun,
         }"
       >
         <p class="turn-which-player">ばいきんくんのターン</p>
         <p class="turn-which-word">
-          [{{ baikinKun.baseWord ? baikinKun.baseWord.word : '' }}]
+          [{{ getBaseWord('ばいきんくん').word }}]
         </p>
       </div>
     </div>
@@ -67,7 +67,7 @@
             <span>よくない</span>
           </template>
         </Button>
-        <Button @click.native="turnProcess(selectedWord)">
+        <Button @click.native="stepAfterSecondTurn(selectedWord)">
           <template v-slot:text>
             <span>よい</span>
           </template>
@@ -95,7 +95,7 @@
         </Button>
       </div>
       <div class="pause-choices">
-        <Button @click.native="freshGame">
+        <Button @click.native="refreshGame">
           <template v-slot:text>
             <span>やりなおし</span>
           </template>

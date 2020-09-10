@@ -12,6 +12,10 @@ export default class Player {
     this._image = new Image()
     this._width = null
     this._height = null
+    this._movement = {
+      x: null,
+      y: null,
+    }
     this._position = {
       x: null,
       y: null,
@@ -46,7 +50,7 @@ export default class Player {
    * ２回目以降(移動時)
    */
   depart(x, y) {
-    this._move(x, y)
+    this._move(null, { x, y })
   }
 
   /**
@@ -55,28 +59,30 @@ export default class Player {
    * @param {*} x
    * @param {*} y
    */
-  _move(x, y) {
+  _move(position, movement) {
     // 初回(スポーン時)
     this._image.onload = () => {
       this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
       this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
       this._spawned = true
-      this._drawSocialDistance(x, y)
-      this._drawPlayer(x, y)
-      this._calcPosition(x, y)
+      this._drawSocialDistance(position.x, position.y)
+      this._drawPlayer(position.x, position.y)
+      this._calcPosition(position.x, position.y)
+      this._calcMovement(movement.x, movement.y)
     }
     // ２回目以降(移動時)
     if (this._spawned) {
       const newX = this._correctPositionX(
-        this._position.x + x * PLAYER_MOVE_SCALE
+        this._position.x + movement.x * PLAYER_MOVE_SCALE
       )
       const newY = this._correctPositionY(
-        this._position.y + y * PLAYER_MOVE_SCALE
+        this._position.y + movement.y * PLAYER_MOVE_SCALE
       )
       this.clear()
       this._drawSocialDistance(newX, newY)
       this._drawPlayer(newX, newY)
       this._calcPosition(newX, newY)
+      this._calcMovement(movement.x, movement.y)
     }
   }
 
@@ -173,5 +179,16 @@ export default class Player {
   _calcPosition(x, y) {
     this._position.x = x
     this._position.y = y
+  }
+
+  /**
+   * 現在選択中の単語のベクトル(移動量)の計算
+   *
+   * @param {*} x
+   * @param {*} y
+   */
+  _calcMovement(x, y) {
+    this._movement.x = x
+    this._movement.y = y
   }
 }

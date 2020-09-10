@@ -25,7 +25,7 @@ export default {
       this.createCanvas()
       this.createJudge()
       this.initFieldLayer()
-      this.initPlayerLayer()
+      // this.initPlayerLayer()
     },
     createCanvas() {
       this.createFieldLayer()
@@ -48,9 +48,9 @@ export default {
       this.field.drawGoalLine()
       this.house.draw()
     },
-    initPlayerLayer() {
-      this.pekora.spawn()
-      this.baikinKun.spawn()
+    spawnPlayer(pekoraBaseWord, baikinKunBaseWord) {
+      this.pekora.spawn(pekoraBaseWord)
+      this.baikinKun.spawn(baikinKunBaseWord)
     },
     createJudge() {
       this.judge = new Judge()

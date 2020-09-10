@@ -37,6 +37,7 @@ export default {
     initGame() {
       this.getFirstWord()
       this.getWords()
+      this.spawnPlayer()
       this.showTurnAnimation()
       this.startTurn()
     },
@@ -88,6 +89,12 @@ export default {
       this.getWords()
       this.showTurnAnimation()
       this.startTurn()
+    },
+    spawnPlayer() {
+      this.$refs.world.spawnPlayer(
+        this.pekora.baseWord,
+        this.baikinKun.baseWord
+      )
     },
     movePlayer(word) {
       if (this.isPekoraTurn()) this.$refs.world.movePekora(word)

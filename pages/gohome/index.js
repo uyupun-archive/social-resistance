@@ -1,6 +1,7 @@
 import Button from '~/components/button/index.vue'
 import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
+import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
 import Turn from '~/components/turn/index.js'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
@@ -15,6 +16,7 @@ export default {
     Button,
     World,
     Modal,
+    ModalWithButtons,
     TurnAnimation,
     Sonar,
   },

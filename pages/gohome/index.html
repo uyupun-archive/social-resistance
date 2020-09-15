@@ -57,7 +57,7 @@
         </Button>
       </div>
     </div>
-    <Modal ref="wordModal">
+    <ModalWithButtons ref="wordModal">
       <template v-slot:content>
         <p>『{{ selectedWord.word }}』でよろしいですか？</p>
       </template>
@@ -73,7 +73,7 @@
           </template>
         </Button>
       </template>
-    </Modal>
+    </ModalWithButtons>
   </div>
   <div class="btn-pause">
     <Button size="small" @click.native="openPauseModal">
@@ -82,7 +82,7 @@
       </template>
     </Button>
   </div>
-  <Modal ref="pauseModal" :is-wrap="true">
+  <ModalWithButtons ref="pauseModal" :is-wrap="true">
     <template v-slot:content>
       <p>ポーズ</p>
     </template>
@@ -109,14 +109,14 @@
         </Button>
       </div>
     </template>
-  </Modal>
+  </ModalWithButtons>
   <TurnAnimation
     ref="turnAnimation"
     :count="turn.count"
     pekora="うさぎさん"
     baikin-kun="ばいきんくん"
   />
-  <Modal ref="winModal" :show-always="true">
+  <ModalWithButtons ref="winModal" :show-always="true">
     <template v-slot:content>
       <p>『{{ winner }}』のかち！</p>
     </template>
@@ -127,8 +127,8 @@
         </template>
       </Button>
     </template>
-  </Modal>
-  <Modal ref="forceSelectWordModal" :not-click-self="true">
+  </ModalWithButtons>
+  <Modal ref="forceSelectWordModal">
     <template v-slot:content>
       <p>持ち時間が過ぎたため 『{{ selectedWord.word }}』を選択しました</p>
     </template>

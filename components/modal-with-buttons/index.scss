@@ -24,16 +24,37 @@
   &-content {
     width: 100%;
 
+    & > div:first-of-type {
+      margin: 0 0 100px;
+    }
+
+    & > div:last-of-type {
+      margin: 0;
+    }
+
     & p {
       text-align: center;
       font-size: 3.6rem;
       margin: 0;
     }
   }
+
+  &-btns {
+    display: flex;
+    justify-content: space-around;
+  }
 }
 
 .close {
   animation: close 0.3s forwards;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.nowrap {
+  flex-wrap: nowrap;
 }
 
 @keyframes modal {

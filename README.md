@@ -20,7 +20,7 @@
 # モジュールのインストール
 $ yarn
 # 開発用サーバーの立ち上げ
-$ yarn dev
+$ yarn dev(localhost:3000)
 # ESLint/Prettierに怒られたとき
 $ yarn run lint --fix
 ```

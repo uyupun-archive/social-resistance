@@ -1,0 +1,11 @@
+<div class="container">
+  <form class="form" @submit.prevent="onSubmit">
+    <SelectBox :options="options" :selected="selected" name="characterSelect" />
+    <p class="form-text">をぼしゅうする</p>
+    <Button>
+      <template v-slot:text>
+        <span>ぼしゅう</span>
+      </template>
+    </Button>
+  </form>
+</div>

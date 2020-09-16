@@ -2,7 +2,7 @@
   <form class="form" @submit.prevent="onSubmit">
     <SelectBox :options="options" :selected="selected" name="characterSelect" />
     <p class="form-text">をぼしゅうする</p>
-    <Button>
+    <Button type="submit">
       <template v-slot:text>
         <span>ぼしゅう</span>
       </template>

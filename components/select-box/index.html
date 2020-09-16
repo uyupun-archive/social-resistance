@@ -1,0 +1,7 @@
+<div>
+  <select v-model="selectModel" :name="name">
+    <option v-for="option in options" :key="option.value" :value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+</div>

@@ -3,17 +3,22 @@
   padding: 50px 0 0;
 }
 
-.join_box {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	margin: 340px auto 150px;
-	width: 760px;
-	font-size: 64px;
-}
+.join{
+	&-box {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		margin: 340px auto 150px;
+		width: 790px;
+		font-size: 64px;
+	}
 
-.join_form {
-	font-size: 64px;
-	width: 380px;
-	height: 100px;
+	&-form {
+		font-size: 64px;
+		width: 380px;
+		height: 100px;
+		outline: none;
+		margin : 0px 0px 0px 30px;
+		padding: 0px 15px 0px;
+	}
 }

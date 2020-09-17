@@ -6,7 +6,7 @@ export default {
   },
   data() {
     return {
-      world_id: '',
+      worldid: '',
     }
   },
 }

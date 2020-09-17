@@ -1,0 +1,55 @@
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+
+  &-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6.4rem;
+    margin: 0 0 150px;
+
+    &__text {
+      margin: 0 30px 0 0;
+    }
+  }
+
+  &-input {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+  }
+
+  &-tooltip {
+    position: absolute;
+    bottom: -70px;
+    right: 32.5px;
+    transform: translateX(50%);
+    animation: tooltip 3s forwards;
+  }
+}
+
+@keyframes tooltip {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

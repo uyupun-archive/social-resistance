@@ -1,0 +1,19 @@
+.tooltip {
+  position: relative;
+  max-width: 100px;
+  color: $black;
+  background: $white;
+  padding: 10px;
+  font-size: 1.2rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid $white;
+    border-left: 15px solid transparent;
+  }
+}

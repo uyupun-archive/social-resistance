@@ -1,0 +1,18 @@
+<div class="container">
+  <form>
+    <div class="join-box">
+      <label>
+        ワールドID
+        <input autofocus v-model="worldid" class="join-form">
+      </label>
+    </div>
+    <div class="btn">
+      <Button to="/gohome" text="やるでい" size="large">
+        <template v-slot:text>
+          <span>はじめる</span>
+        </template>
+      </Button>
+    </div>
+  </form>
+</div>
+

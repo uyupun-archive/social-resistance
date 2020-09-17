@@ -32,7 +32,7 @@ export default {
     this.onSelect()
   },
   destroyed() {
-    document.removeEventListener(('click', this.clickOutSide, false))
+    document.removeEventListener('click', this.clickOutSide, false)
   },
   methods: {
     getSelected() {

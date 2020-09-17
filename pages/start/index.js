@@ -24,7 +24,6 @@ export default {
       return 'ABCDEF'
     },
     onClickCopy() {
-      console.log('copy')
       navigator.clipboard
         .writeText(this.worldId)
         .then(() => {

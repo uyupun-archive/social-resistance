@@ -21,8 +21,11 @@ export default {
   },
   data() {
     return {
-      value: this.defaultValue,
+      value: '',
     }
+  },
+  mounted() {
+    this.value = this.defaultValue
   },
   methods: {
     getValue() {

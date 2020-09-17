@@ -1,0 +1,25 @@
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+
+  &-select {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  &-text {
+    font-size: 6.4rem;
+    margin: 0 0 140px;
+  }
+}

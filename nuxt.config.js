@@ -29,12 +29,16 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/scss/_fonts.scss', '~/assets/scss/_variable.scss'],
+  css: [
+    '~/assets/scss/_fonts.scss',
+    '~/assets/scss/_variable.scss',
+    '@fortawesome/fontawesome-svg-core/styles.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/word2vec'],
+  plugins: ['~/plugins/word2vec', '~/plugins/fontawesome'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

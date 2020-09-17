@@ -2,7 +2,9 @@
   <form class="form" @submit.prevent="onSubmit">
     <label class="form-label">
       <span class="form-label__text">ワールドID</span>
-      <input type="text" value="ABCDEF" readonly />
+      <div class="form-input">
+        <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @onClick="onClickCopy()" />
+      </div>
     </label>
     <Button type="submit">
       <template v-slot:text>

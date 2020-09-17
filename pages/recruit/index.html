@@ -1,6 +1,8 @@
 <div class="container">
   <form class="form" @submit.prevent="onSubmit">
-    <SelectBox :options="options" :selected="selected" name="characterSelect" />
+    <div class="form-select">
+      <SelectBox :options="options" :selected="selected" name="characterSelect" />
+    </div>
     <p class="form-text">をぼしゅうする</p>
     <Button type="submit">
       <template v-slot:text>

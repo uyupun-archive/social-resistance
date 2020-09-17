@@ -1,0 +1,93 @@
+.select {
+  width: 100%;
+  height: 100px;
+
+  &-box {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: $white;
+    color: $black;
+    font-size: 4.8rem;
+    cursor: pointer;
+  }
+
+  &-icon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    border-top: 40px solid $black;
+    border-right: 20px solid transparent;
+    border-left: 20px solid transparent;
+  }
+
+  & .close {
+    animation: close 0.3s forwards;
+  }
+
+  &-list {
+    position: relative;
+    top: 25px;
+    background: $white;
+    z-index: 1;
+    opacity: 0;
+    animation: open 0.3s forwards;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-right: 20px solid transparent;
+      border-bottom: 20px solid $white;
+      border-left: 20px solid transparent;
+    }
+
+    &__item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
+      height: 80px;
+      font-size: 3.6rem;
+      color: $black;
+      box-sizing: border-box;
+      cursor: pointer;
+      padding: 15px;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+
+    & .selected {
+      opacity: 0.3;
+      background: $gray;
+    }
+  }
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes close {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

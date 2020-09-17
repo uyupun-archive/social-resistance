@@ -25,7 +25,31 @@
   }
 
   &-input {
+    position: relative;
     width: 100%;
     max-width: 380px;
+  }
+
+  &-tooltip {
+    position: absolute;
+    bottom: -70px;
+    right: 32.5px;
+    transform: translateX(50%);
+    animation: tooltip 3s forwards;
+  }
+}
+
+@keyframes tooltip {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

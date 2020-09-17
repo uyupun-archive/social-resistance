@@ -4,6 +4,9 @@
       <span class="form-label__text">ワールドID</span>
       <div class="form-input">
         <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @onClick="onClickCopy()" />
+        <div v-if="showTooltip" class="form-tooltip">
+          <Tooltip :text="tooltipText" />
+        </div>
       </div>
     </label>
     <Button type="submit">

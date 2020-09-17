@@ -1,14 +1,18 @@
 import Button from '~/components/button/index.vue'
 import TextBoxIcon from '~/components/text-box-icon/index.vue'
+import Tooltip from '~/components/tooltip/index.vue'
 
 export default {
   components: {
     Button,
     TextBoxIcon,
+    Tooltip,
   },
   data() {
     return {
       worldId: '',
+      showTooltip: false,
+      tooltipText: 'コピーしました',
     }
   },
   mounted() {
@@ -24,9 +28,19 @@ export default {
       navigator.clipboard
         .writeText(this.worldId)
         .then(() => {
-          console.log('成功')
+          this.tooltipText = 'コピーしました'
+          this.copySuccess()
         })
-        .catch(() => alert('コピーに失敗しました'))
+        .catch(() => {
+          this.tooltipText = 'コピーに失敗しました'
+          this.copySuccess()
+        })
+    },
+    copySuccess() {
+      this.showTooltip = true
+      setTimeout(() => {
+        this.showTooltip = false
+      }, 3000)
     },
     onSubmit(e) {
       // TODO: api叩く

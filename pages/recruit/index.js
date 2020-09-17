@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     onSubmit(e) {
-      console.log(e.target.characterSelect.value)
+      // TODO: api叩く
     },
   },
 }

@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+import { customAlphabet } from 'nanoid'
 
 export default {
   props: {
@@ -24,7 +24,7 @@ export default {
       selectedData: null,
       showList: false,
       isCloseList: false,
-      selectId: uuidv4(),
+      selectId: this.generateSelectId(),
     }
   },
   mounted() {
@@ -32,7 +32,7 @@ export default {
     this.onSelect()
   },
   destroyed() {
-    document.removeEventListener(('click', this.clickOutSide, false))
+    document.removeEventListener('click', this.clickOutSide, false)
   },
   methods: {
     getSelected() {
@@ -91,6 +91,13 @@ export default {
       if (foundIndex === -1) {
         this.closeList()
       }
+    },
+    generateSelectId() {
+      const alphabet =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+      const nanoid = customAlphabet(alphabet, 6)
+      const selectId = nanoid()
+      return selectId
     },
   },
 }

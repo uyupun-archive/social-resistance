@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { MITSU_URL } = process.env
+const { SOCIAL_RESISTANCE_HOST, SOCIAL_RESISTANCE_PORT, MITSU_URL } = process.env
 
 export default {
   /*
@@ -72,6 +72,15 @@ export default {
       })
     },
   },
+  env: {
+    SOCIAL_RESISTANCE_HOST,
+    SOCIAL_RESISTANCE_PORT,
+    MITSU_URL,
+  },
+  server: {
+    host: SOCIAL_RESISTANCE_HOST || 'localhost',
+    port: SOCIAL_RESISTANCE_PORT || 3000,
+  },
   styleResources: {
     scss: ['./assets/scss/*.scss'],
   },
@@ -82,8 +91,5 @@ export default {
     '/api/v1/': {
       target: process.env.MITSU_URL,
     }
-  },
-  env: {
-    MITSU_URL,
   },
 }

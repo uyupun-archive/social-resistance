@@ -3,11 +3,30 @@
     <div class="form-select">
       <SelectBox :options="options" :selected="selected" name="characterSelect" />
     </div>
-    <p class="form-text">をぼしゅうする</p>
-    <Button type="submit">
-      <template v-slot:text>
-        <span>ぼしゅう</span>
-      </template>
-    </Button>
+    <button type="submit" class="form-btn">
+      ぼしゅう
+    </button>
   </form>
+  
+  <div class="world">
+    <label class="world-label">
+      <span class="world-label__text">ワールドID</span>
+      <div class="world-input">
+        <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @onClick="onClickCopy()" />
+        <div v-if="existsTooltip" class="world-tooltip">
+          <Tooltip :text="tooltipText" />
+        </div>
+      </div>
+    </label>
+  </div>
+  <Button type="submit" class="btn-position">
+    <template v-slot:text>
+      <span>やめる</span>
+    </template>
+  </Button>
+  <Button type="submit" class="btn-position">
+    <template v-slot:text>
+      <span>はじめる</span>
+    </template>
+  </Button>
 </div>

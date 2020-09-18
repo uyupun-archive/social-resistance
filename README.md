@@ -17,14 +17,16 @@
 ### 環境構築(フロントエンド)
 
 ```bash
-# .envファイルの作成
-$ cp .env.example .env
-# モジュールのインストール
-$ yarn
-# 開発用サーバーの立ち上げ
-$ yarn dev(localhost:3000)
+# 環境構築
+$ make setup
+# 開発環境のサーバの起動
+$ make dev
+# 本番環境のサーバの起動(バックグラウンド)
+$ make prod-start
+# 本番環境のサーバの停止
+$ make prod-stop
 # ESLint/Prettierに怒られたとき
-$ yarn lint --fix
+$ make fix
 ```
 
 ### 環境構築(Word2vec)

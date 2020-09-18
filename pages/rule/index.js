@@ -15,10 +15,10 @@ export default {
     }
   },
   mounted() {
-    this.fetchRules()
+    this.initRules()
   },
   methods: {
-    fetchRules() {
+    initRules() {
       this.$fetchRules().then((rules) => {
         this.rules = rules
         this.setRule(this.ruleIndex)

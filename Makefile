@@ -1,4 +1,4 @@
-.PHONY: setup up fix prod-start prod-stop
+.PHONY: setup up fix prod-up prod-down
 
 setup:
 	cp .env.example .env

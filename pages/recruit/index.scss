@@ -18,10 +18,11 @@
   width: 800px;
   text-align: center;
   display: flex;
+  z-index: 2;
   &-select {
     width: 100%;
     max-width: 600px;
-    margin: 0 10px;
+    margin-right: 10px;
   }
 
   &-text {
@@ -40,3 +41,54 @@
   margin: 0 0;
 }
 
+
+
+.world {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  justify-content: space-between;
+  z-index: 1;
+  
+  &-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 6.4rem;
+
+    &__text {
+      margin: 0 0;
+    }
+  }
+
+  &-input {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+  }
+
+  &-tooltip {
+    position: absolute;
+    bottom: -70px;
+    right: 32.5px;
+    transform: translateX(50%);
+    animation: tooltip 3s forwards;
+  }
+}
+
+@keyframes tooltip {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

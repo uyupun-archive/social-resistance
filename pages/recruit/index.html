@@ -7,14 +7,26 @@
         ぼしゅう
     </button>
   </form>
-    <Button type="submit" class="btn-position">
-      <template v-slot:text>
-        <span>やめる</span>
-      </template>
-    </Button>
-    <Button type="submit" class="btn-position">
-      <template v-slot:text>
-        <span>はじめる</span>
-      </template>
-    </Button>
+  
+  <div class="world">
+    <label class="world-label">
+      <span class="world-label__text">ワールドID</span>
+      <div class="world-input">
+        <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @onClick="onClickCopy()" />
+        <div v-if="existsTooltip" class="world-tooltip">
+          <Tooltip :text="tooltipText" />
+        </div>
+      </div>
+    </label>
+  </div>
+      <Button type="submit" class="btn-position">
+        <template v-slot:text>
+          <span>やめる</span>
+        </template>
+      </Button>
+      <Button type="submit" class="btn-position">
+        <template v-slot:text>
+          <span>はじめる</span>
+        </template>
+      </Button>
 </div>

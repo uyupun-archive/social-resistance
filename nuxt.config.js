@@ -1,3 +1,6 @@
+require('dotenv').config()
+const { MITSU_URL } = process.env
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -77,7 +80,10 @@ export default {
   },
   proxy: {
     '/api/v1/': {
-      target: 'http://localhost:8000',
+      target: process.env.MITSU_URL,
     }
+  },
+  env: {
+    MITSU_URL,
   },
 }

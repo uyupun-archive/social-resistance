@@ -1,5 +1,4 @@
 import Button from '~/components/button/index.vue'
-import rules from '~/assets/json/rules.json'
 
 export default {
   components: {
@@ -16,16 +15,19 @@ export default {
     }
   },
   mounted() {
-    const foo = this.$fetchRules()
-    console.log(foo)
-    this.rules = rules
-    this.setRule(this.ruleIndex)
+    this.fetchRules()
   },
   methods: {
+    fetchRules() {
+      this.$fetchRules().then((rules) => {
+        this.rules = rules
+        this.setRule(this.ruleIndex)
+      })
+    },
     setRule(idx) {
       const rule = this.rules[idx]
       this.showText = rule.text
-      this.showImage = require(`~/assets/images/rules/rule_${idx + 1}.png`)
+      this.showImage = process.env.MITSU_URL + rule.image
       this.isFirst = this.ruleIndex === 0
       this.isLast = this.rules.length === this.ruleIndex + 1
     },

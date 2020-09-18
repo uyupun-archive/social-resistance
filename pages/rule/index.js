@@ -16,6 +16,8 @@ export default {
     }
   },
   mounted() {
+    const foo = this.$fetchRules()
+    console.log(foo)
     this.rules = rules
     this.setRule(this.ruleIndex)
   },

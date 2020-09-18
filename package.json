@@ -12,6 +12,8 @@
     "lint": "yarn lint:js"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/proxy": "^2.0.1",
     "@nuxtjs/style-resources": "^1.0.0",
     "nanoid": "^3.1.12",
     "nuxt": "^2.14.0"

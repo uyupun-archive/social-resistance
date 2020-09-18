@@ -1,12 +1,14 @@
 import Button from '~/components/button/index.vue'
+import TextBox from '~/components/text-box/index.vue'
 
 export default {
   components: {
     Button,
+    TextBox,
   },
-  data() {
-    return {
-      worldid: '',
-    }
+  methods: {
+    onSubmit(e) {
+      // TODO: api叩く
+    },
   },
 }

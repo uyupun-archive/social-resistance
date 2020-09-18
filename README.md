@@ -17,12 +17,14 @@
 ### 環境構築(フロントエンド)
 
 ```bash
+# .envファイルの作成
+$ cp .env.example .env
 # モジュールのインストール
 $ yarn
 # 開発用サーバーの立ち上げ
 $ yarn dev(localhost:3000)
 # ESLint/Prettierに怒られたとき
-$ yarn run lint --fix
+$ yarn lint --fix
 ```
 
 ### 環境構築(Word2vec)

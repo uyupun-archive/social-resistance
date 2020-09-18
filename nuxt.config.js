@@ -1,3 +1,6 @@
+require('dotenv').config()
+const { MITSU_URL } = process.env
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -38,7 +41,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/word2vec', '~/plugins/fontawesome'],
+  plugins: ['~/plugins/word2vec', '~/plugins/fontawesome', '~/plugins/axios', '~/plugins/api'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -54,7 +57,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/style-resources'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/proxy', '@nuxtjs/axios'],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
@@ -71,5 +74,16 @@ export default {
   },
   styleResources: {
     scss: ['./assets/scss/*.scss'],
+  },
+  axios: {
+    proxy: true,
+  },
+  proxy: {
+    '/api/v1/': {
+      target: process.env.MITSU_URL,
+    }
+  },
+  env: {
+    MITSU_URL,
   },
 }

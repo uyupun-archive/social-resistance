@@ -1,0 +1,11 @@
+<div>
+	<input
+		type="text"
+		class="textbox"
+		:value="defaultValue"
+		:name="name"
+		:readonly="readonly"
+		:autofocus="autofocus"
+		@change="value = $event.target.value"
+		/>
+</div>

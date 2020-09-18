@@ -8,11 +8,11 @@ setup:
 dev:
 	yarn dev
 
-prod-start:
+prod-up:
 	yarn build
 	nohup yarn start > /dev/null 2>&1 &
 
-prod-stop:
+prod-down:
 	kill `lsof -i :3000 | awk '$$1 == "node" { print $$2 }'`
 
 fix:

@@ -22,9 +22,9 @@ $ make setup
 # 開発環境のサーバの起動
 $ make dev
 # 本番環境のサーバの起動(バックグラウンド)
-$ make prod-start
+$ make prod-up
 # 本番環境のサーバの停止
-$ make prod-stop
+$ make prod-down
 # ESLint/Prettierに怒られたとき
 $ make fix
 ```

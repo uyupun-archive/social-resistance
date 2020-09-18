@@ -4,18 +4,24 @@
   height: 100vh;
 }
 
+.btn-position {
+  top: 75%;
+  left: 25%;
+  margin: 0 15px;
+}
+
 .form {
   position: absolute;
-  top: 50%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 800px;
   text-align: center;
-
+  display: flex;
   &-select {
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 10px;
   }
 
   &-text {
@@ -23,3 +29,14 @@
     margin: 0 0 140px;
   }
 }
+
+.form-btn{
+  color: #fff;
+  background-color:#000;
+  border:2px solid #fff;
+  width: 500px;
+  height: 100px;
+  font-size: 6.4rem;
+  margin: 0 0;
+}
+

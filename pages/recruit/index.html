@@ -3,11 +3,18 @@
     <div class="form-select">
       <SelectBox :options="options" :selected="selected" name="characterSelect" />
     </div>
-    <p class="form-text">をぼしゅうする</p>
-    <Button type="submit">
+    <button type="submit" class="form-btn">
+        ぼしゅう
+    </button>
+  </form>
+    <Button type="submit" class="btn-position">
       <template v-slot:text>
-        <span>ぼしゅう</span>
+        <span>やめる</span>
       </template>
     </Button>
-  </form>
+    <Button type="submit" class="btn-position">
+      <template v-slot:text>
+        <span>はじめる</span>
+      </template>
+    </Button>
 </div>

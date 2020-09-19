@@ -16,14 +16,14 @@ export default {
       options: [
         {
           text: 'うさぎさん',
-          value: '1',
+          value: 1,
         },
         {
           text: 'ばいきんくん',
-          value: '2',
+          value: 2,
         },
       ],
-      selected: '1',
+      selected: 1,
       existsTooltip: false,
       tooltipText: 'コピーしました',
     }
@@ -48,7 +48,7 @@ export default {
       }, 3000)
     },
     onSubmit(e) {
-      this.$generateWorldId().then((res) => {
+      this.$generateWorldId({ recruit: this.selected }).then((res) => {
         this.worldId = res.worldId
       })
     },

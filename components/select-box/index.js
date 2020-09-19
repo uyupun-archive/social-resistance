@@ -10,7 +10,7 @@ export default {
       default: [],
     },
     selected: {
-      type: String,
+      type: Number,
       default: '',
     },
     name: {

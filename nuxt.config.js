@@ -98,7 +98,7 @@ export default {
   },
   proxy: {
     '/api/v1/': {
-      target: process.env.MITSU_URL,
+      target: MITSU_URL,
     },
   },
 }

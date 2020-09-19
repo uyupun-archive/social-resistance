@@ -1,15 +1,33 @@
 .container {
-  text-align: center;
-  padding: 50px 0 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
 
-.join{
-	&-box {
+.form {
+	&-join {
+		width: 100%;
+		max-width: 750px;
+	}
+
+	&-label {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 0 120px 0;
+
+		&__text {
+			font-size: 4.8rem;
+			white-space: nowrap;
+			margin: 0 50px 0 0;
+		}
+	}
+
+	&-buttons {
 		display: flex;
 		justify-content: space-around;
-		align-items: center;
-		margin: 340px auto 150px;
-		width: 810px;
-		font-size: 64px;
 	}
 }

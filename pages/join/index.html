@@ -1,13 +1,18 @@
 <div class="container">
-  <form　@submit.prevent="onSubmit">
-    <label class="join-box">
-      ワールドID
-      <div>
+  <form class="form-join"　@submit.prevent="onSubmit">
+    <label class="form-label">
+      <span class="form-label__text">ワールドID</span>
+      <div class="form-text__box">
         <TextBox :autofocus="true" name="worldId" />
       </div>
     </label>
-    <div class="btn">
-      <Button type="submit" text="やるでい" size="large">
+    <div class="form-buttons">
+      <Button type="submit" to="/">
+        <template v-slot:text>
+          <span>やめる</span>
+        </template>
+      </Button>
+      <Button type="submit">
         <template v-slot:text>
           <span>はじめる</span>
         </template>

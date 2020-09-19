@@ -10,8 +10,10 @@ const fetchRules = () => {
 /**
  * ワールドIDの取得
  */
-const generateWorldId = () => {
-  return axios.$get('worldId')
+const generateWorldId = (params) => {
+  return axios.$get('worldId', {
+    params,
+  })
 }
 
 /* eslint-disable */

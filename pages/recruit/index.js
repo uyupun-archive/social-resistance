@@ -12,7 +12,7 @@ export default {
   },
   data() {
     return {
-      worldId: 'ABCDEF',
+      worldId: null,
       options: [
         {
           text: 'うさぎさん',
@@ -48,7 +48,9 @@ export default {
       }, 3000)
     },
     onSubmit(e) {
-      // TODO: api叩く
+      this.$generateWorldId().then((res) => {
+        this.worldId = res.worldId
+      })
     },
   },
 }

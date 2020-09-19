@@ -1,5 +1,9 @@
 require('dotenv').config()
-const { SOCIAL_RESISTANCE_HOST, SOCIAL_RESISTANCE_PORT, MITSU_URL } = process.env
+const {
+  SOCIAL_RESISTANCE_HOST,
+  SOCIAL_RESISTANCE_PORT,
+  MITSU_URL,
+} = process.env
 
 export default {
   /*
@@ -41,7 +45,12 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/word2vec', '~/plugins/fontawesome', '~/plugins/axios', '~/plugins/api'],
+  plugins: [
+    '~/plugins/word2vec',
+    '~/plugins/fontawesome',
+    '~/plugins/axios',
+    '~/plugins/api',
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -89,7 +98,7 @@ export default {
   },
   proxy: {
     '/api/v1/': {
-      target: process.env.MITSU_URL,
-    }
+      target: MITSU_URL,
+    },
   },
 }

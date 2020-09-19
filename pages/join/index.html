@@ -3,7 +3,7 @@
     <label class="form-label">
       <span class="form-label__text">ワールドID</span>
       <div class="form-text__box">
-        <TextBox :autofocus="true" name="worldId" />
+        <TextBox name="worldId" :autofocus="true" />
       </div>
     </label>
     <div class="form-buttons">
@@ -12,7 +12,7 @@
           <span>やめる</span>
         </template>
       </Button>
-      <Button type="submit">
+      <Button type="submit" :disabled="true">
         <template v-slot:text>
           <span>はじめる</span>
         </template>

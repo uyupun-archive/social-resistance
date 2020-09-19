@@ -41,6 +41,21 @@
     outline: none;
   }
 
+  &:disabled {
+    color: $gray;
+    border-color: $gray;
+    cursor: auto;
+
+    &:hover {
+      transition: none;
+      color: $gray;
+  
+      &:after {
+        width: 0;
+      }
+    }
+  }
+
   &-small {
     min-width: 150px;
     padding: 10px 16px;

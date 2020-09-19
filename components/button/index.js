@@ -32,6 +32,10 @@ export default {
       },
       default: 'button',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     routerPush() {

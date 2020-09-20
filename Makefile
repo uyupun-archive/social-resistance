@@ -3,7 +3,6 @@
 setup:
 	cp .env.example .env
 	yarn
-	make up
 
 dev:
 	yarn dev

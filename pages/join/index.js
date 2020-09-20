@@ -21,7 +21,11 @@ export default {
     },
     onSubmit(e) {
       // TODO: api叩く
-      this.error = true
+      if (e.target.worldId.value === 'error') {
+        this.error = true
+        return
+      }
+      this.$router.push('/gohome')
     },
   },
 }

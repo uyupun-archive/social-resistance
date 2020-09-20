@@ -33,7 +33,7 @@ export default {
       this.$emit('input', e)
     },
     onClickIcon() {
-      this.$emit('onClick')
+      this.$emit('click')
     },
   },
 }

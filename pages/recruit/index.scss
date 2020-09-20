@@ -1,64 +1,74 @@
 .container {
-  position: relative;
+  display: flex;
+	justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
-}
 
-.btn-position {
-  top: 75%;
-  left: 25%;
-  margin: 0 15px;
+  &-recruit {
+    width: 100%;
+    max-width: 750px;
+  }
 }
 
 .form {
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  text-align: center;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
   z-index: 2;
+  margin: 0 0 280px;
+
+  &-worldId {
+    margin: 0 0 60px;
+  }
+
+  &-error {
+    margin: 0 0 120px;
+  }
 
   &-btn{
-    color: #fff;
-    background-color:#000;
-    border:2px solid #fff;
-    width: 500px;
+    color: $white;
+    background-color:$black;
+    border:2px solid $white;
     height: 100px;
-    font-size: 6.4rem;
-    margin: 0 0;
+    font-size: 4.8rem;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0 20px;
+    margin: 0;
   }
 
   &-select {
     width: 100%;
-    max-width: 600px;
-    margin-right: 10px;
+    max-width: 450px;
+    margin: 0 50px 0 0;
   }
 
   &-text {
-    font-size: 6.4rem;
+    font-size: 4.8rem;
     margin: 0 0 140px;
   }
 }
 
 .worldId {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
   z-index: 1;
+  margin: 0 0 120px;
 
   &-label {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 6.4rem;
+    width: 100%;
+    font-size: 4.8rem;
 
     &__text {
-      margin: 0 0;
+      margin: 0;
     }
   }
 
@@ -75,6 +85,26 @@
     transform: translateX(50%);
     animation: tooltip 3s forwards;
   }
+}
+
+.btn {
+  margin: 0 25px;
+
+  &-area {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.error {
+
+	&-message {
+		width: 100%;
+		text-align: center;
+		font-size: 4.8rem;
+		color: $red;
+		margin: 40px 0 0;
+	}
 }
 
 @keyframes tooltip {

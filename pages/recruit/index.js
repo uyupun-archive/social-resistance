@@ -26,6 +26,7 @@ export default {
       selected: 1,
       existsTooltip: false,
       tooltipText: 'コピーしました',
+      error: false,
     }
   },
   methods: {
@@ -47,10 +48,12 @@ export default {
         this.existsTooltip = false
       }, 3000)
     },
-    onSubmit(e) {
-      this.$generateWorldId({ recruit: this.selected }).then((res) => {
-        this.worldId = res.worldId
-      })
+    onSubmit() {
+      this.$generateWorldId({ recruit: this.selected })
+        .then((res) => {
+          this.worldId = res.worldId
+        })
+        .catch(() => (this.error = true))
     },
   },
 }

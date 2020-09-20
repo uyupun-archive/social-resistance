@@ -16,6 +16,12 @@ export default {
       type: Boolean,
       default: false,
     },
+    align: {
+      validator: (align) => {
+        return ['left', 'center', 'right'].includes(align)
+      },
+      default: 'left',
+    },
   },
   data() {
     return {
@@ -26,8 +32,9 @@ export default {
     this.value = this.defaultValue
   },
   methods: {
-    getValue() {
-      return this.value
+    onChange(e) {
+      this.value = e.target.value
+      this.$emit('input', e)
     },
   },
 }

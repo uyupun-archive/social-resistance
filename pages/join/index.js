@@ -6,9 +6,22 @@ export default {
     Button,
     TextBox,
   },
+  data() {
+    return {
+      worldId: '',
+      error: false,
+    }
+  },
   methods: {
+    checkDisabled() {
+      return !this.worldId.length
+    },
+    onChange(e) {
+      this.worldId = e.target.value
+    },
     onSubmit(e) {
       // TODO: api叩く
+      this.error = true
     },
   },
 }

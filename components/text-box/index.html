@@ -2,10 +2,14 @@
 	<input
 		type="text"
 		class="text-box"
+		:class="{
+			alignCenter: align === 'center',
+			alignRight: align === 'right',
+		}"
 		:value="defaultValue"
 		:name="name"
 		:readonly="readonly"
 		:autofocus="autofocus"
-		@change="value = $event.target.value"
+		@input="onChange"
 	/>
 </div>

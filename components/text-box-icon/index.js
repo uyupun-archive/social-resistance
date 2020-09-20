@@ -28,8 +28,9 @@ export default {
     this.value = this.defaultValue
   },
   methods: {
-    getValue() {
-      return this.value
+    onChange(e) {
+      this.value = e.target.value
+      this.$emit('input', e)
     },
     onClickIcon() {
       this.$emit('onClick')

@@ -15,7 +15,14 @@
         <div class="worldId-input">
           <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @click="onClickCopy()" />
           <div v-if="existsTooltip" class="worldId-tooltip">
-            <Tooltip :text="tooltipText" />
+            <Tooltip>
+              <template v-slot:text>
+                <span>
+                  <Fa icon="caret-right" class="worldId-tooltip__icon" area-hidden="true" />
+                  {{tooltipText}}
+                </span>
+              </template>
+            </Tooltip>
           </div>
         </div>
       </label>

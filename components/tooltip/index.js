@@ -1,8 +1,1 @@
-export default {
-  props: {
-    text: {
-      type: String,
-      default: '',
-    },
-  },
-}
+export default {}

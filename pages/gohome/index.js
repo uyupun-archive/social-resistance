@@ -41,8 +41,8 @@ export default {
     this.socket.on('declare_wait', (payload) => {
       console.log('declare_wait', payload)
     })
-    this.socket.on('draw', (payload) => {
-      console.log('draw', payload)
+    this.socket.on('feedback', (payload) => {
+      console.log('feedback', payload)
     })
   },
   methods: {

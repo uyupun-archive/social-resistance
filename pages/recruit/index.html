@@ -33,7 +33,7 @@
           <span>やめる</span>
         </template>
       </Button>
-      <Button to="/gohome" class="btn">
+      <Button to="/gohome" class="btn" :disabled="!worldId">
         <template v-slot:text>
           <span>はじめる</span>
         </template>

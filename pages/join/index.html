@@ -1,17 +1,27 @@
 <div class="container">
-  <form　@submit.prevent="onSubmit">
-    <label class="join-box">
-      ワールドID
-      <div>
-        <TextBox :autofocus="true" name="worldId" />
+  <form class="form-join"　@submit.prevent="onSubmit">
+    <label class="form-label" :class="{'form-error': error}">
+      <span class="form-label__text">ワールドID</span>
+      <div class="form-text__box">
+        <TextBox ref="textBox" name="worldId" :autofocus="true" align="center" @input="onChange" />
       </div>
+      <p v-if="error" class="error-message">{{errorMessage}}</p>
     </label>
-    <div class="btn">
-      <Button type="submit" text="やるでい" size="large">
-        <template v-slot:text>
-          <span>はじめる</span>
-        </template>
-      </Button>
+    <div class="form-buttons">
+      <div class="form-button">
+        <Button to="/">
+          <template v-slot:text>
+            <span>やめる</span>
+          </template>
+        </Button>
+      </div>
+      <div class="form-button">
+        <Button type="submit" :disabled="checkDisabled()">
+          <template v-slot:text>
+            <span>はじめる</span>
+          </template>
+        </Button>
+      </div>
     </div>
   </form>
 </div>

@@ -1,31 +1,43 @@
 <div class="container">
-  <form class="form" @submit.prevent="onSubmit">
-    <div class="form-select">
-      <SelectBox :options="options" :selected="selected" name="characterSelect" />
-    </div>
-    <button type="submit" class="form-btn">
-      ぼしゅう
-    </button>
-  </form>
-  <div class="worldId" v-if="worldId">
-    <label class="worldId-label">
-      <span class="worldId-label__text">ワールドID</span>
-      <div class="worldId-input">
-        <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @onClick="onClickCopy()" />
-        <div v-if="existsTooltip" class="world-tooltip">
-          <Tooltip :text="tooltipText" />
-        </div>
+  <div class="container-recruit">
+    <form class="form" :class="{'form-worldId': worldId, 'form-error': error}" @submit.prevent="onSubmit">
+      <div class="form-select">
+        <SelectBox :options="options" :selected="selected" name="characterSelect" />
       </div>
-    </label>
+      <button type="submit" class="form-btn">
+        ぼしゅう
+      </button>
+      <p v-if="error" class="error-message">{{errorMessage}}</p>
+    </form>
+    <div v-if="worldId" class="worldId">
+      <label class="worldId-label">
+        <span class="worldId-label__text">ワールドID</span>
+        <div class="worldId-input">
+          <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @click="onClickCopy()" />
+          <div v-if="existsTooltip" class="worldId-tooltip">
+            <Tooltip>
+              <template v-slot:text>
+                <span>
+                  <Fa icon="caret-right" class="worldId-tooltip__icon" area-hidden="true" />
+                  {{tooltipText}}
+                </span>
+              </template>
+            </Tooltip>
+          </div>
+        </div>
+      </label>
+    </div>
+    <div class="btn-area">
+      <Button to="/" class="btn">
+        <template v-slot:text>
+          <span>やめる</span>
+        </template>
+      </Button>
+      <Button to="/gohome" class="btn" :disabled="!worldId">
+        <template v-slot:text>
+          <span>はじめる</span>
+        </template>
+      </Button>
+    </div>
   </div>
-  <Button type="submit" class="btn-position">
-    <template v-slot:text>
-      <span>やめる</span>
-    </template>
-  </Button>
-  <Button to="/gohome" class="btn-position">
-    <template v-slot:text>
-      <span>はじめる</span>
-    </template>
-  </Button>
 </div>

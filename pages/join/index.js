@@ -6,16 +6,35 @@ export default {
     Button,
     TextBox,
   },
+  data() {
+    return {
+      worldId: '',
+      error: false,
+      errorMessage: 'さんかにしっぱいしました',
+    }
+  },
   methods: {
+    checkDisabled() {
+      return !this.worldId.length
+    },
+    onChange(e) {
+      this.worldId = e.target.value
+    },
     onSubmit(e) {
-      // worldIdには実際にはテキストボックスの値が入るようにする
-      // というか、テキストボックスからカーソルが外れたタイミングでAPIが走るようにしないと駄目じゃんね
-      // たかしあとはたのんだ
-      const worldId = 'xxxxxx'
-      this.$checkWorldId({ worldId }).then((res) => {
-        if (res.validity) console.log('「はじめる」をenableにする')
-        else console.log('エラーメッセージを出す')
-      })
+      this.error = false
+      this.$checkWorldId({ worldId: e.target.worldId.value })
+        .then((res) => {
+          if (res.validity) {
+            this.$router.push('/gohome')
+          } else {
+            this.error = true
+            this.errorMessage = 'さんかにしっぱいしました'
+          }
+        })
+        .catch((e) => {
+          this.error = true
+          this.errorMessage = e.data.msg
+        })
     },
   },
 }

@@ -34,9 +34,15 @@ export default {
     this.stepFirstTurn()
 
     this.socket = io.connect(process.env.MITSU_URL)
-    this.socket.on('hoge', (payload) => {
-      console.log(payload)
-      this.socket.emit('piyo', { hello: 'world' })
+    this.socket.emit('join_world', { worldId: localStorage.worldId })
+    this.socket.on('declare_attack', (payload) => {
+      console.log('declare_attack', payload)
+    })
+    this.socket.on('declare_wait', (payload) => {
+      console.log('declare_wait', payload)
+    })
+    this.socket.on('draw', (payload) => {
+      console.log('draw', payload)
     })
   },
   methods: {
@@ -74,6 +80,8 @@ export default {
       this.getWords()
       this.showTurnAnimation()
       this.proceedTurn()
+
+      this.socket.emit('attack', { word: 'A' })
     },
     movePlayer(word) {
       if (this.turn.active.pekora) this.$refs.world.movePekora(word)

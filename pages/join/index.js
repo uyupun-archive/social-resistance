@@ -20,12 +20,13 @@ export default {
       this.worldId = e.target.value
     },
     onSubmit(e) {
-      // worldIdには実際にはテキストボックスの値が入るようにする
-      const worldId = 'xxxxxx'
-      this.$checkWorldId({ worldId }).then((res) => {
-        if (res.validity) console.log('「はじめる」をenableにする')
-        else console.log('エラーメッセージを出す')
-      })
+      this.error = false
+      this.$checkWorldId({ worldId: e.target.worldId.value })
+        .then((res) => {
+          if (res.validity) this.$router.push('/gohome')
+          else this.error = true
+        })
+        .catch(() => (this.error = true))
     },
   },
 }

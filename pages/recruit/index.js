@@ -54,6 +54,7 @@ export default {
       this.$generateWorldId({ recruit: e.target.characterSelect.value })
         .then((res) => {
           this.worldId = res.worldId
+          localStorage.worldId = res.worldId
         })
         .catch((e) => {
           this.error = true

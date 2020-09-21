@@ -1,3 +1,4 @@
+import io from 'socket.io-client'
 import Button from '~/components/button/index.vue'
 import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
@@ -26,10 +27,17 @@ export default {
       selectedWord: '',
       winner: '',
       turn: new Turn(),
+      socket: null,
     }
   },
   mounted() {
     this.stepFirstTurn()
+
+    this.socket = io.connect(process.env.MITSU_URL)
+    this.socket.on('hoge', (payload) => {
+      console.log(payload)
+      this.socket.emit('piyo', { hello: 'world' })
+    })
   },
   methods: {
     openWordModal(word) {

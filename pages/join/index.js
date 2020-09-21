@@ -20,12 +20,12 @@ export default {
       this.worldId = e.target.value
     },
     onSubmit(e) {
-      // TODO: api叩く
-      if (e.target.worldId.value === 'error') {
-        this.error = true
-        return
-      }
-      this.$router.push('/gohome')
+      // worldIdには実際にはテキストボックスの値が入るようにする
+      const worldId = 'xxxxxx'
+      this.$checkWorldId({ worldId }).then((res) => {
+        if (res.validity) console.log('「はじめる」をenableにする')
+        else console.log('エラーメッセージを出す')
+      })
     },
   },
 }

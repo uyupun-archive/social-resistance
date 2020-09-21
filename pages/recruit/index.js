@@ -49,9 +49,9 @@ export default {
         this.existsTooltip = false
       }, 3000)
     },
-    onSubmit() {
+    onSubmit(e) {
       this.error = false
-      this.$generateWorldId({ recruit: this.selected })
+      this.$generateWorldId({ recruit: e.target.characterSelect.value })
         .then((res) => {
           this.worldId = res.worldId
         })

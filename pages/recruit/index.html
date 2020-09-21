@@ -7,7 +7,7 @@
       <button type="submit" class="form-btn">
         ぼしゅう
       </button>
-      <p v-if="error" class="error-message">ぼしゅうにしっぱいしました</p>
+      <p v-if="error" class="error-message">{{errorMessage}}</p>
     </form>
     <div v-if="worldId" class="worldId">
       <label class="worldId-label">

@@ -27,6 +27,7 @@ export default {
       existsTooltip: false,
       tooltipText: 'コピーしました',
       error: false,
+      errorMessage: 'ぼしゅうにしっぱいしました',
     }
   },
   methods: {
@@ -49,11 +50,15 @@ export default {
       }, 3000)
     },
     onSubmit() {
+      this.error = false
       this.$generateWorldId({ recruit: this.selected })
         .then((res) => {
           this.worldId = res.worldId
         })
-        .catch(() => (this.error = true))
+        .catch((e) => {
+          this.error = true
+          this.errorMessage = e.data.msg
+        })
     },
   },
 }

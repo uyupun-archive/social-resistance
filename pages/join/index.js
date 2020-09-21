@@ -10,6 +10,7 @@ export default {
     return {
       worldId: '',
       error: false,
+      errorMessage: 'さんかにしっぱいしました',
     }
   },
   methods: {
@@ -26,7 +27,10 @@ export default {
           if (res.validity) this.$router.push('/gohome')
           else this.error = true
         })
-        .catch(() => (this.error = true))
+        .catch((e) => {
+          this.error = true
+          this.errorMessage = e.data.errorMessage
+        })
     },
   },
 }

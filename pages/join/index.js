@@ -24,12 +24,16 @@ export default {
       this.error = false
       this.$checkWorldId({ worldId: e.target.worldId.value })
         .then((res) => {
-          if (res.validity) this.$router.push('/gohome')
-          else this.error = true
+          if (res.validity) {
+            this.$router.push('/gohome')
+          } else {
+            this.error = true
+            this.errorMessage = 'さんかにしっぱいしました'
+          }
         })
         .catch((e) => {
           this.error = true
-          this.errorMessage = e.data.errorMessage
+          this.errorMessage = e.data.msg
         })
     },
   },

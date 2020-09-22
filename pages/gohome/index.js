@@ -36,7 +36,7 @@ export default {
     this.socket = io.connect(process.env.MITSU_URL)
     this.socket.emit('join_world', {
       worldId: sessionStorage.worldId,
-      token: 'ttete',
+      token: sessionStorage.token,
     })
     this.socket.on('declare_attack', (payload) => {
       console.log('declare_attack', payload)
@@ -49,6 +49,9 @@ export default {
     })
     this.socket.on('invalid_player', (payload) => {
       console.log('invalid_player', payload)
+    })
+    this.socket.on('disconnect', (payload) => {
+      console.log(payload)
     })
   },
   methods: {

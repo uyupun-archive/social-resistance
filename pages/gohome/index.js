@@ -34,7 +34,7 @@ export default {
     this.stepFirstTurn()
 
     this.socket = io.connect(process.env.MITSU_URL)
-    this.socket.emit('join_world', { worldId: localStorage.worldId })
+    this.socket.emit('join_world', { worldId: sessionStorage.worldId })
     this.socket.on('declare_attack', (payload) => {
       console.log('declare_attack', payload)
     })

@@ -27,6 +27,7 @@ export default {
           if (res.validity) {
             sessionStorage.worldId = e.target.worldId.value
             sessionStorage.token = res.token
+            sessionStorage.role = res.role
             this.$router.push('/gohome')
           } else {
             this.error = true

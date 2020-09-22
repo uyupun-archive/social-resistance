@@ -37,6 +37,7 @@ export default {
     this.socket.emit('join_world', {
       worldId: sessionStorage.worldId,
       token: sessionStorage.token,
+      role: sessionStorage.role,
     })
     this.socket.on('declare_attack', (payload) => {
       console.log('declare_attack', payload)

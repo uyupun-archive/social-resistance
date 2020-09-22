@@ -56,6 +56,7 @@ export default {
           this.worldId = res.worldId
           sessionStorage.worldId = res.worldId
           sessionStorage.token = res.token
+          sessionStorage.role = res.role
         })
         .catch((e) => {
           this.error = true

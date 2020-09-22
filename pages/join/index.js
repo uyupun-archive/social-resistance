@@ -25,7 +25,8 @@ export default {
       this.$checkWorldId({ worldId: e.target.worldId.value })
         .then((res) => {
           if (res.validity) {
-            localStorage.worldId = e.target.worldId.value
+            sessionStorage.worldId = e.target.worldId.value
+            sessionStorage.token = res.token
             this.$router.push('/gohome')
           } else {
             this.error = true

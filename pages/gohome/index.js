@@ -34,15 +34,15 @@ export default {
     this.stepFirstTurn()
 
     this.socket = io.connect(process.env.MITSU_URL)
-    this.socket.emit('join_world', { worldId: localStorage.worldId })
+    this.socket.emit('join_world', { worldId: sessionStorage.worldId })
     this.socket.on('declare_attack', (payload) => {
       console.log('declare_attack', payload)
     })
     this.socket.on('declare_wait', (payload) => {
       console.log('declare_wait', payload)
     })
-    this.socket.on('draw', (payload) => {
-      console.log('draw', payload)
+    this.socket.on('feedback', (payload) => {
+      console.log('feedback', payload)
     })
   },
   methods: {

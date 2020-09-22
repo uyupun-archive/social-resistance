@@ -34,7 +34,10 @@ export default {
     this.stepFirstTurn()
 
     this.socket = io.connect(process.env.MITSU_URL)
-    this.socket.emit('join_world', { worldId: sessionStorage.worldId })
+    this.socket.emit('join_world', {
+      worldId: sessionStorage.worldId,
+      token: 'ttete',
+    })
     this.socket.on('declare_attack', (payload) => {
       console.log('declare_attack', payload)
     })
@@ -43,6 +46,9 @@ export default {
     })
     this.socket.on('feedback', (payload) => {
       console.log('feedback', payload)
+    })
+    this.socket.on('invalid_player', (payload) => {
+      console.log('invalid_player', payload)
     })
   },
   methods: {

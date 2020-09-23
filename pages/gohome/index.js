@@ -33,14 +33,9 @@ export default {
   mounted() {
     this.stepFirstTurn()
 
-    this.agent = new Agent(
-      sessionStorage.worldId,
-      sessionStorage.token,
-      sessionStorage.role,
-      process.env.MITSU_URL
-    )
+    this.agent = new Agent()
     this.agent.connect()
-    this.agent.joinWorld()
+    this.agent.joinWorldEmitter()
   },
   methods: {
     openWordModal(word) {
@@ -78,7 +73,7 @@ export default {
       this.showTurnAnimation()
       this.proceedTurn()
 
-      this.agent.attack('word')
+      this.agent.attackEmitter('word')
     },
     movePlayer(word) {
       if (this.turn.active.pekora) this.$refs.world.movePekora(word)

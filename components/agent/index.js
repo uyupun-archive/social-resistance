@@ -1,24 +1,24 @@
 import io from 'socket.io-client'
 
 export default class Agent {
-  constructor(worldId, token, role, url) {
-    this._worldId = worldId
-    this._token = token
-    this._role = role
-    this._url = url
+  constructor() {
+    this._worldId = sessionStorage.worldId
+    this._token = sessionStorage.token
+    this._role = sessionStorage.role
+    this._url = process.env.MITSU_URL
     this._socket = null
   }
 
   connect() {
     this._socket = io.connect(this._url)
-    this._declareAttack()
-    this._declareWait()
-    this._feedback()
-    this._invalidPlayer()
-    this._disconnect()
+    this._declareAttackListener()
+    this._declareWaitListener()
+    this._feedbackListener()
+    this._invalidPlayerListener()
+    this._disconnectListener()
   }
 
-  joinWorld() {
+  joinWorldEmitter() {
     this._socket.emit('join_world', {
       worldId: this._worldId,
       token: this._token,
@@ -26,35 +26,35 @@ export default class Agent {
     })
   }
 
-  attack(word) {
+  attackEmitter(word) {
     this._socket.emit('attack', { word })
   }
 
-  _declareAttack() {
+  _declareAttackListener() {
     this._socket.on('declare_attack', (payload) => {
       console.log('declare_attack', payload)
     })
   }
 
-  _declareWait() {
+  _declareWaitListener() {
     this._socket.on('declare_wait', (payload) => {
       console.log('declare_wait', payload)
     })
   }
 
-  _feedback() {
+  _feedbackListener() {
     this._socket.on('feedback', (payload) => {
       console.log('feedback', payload)
     })
   }
 
-  _invalidPlayer() {
+  _invalidPlayerListener() {
     this._socket.on('invalid_player', (payload) => {
       console.log('invalid_player', payload)
     })
   }
 
-  _disconnect() {
+  _disconnectListener() {
     this._socket.on('disconnect', (payload) => {
       console.log(payload)
     })

@@ -1,4 +1,3 @@
-import io from 'socket.io-client'
 import Button from '~/components/button/index.vue'
 import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
@@ -10,6 +9,7 @@ import {
   PLAYER_PEKORA_NAME,
   PLAYER_BAIKINKUN_NAME,
 } from '~/components/constants/index.js'
+import Agent from '~/components/agent/index.js'
 
 export default {
   middleware: 'redirectToTop',
@@ -27,33 +27,15 @@ export default {
       selectedWord: '',
       winner: '',
       turn: new Turn(),
-      socket: null,
+      agent: null,
     }
   },
   mounted() {
     this.stepFirstTurn()
 
-    this.socket = io.connect(process.env.MITSU_URL)
-    this.socket.emit('join_world', {
-      worldId: sessionStorage.worldId,
-      token: sessionStorage.token,
-      role: sessionStorage.role,
-    })
-    this.socket.on('declare_attack', (payload) => {
-      console.log('declare_attack', payload)
-    })
-    this.socket.on('declare_wait', (payload) => {
-      console.log('declare_wait', payload)
-    })
-    this.socket.on('feedback', (payload) => {
-      console.log('feedback', payload)
-    })
-    this.socket.on('invalid_player', (payload) => {
-      console.log('invalid_player', payload)
-    })
-    this.socket.on('disconnect', (payload) => {
-      console.log(payload)
-    })
+    this.agent = new Agent()
+    this.agent.connect()
+    this.agent.joinWorldEmitter()
   },
   methods: {
     openWordModal(word) {
@@ -91,7 +73,7 @@ export default {
       this.showTurnAnimation()
       this.proceedTurn()
 
-      this.socket.emit('attack', { word: 'A' })
+      this.agent.attackEmitter('word')
     },
     movePlayer(word) {
       if (this.turn.active.pekora) this.$refs.world.movePekora(word)

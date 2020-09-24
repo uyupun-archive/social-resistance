@@ -8,7 +8,6 @@ export default {
       role: sessionStorage.role,
       url: process.env.MITSU_URL,
       socket: null,
-      status: '',
     }
   },
   mounted() {
@@ -17,17 +16,11 @@ export default {
   },
   methods: {
     connect() {
-      this.waitPlayerListener()
       this.declareAttackListener()
       this.declareWaitListener()
       this.feedbackListener()
       this.invalidPlayerListener()
       this.disconnectListener()
-    },
-    waitPlayerListener() {
-      this.socket.on('wait_player', (payload) => {
-        this.$emit('getPayload', { payload, event: 'wait_player' })
-      })
     },
     declareAttackListener() {
       this.socket.on('declare_attack', (payload) => {

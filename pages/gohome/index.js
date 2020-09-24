@@ -28,7 +28,7 @@ export default {
       selectedWord: '',
       winner: '',
       turn: new Turn(),
-      event: 'wait_player',
+      event: '',
     }
   },
   mounted() {

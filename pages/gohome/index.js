@@ -49,12 +49,6 @@ export default {
     restartGame() {
       this.$refs.pauseModal.close()
     },
-    refreshGame() {
-      this.$refs.pauseModal.close()
-      this.$refs.world.refreshWorld()
-      this.stepFirstTurn()
-      this.turn = new Turn()
-    },
     stepFirstTurn() {
       this.getWords()
       this.showTurnAnimation()

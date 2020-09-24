@@ -9,7 +9,7 @@ import {
   PLAYER_PEKORA_NAME,
   PLAYER_BAIKINKUN_NAME,
 } from '~/components/constants/index.js'
-import Agent from '~/components/agent/index.js'
+import Agent from '~/components/agent/index.vue'
 
 export default {
   middleware: 'redirectToTop',
@@ -20,6 +20,7 @@ export default {
     ModalWithButtons,
     TurnAnimation,
     Sonar,
+    Agent,
   },
   data() {
     return {
@@ -27,15 +28,12 @@ export default {
       selectedWord: '',
       winner: '',
       turn: new Turn(),
-      agent: null,
+      event: 'wait_player',
     }
   },
   mounted() {
     this.stepFirstTurn()
-
-    this.agent = new Agent()
-    this.agent.connect()
-    this.agent.joinWorldEmitter()
+    this.$refs.agent.joinWorldEmitter()
   },
   methods: {
     openWordModal(word) {
@@ -72,8 +70,6 @@ export default {
       this.getWords()
       this.showTurnAnimation()
       this.proceedTurn()
-
-      this.agent.attackEmitter('word')
     },
     movePlayer(word) {
       if (this.turn.active.pekora) this.$refs.world.movePekora(word)
@@ -106,6 +102,9 @@ export default {
     getBaseWord(player) {
       if (this.$refs.world) return this.$refs.world.getBaseWord(player)
       return ''
+    },
+    getPayload(obj) {
+      this.event = obj.event
     },
   },
 }

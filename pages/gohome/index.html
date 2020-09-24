@@ -6,17 +6,17 @@
       <div
         class="turn-which"
         :class="{
-          'turn-active': turn.active.pekora,
-          'turn-inactive': !turn.active.pekora,
+          'turn-active': turn % 2 === 1,
+          'turn-inactive': turn % 2 === 0,
         }"
       >
         <p class="turn-which-player">うさぎさんのターン</p>
         <p class="turn-which-word">
-          [{{ getBaseWord('ぺこら').word }}]
+          [{{ getBaseWord(1) }}]
         </p>
       </div>
       <div class="turn-info">
-        <p class="turn-count">ターン数:&nbsp;{{ turn.count }}</p>
+        <p class="turn-count">ターン数:&nbsp;{{ turn }}</p>
         <p class="turn-countdown">
           のこり:&nbsp;
           <span :class="{'danger': turn.timeLimit <= 5}">{{ turn.timeLimit }}</span>
@@ -25,37 +25,38 @@
       <div
         class="turn-which"
         :class="{
-          'turn-active': turn.active.baikinKun,
-          'turn-inactive': !turn.active.baikinKun,
+          'turn-active': turn % 2 === 0,
+          'turn-inactive': turn % 2 === 1,
         }"
       >
         <p class="turn-which-player">ばいきんくんのターン</p>
         <p class="turn-which-word">
-          [{{ getBaseWord('ばいきんくん').word }}]
+          [{{ getBaseWord(2) }}]
         </p>
       </div>
     </div>
     <div v-if="!event" class="wait">
-      <p class="wait_message">{{ waitMessage }}</p>
+      <p class="wait_message">あいてのさんかをまっています...</p>
     </div>
     <div v-else class="word-wrapper">
-      <div v-for="word in words" :key="word.index" class="word">
-        <Button
+      <div v-for="word in words" :key="word.id" class="word">
+        <!-- <Button
           :topLeft="word.direction.top_left"
           :topRight="word.direction.top_right"
           :bottomLeft="word.direction.bottom_left"
           :bottomRight="word.direction.bottom_right"
           @click.native="openWordModal(word)"
-        >
+        > -->
+        <Button @click.native="openWordModal(word)">
           <template v-slot:text>
             <span>
               {{ word.word }}
-              <Sonar
+              <!-- <Sonar
                 :topLeft="word.direction.top_left"
                 :topRight="word.direction.top_right"
                 :bottomLeft="word.direction.bottom_left"
                 :bottomRight="word.direction.bottom_right"
-              />
+              /> -->
             </span>
           </template>
         </Button>
@@ -109,7 +110,7 @@
   </ModalWithButtons>
   <TurnAnimation
     ref="turnAnimation"
-    :count="turn.count"
+    :count="turn"
     pekora="うさぎさん"
     baikin-kun="ばいきんくん"
   />
@@ -128,6 +129,11 @@
   <Modal ref="forceSelectWordModal">
     <template v-slot:content>
       <p>持ち時間が過ぎたため 『{{ selectedWord.word }}』を選択しました</p>
+    </template>
+  </Modal>
+  <Modal ref="waitModal">
+    <template v-slot:content>
+      <p>あいてのターンちゅうです</p>
     </template>
   </Modal>
 </div>

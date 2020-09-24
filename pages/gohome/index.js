@@ -2,7 +2,6 @@ import Button from '~/components/button/index.vue'
 import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
 import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
-import Turn from '~/components/turn/index.js'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
 import {
@@ -24,12 +23,15 @@ export default {
   },
   data() {
     return {
+      baseWord: {
+        pekora: '',
+        baikinKun: '',
+      },
       words: null,
-      selectedWord: '',
+      selectedWord: null,
       winner: '',
-      turn: new Turn(),
+      turn: 1,
       event: '',
-      waitMessage: 'あいてのさんかをまっています...',
     }
   },
   mounted() {
@@ -37,6 +39,7 @@ export default {
   },
   methods: {
     openWordModal(word) {
+      if (this.event !== 'declare_attack') return
       this.selectedWord = word
       this.$refs.wordModal.open()
     },
@@ -56,14 +59,16 @@ export default {
     },
     stepAfterSecondTurn(word) {
       this.closeWordModal()
-      this.movePlayer(word)
-      if ((this.winner = this.$refs.world.judgeWinner())) {
-        this.$refs.winModal.open()
-        return
-      }
-      this.getWords()
-      this.showTurnAnimation()
-      this.proceedTurn()
+      // this.movePlayer(word)
+      // if ((this.winner = this.$refs.world.judgeWinner())) {
+      //   this.$refs.winModal.open()
+      //   return
+      // }
+      // this.getWords()
+      // this.showTurnAnimation()
+      // this.proceedTurn()
+
+      this.$refs.agent.attackEmitter(word)
     },
     movePlayer(word) {
       if (this.turn.active.pekora) this.$refs.world.movePekora(word)
@@ -78,6 +83,12 @@ export default {
     },
     showTurnAnimation() {
       this.$refs.turnAnimation.show()
+    },
+    openWaitModal() {
+      this.$refs.waitModal.open()
+    },
+    closeWaitModal() {
+      this.$refs.waitModal.close()
     },
     proceedTurn() {
       this.turn.proceed().then(() => {
@@ -94,13 +105,55 @@ export default {
       }, 3000)
     },
     getBaseWord(player) {
-      if (this.$refs.world) return this.$refs.world.getBaseWord(player)
-      return ''
+      return player === 1
+        ? this.baseWord.pekora.word
+        : this.baseWord.baikinKun.word
     },
     getPayload(obj) {
       this.event = obj.event
-      this.stepFirstTurn()
+      switch (obj.event) {
+        case 'declare_attack':
+          this.declareAttack(obj.payload)
+          break
+        case 'declare_wait':
+          this.declareWait(obj.payload)
+          break
+        case 'feedback':
+          this.feedback(obj.payload)
+          break
+        case 'invalid_player':
+          this.invalidPlayer(obj.payload)
+          break
+        default:
+          this.disconnect(obj.payload)
+      }
     },
+    declareAttack(payload) {
+      this.words = payload.words
+      if (payload.turn % 2 === 1) this.baseWord.pekora = payload.baseWord
+      else this.baseWord.baikinKun = payload.baseWord
+      this.turn = payload.turn
+      if (!this.event) {
+        this.showTurnAnimation()
+      } else {
+        this.closeWaitModal()
+        setTimeout(() => {
+          this.showTurnAnimation()
+        }, 300)
+      }
+    },
+    declareWait(payload) {
+      this.words = payload.words
+      if (payload.turn % 2 === 1) this.baseWord.pekora = payload.baseWord
+      else this.baseWord.baikinKun = payload.baseWord
+      this.turn = payload.turn
+      this.showTurnAnimation()
+      setTimeout(() => {
+        this.openWaitModal()
+      }, 2500)
+    },
+    feedback() {},
+    invalidPlayer() {},
     disconnect() {
       this.$refs.agent.disconnectEmitter()
       this.$router.push('/')

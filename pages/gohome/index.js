@@ -90,11 +90,6 @@ export default {
     closeWaitModal() {
       this.$refs.waitModal.close()
     },
-    proceedTurn() {
-      this.turn.proceed().then(() => {
-        this.forceSelectWord()
-      })
-    },
     forceSelectWord() {
       const randomIndex = Math.floor(Math.random() * this.words.length)
       this.selectedWord = this.words[randomIndex]
@@ -110,6 +105,7 @@ export default {
         : this.baseWord.baikinKun.word
     },
     getPayload(obj) {
+      console.log(obj)
       this.event = obj.event
       switch (obj.event) {
         case 'declare_attack':

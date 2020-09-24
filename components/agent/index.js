@@ -20,7 +20,6 @@ export default {
       this.declareWaitListener()
       this.feedbackListener()
       this.invalidPlayerListener()
-      this.disconnectListener()
     },
     declareAttackListener() {
       this.socket.on('declare_attack', (payload) => {
@@ -42,11 +41,6 @@ export default {
         this.$emit('getPayload', { payload, event: 'invalid_player' })
       })
     },
-    disconnectListener() {
-      this.socket.on('disconnect', (payload) => {
-        this.$emit('getPayload', { payload, event: 'disconnect' })
-      })
-    },
     joinWorldEmitter() {
       this.socket.emit('join_world', {
         worldId: this.worldId,
@@ -56,6 +50,9 @@ export default {
     },
     attackEmitter(word) {
       this.socket.emit('attack', { word })
+    },
+    disconnectEmitter() {
+      this.socket.disconnect()
     },
   },
 }

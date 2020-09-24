@@ -29,10 +29,10 @@ export default {
       winner: '',
       turn: new Turn(),
       event: '',
+      waitMessage: 'あいてのさんかをまっています...',
     }
   },
   mounted() {
-    this.stepFirstTurn()
     this.$refs.agent.joinWorldEmitter()
   },
   methods: {
@@ -105,6 +105,11 @@ export default {
     },
     getPayload(obj) {
       this.event = obj.event
+      this.stepFirstTurn()
+    },
+    disconnect() {
+      this.$refs.agent.disconnectEmitter()
+      this.$router.push('/')
     },
   },
 }

@@ -35,7 +35,10 @@
         </p>
       </div>
     </div>
-    <div class="word-wrapper">
+    <div v-if="!event" class="wait">
+      <p class="wait_message">{{ waitMessage }}</p>
+    </div>
+    <div v-else class="word-wrapper">
       <div v-for="word in words" :key="word.index" class="word">
         <Button
           :topLeft="word.direction.top_left"
@@ -96,14 +99,7 @@
         </Button>
       </div>
       <div class="pause-choices">
-        <Button @click.native="refreshGame">
-          <template v-slot:text>
-            <span>やりなおし</span>
-          </template>
-        </Button>
-      </div>
-      <div class="pause-choices">
-        <Button to="/">
+        <Button @click.native="disconnect">
           <template v-slot:text>
             <span>やめる</span>
           </template>

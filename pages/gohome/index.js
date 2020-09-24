@@ -118,7 +118,7 @@ export default {
           this.feedback(obj.payload)
           break
         case 'invalid_player':
-          this.invalidPlayer(obj.payload)
+          this.invalidPlayer()
           break
         default:
           this.disconnect(obj.payload)
@@ -149,7 +149,12 @@ export default {
       }, 2500)
     },
     feedback() {},
-    invalidPlayer() {},
+    invalidPlayer() {
+      this.$refs.invalidPlayerModal.open()
+      setTimeout(() => {
+        this.$router.push('/')
+      }, 3000)
+    },
     disconnect() {
       this.$refs.agent.disconnectEmitter()
       this.$router.push('/')

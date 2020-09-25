@@ -9,7 +9,6 @@ import {
   PLAYER_PEKORA,
   PLAYER_PEKORA_NAME,
   PLAYER_PEKORA_ALIAS_NAME,
-  PLAYER_BAIKINKUN,
   PLAYER_BAIKINKUN_NAME,
 } from '~/components/constants/index.js'
 
@@ -90,8 +89,17 @@ export default {
         case 'feedback_positions':
           this.feedbackPositions(obj.payload)
           break
-        case 'game_resources':
-          this.gameResources(obj.payload)
+        case 'get_words_and_baseword':
+          this.getWordsAndBaseword(obj.payload)
+          break
+        case 'update_baseword':
+          this.updateBaseword(obj.payload)
+          break
+        case 'get_words':
+          this.getWords(obj.payload)
+          break
+        case 'get_turn':
+          this.getTurn(obj.payload)
           break
         case 'judge':
           this.judge(obj.payload)
@@ -130,19 +138,27 @@ export default {
         )
       }
     },
-    gameResources(payload) {
+    getWordsAndBaseword(payload) {
       this.words = payload.words
-      this.turn = payload.turn
       if (!this.$refs.world.pekora && !this.$refs.world.baikinKun) {
         this.$refs.world.createPekora(payload.baseWord)
         this.$refs.world.createBaikinKun(null)
         return
       }
-      if (payload.player === PLAYER_BAIKINKUN) {
+      this.$refs.world.setBaseWord(PLAYER_BAIKINKUN_NAME, payload.baseWord)
+    },
+    updateBaseword(payload) {
+      if (payload.player === PLAYER_PEKORA) {
         this.$refs.world.movePekora(payload.baseWord)
       } else {
         this.$refs.world.moveBaikinKun(payload.baseWord)
       }
+    },
+    getWords(payload) {
+      this.words = payload.words
+    },
+    getTurn(payload) {
+      this.turn = payload.turn
     },
     judge(payload) {
       if (payload.winner === PLAYER_PEKORA)

@@ -19,7 +19,10 @@ export default {
       this.declareAttackListener()
       this.declareWaitListener()
       this.feedbackPositionsListener()
-      this.gameResourcesListener()
+      this.getWordsAndBasewordListener()
+      this.updateBasewordListener()
+      this.getWordsListener()
+      this.getTurnListener()
       this.judgeListener()
       this.invalidPlayerListener()
     },
@@ -38,9 +41,24 @@ export default {
         this.$emit('getPayload', { payload, event: 'feedback_positions' })
       })
     },
-    gameResourcesListener() {
-      this.socket.on('game_resources', (payload) => {
-        this.$emit('getPayload', { payload, event: 'game_resources' })
+    getWordsAndBasewordListener() {
+      this.socket.on('get_words_and_baseword', (payload) => {
+        this.$emit('getPayload', { payload, event: 'get_words_and_baseword' })
+      })
+    },
+    updateBasewordListener() {
+      this.socket.on('update_baseword', (payload) => {
+        this.$emit('getPayload', { payload, event: 'update_baseword' })
+      })
+    },
+    getWordsListener() {
+      this.socket.on('get_words', (payload) => {
+        this.$emit('getPayload', { payload, event: 'get_words' })
+      })
+    },
+    getTurnListener() {
+      this.socket.on('get_turn', (payload) => {
+        this.$emit('getPayload', { payload, event: 'get_turn' })
       })
     },
     judgeListener() {

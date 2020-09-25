@@ -112,5 +112,12 @@ export default {
         this.positions.baikinKun.y = y
       }
     },
+    setBaseWord(player, baseWord) {
+      if (player === PLAYER_PEKORA_NAME) {
+        this.pekora.baseWord = baseWord
+      } else {
+        this.baikinKun.baseWord = baseWord
+      }
+    },
   },
 }

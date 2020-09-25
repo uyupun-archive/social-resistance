@@ -34,6 +34,13 @@ export default class Player {
   }
 
   /**
+   * 単語のセッター
+   */
+  set baseWord(baseWord) {
+    this._baseWord = baseWord
+  }
+
+  /**
    * 必須のメソッドが継承先で実装されているかのチェック機構
    * 擬似的な抽象メソッドみたいな感じ
    */

@@ -1,41 +1,41 @@
 <div>
   <div class="container">
+    <Agent ref="agent" @getPayload="getPayload" />
     <World ref="world" class="world" />
     <div class="turn-box">
       <div
         class="turn-which"
         :class="{
-          'turn-active': turn.active.pekora,
-          'turn-inactive': !turn.active.pekora,
+          'turn-active': turn % 2 === 1,
+          'turn-inactive': turn % 2 === 0,
         }"
       >
         <p class="turn-which-player">うさぎさんのターン</p>
         <p class="turn-which-word">
-          [{{ getBaseWord('ぺこら').word }}]
+          [{{ getBaseWord('ぺこら') }}]
         </p>
       </div>
-      <div class="turn-info">
-        <p class="turn-count">ターン数:&nbsp;{{ turn.count }}</p>
-        <p class="turn-countdown">
-          のこり:&nbsp;
-          <span :class="{'danger': turn.timeLimit <= 5}">{{ turn.timeLimit }}</span>
-        </p>
+      <div v-if="!!event" class="turn-info">
+        <p class="turn-count">ターン数:&nbsp;{{ turn }}</p>
       </div>
       <div
         class="turn-which"
         :class="{
-          'turn-active': turn.active.baikinKun,
-          'turn-inactive': !turn.active.baikinKun,
+          'turn-active': turn % 2 === 0,
+          'turn-inactive': turn % 2 === 1,
         }"
       >
         <p class="turn-which-player">ばいきんくんのターン</p>
         <p class="turn-which-word">
-          [{{ getBaseWord('ばいきんくん').word }}]
+          [{{ getBaseWord('ばいきんくん') }}]
         </p>
       </div>
     </div>
-    <div class="word-wrapper">
-      <div v-for="word in words" :key="word.index" class="word">
+    <div v-if="!event" class="wait">
+      <p class="wait_message">あいてのさんかをまっています...</p>
+    </div>
+    <div v-else class="word-wrapper">
+      <div v-for="word in words" :key="word.id" class="word">
         <Button
           :topLeft="word.direction.top_left"
           :topRight="word.direction.top_right"
@@ -67,7 +67,7 @@
             <span>よくない</span>
           </template>
         </Button>
-        <Button @click.native="stepAfterSecondTurn(selectedWord)">
+        <Button @click.native="attack(selectedWord)">
           <template v-slot:text>
             <span>よい</span>
           </template>
@@ -95,14 +95,7 @@
         </Button>
       </div>
       <div class="pause-choices">
-        <Button @click.native="refreshGame">
-          <template v-slot:text>
-            <span>やりなおし</span>
-          </template>
-        </Button>
-      </div>
-      <div class="pause-choices">
-        <Button to="/">
+        <Button @click.native="disconnect">
           <template v-slot:text>
             <span>やめる</span>
           </template>
@@ -112,7 +105,7 @@
   </ModalWithButtons>
   <TurnAnimation
     ref="turnAnimation"
-    :count="turn.count"
+    :count="turn"
     pekora="うさぎさん"
     baikin-kun="ばいきんくん"
   />
@@ -121,7 +114,7 @@
       <p>『{{ winner }}』のかち！</p>
     </template>
     <template v-slot:btns>
-      <Button to="/" size="large">
+      <Button size="large" @click.native="disconnect">
         <template v-slot:text>
           <span>おつかれ</span>
         </template>
@@ -131,6 +124,16 @@
   <Modal ref="forceSelectWordModal">
     <template v-slot:content>
       <p>持ち時間が過ぎたため 『{{ selectedWord.word }}』を選択しました</p>
+    </template>
+  </Modal>
+  <Modal ref="waitModal">
+    <template v-slot:content>
+      <p>あいてのターンちゅうです</p>
+    </template>
+  </Modal>
+  <Modal ref="warningModal">
+    <template v-slot:content>
+      <p>{{ warningText }}</p>
     </template>
   </Modal>
 </div>

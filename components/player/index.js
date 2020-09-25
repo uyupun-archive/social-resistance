@@ -2,20 +2,19 @@ import {
   FIELD_HEIGHT,
   SOCIAL_DISTANCE_ZONE_RADIUS,
   PLAYER_SIZE_SCALE,
-  PLAYER_MOVE_SCALE,
   PLAYER_MOVABLE_FIELD_WIDTH,
 } from '~/components/constants/index.js'
 
 export default class Player {
-  constructor(ctx, getFitstWord) {
+  constructor(ctx, player) {
     this._ctx = ctx
     this._image = new Image()
     this._width = null
     this._height = null
-    this._baseWord = getFitstWord()
+    this._baseWord = player.baseWord
     this._position = {
-      x: null,
-      y: null,
+      x: player.x,
+      y: player.y,
     }
     this.checkIsImplemented()
   }
@@ -32,6 +31,13 @@ export default class Player {
    */
   get baseWord() {
     return this._baseWord
+  }
+
+  /**
+   * 単語のセッター
+   */
+  set baseWord(baseWord) {
+    this._baseWord = baseWord
   }
 
   /**
@@ -63,17 +69,11 @@ export default class Player {
    *
    * @param {*} word
    */
-  depart(word) {
-    const newX = this._correctPositionX(
-      this._position.x + word.move.x * PLAYER_MOVE_SCALE
-    )
-    const newY = this._correctPositionY(
-      this._position.y + word.move.y * PLAYER_MOVE_SCALE
-    )
+  depart(x, y, word) {
     this.clear()
-    this._drawSocialDistance(newX, newY)
-    this._drawPlayer(newX, newY)
-    this._calcPosition(newX, newY)
+    this._drawSocialDistance(x, y)
+    this._drawPlayer(x, y)
+    this._calcPosition(x, y)
     this._baseWord = word
   }
 

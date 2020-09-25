@@ -28,6 +28,7 @@ export default {
       winner: '',
       turn: 1,
       event: '',
+      warningText: '',
     }
   },
   mounted() {
@@ -98,7 +99,7 @@ export default {
           this.gameResources(obj.payload)
           break
         case 'invalid_player':
-          this.invalidPlayer()
+          this.openWarningModal('むこうなプレイヤーです')
           break
         default:
           this.disconnect(obj.payload)
@@ -145,8 +146,9 @@ export default {
         this.$refs.world.moveBaikinKun(payload.baseWord)
       }
     },
-    invalidPlayer() {
-      this.$refs.invalidPlayerModal.open()
+    openWarningModal(msg) {
+      this.warningText = msg
+      this.$refs.warningModal.open()
       setTimeout(() => {
         this.$router.push('/')
       }, 3000)

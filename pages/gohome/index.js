@@ -69,15 +69,6 @@ export default {
     closeWaitModal() {
       this.$refs.waitModal.close()
     },
-    forceSelectWord() {
-      const randomIndex = Math.floor(Math.random() * this.words.length)
-      this.selectedWord = this.words[randomIndex]
-      this.$refs.forceSelectWordModal.open()
-      setTimeout(() => {
-        this.$refs.forceSelectWordModal.close()
-        this.attack(this.selectedWord)
-      }, 3000)
-    },
     getBaseWord(player) {
       if (this.$refs.world) {
         return this.$refs.world.getBaseWord(player)
@@ -157,7 +148,14 @@ export default {
       if (payload.winner === PLAYER_PEKORA)
         this.winner = PLAYER_PEKORA_ALIAS_NAME
       else this.winner = PLAYER_BAIKINKUN_NAME
-      this.$refs.wordModal.open()
+      if (!this.$refs.waitModal.showModal) {
+        this.$refs.winModal.open()
+      } else {
+        this.closeWaitModal()
+        setTimeout(() => {
+          this.$refs.winModal.open()
+        }, 300)
+      }
     },
     openWarningModal(msg) {
       this.warningText = msg

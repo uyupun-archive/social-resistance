@@ -114,7 +114,7 @@
       <p>『{{ winner }}』のかち！</p>
     </template>
     <template v-slot:btns>
-      <Button to="/" size="large">
+      <Button size="large" @click.native="disconnect">
         <template v-slot:text>
           <span>おつかれ</span>
         </template>

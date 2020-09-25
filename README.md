@@ -11,7 +11,7 @@
 |元ネタ(ウサギと猟犬)|https://en.wikipedia.org/wiki/Hare_games|
 |モック(Figma)|https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=1%3A2|
 
-### 環境構築(フロントエンド)
+### 環境構築
 
 ```bash
 # 環境構築

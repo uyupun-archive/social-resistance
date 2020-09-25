@@ -2,7 +2,6 @@ import {
   FIELD_HEIGHT,
   SOCIAL_DISTANCE_ZONE_RADIUS,
   PLAYER_SIZE_SCALE,
-  PLAYER_MOVE_SCALE,
   PLAYER_MOVABLE_FIELD_WIDTH,
 } from '~/components/constants/index.js'
 
@@ -63,17 +62,11 @@ export default class Player {
    *
    * @param {*} word
    */
-  depart(word) {
-    const newX = this._correctPositionX(
-      this._position.x + word.move.x * PLAYER_MOVE_SCALE
-    )
-    const newY = this._correctPositionY(
-      this._position.y + word.move.y * PLAYER_MOVE_SCALE
-    )
+  depart(x, y, word) {
     this.clear()
-    this._drawSocialDistance(newX, newY)
-    this._drawPlayer(newX, newY)
-    this._calcPosition(newX, newY)
+    this._drawSocialDistance(x, y)
+    this._drawPlayer(x, y)
+    this._calcPosition(x, y)
     this._baseWord = word
   }
 

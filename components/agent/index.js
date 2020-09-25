@@ -59,11 +59,15 @@ export default {
         worldId: this.worldId,
         token: this.token,
         role: this.role,
-        word,
+        baseWord: word,
       })
     },
     disconnectEmitter() {
-      this.socket.emit('disconnect_world', { worldId: this.worldId })
+      this.socket.emit('disconnect_world', {
+        worldId: this.worldId,
+        token: this.token,
+        role: this.role,
+      })
     },
   },
 }

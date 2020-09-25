@@ -26,7 +26,7 @@ export default {
       words: null,
       selectedWord: null,
       winner: '',
-      turn: 0,
+      turn: 1,
       event: '',
     }
   },
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     openWordModal(word) {
-      if (this.event !== 'declare_attack') return
+      // if (this.event !== 'declare_attack') return
       this.selectedWord = word
       this.$refs.wordModal.open()
     },

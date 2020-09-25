@@ -78,10 +78,14 @@ export default {
       this.baikinKun.spawn()
     },
     movePekora(word) {
-      this.pekora.depart(word)
+      this.pekora.depart(this.positions.pekora.x, this.positions.pekora.y, word)
     },
     moveBaikinKun(word) {
-      this.baikinKun.depart(word)
+      this.baikinKun.depart(
+        this.positions.baikinKun.x,
+        this.positions.baikinKun.y,
+        word
+      )
     },
     judgeWinner() {
       if (this.judge.isHit(this.pekora.position, this.baikinKun.position))

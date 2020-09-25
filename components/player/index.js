@@ -1,8 +1,6 @@
 import {
-  FIELD_HEIGHT,
   SOCIAL_DISTANCE_ZONE_RADIUS,
   PLAYER_SIZE_SCALE,
-  PLAYER_MOVABLE_FIELD_WIDTH,
 } from '~/components/constants/index.js'
 
 export default class Player {
@@ -75,34 +73,6 @@ export default class Player {
     this._drawPlayer(x, y)
     this._calcPosition(x, y)
     this._baseWord = word
-  }
-
-  /**
-   * プレイヤーがワールドからはみ出していたらはみ出さないように補正する(x座標)
-   *
-   * @param {*} x
-   */
-  _correctPositionX(x) {
-    // xのマイナス方向の限界値を超えていないか
-    if (x < SOCIAL_DISTANCE_ZONE_RADIUS) x = SOCIAL_DISTANCE_ZONE_RADIUS
-    // xのプラス方向の限界値を超えていないか
-    else if (x > PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS)
-      x = PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS
-    return x
-  }
-
-  /**
-   * プレイヤーがワールドからはみ出していたらはみ出さないように補正する(y座標)
-   *
-   * @param {*} y
-   */
-  _correctPositionY(y) {
-    // yのマイナス方向の限界値を超えていないか
-    if (y < SOCIAL_DISTANCE_ZONE_RADIUS) y = SOCIAL_DISTANCE_ZONE_RADIUS
-    // yのプラス方向の限界値を超えていないか
-    else if (y > FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS)
-      y = FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS
-    return y
   }
 
   /**

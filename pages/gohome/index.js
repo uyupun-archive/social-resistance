@@ -77,7 +77,6 @@ export default {
       return ''
     },
     getPayload(obj) {
-      console.log(obj)
       this.event = obj.event
       switch (obj.event) {
         case 'declare_attack':

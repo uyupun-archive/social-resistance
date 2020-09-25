@@ -21,6 +21,16 @@ export default {
       pekora: null,
       baikinKun: null,
       judge: null,
+      positions: {
+        pekora: {
+          x: 0,
+          y: 0,
+        },
+        baikinKun: {
+          x: 0,
+          y: 0,
+        },
+      },
     }
   },
   mounted() {
@@ -47,13 +57,25 @@ export default {
     createPlayerLayer() {
       const player = document.getElementById('player-layer')
       this.ctx.player = player.getContext('2d')
-      this.pekora = new Pekora(this.ctx.player, this.$getFirstWord)
-      this.baikinKun = new BaikinKun(this.ctx.player, this.$getFirstWord)
-      this.pekora.spawn()
-      this.baikinKun.spawn()
     },
     createJudge() {
       this.judge = new Judge()
+    },
+    createPekora(baseWord) {
+      this.pekora = new Pekora(this.ctx.player, {
+        x: this.positions.pekora.x,
+        y: this.positions.pekora.y,
+        baseWord,
+      })
+      this.pekora.spawn()
+    },
+    createBaikinKun(baseWord) {
+      this.baikinKun = new BaikinKun(this.ctx.player, {
+        x: this.positions.baikinKun.x,
+        y: this.positions.baikinKun.y,
+        baseWord,
+      })
+      this.baikinKun.spawn()
     },
     movePekora(word) {
       this.pekora.depart(word)
@@ -74,8 +96,17 @@ export default {
       this.initWorld()
     },
     getBaseWord(player) {
-      if (player === PLAYER_PEKORA_NAME) return this.pekora.baseWord
-      return this.baikinKun.baseWord
+      if (player === PLAYER_PEKORA_NAME) return this.pekora?.baseWord
+      return this.baikinKun?.baseWord
+    },
+    setPosition(player, x, y) {
+      if (player === PLAYER_PEKORA_NAME) {
+        this.positions.pekora.x = x
+        this.positions.pekora.y = y
+      } else {
+        this.positions.baikinKun.x = x
+        this.positions.baikinKun.y = y
+      }
     },
   },
 }

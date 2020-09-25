@@ -7,15 +7,15 @@ import {
 } from '~/components/constants/index.js'
 
 export default class Player {
-  constructor(ctx, getFitstWord) {
+  constructor(ctx, player) {
     this._ctx = ctx
     this._image = new Image()
     this._width = null
     this._height = null
-    this._baseWord = getFitstWord()
+    this._baseWord = player.baseWord
     this._position = {
-      x: null,
-      y: null,
+      x: player.x,
+      y: player.y,
     }
     this.checkIsImplemented()
   }

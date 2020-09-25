@@ -134,14 +134,15 @@ export default {
     gameResources(payload) {
       this.words = payload.words
       this.turn = payload.turn
+      if (!this.$refs.world.pekora && !this.$refs.world.baikinKun) {
+        this.$refs.world.createPekora(payload.baseWord)
+        this.$refs.world.createBaikinKun(null)
+        return
+      }
       if (payload.player === 1) {
-        !this.$refs.world.pekora
-          ? this.$refs.world.createPekora(payload.baseWord)
-          : this.$refs.world.movePekora(payload.baseWord)
+        this.$refs.world.movePekora(payload.baseWord)
       } else {
-        !this.$refs.world.baikinKun
-          ? this.$refs.world.createBaikinKun(payload.baseWord)
-          : this.$refs.world.moveBaikinKun(payload.baseWord)
+        this.$refs.world.moveBaikinKun(payload.baseWord)
       }
     },
     invalidPlayer() {

@@ -63,7 +63,7 @@ export default {
       })
     },
     disconnectEmitter() {
-      this.socket.disconnect()
+      this.socket.emit('disconnect_world', { worldId: this.worldId })
     },
   },
 }

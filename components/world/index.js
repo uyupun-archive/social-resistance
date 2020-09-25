@@ -24,6 +24,13 @@ export default {
         },
       },
     },
+    baseWord: {
+      type: Object,
+      default: {
+        pekora: null,
+        baikinKun: null,
+      },
+    },
   },
   data() {
     return {
@@ -62,8 +69,16 @@ export default {
     createPlayerLayer() {
       const player = document.getElementById('player-layer')
       this.ctx.player = player.getContext('2d')
-      this.pekora = new Pekora(this.ctx.player, this.positions.pekora)
-      this.baikinKun = new BaikinKun(this.ctx.player, this.positions.baikinKun)
+      this.pekora = new Pekora(this.ctx.player, {
+        x: this.positions.pekora.x,
+        y: this.positions.pekora.y,
+        baseWord: this.baseWord.pekora,
+      })
+      this.baikinKun = new BaikinKun(this.ctx.player, {
+        x: this.positions.baikinKun.x,
+        y: this.positions.baikinKun.y,
+        baseWord: this.baseWord.baikinKun,
+      })
       this.pekora.spawn()
       this.baikinKun.spawn()
     },

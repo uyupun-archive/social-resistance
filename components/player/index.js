@@ -12,7 +12,7 @@ export default class Player {
     this._image = new Image()
     this._width = null
     this._height = null
-    this._baseWord = ''
+    this._baseWord = player.baseWord
     this._position = {
       x: player.x,
       y: player.y,

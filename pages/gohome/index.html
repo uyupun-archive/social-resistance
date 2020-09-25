@@ -1,7 +1,7 @@
 <div>
   <div class="container">
     <Agent ref="agent" @getPayload="getPayload" />
-    <World ref="world" class="world" />
+    <World ref="world" class="world" :positions="positions" />
     <div class="turn-box">
       <div
         class="turn-which"
@@ -67,7 +67,7 @@
             <span>よくない</span>
           </template>
         </Button>
-        <Button @click.native="stepAfterSecondTurn(selectedWord)">
+        <Button @click.native="attack(selectedWord)">
           <template v-slot:text>
             <span>よい</span>
           </template>

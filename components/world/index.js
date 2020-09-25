@@ -10,6 +10,21 @@ import {
 } from '~/components/constants/index.js'
 
 export default {
+  props: {
+    positions: {
+      type: Object,
+      default: {
+        pekora: {
+          x: 0,
+          y: 0,
+        },
+        baikinKun: {
+          x: 0,
+          y: 0,
+        },
+      },
+    },
+  },
   data() {
     return {
       ctx: {
@@ -47,8 +62,8 @@ export default {
     createPlayerLayer() {
       const player = document.getElementById('player-layer')
       this.ctx.player = player.getContext('2d')
-      this.pekora = new Pekora(this.ctx.player, this.$getFirstWord)
-      this.baikinKun = new BaikinKun(this.ctx.player, this.$getFirstWord)
+      this.pekora = new Pekora(this.ctx.player, this.positions.pekora)
+      this.baikinKun = new BaikinKun(this.ctx.player, this.positions.baikinKun)
       this.pekora.spawn()
       this.baikinKun.spawn()
     },

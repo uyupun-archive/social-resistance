@@ -4,10 +4,6 @@ import Modal from '~/components/modal/index.vue'
 import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
-import {
-  PLAYER_PEKORA_NAME,
-  PLAYER_BAIKINKUN_NAME,
-} from '~/components/constants/index.js'
 import Agent from '~/components/agent/index.vue'
 
 export default {
@@ -24,8 +20,18 @@ export default {
   data() {
     return {
       baseWord: {
-        pekora: '',
-        baikinKun: '',
+        pekora: null,
+        baikinKun: null,
+      },
+      positions: {
+        pekora: {
+          x: 0,
+          y: 0,
+        },
+        baikinKun: {
+          x: 0,
+          y: 0,
+        },
       },
       words: null,
       selectedWord: null,
@@ -52,34 +58,13 @@ export default {
     restartGame() {
       this.$refs.pauseModal.close()
     },
-    stepFirstTurn() {
-      this.getWords()
-      this.showTurnAnimation()
-      this.proceedTurn()
-    },
-    stepAfterSecondTurn(word) {
+    attack(word) {
       this.closeWordModal()
-      // this.movePlayer(word)
-      // if ((this.winner = this.$refs.world.judgeWinner())) {
-      //   this.$refs.winModal.open()
-      //   return
-      // }
-      // this.getWords()
-      // this.showTurnAnimation()
-      // this.proceedTurn()
-
       this.$refs.agent.attackEmitter(word)
     },
     movePlayer(word) {
       if (this.turn.active.pekora) this.$refs.world.movePekora(word)
       else this.$refs.world.moveBaikinKun(word)
-    },
-    getWords() {
-      this.words = this.$getWords(
-        this.turn.active.pekora
-          ? this.getBaseWord(PLAYER_PEKORA_NAME)
-          : this.getBaseWord(PLAYER_BAIKINKUN_NAME)
-      )
     },
     showTurnAnimation() {
       this.$refs.turnAnimation.show()
@@ -96,13 +81,15 @@ export default {
       this.$refs.forceSelectWordModal.open()
       setTimeout(() => {
         this.$refs.forceSelectWordModal.close()
-        this.stepAfterSecondTurn(this.selectedWord)
+        this.attack(this.selectedWord)
       }, 3000)
     },
     getBaseWord(player) {
-      return player === 1
-        ? this.baseWord.pekora.word
-        : this.baseWord.baikinKun.word
+      if (player === 1) {
+        return this.baseWord.pekora ? this.baseWord.pekora.word : ''
+      } else {
+        return this.baseWord.baikinKun ? this.baseWord.baikinKun.word : ''
+      }
     },
     getPayload(obj) {
       console.log(obj)
@@ -148,7 +135,17 @@ export default {
         this.openWaitModal()
       }, 2500)
     },
-    feedback() {},
+    feedback(payload) {
+      if (payload.player === 1) {
+        this.positions.pekora.x = payload.x
+        this.positions.pekora.y = payload.y
+        this.baseWord.pekora = payload.baseWord
+      } else {
+        this.positions.baikinKun.x = payload.x
+        this.positions.baikinKun.y = payload.y
+        this.baseWord.baikinKun = payload.baseWord
+      }
+    },
     invalidPlayer() {
       this.$refs.invalidPlayerModal.open()
       setTimeout(() => {

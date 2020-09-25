@@ -20,6 +20,7 @@ export default {
       this.declareWaitListener()
       this.feedbackPositionsListener()
       this.gameResourcesListener()
+      this.judgeListener()
       this.invalidPlayerListener()
     },
     declareAttackListener() {
@@ -40,6 +41,11 @@ export default {
     gameResourcesListener() {
       this.socket.on('game_resources', (payload) => {
         this.$emit('getPayload', { payload, event: 'game_resources' })
+      })
+    },
+    judgeListener() {
+      this.socket.on('judge', (payload) => {
+        this.$emit('getPayload', { payload, event: 'judge' })
       })
     },
     invalidPlayerListener() {

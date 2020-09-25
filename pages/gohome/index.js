@@ -6,7 +6,10 @@ import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
 import Agent from '~/components/agent/index.vue'
 import {
+  PLAYER_PEKORA,
   PLAYER_PEKORA_NAME,
+  PLAYER_PEKORA_ALIAS_NAME,
+  PLAYER_BAIKINKUN,
   PLAYER_BAIKINKUN_NAME,
 } from '~/components/constants/index.js'
 
@@ -84,6 +87,7 @@ export default {
       return ''
     },
     getPayload(obj) {
+      console.log(obj)
       this.event = obj.event
       switch (obj.event) {
         case 'declare_attack':
@@ -97,6 +101,9 @@ export default {
           break
         case 'game_resources':
           this.gameResources(obj.payload)
+          break
+        case 'judge':
+          this.judge(obj.payload)
           break
         case 'invalid_player':
           this.openWarningModal('むこうなプレイヤーです')
@@ -122,7 +129,7 @@ export default {
       }, 2500)
     },
     feedbackPositions(payload) {
-      if (payload.player === 1) {
+      if (payload.player === PLAYER_PEKORA) {
         this.$refs.world.setPosition(PLAYER_PEKORA_NAME, payload.x, payload.y)
       } else {
         this.$refs.world.setPosition(
@@ -140,11 +147,17 @@ export default {
         this.$refs.world.createBaikinKun(null)
         return
       }
-      if (payload.player === 1) {
+      if (payload.player === PLAYER_BAIKINKUN) {
         this.$refs.world.movePekora(payload.baseWord)
       } else {
         this.$refs.world.moveBaikinKun(payload.baseWord)
       }
+    },
+    judge(payload) {
+      if (payload.winner === PLAYER_PEKORA)
+        this.winner = PLAYER_PEKORA_ALIAS_NAME
+      else this.winner = PLAYER_BAIKINKUN_NAME
+      this.$refs.wordModal.open()
     },
     openWarningModal(msg) {
       this.warningText = msg

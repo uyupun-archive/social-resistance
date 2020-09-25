@@ -1,7 +1,7 @@
 <div>
   <div class="container">
     <Agent ref="agent" @getPayload="getPayload" />
-    <World ref="world" class="world" :positions="positions" :baseWord="baseWord" />
+    <World ref="world" class="world" />
     <div class="turn-box">
       <div
         class="turn-which"
@@ -12,10 +12,10 @@
       >
         <p class="turn-which-player">うさぎさんのターン</p>
         <p class="turn-which-word">
-          [{{ getBaseWord(1) }}]
+          [{{ getBaseWord('ぺこら') }}]
         </p>
       </div>
-      <div class="turn-info">
+      <div v-if="!!turn" class="turn-info">
         <p class="turn-count">ターン数:&nbsp;{{ turn }}</p>
       </div>
       <div
@@ -27,7 +27,7 @@
       >
         <p class="turn-which-player">ばいきんくんのターン</p>
         <p class="turn-which-word">
-          [{{ getBaseWord(2) }}]
+          [{{ getBaseWord('ばいきんくん') }}]
         </p>
       </div>
     </div>

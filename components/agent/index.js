@@ -5,7 +5,7 @@ export default {
     return {
       worldId: sessionStorage.worldId,
       token: sessionStorage.token,
-      role: sessionStorage.role,
+      role: parseInt(sessionStorage.role, 10),
       url: process.env.MITSU_URL,
       socket: null,
     }
@@ -18,7 +18,8 @@ export default {
     connect() {
       this.declareAttackListener()
       this.declareWaitListener()
-      this.feedbackListener()
+      this.feedbackPositionsListener()
+      this.gameResourcesListener()
       this.invalidPlayerListener()
     },
     declareAttackListener() {
@@ -31,9 +32,14 @@ export default {
         this.$emit('getPayload', { payload, event: 'declare_wait' })
       })
     },
-    feedbackListener() {
-      this.socket.on('feedback', (payload) => {
-        this.$emit('getPayload', { payload, event: 'feedback' })
+    feedbackPositionsListener() {
+      this.socket.on('feedback_positions', (payload) => {
+        this.$emit('getPayload', { payload, event: 'feedback_positions' })
+      })
+    },
+    gameResourcesListener() {
+      this.socket.on('game_resources', (payload) => {
+        this.$emit('getPayload', { payload, event: 'game_resources' })
       })
     },
     invalidPlayerListener() {
@@ -49,7 +55,12 @@ export default {
       })
     },
     attackEmitter(word) {
-      this.socket.emit('attack', { word })
+      this.socket.emit('attack', {
+        worldId: this.worldId,
+        token: this.token,
+        role: this.role,
+        word,
+      })
     },
     disconnectEmitter() {
       this.socket.disconnect()

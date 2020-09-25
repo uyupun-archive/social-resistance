@@ -5,6 +5,10 @@ import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
 import Agent from '~/components/agent/index.vue'
+import {
+  PLAYER_PEKORA_NAME,
+  PLAYER_BAIKINKUN_NAME,
+} from '~/components/constants/index.js'
 
 export default {
   middleware: 'redirectToTop',
@@ -19,24 +23,10 @@ export default {
   },
   data() {
     return {
-      baseWord: {
-        pekora: null,
-        baikinKun: null,
-      },
-      positions: {
-        pekora: {
-          x: 0,
-          y: 0,
-        },
-        baikinKun: {
-          x: 0,
-          y: 0,
-        },
-      },
       words: null,
       selectedWord: null,
       winner: '',
-      turn: 1,
+      turn: 0,
       event: '',
     }
   },
@@ -85,24 +75,27 @@ export default {
       }, 3000)
     },
     getBaseWord(player) {
-      if (player === 1) {
-        return this.baseWord.pekora ? this.baseWord.pekora.word : ''
-      } else {
-        return this.baseWord.baikinKun ? this.baseWord.baikinKun.word : ''
+      if (this.$refs.world) {
+        return this.$refs.world.getBaseWord(player)
+          ? this.$refs.world.getBaseWord(player).word
+          : ''
       }
+      return ''
     },
     getPayload(obj) {
-      console.log(obj)
       this.event = obj.event
       switch (obj.event) {
         case 'declare_attack':
-          this.declareAttack(obj.payload)
+          this.declareAttack()
           break
         case 'declare_wait':
-          this.declareWait(obj.payload)
+          this.declareWait()
           break
-        case 'feedback':
-          this.feedback(obj.payload)
+        case 'feedback_positions':
+          this.feedbackPositions(obj.payload)
+          break
+        case 'game_resources':
+          this.gameResources(obj.payload)
           break
         case 'invalid_player':
           this.invalidPlayer()
@@ -111,12 +104,8 @@ export default {
           this.disconnect(obj.payload)
       }
     },
-    declareAttack(payload) {
-      this.words = payload.words
-      if (payload.turn % 2 === 1) this.baseWord.pekora = payload.baseWord
-      else this.baseWord.baikinKun = payload.baseWord
-      this.turn = payload.turn
-      if (!this.event) {
+    declareAttack() {
+      if (!this.$refs.waitModal.showModal) {
         this.showTurnAnimation()
       } else {
         this.closeWaitModal()
@@ -125,25 +114,34 @@ export default {
         }, 300)
       }
     },
-    declareWait(payload) {
-      this.words = payload.words
-      if (payload.turn % 2 === 1) this.baseWord.pekora = payload.baseWord
-      else this.baseWord.baikinKun = payload.baseWord
-      this.turn = payload.turn
+    declareWait() {
       this.showTurnAnimation()
       setTimeout(() => {
         this.openWaitModal()
       }, 2500)
     },
-    feedback(payload) {
+    feedbackPositions(payload) {
       if (payload.player === 1) {
-        this.positions.pekora.x = payload.x
-        this.positions.pekora.y = payload.y
-        this.baseWord.pekora = payload.baseWord
+        this.$refs.world.setPosition(PLAYER_PEKORA_NAME, payload.x, payload.y)
       } else {
-        this.positions.baikinKun.x = payload.x
-        this.positions.baikinKun.y = payload.y
-        this.baseWord.baikinKun = payload.baseWord
+        this.$refs.world.setPosition(
+          PLAYER_BAIKINKUN_NAME,
+          payload.x,
+          payload.y
+        )
+      }
+    },
+    gameResources(payload) {
+      this.words = payload.words
+      this.turn = payload.turn
+      if (payload.player === 1) {
+        !this.$refs.world.pekora
+          ? this.$refs.world.createPekora(payload.baseWord)
+          : this.$refs.world.movePekora(payload.baseWord)
+      } else {
+        !this.$refs.world.baikinKun
+          ? this.$refs.world.createBaikinKun(payload.baseWord)
+          : this.$refs.world.moveBaikinKun(payload.baseWord)
       }
     },
     invalidPlayer() {

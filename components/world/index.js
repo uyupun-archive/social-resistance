@@ -2,12 +2,7 @@ import Field from '~/components/field/index.js'
 import Pekora from '~/components/pekora/index.js'
 import BaikinKun from '~/components/baikin-kun/index.js'
 import House from '~/components/house/index.js'
-import Judge from '~/components/judge/index.js'
-import {
-  PLAYER_PEKORA_NAME,
-  PLAYER_PEKORA_ALIAS_NAME,
-  PLAYER_BAIKINKUN_NAME,
-} from '~/components/constants/index.js'
+import { PLAYER_PEKORA_NAME } from '~/components/constants/index.js'
 
 export default {
   data() {
@@ -20,7 +15,6 @@ export default {
       house: null,
       pekora: null,
       baikinKun: null,
-      judge: null,
       positions: {
         pekora: {
           x: 0,
@@ -39,7 +33,6 @@ export default {
   methods: {
     initWorld() {
       this.createCanvas()
-      this.createJudge()
     },
     createCanvas() {
       this.createFieldLayer()
@@ -57,9 +50,6 @@ export default {
     createPlayerLayer() {
       const player = document.getElementById('player-layer')
       this.ctx.player = player.getContext('2d')
-    },
-    createJudge() {
-      this.judge = new Judge()
     },
     createPekora(baseWord) {
       this.pekora = new Pekora(this.ctx.player, {
@@ -86,13 +76,6 @@ export default {
         this.positions.baikinKun.y,
         word
       )
-    },
-    judgeWinner() {
-      if (this.judge.isHit(this.pekora.position, this.baikinKun.position))
-        return PLAYER_BAIKINKUN_NAME
-      if (this.judge.isGoal(this.pekora.position.x))
-        return PLAYER_PEKORA_ALIAS_NAME
-      return null
     },
     refreshWorld() {
       this.pekora.clear()

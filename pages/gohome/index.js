@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     openWordModal(word) {
-      // if (this.event !== 'declare_attack') return
+      if (this.event !== 'declare_attack') return
       this.selectedWord = word
       this.$refs.wordModal.open()
     },

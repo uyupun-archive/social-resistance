@@ -14,8 +14,6 @@ export const PLAYER_MOVABLE_FIELD_WIDTH = 1000
 export const SOCIAL_DISTANCE_ZONE_RADIUS = 60
 // プレイヤーの画像サイズの拡大率
 export const PLAYER_SIZE_SCALE = 0.15
-// プレイヤーの移動量の倍率
-export const PLAYER_MOVE_SCALE = 100
 // ぺこら
 export const PLAYER_PEKORA = 1
 // ぺこらの名前
@@ -26,10 +24,3 @@ export const PLAYER_PEKORA_ALIAS_NAME = 'うさぎさん'
 export const PLAYER_BAIKINKUN = 2
 // ばいきんくんの名前
 export const PLAYER_BAIKINKUN_NAME = 'ばいきんくん'
-// ぺこらのスタートポイント
-export const PLAYER_PEKORA_START_POINT = 0
-// ばいきんくんのスタートポイント
-export const PLAYER_BAIKINKUN_START_POINT =
-  PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS * 2
-// 選択肢の単語数
-export const WORD_COUNT = 8

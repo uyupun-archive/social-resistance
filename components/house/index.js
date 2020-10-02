@@ -14,7 +14,7 @@ export default class House {
    * 家の描画
    */
   draw() {
-    this._image.src = require('~/assets/images/objects/house.gif')
+    this._image.src = `${process.env.MITSU_URL}/images/objects/house.gif`
     this._image.onload = () => {
       this._ctx.drawImage(
         this._image,

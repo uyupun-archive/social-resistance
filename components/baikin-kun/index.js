@@ -6,7 +6,7 @@ export default class BaikinKun extends Player {
    */
   spawn() {
     const n = Math.ceil(Math.random() * 2)
-    this._image.src = require(`~/assets/images/objects/baikinkun_${n}.gif`)
+    this._image.src = `${process.env.MITSU_URL}/images/objects/baikinkun_${n}.gif`
     super.spawn(this._position.x, this._position.y)
   }
 }

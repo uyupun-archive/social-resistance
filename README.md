@@ -1,6 +1,6 @@
 # SOCIAL RESISTANCE
 
-<img src="./assets/images/logo/logo_black.png" width="200px">
+<img src="https://mitsu.uyupun.tech/images/logo/logo_black.png" width="200px">
 
 **death is not a go home**
 

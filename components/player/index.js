@@ -89,7 +89,7 @@ export default class Player {
    */
   _rotateAvatar(player) {
     let playerPath = 'pekora'
-    if (player === PLAYER_BAIKINKUN) playerPath = 'baikin'
+    if (player === PLAYER_BAIKINKUN) playerPath = 'baikinkun'
 
     const avatarPatterns = ['a', 'b']
     const avatarPatternIdx = Math.floor(Math.random() * 2)

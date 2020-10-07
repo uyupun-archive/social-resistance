@@ -8,7 +8,6 @@ export default class Player {
   constructor(ctx, player) {
     this._ctx = ctx
     this._image = new Image()
-    this._isFirstLoading = false
     this._width = null
     this._height = null
     this._baseWord = player.baseWord
@@ -68,6 +67,10 @@ export default class Player {
 
   /**
    * ２回目以降(移動時)
+   *
+   * @param {*} x
+   * @param {*} y
+   * @param {*} word
    */
   depart(x, y, word) {
     this.clear()
@@ -88,21 +91,21 @@ export default class Player {
     let playerPath = 'pekora'
     if (player === PLAYER_BAIKINKUN) playerPath = 'baikin'
 
-    const avatarTypes = ['a', 'b']
-    const avatarTypeIdx = Math.floor(Math.random() * 2)
-    const avatarType = avatarTypes[avatarTypeIdx]
+    const avatarPatterns = ['a', 'b']
+    const avatarPatternIdx = Math.floor(Math.random() * 2)
+    const avatarPattern = avatarPatterns[avatarPatternIdx]
     let avatarNum = 0
     let timerId = null
-    const setImagePath = () => {
+    const rotateAvatarPath = () => {
       if (avatarNum === 2) avatarNum = 0
       else ++avatarNum
       this._image.src = `${
         process.env.MITSU_URL
-      }/images/objects/${playerPath}/${avatarType}/${avatarNum + 1}.png`
+      }/images/objects/${playerPath}/${avatarPattern}/${avatarNum + 1}.png`
       clearTimeout(timerId)
-      timerId = setTimeout(setImagePath, 200)
+      timerId = setTimeout(rotateAvatarPath, 200)
     }
-    setImagePath()
+    rotateAvatarPath()
   }
 
   /**

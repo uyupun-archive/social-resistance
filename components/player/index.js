@@ -8,7 +8,6 @@ export default class Player {
   constructor(ctx, player) {
     this._ctx = ctx
     this._image = new Image()
-    this._rotateImagePathTimerId = null
     this._isFirstLoading = false
     this._width = null
     this._height = null
@@ -58,16 +57,12 @@ export default class Player {
    */
   spawn(x, y, player) {
     this._rotateAvatar(player)
-    this._onLoadAvatar(
-      () => {
-        this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
-        this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
-      },
-      () => {
-        this._drawSocialDistance(x, y)
-        this._drawPlayer(x, y)
-      }
-    )
+    this._onLoadAvatar(() => {
+      this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
+      this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
+      this._drawSocialDistance(x, y)
+      this._drawPlayer(x, y)
+    })
     this._calcPosition(x, y)
   }
 
@@ -76,7 +71,7 @@ export default class Player {
    */
   depart(x, y, word) {
     this.clear()
-    this._onLoadAvatar(null, () => {
+    this._onLoadAvatar(() => {
       this._drawSocialDistance(x, y)
       this._drawPlayer(x, y)
     })
@@ -92,20 +87,20 @@ export default class Player {
   _rotateAvatar(player) {
     let playerPath = 'pekora'
     if (player === PLAYER_BAIKINKUN) playerPath = 'baikin'
-    this._isFirstLoading = false
 
     const avatarTypes = ['a', 'b']
     const avatarTypeIdx = Math.floor(Math.random() * 2)
     const avatarType = avatarTypes[avatarTypeIdx]
     let avatarNum = 0
+    let timerId = null
     const setImagePath = () => {
       if (avatarNum === 2) avatarNum = 0
       else ++avatarNum
       this._image.src = `${
         process.env.MITSU_URL
       }/images/objects/${playerPath}/${avatarType}/${avatarNum + 1}.png`
-      clearTimeout(this._rotateImagePathTimerId)
-      this._rotateImagePathTimerId = setTimeout(setImagePath, 200)
+      clearTimeout(timerId)
+      timerId = setTimeout(setImagePath, 200)
     }
     setImagePath()
   }
@@ -113,13 +108,9 @@ export default class Player {
   /**
    * アバターのロード時に行う処理
    */
-  _onLoadAvatar(before, after) {
+  _onLoadAvatar(f) {
     this._image.onload = () => {
-      if (!this._isFirstLoading) {
-        this._isFirstLoading = true
-        if (before) before()
-      }
-      if (after) after()
+      if (f) f()
     }
   }
 

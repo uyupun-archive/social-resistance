@@ -1,14 +1,14 @@
 import {
   SOCIAL_DISTANCE_ZONE_RADIUS,
   PLAYER_SIZE_SCALE,
+  PLAYER_BAIKINKUN,
 } from '~/components/constants/index.js'
 
 export default class Player {
   constructor(ctx, player) {
     this._ctx = ctx
     this._image = new Image()
-    this._timerId = null
-    this._isStop = false
+    this._rotateImagePathTimerId = null
     this._isFirstLoading = false
     this._width = null
     this._height = null
@@ -57,45 +57,43 @@ export default class Player {
    * @param {*} player
    */
   spawn(x, y, player) {
-    this._rotateImagePath(player)
-    this._image.onload = () => {
-      if (!this._isFirstLoading) {
+    this._rotateAvatar(player)
+    this._onLoadAvatar(
+      () => {
         this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
         this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
-        this._isFirstLoading = true
+      },
+      () => {
+        this._drawSocialDistance(x, y)
+        this._drawPlayer(x, y)
       }
-      this._drawSocialDistance(x, y)
-      this._drawPlayer(x, y)
-    }
+    )
     this._calcPosition(x, y)
   }
 
   /**
    * ２回目以降(移動時)
-   *
-   * @param {*} x
-   * @param {*} y
-   * @param {*} word
-   * @param {*} player
    */
-  depart(x, y, word, player) {
+  depart(x, y, word) {
     this.clear()
-    this._isStop = true
-    this._isStop = false
-    this._isFirstLoading = false
-    this._rotateImagePath(player)
-    this._image.onload = () => {
-      if (!this._isFirstLoading) {
-        this._isFirstLoading = true
-      }
+    this._onLoadAvatar(null, () => {
       this._drawSocialDistance(x, y)
       this._drawPlayer(x, y)
-    }
+    })
     this._calcPosition(x, y)
     this._baseWord = word
   }
 
-  _rotateImagePath(player) {
+  /**
+   * プレイヤーのアバターをローテーションさせる
+   *
+   * @param {*} player
+   */
+  _rotateAvatar(player) {
+    let playerPath = 'pekora'
+    if (player === PLAYER_BAIKINKUN) playerPath = 'baikin'
+    this._isFirstLoading = false
+
     const avatarTypes = ['a', 'b']
     const avatarTypeIdx = Math.floor(Math.random() * 2)
     const avatarType = avatarTypes[avatarTypeIdx]
@@ -105,14 +103,24 @@ export default class Player {
       else ++avatarNum
       this._image.src = `${
         process.env.MITSU_URL
-      }/images/objects/${player}/${avatarType}/${avatarNum + 1}.png`
-      clearTimeout(this._timerId)
-      if (!this._isStop) {
-        console.log('hoge')
-        this._timerId = setTimeout(setImagePath, 200)
-      }
+      }/images/objects/${playerPath}/${avatarType}/${avatarNum + 1}.png`
+      clearTimeout(this._rotateImagePathTimerId)
+      this._rotateImagePathTimerId = setTimeout(setImagePath, 200)
     }
     setImagePath()
+  }
+
+  /**
+   * アバターのロード時に行う処理
+   */
+  _onLoadAvatar(before, after) {
+    this._image.onload = () => {
+      if (!this._isFirstLoading) {
+        this._isFirstLoading = true
+        if (before) before()
+      }
+      if (after) after()
+    }
   }
 
   /**

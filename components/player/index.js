@@ -7,6 +7,9 @@ export default class Player {
   constructor(ctx, player) {
     this._ctx = ctx
     this._image = new Image()
+    this._timerId = null
+    this._isStop = false
+    this._isFirstLoading = false
     this._width = null
     this._height = null
     this._baseWord = player.baseWord
@@ -51,28 +54,65 @@ export default class Player {
    *
    * @param {*} x
    * @param {*} y
+   * @param {*} player
    */
-  spawn(x, y) {
+  spawn(x, y, player) {
+    this._rotateImagePath(player)
     this._image.onload = () => {
-      this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
-      this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
+      if (!this._isFirstLoading) {
+        this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
+        this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
+        this._isFirstLoading = true
+      }
       this._drawSocialDistance(x, y)
       this._drawPlayer(x, y)
-      this._calcPosition(x, y)
     }
+    this._calcPosition(x, y)
   }
 
   /**
    * ２回目以降(移動時)
    *
+   * @param {*} x
+   * @param {*} y
    * @param {*} word
+   * @param {*} player
    */
-  depart(x, y, word) {
+  depart(x, y, word, player) {
     this.clear()
-    this._drawSocialDistance(x, y)
-    this._drawPlayer(x, y)
+    this._isStop = true
+    this._isStop = false
+    this._isFirstLoading = false
+    this._rotateImagePath(player)
+    this._image.onload = () => {
+      if (!this._isFirstLoading) {
+        this._isFirstLoading = true
+      }
+      this._drawSocialDistance(x, y)
+      this._drawPlayer(x, y)
+    }
     this._calcPosition(x, y)
     this._baseWord = word
+  }
+
+  _rotateImagePath(player) {
+    const avatarTypes = ['a', 'b']
+    const avatarTypeIdx = Math.floor(Math.random() * 2)
+    const avatarType = avatarTypes[avatarTypeIdx]
+    let avatarNum = 0
+    const setImagePath = () => {
+      if (avatarNum === 2) avatarNum = 0
+      else ++avatarNum
+      this._image.src = `${
+        process.env.MITSU_URL
+      }/images/objects/${player}/${avatarType}/${avatarNum + 1}.png`
+      clearTimeout(this._timerId)
+      if (!this._isStop) {
+        console.log('hoge')
+        this._timerId = setTimeout(setImagePath, 200)
+      }
+    }
+    setImagePath()
   }
 
   /**

@@ -68,13 +68,19 @@ export default {
       this.baikinKun.spawn()
     },
     movePekora(word) {
-      this.pekora.depart(this.positions.pekora.x, this.positions.pekora.y, word)
+      this.pekora.depart(
+        this.positions.pekora.x,
+        this.positions.pekora.y,
+        word,
+        'pekora'
+      )
     },
     moveBaikinKun(word) {
       this.baikinKun.depart(
         this.positions.baikinKun.x,
         this.positions.baikinKun.y,
-        word
+        word,
+        'baikin'
       )
     },
     refreshWorld() {

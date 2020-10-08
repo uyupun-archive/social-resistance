@@ -1,6 +1,7 @@
 import {
   SOCIAL_DISTANCE_ZONE_RADIUS,
   PLAYER_SIZE_SCALE,
+  PLAYER_BAIKINKUN,
 } from '~/components/constants/index.js'
 
 export default class Player {
@@ -51,28 +52,69 @@ export default class Player {
    *
    * @param {*} x
    * @param {*} y
+   * @param {*} player
    */
-  spawn(x, y) {
-    this._image.onload = () => {
+  spawn(x, y, player) {
+    this._rotateAvatar(player)
+    this._onLoadAvatar(() => {
       this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
       this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
       this._drawSocialDistance(x, y)
       this._drawPlayer(x, y)
-      this._calcPosition(x, y)
-    }
+    })
+    this._calcPosition(x, y)
   }
 
   /**
    * ２回目以降(移動時)
    *
+   * @param {*} x
+   * @param {*} y
    * @param {*} word
    */
   depart(x, y, word) {
     this.clear()
-    this._drawSocialDistance(x, y)
-    this._drawPlayer(x, y)
+    this._onLoadAvatar(() => {
+      this._drawSocialDistance(x, y)
+      this._drawPlayer(x, y)
+    })
     this._calcPosition(x, y)
     this._baseWord = word
+  }
+
+  /**
+   * プレイヤーのアバターをローテーションさせる
+   *
+   * @param {*} player
+   */
+  _rotateAvatar(player) {
+    let playerPath = 'pekora'
+    if (player === PLAYER_BAIKINKUN) playerPath = 'baikinkun'
+
+    const avatarPatterns = ['a', 'b']
+    const avatarPatternIdx = Math.floor(Math.random() * 2)
+    const avatarPattern = avatarPatterns[avatarPatternIdx]
+    let avatarNum = 0
+    let timerId = null
+    const rotateAvatarPath = () => {
+      if (avatarNum === 2) avatarNum = 0
+      else ++avatarNum
+      this._image.src = `${
+        process.env.MITSU_URL
+      }/images/objects/${playerPath}/${avatarPattern}/${avatarNum + 1}.png`
+      clearTimeout(timerId)
+      timerId = setTimeout(rotateAvatarPath, 200)
+    }
+    rotateAvatarPath()
+  }
+
+  /**
+   * アバターのロード時に行う処理
+   */
+  _onLoadAvatar(f) {
+    this._image.onload = () => {
+      if (f) f()
+    }
   }
 
   /**

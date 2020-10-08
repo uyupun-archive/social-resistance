@@ -9,8 +9,10 @@ export default {
   data() {
     return {
       worldId: '',
-      error: false,
-      errorMessage: 'さんかにしっぱいしました',
+      error: {
+        state: false,
+        msg: 'さんかにしっぱいしました',
+      },
     }
   },
   methods: {
@@ -21,22 +23,22 @@ export default {
       this.worldId = e.target.value
     },
     onSubmit(e) {
-      this.error = false
       this.$checkWorldId({ worldId: e.target.worldId.value })
         .then((res) => {
           if (res.validity) {
+            this.error.state = false
             sessionStorage.worldId = e.target.worldId.value
             sessionStorage.token = res.token
             sessionStorage.role = res.role
             this.$router.push('/gohome')
           } else {
-            this.error = true
-            this.errorMessage = 'さんかにしっぱいしました'
+            this.error.state = true
+            this.error.msg = 'さんかにしっぱいしました'
           }
         })
         .catch((e) => {
-          this.error = true
-          this.errorMessage = e.data.msg
+          this.error.state = true
+          this.error.msg = e.data.msg
         })
     },
   },

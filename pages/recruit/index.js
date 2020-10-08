@@ -2,6 +2,10 @@ import SelectBox from '~/components/select-box/index.vue'
 import Button from '~/components/button/index.vue'
 import TextBoxIcon from '~/components/text-box-icon/index.vue'
 import Tooltip from '~/components/tooltip/index.vue'
+import {
+  PLAYER_PEKORA,
+  PLAYER_BAIKINKUN,
+} from '~/components/constants/index.js'
 
 export default {
   components: {
@@ -12,22 +16,26 @@ export default {
   },
   data() {
     return {
-      worldId: null,
+      worldId: '',
       options: [
         {
           text: 'うさぎさん',
-          value: 1,
+          value: PLAYER_PEKORA,
         },
         {
           text: 'ばいきんくん',
-          value: 2,
+          value: PLAYER_BAIKINKUN,
         },
       ],
-      selected: 1,
-      existsTooltip: false,
-      tooltipText: 'コピーしました',
-      error: false,
-      errorMessage: 'ぼしゅうにしっぱいしました',
+      selected: PLAYER_PEKORA,
+      tooltip: {
+        exists: false,
+        text: 'コピーしました',
+      },
+      error: {
+        state: false,
+        msg: 'ぼしゅうにしっぱいしました',
+      },
     }
   },
   methods: {
@@ -35,32 +43,33 @@ export default {
       navigator.clipboard
         .writeText(this.worldId)
         .then(() => {
-          this.tooltipText = 'コピーしました'
-          this.showTooltip()
+          this.tooltip.text = 'コピーしました'
         })
         .catch(() => {
-          this.tooltipText = 'コピーに失敗しました'
+          this.tooltip.text = 'コピーに失敗しました'
+        })
+        .finally(() => {
           this.showTooltip()
         })
     },
     showTooltip() {
-      this.existsTooltip = true
+      this.tooltip.exists = true
       setTimeout(() => {
-        this.existsTooltip = false
+        this.tooltip.exists = false
       }, 3000)
     },
     onSubmit(e) {
-      this.error = false
       this.$generateWorldId({ recruit: e.target.characterSelect.value })
         .then((res) => {
+          this.error.state = false
           this.worldId = res.worldId
           sessionStorage.worldId = res.worldId
           sessionStorage.token = res.token
           sessionStorage.role = res.role
         })
         .catch((e) => {
-          this.error = true
-          this.errorMessage = e.data.msg
+          this.error.state = true
+          this.error.msg = e.data.msg
         })
     },
   },

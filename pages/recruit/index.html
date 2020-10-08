@@ -1,25 +1,25 @@
 <div class="container">
   <div class="container-recruit">
-    <form class="form" :class="{'form-worldId': worldId, 'form-error': error}" @submit.prevent="onSubmit">
+    <form class="form" :class="{'form-worldId': worldId, 'form-error': error.state}" @submit.prevent="onSubmit">
       <div class="form-select">
         <SelectBox :options="options" :selected="selected" name="characterSelect" />
       </div>
       <button type="submit" class="form-btn">
         ぼしゅう
       </button>
-      <p v-if="error" class="error-message">{{errorMessage}}</p>
+      <p v-if="error.state" class="error-message">{{error.msg}}</p>
     </form>
     <div v-if="worldId" class="worldId">
       <label class="worldId-label">
         <span class="worldId-label__text">ワールドID</span>
         <div class="worldId-input">
           <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @click="onClickCopy()" />
-          <div v-if="existsTooltip" class="worldId-tooltip">
+          <div v-if="tooltip.exists" class="worldId-tooltip">
             <Tooltip>
               <template v-slot:text>
                 <span>
                   <Fa icon="caret-right" class="worldId-tooltip__icon" area-hidden="true" />
-                  {{tooltipText}}
+                  {{tooltip.text}}
                 </span>
               </template>
             </Tooltip>

@@ -13,7 +13,7 @@ export default class House {
   /**
    * 家の描画
    */
-  draw() {
+  build() {
     this._rotate()
     this._image.onload = () => {
       const x = PLAYER_MOVABLE_FIELD_WIDTH + 50
@@ -30,18 +30,64 @@ export default class House {
    * 画像をローテーションさせる
    */
   _rotate() {
-    let avatarNum = 0
+    let skinNum = 0
     let timerId = null
-    const rotateAvatarPath = () => {
-      if (avatarNum === 2) avatarNum = 0
-      else ++avatarNum
-      this._image.src = `${process.env.MITSU_URL}/images/objects/house/${
-        avatarNum + 1
-      }.png`
+    let isCached = false
+    const rotateSkinPath = () => {
+      if (!isCached) {
+        const url = `${process.env.MITSU_URL}/images/objects/house/${
+          skinNum + 1
+        }.png`
+        this.cacheSkin(url, skinNum)
+        this._image.src = url
+        // }
+      } else {
+        let caches = sessionStorage.getItem('house')
+        caches = JSON.parse(caches)
+        this._image.src = caches[skinNum]
+      }
+
+      if (!isCached && skinNum === 2) isCached = true
+      if (skinNum === 2) skinNum = 0
+      else ++skinNum
+
       clearTimeout(timerId)
-      timerId = setTimeout(rotateAvatarPath, 200)
+      timerId = setTimeout(rotateSkinPath, 200)
     }
-    rotateAvatarPath()
+    rotateSkinPath()
+  }
+
+  cacheSkin(url, n) {
+    let caches = sessionStorage.getItem('house')
+    if (!caches) caches = []
+    else caches = JSON.parse(caches)
+    if (n === 0) caches = []
+    this.onLoadSkin(url).then((img) => {
+      const base64 = this.convertImgToBase64(img)
+      caches.push(base64)
+      caches = JSON.stringify(caches)
+      sessionStorage.setItem('house', caches)
+    })
+  }
+
+  onLoadSkin(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      img.crossOrigin = 'anonymous'
+      img.src = url
+      img.onload = () => resolve(img)
+      img.onerror = (e) => reject(e)
+    })
+  }
+
+  convertImgToBase64(img) {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    canvas.width = img.naturalWidth
+    canvas.height = img.naturalHeight
+    ctx.drawImage(img, 0, 0)
+    const base64 = canvas.toDataURL()
+    return base64
   }
 
   /**

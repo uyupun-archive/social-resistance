@@ -35,7 +35,7 @@ export default {
       this.house = new House(this.ctx.field)
       this.field.drawGrid()
       this.field.drawGoalLine()
-      this.house.draw()
+      this.house.build()
     },
     createPlayerLayer() {
       const player = document.getElementById('player-layer')

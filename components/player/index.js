@@ -82,20 +82,28 @@ export default class Player {
    * @param {*} player
    */
   _rotateSkin(player) {
-    let playerPath = 'pekora'
-    if (player === PLAYER_BAIKINKUN) playerPath = 'baikinkun'
+    let playerName = 'pekora'
+    if (player === PLAYER_BAIKINKUN) playerName = 'baikinkun'
 
     const skinPatterns = ['a', 'b']
     const skinPatternIdx = Math.floor(Math.random() * 2)
     const skinPattern = skinPatterns[skinPatternIdx]
     let skinNum = 0
     let timerId = null
+    let isCached = false
     const rotateSkinPath = () => {
+      if (!isCached) {
+        const url = (this._image.src = `${
+          process.env.MITSU_URL
+        }/images/objects/${playerName}/${skinPattern}/${skinNum + 1}.png`)
+        this.cacheSkin(url, skinNum, playerName)
+        this._image.src = url
+      } else this._image.src = this.getCachedSkin(skinNum, playerName)
+
+      if (!isCached && skinNum === 2) isCached = true
       if (skinNum === 2) skinNum = 0
       else ++skinNum
-      this._image.src = `${
-        process.env.MITSU_URL
-      }/images/objects/${playerPath}/${skinPattern}/${skinNum + 1}.png`
+
       clearTimeout(timerId)
       timerId = setTimeout(rotateSkinPath, 200)
     }
@@ -109,6 +117,69 @@ export default class Player {
     this._image.onload = () => {
       if (f) f()
     }
+  }
+
+  /**
+   * スキンをキャッシュする
+   *
+   * @param {*} url
+   * @param {*} n
+   * @param {*} player
+   */
+  cacheSkin(url, n, player) {
+    let caches = sessionStorage.getItem(player)
+    if (!caches || n === 0) caches = []
+    else caches = JSON.parse(caches)
+    this.onLoadCacheSkin(url).then((img) => {
+      const base64 = this.convertImgToBase64(img)
+      caches.push(base64)
+      caches = JSON.stringify(caches)
+      sessionStorage.setItem(player, caches)
+    })
+  }
+
+  /**
+   * キャッシュ用スキンのロード
+   * Promiseで返したいのでラップした
+   *
+   * @param {*} url
+   */
+  onLoadCacheSkin(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      img.crossOrigin = 'anonymous'
+      img.src = url
+      img.onload = () => resolve(img)
+      img.onerror = (e) => reject(e)
+    })
+  }
+
+  /**
+   * スキンを画像からBase64に変換する
+   * SessionStorageはテキストデータしか保持できないため
+   *
+   * @param {*} img
+   */
+  convertImgToBase64(img) {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    canvas.width = img.naturalWidth
+    canvas.height = img.naturalHeight
+    ctx.drawImage(img, 0, 0)
+    const base64 = canvas.toDataURL()
+    return base64
+  }
+
+  /**
+   * キャッシュされたスキンの取得
+   *
+   * @param {*} n
+   * @param {*} player
+   */
+  getCachedSkin(n, player) {
+    let caches = sessionStorage.getItem(player)
+    caches = JSON.parse(caches)
+    return caches[n]
   }
 
   /**

@@ -62,7 +62,7 @@ export default class House {
     let caches = sessionStorage.getItem('house')
     if (!caches || n === 0) caches = []
     else caches = JSON.parse(caches)
-    this.onLoadSkin(url).then((img) => {
+    this.onLoadCacheSkin(url).then((img) => {
       const base64 = this.convertImgToBase64(img)
       caches.push(base64)
       caches = JSON.stringify(caches)
@@ -71,12 +71,12 @@ export default class House {
   }
 
   /**
-   * スキンのロード
+   * キャッシュ用スキンのロード
    * Promiseで返したいのでラップした
    *
    * @param {*} url
    */
-  onLoadSkin(url) {
+  onLoadCacheSkin(url) {
     return new Promise((resolve, reject) => {
       const img = new Image()
       img.crossOrigin = 'anonymous'

@@ -15,16 +15,6 @@ export default {
       house: null,
       pekora: null,
       baikinKun: null,
-      positions: {
-        pekora: {
-          x: 0,
-          y: 0,
-        },
-        baikinKun: {
-          x: 0,
-          y: 0,
-        },
-      },
     }
   },
   mounted() {
@@ -51,49 +41,13 @@ export default {
       const player = document.getElementById('player-layer')
       this.ctx.player = player.getContext('2d')
     },
-    createPekora(baseWord) {
-      this.pekora = new Pekora(this.ctx.player, {
-        x: this.positions.pekora.x,
-        y: this.positions.pekora.y,
-        baseWord,
-      })
+    spawnPekora(positions) {
+      this.pekora = new Pekora(this.ctx.player, positions)
       this.pekora.spawn()
     },
-    createBaikinKun(baseWord) {
-      this.baikinKun = new BaikinKun(this.ctx.player, {
-        x: this.positions.baikinKun.x,
-        y: this.positions.baikinKun.y,
-        baseWord,
-      })
+    spawnBaikinKun(positions) {
+      this.baikinKun = new BaikinKun(this.ctx.player, positions)
       this.baikinKun.spawn()
-    },
-    movePekora(word) {
-      this.pekora.depart(this.positions.pekora.x, this.positions.pekora.y, word)
-    },
-    moveBaikinKun(word) {
-      this.baikinKun.depart(
-        this.positions.baikinKun.x,
-        this.positions.baikinKun.y,
-        word
-      )
-    },
-    refreshWorld() {
-      this.pekora.clear()
-      this.baikinKun.clear()
-      this.initWorld()
-    },
-    getBaseWord(player) {
-      if (player === PLAYER_PEKORA_NAME) return this.pekora?.baseWord
-      return this.baikinKun?.baseWord
-    },
-    setPosition(player, x, y) {
-      if (player === PLAYER_PEKORA_NAME) {
-        this.positions.pekora.x = x
-        this.positions.pekora.y = y
-      } else {
-        this.positions.baikinKun.x = x
-        this.positions.baikinKun.y = y
-      }
     },
     setBaseWord(player, baseWord) {
       if (player === PLAYER_PEKORA_NAME) {
@@ -101,6 +55,22 @@ export default {
       } else {
         this.baikinKun.baseWord = baseWord
       }
+    },
+    movePekora(positions) {
+      // console.log(positions)
+      this.pekora.depart(positions)
+    },
+    moveBaikinKun(positions) {
+      // console.log(positions)
+      this.baikinKun.depart(positions)
+    },
+    getBaseWord(player) {
+      if (player === PLAYER_PEKORA_NAME) return this.pekora?.baseWord
+      return this.baikinKun?.baseWord
+    },
+    isSpawned() {
+      if (this.pekora && this.baikinKun) return true
+      return false
     },
   },
 }

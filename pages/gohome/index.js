@@ -37,7 +37,14 @@ export default {
     this.$refs.agent.joinWorldEmitter()
   },
   methods: {
+    openWaitModal() {
+      this.$refs.waitModal.open()
+    },
+    closeWaitModal() {
+      this.$refs.waitModal.close()
+    },
     openWordModal(word) {
+      // TODO: ここもなんとかしたい
       if (this.event !== 'declare_attack') return
       this.selectedWord = word
       this.$refs.wordModal.open()
@@ -51,32 +58,14 @@ export default {
     restartGame() {
       this.$refs.pauseModal.close()
     },
-    attack(word) {
-      this.closeWordModal()
-      this.$refs.agent.attackEmitter(word)
-    },
-    movePlayer(word) {
-      if (this.turn.active.pekora) this.$refs.world.movePekora(word)
-      else this.$refs.world.moveBaikinKun(word)
+    quitGame() {
+      this.$refs.agent.disconnectEmitter()
+      this.$router.push('/')
     },
     showTurnAnimation() {
       this.$refs.turnAnimation.show()
     },
-    openWaitModal() {
-      this.$refs.waitModal.open()
-    },
-    closeWaitModal() {
-      this.$refs.waitModal.close()
-    },
-    getBaseWord(player) {
-      if (this.$refs.world) {
-        return this.$refs.world.getBaseWord(player)
-          ? this.$refs.world.getBaseWord(player).word
-          : ''
-      }
-      return ''
-    },
-    getPayload(obj) {
+    proceedGame(obj) {
       this.event = obj.event
       switch (obj.event) {
         case 'declare_attack':
@@ -107,8 +96,52 @@ export default {
           this.openWarningModal('むこうなプレイヤーです')
           break
         default:
-          this.disconnect(obj.payload)
+          this.quitGame(obj.payload)
       }
+    },
+    feedbackPositions(payload) {
+      this.spawnPlayer(payload)
+      this.movePlayer(payload)
+    },
+    spawnPlayer(payload) {
+      if (!this.$refs.world.isSpawned()) {
+        if (payload.player === PLAYER_PEKORA)
+          this.$refs.world.spawnPekora({ x: payload.x, y: payload.y })
+        else this.$refs.world.spawnBaikinKun({ x: payload.x, y: payload.y })
+      }
+    },
+    movePlayer(payload) {
+      if (payload.player === PLAYER_PEKORA)
+        this.$refs.world.movePekora({ x: payload.x, y: payload.y })
+      else this.$refs.world.moveBaikinKun({ x: payload.x, y: payload.y })
+    },
+    getWordsAndBaseword(payload) {
+      this.words = payload.words
+      if (payload.player === PLAYER_PEKORA) {
+        this.$refs.world.setBaseWord(PLAYER_PEKORA_NAME, payload.baseWord)
+        return
+      }
+      this.$refs.world.setBaseWord(PLAYER_BAIKINKUN_NAME, payload.baseWord)
+    },
+    getWords(payload) {
+      this.words = payload.words
+    },
+    updateBaseword(payload) {
+      if (payload.player === PLAYER_PEKORA)
+        this.$refs.world.setBaseWord(PLAYER_PEKORA_NAME, payload.baseWord)
+      else this.$refs.world.setBaseWord(PLAYER_BAIKINKUN_NAME, payload.baseWord)
+    },
+    getBaseWord(player) {
+      if (this.$refs.world) {
+        return this.$refs.world.getBaseWord(player)
+          ? this.$refs.world.getBaseWord(player).word
+          : ''
+      }
+      return ''
+    },
+    movePlayerRequest(word) {
+      this.$refs.agent.attackEmitter(word)
+      this.closeWordModal()
     },
     declareAttack() {
       if (!this.$refs.waitModal.showModal) {
@@ -125,36 +158,6 @@ export default {
       setTimeout(() => {
         this.openWaitModal()
       }, 2500)
-    },
-    feedbackPositions(payload) {
-      if (payload.player === PLAYER_PEKORA) {
-        this.$refs.world.setPosition(PLAYER_PEKORA_NAME, payload.x, payload.y)
-      } else {
-        this.$refs.world.setPosition(
-          PLAYER_BAIKINKUN_NAME,
-          payload.x,
-          payload.y
-        )
-      }
-    },
-    getWordsAndBaseword(payload) {
-      this.words = payload.words
-      if (!this.$refs.world.pekora && !this.$refs.world.baikinKun) {
-        this.$refs.world.createPekora(payload.baseWord)
-        this.$refs.world.createBaikinKun(null)
-        return
-      }
-      this.$refs.world.setBaseWord(PLAYER_BAIKINKUN_NAME, payload.baseWord)
-    },
-    updateBaseword(payload) {
-      if (payload.player === PLAYER_PEKORA) {
-        this.$refs.world.movePekora(payload.baseWord)
-      } else {
-        this.$refs.world.moveBaikinKun(payload.baseWord)
-      }
-    },
-    getWords(payload) {
-      this.words = payload.words
     },
     getTurn(payload) {
       this.turn = payload.turn
@@ -178,10 +181,6 @@ export default {
       setTimeout(() => {
         this.$router.push('/')
       }, 3000)
-    },
-    disconnect() {
-      this.$refs.agent.disconnectEmitter()
-      this.$router.push('/')
     },
   },
 }

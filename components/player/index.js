@@ -10,7 +10,7 @@ export default class Player {
     this._image = new Image()
     this._width = null
     this._height = null
-    this._baseWord = player.baseWord
+    this._baseWord = null
     this._position = {
       x: player.x,
       y: player.y,
@@ -68,18 +68,16 @@ export default class Player {
   /**
    * ２回目以降(移動時)
    *
-   * @param {*} x
-   * @param {*} y
-   * @param {*} word
+   * @param {*} positions
    */
-  depart(x, y, word) {
+  depart(positions) {
     this.clear()
     this._onLoadAvatar(() => {
-      this._drawSocialDistance(x, y)
-      this._drawPlayer(x, y)
+      this._drawSocialDistance(positions.x, positions.y)
+      this._drawPlayer(positions.x, positions.y)
     })
-    this._calcPosition(x, y)
-    this._baseWord = word
+    this._calcPosition(positions.x, positions.y)
+    // this._baseWord = word
   }
 
   /**

@@ -1,6 +1,6 @@
 <div>
   <div class="container">
-    <Agent ref="agent" @getPayload="getPayload" />
+    <Agent ref="agent" @proceedGame="proceedGame" />
     <World ref="world" class="world" />
     <div class="turn-box">
       <div
@@ -67,7 +67,7 @@
             <span>よくない</span>
           </template>
         </Button>
-        <Button @click.native="attack(selectedWord)">
+        <Button @click.native="movePlayerRequest(selectedWord)">
           <template v-slot:text>
             <span>よい</span>
           </template>
@@ -95,7 +95,7 @@
         </Button>
       </div>
       <div class="pause-choices">
-        <Button @click.native="disconnect">
+        <Button @click.native="quitGame">
           <template v-slot:text>
             <span>やめる</span>
           </template>

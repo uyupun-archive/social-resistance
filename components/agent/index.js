@@ -11,11 +11,14 @@ export default {
     }
   },
   mounted() {
-    this.socket = io.connect(this.url)
     this.connect()
   },
   methods: {
     connect() {
+      this.socket = io.connect(this.url)
+      this.startListener()
+    },
+    startListener() {
       this.declareAttackListener()
       this.declareWaitListener()
       this.feedbackPositionsListener()
@@ -28,47 +31,47 @@ export default {
     },
     declareAttackListener() {
       this.socket.on('declare_attack', (payload) => {
-        this.$emit('getPayload', { payload, event: 'declare_attack' })
+        this.$emit('proceedGame', { payload, event: 'declare_attack' })
       })
     },
     declareWaitListener() {
       this.socket.on('declare_wait', (payload) => {
-        this.$emit('getPayload', { payload, event: 'declare_wait' })
+        this.$emit('proceedGame', { payload, event: 'declare_wait' })
       })
     },
     feedbackPositionsListener() {
       this.socket.on('feedback_positions', (payload) => {
-        this.$emit('getPayload', { payload, event: 'feedback_positions' })
+        this.$emit('proceedGame', { payload, event: 'feedback_positions' })
       })
     },
     getWordsAndBasewordListener() {
       this.socket.on('get_words_and_baseword', (payload) => {
-        this.$emit('getPayload', { payload, event: 'get_words_and_baseword' })
+        this.$emit('proceedGame', { payload, event: 'get_words_and_baseword' })
       })
     },
     updateBasewordListener() {
       this.socket.on('update_baseword', (payload) => {
-        this.$emit('getPayload', { payload, event: 'update_baseword' })
+        this.$emit('proceedGame', { payload, event: 'update_baseword' })
       })
     },
     getWordsListener() {
       this.socket.on('get_words', (payload) => {
-        this.$emit('getPayload', { payload, event: 'get_words' })
+        this.$emit('proceedGame', { payload, event: 'get_words' })
       })
     },
     getTurnListener() {
       this.socket.on('get_turn', (payload) => {
-        this.$emit('getPayload', { payload, event: 'get_turn' })
+        this.$emit('proceedGame', { payload, event: 'get_turn' })
       })
     },
     judgeListener() {
       this.socket.on('judge', (payload) => {
-        this.$emit('getPayload', { payload, event: 'judge' })
+        this.$emit('proceedGame', { payload, event: 'judge' })
       })
     },
     invalidPlayerListener() {
       this.socket.on('invalid_player', (payload) => {
-        this.$emit('getPayload', { payload, event: 'invalid_player' })
+        this.$emit('proceedGame', { payload, event: 'invalid_player' })
       })
     },
     joinWorldEmitter() {

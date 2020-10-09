@@ -25,6 +25,7 @@ export default {
   },
   data() {
     return {
+      isStart: false,
       turn: 1,
       words: null,
       selectedWord: null,
@@ -104,6 +105,7 @@ export default {
         if (payload.player === PLAYER_PEKORA)
           this.$refs.world.spawnPekora({ x: payload.x, y: payload.y })
         else this.$refs.world.spawnBaikinKun({ x: payload.x, y: payload.y })
+        this.isStart = true
       }
     },
     movePlayer(payload) {

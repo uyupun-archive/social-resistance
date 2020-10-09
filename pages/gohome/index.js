@@ -8,7 +8,7 @@ import Dealer from '~/components/dealer/index.vue'
 import {
   PLAYER_PEKORA,
   PLAYER_BAIKINKUN,
-  PLAYER_PEKORA_ALIAS_NAME,
+  PLAYER_PEKORA_NAME,
   PLAYER_BAIKINKUN_NAME,
 } from '~/components/constants/index.js'
 
@@ -159,8 +159,7 @@ export default {
       }, 2500)
     },
     judge(payload) {
-      if (payload.winner === PLAYER_PEKORA)
-        this.winner = PLAYER_PEKORA_ALIAS_NAME
+      if (payload.winner === PLAYER_PEKORA) this.winner = PLAYER_PEKORA_NAME
       else this.winner = PLAYER_BAIKINKUN_NAME
       this.closeWaitModal()
       setTimeout(() => {

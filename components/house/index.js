@@ -14,7 +14,7 @@ export default class House {
    * 家の描画
    */
   build() {
-    this._rotate()
+    this._rotateSkin()
     this._image.onload = () => {
       const x = PLAYER_MOVABLE_FIELD_WIDTH + 50
       const y =
@@ -27,9 +27,9 @@ export default class House {
   }
 
   /**
-   * 画像をローテーションさせる
+   * スキンをローテーションさせる
    */
-  _rotate() {
+  _rotateSkin() {
     let skinNum = 0
     let timerId = null
     let isCached = false
@@ -40,12 +40,7 @@ export default class House {
         }.png`
         this.cacheSkin(url, skinNum)
         this._image.src = url
-        // }
-      } else {
-        let caches = sessionStorage.getItem('house')
-        caches = JSON.parse(caches)
-        this._image.src = caches[skinNum]
-      }
+      } else this._image.src = this.getCachedSkin(skinNum)
 
       if (!isCached && skinNum === 2) isCached = true
       if (skinNum === 2) skinNum = 0
@@ -57,11 +52,16 @@ export default class House {
     rotateSkinPath()
   }
 
+  /**
+   * スキンをキャッシュする
+   *
+   * @param {*} url
+   * @param {*} n
+   */
   cacheSkin(url, n) {
     let caches = sessionStorage.getItem('house')
-    if (!caches) caches = []
+    if (!caches || n === 0) caches = []
     else caches = JSON.parse(caches)
-    if (n === 0) caches = []
     this.onLoadSkin(url).then((img) => {
       const base64 = this.convertImgToBase64(img)
       caches.push(base64)
@@ -70,6 +70,12 @@ export default class House {
     })
   }
 
+  /**
+   * スキンのロード
+   * Promiseで返したいのでラップした
+   *
+   * @param {*} url
+   */
   onLoadSkin(url) {
     return new Promise((resolve, reject) => {
       const img = new Image()
@@ -80,6 +86,12 @@ export default class House {
     })
   }
 
+  /**
+   * スキンを画像からBase64に変換する
+   * SessionStorageはテキストデータしか保持できないため
+   *
+   * @param {*} img
+   */
   convertImgToBase64(img) {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
@@ -88,6 +100,17 @@ export default class House {
     ctx.drawImage(img, 0, 0)
     const base64 = canvas.toDataURL()
     return base64
+  }
+
+  /**
+   * キャッシュされたスキンの取得
+   *
+   * @param {*} n
+   */
+  getCachedSkin(n) {
+    let caches = sessionStorage.getItem('house')
+    caches = JSON.parse(caches)
+    return caches[n]
   }
 
   /**

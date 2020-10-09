@@ -2,7 +2,7 @@ import Field from '~/components/field/index.js'
 import Pekora from '~/components/pekora/index.js'
 import BaikinKun from '~/components/baikin-kun/index.js'
 import House from '~/components/house/index.js'
-import { PLAYER_PEKORA_NAME } from '~/components/constants/index.js'
+import { PLAYER_PEKORA } from '~/components/constants/index.js'
 
 export default {
   data() {
@@ -15,16 +15,6 @@ export default {
       house: null,
       pekora: null,
       baikinKun: null,
-      positions: {
-        pekora: {
-          x: 0,
-          y: 0,
-        },
-        baikinKun: {
-          x: 0,
-          y: 0,
-        },
-      },
     }
   },
   mounted() {
@@ -51,56 +41,31 @@ export default {
       const player = document.getElementById('player-layer')
       this.ctx.player = player.getContext('2d')
     },
-    createPekora(baseWord) {
-      this.pekora = new Pekora(this.ctx.player, {
-        x: this.positions.pekora.x,
-        y: this.positions.pekora.y,
-        baseWord,
-      })
+    spawnPekora(position) {
+      this.pekora = new Pekora(this.ctx.player, position)
       this.pekora.spawn()
     },
-    createBaikinKun(baseWord) {
-      this.baikinKun = new BaikinKun(this.ctx.player, {
-        x: this.positions.baikinKun.x,
-        y: this.positions.baikinKun.y,
-        baseWord,
-      })
+    spawnBaikinKun(position) {
+      this.baikinKun = new BaikinKun(this.ctx.player, position)
       this.baikinKun.spawn()
     },
-    movePekora(word) {
-      this.pekora.depart(this.positions.pekora.x, this.positions.pekora.y, word)
+    movePekora(position) {
+      this.pekora.depart(position)
     },
-    moveBaikinKun(word) {
-      this.baikinKun.depart(
-        this.positions.baikinKun.x,
-        this.positions.baikinKun.y,
-        word
-      )
-    },
-    refreshWorld() {
-      this.pekora.clear()
-      this.baikinKun.clear()
-      this.initWorld()
-    },
-    getBaseWord(player) {
-      if (player === PLAYER_PEKORA_NAME) return this.pekora?.baseWord
-      return this.baikinKun?.baseWord
-    },
-    setPosition(player, x, y) {
-      if (player === PLAYER_PEKORA_NAME) {
-        this.positions.pekora.x = x
-        this.positions.pekora.y = y
-      } else {
-        this.positions.baikinKun.x = x
-        this.positions.baikinKun.y = y
-      }
+    moveBaikinKun(position) {
+      this.baikinKun.depart(position)
     },
     setBaseWord(player, baseWord) {
-      if (player === PLAYER_PEKORA_NAME) {
-        this.pekora.baseWord = baseWord
-      } else {
-        this.baikinKun.baseWord = baseWord
-      }
+      if (player === PLAYER_PEKORA) this.pekora.baseWord = baseWord
+      else this.baikinKun.baseWord = baseWord
+    },
+    getBaseWord(player) {
+      if (player === PLAYER_PEKORA) return this.pekora?.baseWord
+      return this.baikinKun?.baseWord
+    },
+    isSpawned() {
+      if (this.pekora && this.baikinKun) return true
+      return false
     },
   },
 }

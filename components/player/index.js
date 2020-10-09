@@ -5,16 +5,13 @@ import {
 } from '~/components/constants/index.js'
 
 export default class Player {
-  constructor(ctx, player) {
+  constructor(ctx, position) {
     this._ctx = ctx
     this._image = new Image()
     this._width = null
     this._height = null
-    this._baseWord = player.baseWord
-    this._position = {
-      x: player.x,
-      y: player.y,
-    }
+    this._baseWord = null
+    this._position = position
     this.checkIsImplemented()
   }
 
@@ -33,7 +30,7 @@ export default class Player {
   }
 
   /**
-   * 単語のセッター
+   * 前回選択した単語のセッター
    */
   set baseWord(baseWord) {
     this._baseWord = baseWord
@@ -55,8 +52,8 @@ export default class Player {
    * @param {*} player
    */
   spawn(x, y, player) {
-    this._rotateAvatar(player)
-    this._onLoadAvatar(() => {
+    this._rotateSkin(player)
+    this._onLoadSkin(() => {
       this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
       this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
       this._drawSocialDistance(x, y)
@@ -68,50 +65,47 @@ export default class Player {
   /**
    * ２回目以降(移動時)
    *
-   * @param {*} x
-   * @param {*} y
-   * @param {*} word
+   * @param {*} position
    */
-  depart(x, y, word) {
+  depart(position) {
     this.clear()
-    this._onLoadAvatar(() => {
-      this._drawSocialDistance(x, y)
-      this._drawPlayer(x, y)
+    this._onLoadSkin(() => {
+      this._drawSocialDistance(position.x, position.y)
+      this._drawPlayer(position.x, position.y)
     })
-    this._calcPosition(x, y)
-    this._baseWord = word
+    this._calcPosition(position.x, position.y)
   }
 
   /**
-   * プレイヤーのアバターをローテーションさせる
+   * プレイヤーのスキンをローテーションさせる
    *
    * @param {*} player
    */
-  _rotateAvatar(player) {
+  _rotateSkin(player) {
     let playerPath = 'pekora'
     if (player === PLAYER_BAIKINKUN) playerPath = 'baikinkun'
 
-    const avatarPatterns = ['a', 'b']
-    const avatarPatternIdx = Math.floor(Math.random() * 2)
-    const avatarPattern = avatarPatterns[avatarPatternIdx]
-    let avatarNum = 0
+    const skinPatterns = ['a', 'b']
+    const skinPatternIdx = Math.floor(Math.random() * 2)
+    const skinPattern = skinPatterns[skinPatternIdx]
+    let skinNum = 0
     let timerId = null
-    const rotateAvatarPath = () => {
-      if (avatarNum === 2) avatarNum = 0
-      else ++avatarNum
+    const rotateSkinPath = () => {
+      if (skinNum === 2) skinNum = 0
+      else ++skinNum
       this._image.src = `${
         process.env.MITSU_URL
-      }/images/objects/${playerPath}/${avatarPattern}/${avatarNum + 1}.png`
+      }/images/objects/${playerPath}/${skinPattern}/${skinNum + 1}.png`
       clearTimeout(timerId)
-      timerId = setTimeout(rotateAvatarPath, 200)
+      timerId = setTimeout(rotateSkinPath, 200)
     }
-    rotateAvatarPath()
+    rotateSkinPath()
   }
 
   /**
-   * アバターのロード時に行う処理
+   * スキンのロード時に行う処理
    */
-  _onLoadAvatar(f) {
+  _onLoadSkin(f) {
     this._image.onload = () => {
       if (f) f()
     }

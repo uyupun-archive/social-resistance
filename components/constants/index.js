@@ -16,11 +16,9 @@ export const SOCIAL_DISTANCE_ZONE_RADIUS = 60
 export const PLAYER_SIZE_SCALE = 0.15
 // ぺこら
 export const PLAYER_PEKORA = 1
-// ぺこらの名前
-export const PLAYER_PEKORA_NAME = 'ぺこら'
-// ぺこらの名前２(版権的に『ぺこら』はアウトなので)
-export const PLAYER_PEKORA_ALIAS_NAME = 'うさぎさん'
 // ばいきんくん
 export const PLAYER_BAIKINKUN = 2
+// ぺこらの名前
+export const PLAYER_PEKORA_NAME = 'うさぎさん'
 // ばいきんくんの名前
 export const PLAYER_BAIKINKUN_NAME = 'ばいきんくん'

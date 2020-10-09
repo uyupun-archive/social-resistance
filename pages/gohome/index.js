@@ -100,8 +100,8 @@ export default {
       }
     },
     feedbackPositions(payload) {
-      this.spawnPlayer(payload)
       this.movePlayer(payload)
+      this.spawnPlayer(payload)
     },
     spawnPlayer(payload) {
       if (!this.$refs.world.isSpawned()) {
@@ -111,9 +111,11 @@ export default {
       }
     },
     movePlayer(payload) {
-      if (payload.player === PLAYER_PEKORA)
-        this.$refs.world.movePekora({ x: payload.x, y: payload.y })
-      else this.$refs.world.moveBaikinKun({ x: payload.x, y: payload.y })
+      if (this.$refs.world.isSpawned()) {
+        if (payload.player === PLAYER_PEKORA)
+          this.$refs.world.movePekora({ x: payload.x, y: payload.y })
+        else this.$refs.world.moveBaikinKun({ x: payload.x, y: payload.y })
+      }
     },
     getWordsAndBaseword(payload) {
       this.words = payload.words

@@ -77,7 +77,6 @@ export default class Player {
       this._drawPlayer(positions.x, positions.y)
     })
     this._calcPosition(positions.x, positions.y)
-    // this._baseWord = word
   }
 
   /**

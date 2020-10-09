@@ -57,11 +57,9 @@ export default {
       }
     },
     movePekora(positions) {
-      // console.log(positions)
       this.pekora.depart(positions)
     },
     moveBaikinKun(positions) {
-      // console.log(positions)
       this.baikinKun.depart(positions)
     },
     getBaseWord(player) {

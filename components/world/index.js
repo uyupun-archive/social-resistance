@@ -41,26 +41,23 @@ export default {
       const player = document.getElementById('player-layer')
       this.ctx.player = player.getContext('2d')
     },
-    spawnPekora(positions) {
-      this.pekora = new Pekora(this.ctx.player, positions)
+    spawnPekora(position) {
+      this.pekora = new Pekora(this.ctx.player, position)
       this.pekora.spawn()
     },
-    spawnBaikinKun(positions) {
-      this.baikinKun = new BaikinKun(this.ctx.player, positions)
+    spawnBaikinKun(position) {
+      this.baikinKun = new BaikinKun(this.ctx.player, position)
       this.baikinKun.spawn()
     },
+    movePekora(position) {
+      this.pekora.depart(position)
+    },
+    moveBaikinKun(position) {
+      this.baikinKun.depart(position)
+    },
     setBaseWord(player, baseWord) {
-      if (player === PLAYER_PEKORA) {
-        this.pekora.baseWord = baseWord
-      } else {
-        this.baikinKun.baseWord = baseWord
-      }
-    },
-    movePekora(positions) {
-      this.pekora.depart(positions)
-    },
-    moveBaikinKun(positions) {
-      this.baikinKun.depart(positions)
+      if (player === PLAYER_PEKORA) this.pekora.baseWord = baseWord
+      else this.baikinKun.baseWord = baseWord
     },
     getBaseWord(player) {
       if (player === PLAYER_PEKORA) return this.pekora?.baseWord

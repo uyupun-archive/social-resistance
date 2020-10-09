@@ -4,7 +4,7 @@ import Modal from '~/components/modal/index.vue'
 import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
-import Agent from '~/components/agent/index.vue'
+import Dealer from '~/components/dealer/index.vue'
 import {
   PLAYER_PEKORA,
   PLAYER_BAIKINKUN,
@@ -21,7 +21,7 @@ export default {
     ModalWithButtons,
     TurnAnimation,
     Sonar,
-    Agent,
+    Dealer,
   },
   data() {
     return {
@@ -33,7 +33,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.agent.joinWorldEmitter()
+    this.$refs.dealer.joinWorldEmitter()
   },
   methods: {
     openWaitModal() {
@@ -56,7 +56,7 @@ export default {
       this.$refs.pauseModal.close()
     },
     quitGame() {
-      this.$refs.agent.disconnectEmitter()
+      this.$refs.dealer.disconnectEmitter()
       this.$router.push('/')
     },
     showTurnAnimation() {
@@ -141,7 +141,7 @@ export default {
       return ''
     },
     movePlayerRequest(word) {
-      this.$refs.agent.attackEmitter(word)
+      this.$refs.dealer.attackEmitter(word)
       this.closeWordModal()
     },
     declareAttack() {

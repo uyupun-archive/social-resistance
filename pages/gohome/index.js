@@ -7,7 +7,7 @@ import Sonar from '~/components/sonar/index.vue'
 import Agent from '~/components/agent/index.vue'
 import {
   PLAYER_PEKORA,
-  PLAYER_PEKORA_NAME,
+  PLAYER_BAIKINKUN,
   PLAYER_PEKORA_ALIAS_NAME,
   PLAYER_BAIKINKUN_NAME,
 } from '~/components/constants/index.js'
@@ -68,26 +68,26 @@ export default {
     proceedGame(obj) {
       this.event = obj.event
       switch (obj.event) {
+        case 'feedback_position':
+          this.feedbackPosition(obj.payload)
+          break
+        case 'get_turn':
+          this.getTurn(obj.payload)
+          break
+        case 'get_words_and_baseword':
+          this.getWordsAndBaseWord(obj.payload)
+          break
+        case 'get_words':
+          this.getWords(obj.payload)
+          break
+        case 'update_baseword':
+          this.updateBaseword(obj.payload)
+          break
         case 'declare_attack':
           this.declareAttack()
           break
         case 'declare_wait':
           this.declareWait()
-          break
-        case 'feedback_positions':
-          this.feedbackPositions(obj.payload)
-          break
-        case 'get_words_and_baseword':
-          this.getWordsAndBaseword(obj.payload)
-          break
-        case 'update_baseword':
-          this.updateBaseword(obj.payload)
-          break
-        case 'get_words':
-          this.getWords(obj.payload)
-          break
-        case 'get_turn':
-          this.getTurn(obj.payload)
           break
         case 'judge':
           this.judge(obj.payload)
@@ -99,7 +99,7 @@ export default {
           this.quitGame(obj.payload)
       }
     },
-    feedbackPositions(payload) {
+    feedbackPosition(payload) {
       this.movePlayer(payload)
       this.spawnPlayer(payload)
     },
@@ -117,21 +117,24 @@ export default {
         else this.$refs.world.moveBaikinKun({ x: payload.x, y: payload.y })
       }
     },
-    getWordsAndBaseword(payload) {
+    getTurn(payload) {
+      this.turn = payload.turn
+    },
+    getWordsAndBaseWord(payload) {
       this.words = payload.words
       if (payload.player === PLAYER_PEKORA) {
-        this.$refs.world.setBaseWord(PLAYER_PEKORA_NAME, payload.baseWord)
+        this.$refs.world.setBaseWord(PLAYER_PEKORA, payload.baseWord)
         return
       }
-      this.$refs.world.setBaseWord(PLAYER_BAIKINKUN_NAME, payload.baseWord)
+      this.$refs.world.setBaseWord(PLAYER_BAIKINKUN, payload.baseWord)
     },
     getWords(payload) {
       this.words = payload.words
     },
     updateBaseword(payload) {
       if (payload.player === PLAYER_PEKORA)
-        this.$refs.world.setBaseWord(PLAYER_PEKORA_NAME, payload.baseWord)
-      else this.$refs.world.setBaseWord(PLAYER_BAIKINKUN_NAME, payload.baseWord)
+        this.$refs.world.setBaseWord(PLAYER_PEKORA, payload.baseWord)
+      else this.$refs.world.setBaseWord(PLAYER_BAIKINKUN, payload.baseWord)
     },
     getBaseWord(player) {
       if (this.$refs.world) {
@@ -146,14 +149,10 @@ export default {
       this.closeWordModal()
     },
     declareAttack() {
-      if (!this.$refs.waitModal.showModal) {
+      this.closeWaitModal()
+      setTimeout(() => {
         this.showTurnAnimation()
-      } else {
-        this.closeWaitModal()
-        setTimeout(() => {
-          this.showTurnAnimation()
-        }, 300)
-      }
+      }, 300)
     },
     declareWait() {
       this.showTurnAnimation()
@@ -161,21 +160,14 @@ export default {
         this.openWaitModal()
       }, 2500)
     },
-    getTurn(payload) {
-      this.turn = payload.turn
-    },
     judge(payload) {
       if (payload.winner === PLAYER_PEKORA)
         this.winner = PLAYER_PEKORA_ALIAS_NAME
       else this.winner = PLAYER_BAIKINKUN_NAME
-      if (!this.$refs.waitModal.showModal) {
+      this.closeWaitModal()
+      setTimeout(() => {
         this.$refs.winModal.open()
-      } else {
-        this.closeWaitModal()
-        setTimeout(() => {
-          this.$refs.winModal.open()
-        }, 300)
-      }
+      }, 300)
     },
     openWarningModal(msg) {
       this.warningText = msg

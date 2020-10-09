@@ -2,7 +2,7 @@ import Field from '~/components/field/index.js'
 import Pekora from '~/components/pekora/index.js'
 import BaikinKun from '~/components/baikin-kun/index.js'
 import House from '~/components/house/index.js'
-import { PLAYER_PEKORA_NAME } from '~/components/constants/index.js'
+import { PLAYER_PEKORA } from '~/components/constants/index.js'
 
 export default {
   data() {
@@ -50,7 +50,7 @@ export default {
       this.baikinKun.spawn()
     },
     setBaseWord(player, baseWord) {
-      if (player === PLAYER_PEKORA_NAME) {
+      if (player === PLAYER_PEKORA) {
         this.pekora.baseWord = baseWord
       } else {
         this.baikinKun.baseWord = baseWord
@@ -63,7 +63,7 @@ export default {
       this.baikinKun.depart(positions)
     },
     getBaseWord(player) {
-      if (player === PLAYER_PEKORA_NAME) return this.pekora?.baseWord
+      if (player === PLAYER_PEKORA) return this.pekora?.baseWord
       return this.baikinKun?.baseWord
     },
     isSpawned() {

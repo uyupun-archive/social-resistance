@@ -21,7 +21,7 @@ export default {
     startListener() {
       this.declareAttackListener()
       this.declareWaitListener()
-      this.feedbackPositionsListener()
+      this.feedbackPositionListener()
       this.getWordsAndBasewordListener()
       this.updateBasewordListener()
       this.getWordsListener()
@@ -39,9 +39,9 @@ export default {
         this.$emit('proceedGame', { payload, event: 'declare_wait' })
       })
     },
-    feedbackPositionsListener() {
-      this.socket.on('feedback_positions', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'feedback_positions' })
+    feedbackPositionListener() {
+      this.socket.on('feedback_position', (payload) => {
+        this.$emit('proceedGame', { payload, event: 'feedback_position' })
       })
     },
     getWordsAndBasewordListener() {

@@ -25,12 +25,11 @@ export default {
   },
   data() {
     return {
+      turn: 1,
       words: null,
       selectedWord: null,
       winner: '',
-      turn: 1,
-      event: '',
-      warningText: '',
+      warningMsg: '',
     }
   },
   mounted() {
@@ -44,8 +43,6 @@ export default {
       this.$refs.waitModal.close()
     },
     openWordModal(word) {
-      // TODO: ここもなんとかしたい
-      if (this.event !== 'declare_attack') return
       this.selectedWord = word
       this.$refs.wordModal.open()
     },
@@ -66,7 +63,6 @@ export default {
       this.$refs.turnAnimation.show()
     },
     proceedGame(obj) {
-      this.event = obj.event
       switch (obj.event) {
         case 'feedback_position':
           this.feedbackPosition(obj.payload)
@@ -170,7 +166,7 @@ export default {
       }, 300)
     },
     openWarningModal(msg) {
-      this.warningText = msg
+      this.warningMsg = msg
       this.$refs.warningModal.open()
       setTimeout(() => {
         this.$router.push('/')

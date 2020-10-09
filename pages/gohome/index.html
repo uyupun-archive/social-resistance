@@ -15,7 +15,7 @@
           [{{ getBaseWord(1) }}]
         </p>
       </div>
-      <div v-if="!!event" class="turn-info">
+      <div v-if="this.$refs.world && this.$refs.world.isSpawned()" class="turn-info">
         <p class="turn-count">ターン数:&nbsp;{{ turn }}</p>
       </div>
       <div
@@ -31,7 +31,7 @@
         </p>
       </div>
     </div>
-    <div v-if="!event" class="wait">
+    <div v-if="this.$refs.world && !this.$refs.world.isSpawned()" class="wait">
       <p class="wait_message">あいてのさんかをまっています...</p>
     </div>
     <div v-else class="word-wrapper">
@@ -133,7 +133,7 @@
   </Modal>
   <Modal ref="warningModal">
     <template v-slot:content>
-      <p>{{ warningText }}</p>
+      <p>{{ warningMsg }}</p>
     </template>
   </Modal>
 </div>

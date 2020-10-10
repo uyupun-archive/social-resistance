@@ -1,45 +1,61 @@
 export default class Skin {
-  constructor() {
-    this._isCached = false
-    this._timerId = null
-    this._n = 0
-  }
-
+  /**
+   * スキンをローテーションさせる
+   *
+   * @param {*} img
+   * @param {*} key
+   * @param {*} pattern
+   */
   rotate(img, key, pattern = '') {
+    let isCached = false
+    let timerId = null
+    let n = 0
+
     const rotate = () => {
-      if (!this._isCached) {
-        const url = `${
-          process.env.MITSU_URL
-        }/images/objects/${key}/${pattern}/${this._n + 1}.png`
-        this._cacheSkin(url, this._n, key)
+      if (!isCached) {
+        const url = this._makeUrl(key, pattern, n)
+        this._cacheSkin(key, n, url)
         img.src = url
-      } else {
-        img.src = this.getCachedSkin(this._n, key)
-      }
+      } else img.src = this._getCachedSkin(key, n)
 
-      if (!this._isCached && this._n === 2) this._isCached = true
-      if (this._n === 2) this._n = 0
-      else ++this._n
+      if (!isCached && n === 2) isCached = true
+      if (n === 2) n = 0
+      else ++n
 
-      clearTimeout(this._timerId)
-      this._timerId = setTimeout(rotate, 200)
+      clearTimeout(timerId)
+      timerId = setTimeout(rotate, 200)
     }
     rotate()
   }
 
   /**
+   * スキンの画像URLの生成
+   *
+   * @param {*} key
+   * @param {*} pattern
+   * @param {*} n
+   */
+  _makeUrl(key, pattern = '', n) {
+    if (pattern !== '') pattern = `${pattern}/`
+    const url = `${process.env.MITSU_URL}/images/objects/${key}/${pattern}${
+      n + 1
+    }.png`
+    return url
+  }
+
+  /**
    * スキンをキャッシュする
    *
-   * @param {*} url
-   * @param {*} n
    * @param {*} key
+   * @param {*} n
+   * @param {*} url
    */
-  _cacheSkin(url, n, key) {
+  _cacheSkin(key, n, url) {
     let caches = sessionStorage.getItem(key)
     if (!caches || n === 0) caches = []
     else caches = JSON.parse(caches)
-    this.onLoadCacheSkin(url).then((img) => {
-      const base64 = this.convertImgToBase64(img)
+    this._onLoadCacheSkin(url).then((img) => {
+      const base64 = this._convertImgToBase64(img)
       caches.push(base64)
       caches = JSON.stringify(caches)
       sessionStorage.setItem(key, caches)
@@ -52,7 +68,7 @@ export default class Skin {
    *
    * @param {*} url
    */
-  onLoadCacheSkin(url) {
+  _onLoadCacheSkin(url) {
     return new Promise((resolve, reject) => {
       const img = new Image()
       img.crossOrigin = 'anonymous'
@@ -68,7 +84,7 @@ export default class Skin {
    *
    * @param {*} img
    */
-  convertImgToBase64(img) {
+  _convertImgToBase64(img) {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
     canvas.width = img.naturalWidth
@@ -81,11 +97,11 @@ export default class Skin {
   /**
    * キャッシュされたスキンの取得
    *
+   * @param {*} key
    * @param {*} n
-   * @param {*} player
    */
-  getCachedSkin(n, player) {
-    let caches = sessionStorage.getItem(player)
+  _getCachedSkin(key, n) {
+    let caches = sessionStorage.getItem(key)
     caches = JSON.parse(caches)
     return caches[n]
   }

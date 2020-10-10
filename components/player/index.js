@@ -84,13 +84,12 @@ export default class Player {
    * @param {*} player
    */
   _rotateSkin(player) {
-    let playerName = 'pekora'
-    if (player === PLAYER_BAIKINKUN) playerName = 'baikinkun'
-
+    let key = 'pekora'
+    if (player === PLAYER_BAIKINKUN) key = 'baikinkun'
     const skinPatterns = ['a', 'b']
     const skinPatternIdx = Math.floor(Math.random() * 2)
     const skinPattern = skinPatterns[skinPatternIdx]
-    this._skin.rotate(this._image, playerName, skinPattern)
+    this._skin.rotate(this._image, key, skinPattern)
   }
 
   /**

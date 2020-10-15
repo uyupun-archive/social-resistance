@@ -1,3 +1,10 @@
+require('dotenv').config()
+const {
+  SOCIAL_RESISTANCE_HOST,
+  SOCIAL_RESISTANCE_PORT,
+  MITSU_URL,
+} = process.env
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -29,12 +36,16 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/scss/_fonts.scss', '~/assets/scss/_variable.scss'],
+  css: [
+    '~/assets/scss/_fonts.scss',
+    '~/assets/scss/_variable.scss',
+    '@fortawesome/fontawesome-svg-core/styles.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/word2vec'],
+  plugins: ['~/plugins/fontawesome', '~/plugins/axios', '~/plugins/api'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -50,7 +61,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/style-resources'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/proxy', '@nuxtjs/axios'],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
@@ -65,7 +76,24 @@ export default {
       })
     },
   },
+  env: {
+    SOCIAL_RESISTANCE_HOST,
+    SOCIAL_RESISTANCE_PORT,
+    MITSU_URL,
+  },
+  server: {
+    host: SOCIAL_RESISTANCE_HOST || 'localhost',
+    port: SOCIAL_RESISTANCE_PORT || 3000,
+  },
   styleResources: {
     scss: ['./assets/scss/*.scss'],
+  },
+  axios: {
+    proxy: true,
+  },
+  proxy: {
+    '/api/v1/': {
+      target: MITSU_URL,
+    },
   },
 }

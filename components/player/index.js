@@ -1,22 +1,19 @@
+import Skin from '~/components/skin/index.js'
 import {
-  FIELD_HEIGHT,
   SOCIAL_DISTANCE_ZONE_RADIUS,
   PLAYER_SIZE_SCALE,
-  PLAYER_MOVE_SCALE,
-  PLAYER_MOVABLE_FIELD_WIDTH,
+  PLAYER_BAIKINKUN,
 } from '~/components/constants/index.js'
 
 export default class Player {
-  constructor(ctx, getFitstWord) {
+  constructor(ctx, position) {
+    this._skin = new Skin()
     this._ctx = ctx
     this._image = new Image()
     this._width = null
     this._height = null
-    this._baseWord = getFitstWord()
-    this._position = {
-      x: null,
-      y: null,
-    }
+    this._baseWord = null
+    this._position = position
     this.checkIsImplemented()
   }
 
@@ -35,6 +32,13 @@ export default class Player {
   }
 
   /**
+   * 前回選択した単語のセッター
+   */
+  set baseWord(baseWord) {
+    this._baseWord = baseWord
+  }
+
+  /**
    * 必須のメソッドが継承先で実装されているかのチェック機構
    * 擬似的な抽象メソッドみたいな感じ
    */
@@ -47,62 +51,54 @@ export default class Player {
    *
    * @param {*} x
    * @param {*} y
+   * @param {*} player
    */
-  spawn(x, y) {
-    this._image.onload = () => {
+  spawn(x, y, player) {
+    this._rotateSkin(player)
+    this._onLoadSkin(() => {
       this._width = this._image.naturalWidth * PLAYER_SIZE_SCALE
       this._height = this._image.naturalHeight * PLAYER_SIZE_SCALE
       this._drawSocialDistance(x, y)
       this._drawPlayer(x, y)
-      this._calcPosition(x, y)
-    }
+    })
+    this._calcPosition(x, y)
   }
 
   /**
    * ２回目以降(移動時)
    *
-   * @param {*} word
+   * @param {*} position
    */
-  depart(word) {
-    const newX = this._correctPositionX(
-      this._position.x + word.move.x * PLAYER_MOVE_SCALE
-    )
-    const newY = this._correctPositionY(
-      this._position.y + word.move.y * PLAYER_MOVE_SCALE
-    )
+  depart(position) {
     this.clear()
-    this._drawSocialDistance(newX, newY)
-    this._drawPlayer(newX, newY)
-    this._calcPosition(newX, newY)
-    this._baseWord = word
+    this._onLoadSkin(() => {
+      this._drawSocialDistance(position.x, position.y)
+      this._drawPlayer(position.x, position.y)
+    })
+    this._calcPosition(position.x, position.y)
   }
 
   /**
-   * プレイヤーがワールドからはみ出していたらはみ出さないように補正する(x座標)
+   * プレイヤーのスキンをローテーションさせる
    *
-   * @param {*} x
+   * @param {*} player
    */
-  _correctPositionX(x) {
-    // xのマイナス方向の限界値を超えていないか
-    if (x < SOCIAL_DISTANCE_ZONE_RADIUS) x = SOCIAL_DISTANCE_ZONE_RADIUS
-    // xのプラス方向の限界値を超えていないか
-    else if (x > PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS)
-      x = PLAYER_MOVABLE_FIELD_WIDTH - SOCIAL_DISTANCE_ZONE_RADIUS
-    return x
+  _rotateSkin(player) {
+    let key = 'pekora'
+    if (player === PLAYER_BAIKINKUN) key = 'baikinkun'
+    const skinPatterns = ['a', 'b']
+    const skinPatternIdx = Math.floor(Math.random() * 2)
+    const skinPattern = skinPatterns[skinPatternIdx]
+    this._skin.rotate(this._image, key, skinPattern)
   }
 
   /**
-   * プレイヤーがワールドからはみ出していたらはみ出さないように補正する(y座標)
-   *
-   * @param {*} y
+   * スキンのロード時に行う処理
    */
-  _correctPositionY(y) {
-    // yのマイナス方向の限界値を超えていないか
-    if (y < SOCIAL_DISTANCE_ZONE_RADIUS) y = SOCIAL_DISTANCE_ZONE_RADIUS
-    // yのプラス方向の限界値を超えていないか
-    else if (y > FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS)
-      y = FIELD_HEIGHT - SOCIAL_DISTANCE_ZONE_RADIUS
-    return y
+  _onLoadSkin(f) {
+    this._image.onload = () => {
+      if (f) f()
+    }
   }
 
   /**

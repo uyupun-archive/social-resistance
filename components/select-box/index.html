@@ -1,0 +1,23 @@
+<div :id="selectId">
+  <select :value="selectedValue" :name="name" hidden>
+    <option v-for="option in options" :key="option.value" :value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+  <div v-if="selectedData" role="select-box" class="select">
+    <div class="select-box" @click="onClickSelectBox()">
+      {{ selectedData.text }}
+      <i class="select-icon" />
+    </div>
+    <div v-if="showList" class="select-list" :class="{close: isCloseList}">
+      <div
+        v-for="option in options"
+        :key="option.value"
+        class="select-list__item"
+        :class="{selected: onCheckSelected(option.value)}"
+        @click="onSelectItem(option.value)">
+        {{ option.text }}
+      </div>
+    </div>
+  </div>
+</div>

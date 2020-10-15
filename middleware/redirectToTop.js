@@ -1,5 +1,5 @@
 export default ({ from, redirect }) => {
-  if (from.name !== 'index') {
+  if (!['recruit', 'join'].includes(from.name)) {
     redirect('/')
   }
 }

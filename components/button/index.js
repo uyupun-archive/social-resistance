@@ -26,6 +26,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    type: {
+      validator: (type) => {
+        return ['button', 'submit', 'reset'].includes(type)
+      },
+      default: 'button',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     routerPush() {

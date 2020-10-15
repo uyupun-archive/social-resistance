@@ -2,16 +2,16 @@
   <h3 class="title">あそびかた</h3>
   <div class="outer">
     <div class="text">
-      <p>{{ showText }}</p>
-      <img v-if="showImage" :src="showImage" alt="rule image" class="image" />
+      <p>{{ rule.text }}</p>
+      <img v-if="rule.image" :src="rule.image" alt="rule image" class="image" />
     </div>
     <div class="btns">
-      <Button v-if="!isFirst" @click.native="prevRule">
+      <Button @click.native="prevRule" :disabled="rule.isFirst">
         <template v-slot:text>
           <span>まえへ</span>
         </template>
       </Button>
-      <Button v-if="isLast === false" @click.native="nextRule">
+      <Button @click.native="nextRule" :disabled="rule.isLast">
         <template v-slot:text>
           <span>つぎへ</span>
         </template>
@@ -21,7 +21,7 @@
   <div class="btn-back">
     <Button to="/">
       <template v-slot:text>
-        <span>トップにもどる</span>
+        <span>タイトルへ</span>
       </template>
     </Button>
   </div>

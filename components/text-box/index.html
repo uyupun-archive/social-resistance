@@ -1,0 +1,15 @@
+<div>
+	<input
+		type="text"
+		class="text-box"
+		:class="{
+			alignCenter: align === 'center',
+			alignRight: align === 'right',
+		}"
+		:value="defaultValue"
+		:name="name"
+		:readonly="readonly"
+		:autofocus="autofocus"
+		@input="onChange"
+	/>
+</div>

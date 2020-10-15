@@ -4,15 +4,17 @@
   margin: 5% auto 0;
 }
 
-.logo {
-  width: 100%;
+.images {
+  display: flex;
+}
+
+.image {
+  width: auto;
   height: 100px;
-  background-image: url('~assets/images/objects/pekora.gif'),
-    url('~assets/images/objects/baikinkun_1.gif'),
-    url('~assets/images/objects/baikinkun_2.gif');
-  background-position: left 0, 100% 0, 90% 0;
-  background-repeat: no-repeat;
-  background-size: contain;
+
+  &:nth-of-type(2) {
+    margin: 0 0 0 auto;
+  }
 }
 
 .title {

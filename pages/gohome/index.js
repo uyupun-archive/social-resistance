@@ -2,10 +2,12 @@ import Button from '~/components/button/index.vue'
 import World from '~/components/world/index.vue'
 import Modal from '~/components/modal/index.vue'
 import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
-import Turn from '~/components/turn/index.js'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
+import Dealer from '~/components/dealer/index.vue'
 import {
+  PLAYER_PEKORA,
+  PLAYER_BAIKINKUN,
   PLAYER_PEKORA_NAME,
   PLAYER_BAIKINKUN_NAME,
 } from '~/components/constants/index.js'
@@ -19,19 +21,28 @@ export default {
     ModalWithButtons,
     TurnAnimation,
     Sonar,
+    Dealer,
   },
   data() {
     return {
+      isStart: false,
+      turn: 1,
       words: null,
-      selectedWord: '',
+      selectedWord: null,
       winner: '',
-      turn: new Turn(),
+      warningMsg: '',
     }
   },
   mounted() {
-    this.stepFirstTurn()
+    this.$refs.dealer.joinWorldEmitter()
   },
   methods: {
+    openWaitModal() {
+      this.$refs.waitModal.open()
+    },
+    closeWaitModal() {
+      this.$refs.waitModal.close()
+    },
     openWordModal(word) {
       this.selectedWord = word
       this.$refs.wordModal.open()
@@ -45,59 +56,122 @@ export default {
     restartGame() {
       this.$refs.pauseModal.close()
     },
-    refreshGame() {
-      this.$refs.pauseModal.close()
-      this.$refs.world.refreshWorld()
-      this.stepFirstTurn()
-      this.turn = new Turn()
-    },
-    stepFirstTurn() {
-      this.getWords()
-      this.showTurnAnimation()
-      this.proceedTurn()
-    },
-    stepAfterSecondTurn(word) {
-      this.closeWordModal()
-      this.movePlayer(word)
-      if ((this.winner = this.$refs.world.judgeWinner())) {
-        this.$refs.winModal.open()
-        return
-      }
-      this.getWords()
-      this.showTurnAnimation()
-      this.proceedTurn()
-    },
-    movePlayer(word) {
-      if (this.turn.active.pekora) this.$refs.world.movePekora(word)
-      else this.$refs.world.moveBaikinKun(word)
-    },
-    getWords() {
-      this.words = this.$getWords(
-        this.turn.active.pekora
-          ? this.getBaseWord(PLAYER_PEKORA_NAME)
-          : this.getBaseWord(PLAYER_BAIKINKUN_NAME)
-      )
+    quitGame() {
+      this.$refs.dealer.leaveWorldEmitter()
+      this.$router.push('/')
     },
     showTurnAnimation() {
       this.$refs.turnAnimation.show()
     },
-    proceedTurn() {
-      this.turn.proceed().then(() => {
-        this.forceSelectWord()
-      })
+    proceedGame(obj) {
+      switch (obj.event) {
+        case 'feedback_position':
+          this.feedbackPosition(obj.payload)
+          break
+        case 'get_turn':
+          this.getTurn(obj.payload)
+          break
+        case 'get_words_and_baseword':
+          this.getWordsAndBaseWord(obj.payload)
+          break
+        case 'get_words':
+          this.getWords(obj.payload)
+          break
+        case 'update_baseword':
+          this.updateBaseword(obj.payload)
+          break
+        case 'declare_attack':
+          this.declareAttack()
+          break
+        case 'declare_wait':
+          this.declareWait()
+          break
+        case 'judge':
+          this.judge(obj.payload)
+          break
+        case 'invalid_player':
+          this.openWarningModal('むこうなプレイヤーです')
+          break
+        default:
+          this.quitGame(obj.payload)
+      }
     },
-    forceSelectWord() {
-      const randomIndex = Math.floor(Math.random() * this.words.length)
-      this.selectedWord = this.words[randomIndex]
-      this.$refs.forceSelectWordModal.open()
-      setTimeout(() => {
-        this.$refs.forceSelectWordModal.close()
-        this.stepAfterSecondTurn(this.selectedWord)
-      }, 3000)
+    feedbackPosition(payload) {
+      this.movePlayer(payload)
+      this.spawnPlayer(payload)
     },
-    getBaseWord(player) {
-      if (this.$refs.world) return this.$refs.world.getBaseWord(player)
+    spawnPlayer(payload) {
+      if (!this.$refs.world.isSpawned()) {
+        if (payload.player === PLAYER_PEKORA)
+          this.$refs.world.spawnPekora({ x: payload.x, y: payload.y })
+        else this.$refs.world.spawnBaikinKun({ x: payload.x, y: payload.y })
+        this.isStart = true
+      }
+    },
+    movePlayer(payload) {
+      if (this.$refs.world.isSpawned()) {
+        if (payload.player === PLAYER_PEKORA)
+          this.$refs.world.movePekora({ x: payload.x, y: payload.y })
+        else this.$refs.world.moveBaikinKun({ x: payload.x, y: payload.y })
+      }
+    },
+    getTurn(payload) {
+      this.turn = payload.turn
+    },
+    getWordsAndBaseWord(payload) {
+      this.words = payload.words
+      if (payload.player === PLAYER_PEKORA) {
+        this.$refs.world.setBaseWord(PLAYER_PEKORA, payload.baseWord)
+        return
+      }
+      this.$refs.world.setBaseWord(PLAYER_BAIKINKUN, payload.baseWord)
+    },
+    getWords(payload) {
+      this.words = payload.words
+    },
+    updateBaseword(payload) {
+      if (payload.player === PLAYER_PEKORA)
+        this.$refs.world.setBaseWord(PLAYER_PEKORA, payload.baseWord)
+      else this.$refs.world.setBaseWord(PLAYER_BAIKINKUN, payload.baseWord)
+    },
+    showBaseWord(player) {
+      if (this.$refs.world) {
+        return this.$refs.world.getBaseWord(player)
+          ? this.$refs.world.getBaseWord(player).word
+          : ''
+      }
       return ''
+    },
+    movePlayerRequest(word) {
+      this.$refs.dealer.attackEmitter(word)
+      this.closeWordModal()
+    },
+    declareAttack() {
+      this.closeWaitModal()
+      setTimeout(() => {
+        this.showTurnAnimation()
+      }, 300)
+    },
+    declareWait() {
+      this.showTurnAnimation()
+      setTimeout(() => {
+        this.openWaitModal()
+      }, 2500)
+    },
+    judge(payload) {
+      if (payload.winner === PLAYER_PEKORA) this.winner = PLAYER_PEKORA_NAME
+      else this.winner = PLAYER_BAIKINKUN_NAME
+      this.closeWaitModal()
+      setTimeout(() => {
+        this.$refs.winModal.open()
+      }, 300)
+    },
+    openWarningModal(msg) {
+      this.warningMsg = msg
+      this.$refs.warningModal.open()
+      setTimeout(() => {
+        this.$router.push('/')
+      }, 3000)
     },
   },
 }

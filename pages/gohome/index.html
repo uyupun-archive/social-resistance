@@ -12,7 +12,7 @@
       >
         <p class="turn-which-player">うさぎさんのターン</p>
         <p class="turn-which-word">
-          [{{ getBaseWord(1) }}]
+          [{{ showBaseWord(1) }}]
         </p>
       </div>
       <div v-if="isStart" class="turn-info">
@@ -27,7 +27,7 @@
       >
         <p class="turn-which-player">ばいきんくんのターン</p>
         <p class="turn-which-word">
-          [{{ getBaseWord(2) }}]
+          [{{ showBaseWord(2) }}]
         </p>
       </div>
     </div>

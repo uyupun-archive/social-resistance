@@ -57,7 +57,7 @@ export default {
       this.$refs.pauseModal.close()
     },
     quitGame() {
-      this.$refs.dealer.disconnectEmitter()
+      this.$refs.dealer.leaveWorldEmitter()
       this.$router.push('/')
     },
     showTurnAnimation() {
@@ -134,7 +134,7 @@ export default {
         this.$refs.world.setBaseWord(PLAYER_PEKORA, payload.baseWord)
       else this.$refs.world.setBaseWord(PLAYER_BAIKINKUN, payload.baseWord)
     },
-    getBaseWord(player) {
+    showBaseWord(player) {
       if (this.$refs.world) {
         return this.$refs.world.getBaseWord(player)
           ? this.$refs.world.getBaseWord(player).word

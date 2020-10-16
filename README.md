@@ -4,12 +4,11 @@
 
 **death is not a go home**
 
-### リンク
+### モック（Figma）
 
-|||
-|:--|:--|
-|元ネタ(ウサギと猟犬)|https://en.wikipedia.org/wiki/Hare_games|
-|モック(Figma)|https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=1%3A2|
+- [v1](https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=0%3A1)
+- [v2](https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=192%3A574)
+- [v3](https://www.figma.com/file/SYnE52gQISHkQLZV9NPJG1/Social-Resistance?node-id=428%3A2)
 
 ### 環境構築
 

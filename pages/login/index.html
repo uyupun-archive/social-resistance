@@ -10,7 +10,7 @@
         <TextBox name="userId" type="password" align="center" @input="onChangePassword" />
       </label>
     </div>
-    <p v-if="error" class="error-message">すでにそのユーザーIDは存在します</p>
+    <p v-if="error" class="error-message">ユーザーIDまたはパスワードがちがいます</p>
     <div class="form-buttons">
       <div class="form-button">
         <Button to="/">

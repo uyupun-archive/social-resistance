@@ -1,0 +1,31 @@
+<div class="container">
+  <form class="form-login"　@submit.prevent="onSubmit">
+    <div class="form-text__boxes" :class="{'form-error': error}">
+      <label class="form-label">
+        <span class="form-label__text">ユーザーID</span>
+        <TextBox name="userId" :autofocus="true" align="center" @input="onChangeUserId" />
+      </label>
+      <label class="form-label">
+        <span class="form-label__text">パスワード</span>
+        <TextBox name="userId" type="password" align="center" @input="onChangePassword" />
+      </label>
+    </div>
+    <p v-if="error" class="error-message">すでにそのユーザーIDは存在します</p>
+    <div class="form-buttons">
+      <div class="form-button">
+        <Button to="/">
+          <template v-slot:text>
+            <span>やめる</span>
+          </template>
+        </Button>
+      </div>
+      <div class="form-button">
+        <Button type="submit" :disabled="checkDisabled()">
+          <template v-slot:text>
+            <span>ログイン</span>
+          </template>
+        </Button>
+      </div>
+    </div>
+  </form>
+</div>

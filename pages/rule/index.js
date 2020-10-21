@@ -8,6 +8,7 @@ export default {
     return {
       rules: [],
       rule: {
+        len: 0,
         idx: 0,
         text: '',
         image: null,
@@ -22,6 +23,7 @@ export default {
   methods: {
     initRules() {
       this.$fetchRules().then((rules) => {
+        this.rule.len = rules.length
         this.rules = rules
         this.setRule(this.rule.idx)
       })

@@ -1,41 +1,42 @@
 .container {
-  text-align: center;
   padding: 50px 0 0;
+  text-align: center;
 }
 
 .title {
-  font-family: 'Roboto-Thin', sans-serif;
-  font-size: 6rem;
   margin: 0;
+  font-size: 6rem;
 }
 
-.outer {
+.box {
   margin: 40px auto;
+  border: 5px solid $white;
   width: 1000px;
   background: $black;
-  padding: 120px 40px 100px;
-  border: 5px solid $white;
   box-sizing: border-box;
+  padding: 40px 40px;
+}
 
-  & .text {
-    margin: 0 0 40px;
+.text {
+  margin: 0 0 40px;
+  text-align: center;
+  font-size: 3.6rem;
+}
 
-    & .image {
-      width: 100%;
-    }
-  }
+.image {
+  margin: 0 0 40px;
+  width: 100%;
+}
 
-  p {
-    text-align: center;
-    font-size: 3.6rem;
-    margin: 0 0 40px;
-  }
+.ctrls {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
 
-  .btns {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-  }
+.page {
+  line-height: 70px;
+  font-size: 3.6rem;
 }
 
 .btn {

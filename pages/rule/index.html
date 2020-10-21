@@ -1,16 +1,15 @@
 <div class="container">
   <h3 class="title">あそびかた</h3>
-  <div class="outer">
-    <div class="text">
-      <p>{{ rule.text }}</p>
-      <img v-if="rule.image" :src="rule.image" alt="rule image" class="image" />
-    </div>
-    <div class="btns">
+  <div class="box">
+    <p class="text">{{ rule.text }}</p>
+    <img v-if="rule.image" :src="rule.image" alt="rule image" class="image" />
+    <div class="ctrls">
       <Button @click.native="prevRule" :disabled="rule.isFirst">
         <template v-slot:text>
           <span>まえへ</span>
         </template>
       </Button>
+      <div class="page">{{ rule.idx + 1 }}/{{ rule.len }}</div>
       <Button @click.native="nextRule" :disabled="rule.isLast">
         <template v-slot:text>
           <span>つぎへ</span>

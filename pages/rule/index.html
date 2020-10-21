@@ -3,7 +3,7 @@
   <div class="box">
     <p class="text">{{ rule.text }}</p>
     <img v-if="rule.image" :src="rule.image" alt="rule image" class="image" />
-    <div class="ctrls">
+    <div class="btns">
       <Button @click.native="prevRule" :disabled="rule.isFirst">
         <template v-slot:text>
           <span>まえへ</span>

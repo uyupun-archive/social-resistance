@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       logo: `${process.env.MITSU_URL}/images/logo/logo_white.svg`,
+      token: sessionStorage.token,
     }
   },
 }

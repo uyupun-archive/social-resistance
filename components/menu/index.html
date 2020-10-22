@@ -1,0 +1,29 @@
+<div>
+  <div class="hamburger-menu" :class="{'active': showMenu}" @click="onClickMenu">
+    <span />
+    <span />
+    <span />
+  </div>
+  <nav class="menu" :class="{'menu-active': showMenu}">
+    <ul class="menu-content">
+      <li v-for="item in menu" class="menu-item" @click="onClickMenuItem(item.path)">{{ item.name }}</li>
+    </ul>
+  </nav>
+  <ModalWithButtons ref="logoutModal">
+    <template v-slot:content>
+      <p>ログアウトしますか？</p>
+    </template>
+    <template v-slot:btns>
+      <Button @click.native="closeModal">
+        <template v-slot:text>
+          <span>いいえ</span>
+        </template>
+      </Button>
+      <Button @click.native="logout">
+        <template v-slot:text>
+          <span>はい</span>
+        </template>
+      </Button>
+    </template>
+  </ModalWithButtons>
+</div>

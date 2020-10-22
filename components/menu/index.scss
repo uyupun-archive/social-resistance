@@ -1,0 +1,103 @@
+.hamburger-menu {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  width: 50px;
+  height: 44px;
+  display: inline-block;
+  transition: all .3s;
+  box-sizing: border-box;
+  cursor: pointer;
+  z-index: 2;
+
+  & span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    display: inline-block;
+    transition: all .3s;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 4px;
+
+    &:nth-of-type(1) {
+      top: 0;
+    }
+
+    &:nth-of-type(2) {
+      top: 20px;
+    }
+
+    &:nth-of-type(3) {
+      bottom: 0;
+    }
+  }
+}
+
+.active {
+  & span:nth-of-type(1) {
+    transform: translateY(20px) rotate(-45deg);
+  }
+
+  & span:nth-of-type(2) {
+    opacity: 0;
+  }
+
+  & span:nth-of-type(3) {
+    transform: translateY(-20px) rotate(45deg);
+  }
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 420px;
+  height: 100vh;
+  z-index: 1;
+  overflow: hidden;
+  background: $black;
+  box-sizing: border-box;
+  border-left: 5px solid $white;
+  transform: translate(420px, 0);
+  transition: all .3s;
+
+  &-active {
+    transform: translate(0, 0);
+  }
+
+  &-content {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &-item {
+    position: relative;
+    font-size: 48px;
+    cursor: pointer;
+    padding: 10px 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 5px;
+      background: $white;
+      transition: all .3s;
+    }
+
+    &:hover {
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}

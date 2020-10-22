@@ -27,4 +27,7 @@
 			<p class="rank-rate">1300～</p>
 		</div>
 	</div>
+	<div v-for="item in ranklist" v-bind:key="item.index">
+		{{ item.name }}{{ item.rate }}
+	</div>
 </div>

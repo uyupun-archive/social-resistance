@@ -1,9 +1,9 @@
 <div class="container">
-	<div v-for="item in ranks" v-bind:key="item.index" class="rank-box">
+	<div v-for="rank in ranks" v-bind:key="rank.index" class="rank-box">
 		<img src='https://placehold.jp/120x120.png' >
 		<div>
-			<p class="rank-name">{{ item.name }}</p>
-			<p class="rank-rate">{{ item.rate }}</p>
+			<p class="rank-name">{{ rank.name }}</p>
+			<p class="rank-rate">{{ rank.rate }}</p>
 		</div>
 	</div>
 </div>

@@ -1,0 +1,89 @@
+.tab {
+	&-wrap {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	&-label {
+		color: $gray;
+		margin-right: 5px;
+		padding: 30px 50px;
+		font-size: 48px;
+		border: 5px solid $white;
+		order: -1;
+	}
+
+	&-content {
+		width: 100%;
+		display: none;
+	}
+
+	&-switch:checked+.tab-label {
+		color: $white;
+	}
+
+	&-switch:checked+.tab-label+.tab-content {
+		 display: block;
+	}
+
+	&-switch {
+		display: none;
+	}
+}
+
+.icon {
+	&-left {
+		display:block;
+	}
+
+	&-left:before {
+		content: "";
+		display:block;
+		border-top: solid 150px transparent;
+		border-right: solid 150px #FFFFFF;
+		border-bottom: solid 150px transparent;
+		border-left: solid 150px transparent;
+	}
+
+	&-right {
+		display:block;
+	}
+	
+	&-right:before {
+		content: "";
+		display:block;
+		border-top: solid 150px transparent;
+		border-right: solid 150px transparent;
+		border-bottom: solid 150px transparent;
+		border-left: solid 150px #FFFFFF;
+	}
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	// 中央揃え、なぜか効かない
+	margin: 50px 70px 50px 70px;
+}
+
+.charactor {
+	&-select {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: space-between;
+		width : auto;
+		height: 430px;
+	}
+
+	&-name{
+		font-size: 64px;
+	}
+	
+	&-button{
+		width: 270px;
+    height: 100px;
+		margin: 0 25px;
+	}
+}

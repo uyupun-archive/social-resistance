@@ -50,10 +50,14 @@ export default {
         this.$refs.logoutModal.open()
       }
     },
+    checkDisabled(path) {
+      return this.$route.path === path
+    },
     logout() {
       sessionStorage.removeItem('token')
       this.closeModal()
       this.showMenu = false
+      this.$router.push('/login')
     },
     closeModal() {
       this.$refs.logoutModal.close()

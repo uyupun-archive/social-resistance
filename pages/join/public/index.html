@@ -1,0 +1,21 @@
+<div class="container">
+  <tr>
+    <div class="th">
+      <th class="title">ワールドID</th>
+      <th class="title">ぼしゅうキャラ</th>
+    </div>
+    <div v-for="room in rooms" v-bind:key="rooms.index" class="room-list">
+      <tr class="room-worldId">{{ room.worldId }}</tr>
+      <tr class="room-charcter">{{ room.charcter }}</tr>
+      <tr>
+        <div class="btn-area">
+          <Button to="/" size="small">
+            <template v-slot:text>
+              <span>さんか</span>
+            </template>
+          </Button>
+        </div>
+      </tr>
+  </div>
+  </tr>
+</div>

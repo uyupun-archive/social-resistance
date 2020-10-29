@@ -57,7 +57,7 @@
           <Fa v-if="newUserIcon === currentUserIcon" icon="clipboard" class="check-icon" area-hidden="true" />
           {{userIcons[currentUserIcon].name}}
         </div>
-        <Button size="small" @click.native="selectIcon()">
+        <Button size="small" :disabled="currentUserIcon === newUserIcon" @click.native="selectIcon()">
           <template v-slot:text>
             <span>けってい</span>
           </template>

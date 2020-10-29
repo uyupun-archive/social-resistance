@@ -3,9 +3,9 @@
   <div v-for="user in users" v-bind:key="users.index" class="ranking-list">
     <span class="ranking-rank">{{ user.rank }}</span>
     <span class="ranking-name">{{ user.name }}</span>
-    <span class="ranking-score">
-      {{ user.score }}
+    <span class="ranking-rate">
       <img src='https://placehold.jp/20x20.png' >
+      {{ user.rate }}
     </span>
   </div>
 </div>

@@ -7,13 +7,13 @@ export default {
   data() {
     return {
       users: [
-        { name: 'ばいきんくん', score: '9999', rank: '1st' },
-        { name: 'ばいきんくん', score: '9999', rank: '2nd' },
-        { name: 'ばいきんくん', score: '9999', rank: '3rd' },
-        { name: 'ばいきんくん', score: '9999', rank: '4th' },
-        { name: 'ばいきんくん', score: '9999', rank: '5th' },
-        { name: 'ばいきんくん', score: '9999', rank: '6th' },
-        { name: 'ばいきんくん', score: '9999', rank: '7th' },
+        { name: 'ばいきんくん', rate: '9999', rank: '1st' },
+        { name: 'ばいきんくん', rate: '9999', rank: '2nd' },
+        { name: 'ばいきんくん', rate: '9999', rank: '3rd' },
+        { name: 'ばいきんくん', rate: '9999', rank: '4th' },
+        { name: 'ばいきんくん', rate: '9999', rank: '5th' },
+        { name: 'ばいきんくん', rate: '9999', rank: '6th' },
+        { name: 'ばいきんくん', rate: '9999', rank: '7th' },
       ],
     }
   },

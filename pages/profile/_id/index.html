@@ -1,6 +1,6 @@
 <div class="container">
   <div class="user-icon__area">
-    <img :src="user.icon" alt="user icon" class="user-icon" />
+    <img :src="userIcons[user.icon].url" alt="user icon" class="user-icon" />
   </div>
   <div class="info">
     <div class="info-item">
@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="btn-area">
-    <Button to="/profile/edit" size="large">
+    <Button to="/profile/edit" size="middle">
       <template v-slot:text>
         <span>へんしゅう</span>
       </template>

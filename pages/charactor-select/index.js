@@ -4,4 +4,9 @@ export default {
   components: {
     Button,
   },
+  methods: {
+    charaSelect() {
+      alert('いえい')
+    },
+  },
 }

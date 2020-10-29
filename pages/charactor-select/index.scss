@@ -6,7 +6,6 @@
 
 	&-label {
 		color: $gray;
-		margin-right: 5px;
 		padding: 30px 50px;
 		font-size: 48px;
 		border: 5px solid $white;
@@ -60,10 +59,8 @@
 }
 
 .container {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	// 中央揃え、なぜか効かない
+	display: block;
+	text-align: center;
 	margin: 50px 70px 50px 70px;
 }
 
@@ -77,11 +74,18 @@
 		height: 430px;
 	}
 
-	&-name{
+	&-icon {
+		color: green;
+	}
+
+	&-name {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
 		font-size: 64px;
 	}
 	
-	&-button{
+	&-button {
 		width: 270px;
     height: 100px;
 		margin: 0 25px;

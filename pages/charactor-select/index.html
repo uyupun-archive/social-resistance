@@ -4,19 +4,23 @@
 	<div class="tab-content">
 		<div class="container">
 			<div class="charactor-select">
-				<p><a href="" class="icon-left"></a></p>
+				<p><span href="" class="icon-left"></span></p>
 				<img src='https://placehold.jp/430x430.png' >
-				<p><a href="" class="icon-right"></a></p>
+				<p><span href="" class="icon-right"></span></p>
 			</div>
 			<div class="charactor-name">
-				<!-- アイコンを入れる -->
-				<p>チンピラウサギ</p>
+				<p>
+					<Fa :icon="['far', 'check-circle']" class="charactor-icon" />
+					チンピラウサギ
+				</p>
 			</div>
-			<Button class="charactor-button">
-				<template v-slot:text>
-					<span>決定</span>
-				</template>
-			</Button>
+			<div>
+				<Button class="charactor-button" @click.native="charaSelect">
+					<template v-slot:text>
+						<span>決定</span>
+					</template>
+				</Button>
+			</div>
 		</div>
 	</div>
 	<input id="TAB-02" type="radio" name="TAB" class="tab-switch" />

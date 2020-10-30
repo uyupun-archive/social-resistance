@@ -1,4 +1,10 @@
 export default {
+  props: {
+    isClickSelf: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       isClose: false,
@@ -15,6 +21,9 @@ export default {
     },
     open() {
       this.showModal = true
+    },
+    onClickSelf() {
+      if (this.isClickSelf) this.close()
     },
   },
 }

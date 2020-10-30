@@ -6,14 +6,14 @@ export default {
   },
   data() {
     return {
-      rooms: [
-        { worldId: 'ABCDEF', charcter: 'ばいきんくん' },
-        { worldId: 'ABCDEF', charcter: 'ばいきんくん' },
-        { worldId: 'ABCDEF', charcter: 'ばいきんくん' },
-        { worldId: 'ABCDEF', charcter: 'ばいきんくん' },
-        { worldId: 'ABCDEF', charcter: 'ばいきんくん' },
-        { worldId: 'ABCDEF', charcter: 'ばいきんくん' },
-        { worldId: 'ABCDEF', charcter: 'ばいきんくん' },
+      worlds: [
+        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
+        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
+        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
+        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
+        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
+        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
+        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
       ],
     }
   },

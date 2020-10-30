@@ -1,29 +1,29 @@
 <div class="container">
   <table class="table">
-    <thead class="border">
+    <thead class="table-header">
       <tr>
-        <th class="title">ワールドID</th>
-        <th class="title">ぼしゅうキャラ</th>
+        <th class="table-header__col">ワールドID</th>
+        <th class="table-header__col">ぼしゅうキャラ</th>
+        <th class="table-header__col" />
       </tr>
     </thead>
-    <tbody>
-      <tr v-for="world in worlds" v-bind:key="world.index" class="world-list">
-        <td>{{ world.Id }}</td>
-        <td>{{ world.role }}</td>
-        <td>
-          <div class="btn-area">
-            <Button to="/" size="small">
-              <template v-slot:text>
-                <span>さんか</span>
-              </template>
-            </Button>
-          </div>
+    <tbody class="table-body">
+      <tr v-for="world in worlds" v-bind:key="world.id" class="table-body__row">
+        <td class="table-body__col">{{ world.id }}</td>
+        <td class="table-body__col">{{ world.role === 1 ? 'うさぎさん' : 'ばいきんくん' }}</td>
+        <td class="table-body__col">
+          <Button size="small" @click.native="joinWorld(world.id)">
+            <template v-slot:text>
+              <span>さんか</span>
+            </template>
+          </Button>
         </td>
       </tr>
     </tbody> 
   </table>
+  <p v-if="error" class="error-message">{{ errorMessage }}</p>
   <div class="btn-area">
-    <Button to="/" size="midiam">
+    <Button to="/join" size="middle">
       <template v-slot:text>
         <span>やめる</span>
       </template>

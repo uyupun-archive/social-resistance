@@ -1,33 +1,41 @@
 .container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	margin: 45px 0 0 0;
+	font-size: 4.8rem;
+	padding: 90px 0 0 0;
 }
 
-.world {
-	&-list {
-		justify-content: space-between;
-		width: 850px;
-		text-align: center;
-		font-size: 3.8rem;
+.table {
+	width: 100%;
+	max-width: 900px;
+	white-space: nowrap;
+	border-collapse: collapse;
+	margin: 0 auto 40px;
+
+	&-header {
+		border-bottom: 5px solid $white;
+
+		&__col {
+			padding: 0 0 30px;
+		}
+	}
+
+	&-body {
+		&__col {
+			text-align: center;
+			padding: 30px 0 0;
+		}
 	}
 }
-.table{
-	border-collapse:collapse;
-	width: 850px;
+
+.error {
+	&-message {
+		text-align: center;
+		color: $red;
+		margin: 0 0 40px;
+	}
 }
 
-.border{
-	border-bottom: 3px solid white;
-}
-
-.title{
-	font-size: 4.0rem;
-	justify-content: space-between;
-	align-items: left;
-	width: 280px;
-	height: 120px;
-	margin-left: 100px;
+.btn {
+	&-area {
+		text-align: center;
+	}
 }

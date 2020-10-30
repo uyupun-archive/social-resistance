@@ -1,11 +1,26 @@
 <div class="container">
-  <p class="title">ランキング</p>
-  <div v-for="user in users" :key="user.id" class="ranking-list">
-    <span class="ranking-rank">{{ user.rank }}</span>
-    <span class="ranking-name">{{ user.name }}</span>
-    <span class="ranking-rate">
-      <img src='https://placehold.jp/20x20.png' >
-      {{ user.rate }}
-    </span>
-  </div>
+  <p class="title">
+    ランキング
+    <nuxt-link to="/rank">
+      <Fa icon="clipboard" class="question-icon" area-hidden="true" />
+    </nuxt-link>
+  </p>
+  <ul class="ranking">
+    <li v-for="(ranking, index) in rankings" :key="ranking.userId" class="ranking-item">
+      <span class="ranking-rank">{{ ranking.rank }}</span>
+      <span class="ranking-user__id">{{ ranking.userId }}</span>
+      <span class="ranking-rate">
+        <img
+          src='https://placehold.jp/100x100.png'
+          alt="rate icon"
+          class="ranking-rate__icon"
+          :class="{
+            'first': index === 0,
+            'second': index === 1,
+            'third': index === 2,
+          }"
+        >{{ ranking.rate }}
+      </span>
+    </li>
+  </ul>
 </div>

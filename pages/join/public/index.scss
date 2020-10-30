@@ -8,16 +8,18 @@
 
 .world {
 	&-list {
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
+		justify-content: space-between;
 		width: 850px;
-		margin-top: 30px;
+		text-align: center;
 		font-size: 3.8rem;
 	}
 }
+.table{
+	border-collapse:collapse;
+	width: 850px;
+}
 
-.th{
+.border{
 	border-bottom: 3px solid white;
 }
 

@@ -7,13 +7,14 @@ export default {
   data() {
     return {
       worlds: [
-        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
-        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
-        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
-        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
-        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
-        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
-        { Id: 'ABCDEF', charcter: 'ばいきんくん' },
+        { Id: 'ABCDEF', role: 'ばいきんくん' },
+        { Id: 'ABCDEF', role: 'ばいきんくん' },
+        { Id: 'ABCDEF', role: 'ばいきんくん' },
+        { Id: 'ABCDEF', role: 'ばいきんくん' },
+        { Id: 'ABCDEF', role: 'ばいきんくん' },
+        { Id: 'ABCDEF', role: 'ばいきんくん' },
+        { Id: 'ABCDEF', role: 'ばいきんくん' },
+        { Id: 'ABCDEF', role: 'ばいきんくん' },
       ],
     }
   },

@@ -1,22 +1,26 @@
 <div class="container">
-  <table>
-    <div class="th">
-      <th class="title">ワールドID</th>
-      <th class="title">ぼしゅうキャラ</th>
-    </div>
-    <div v-for="world in worlds" v-bind:key="world.index" class="world-list">
-      <tr>{{ world.Id }}</tr>
-      <tr>{{ world.charcter }}</tr>
+  <table class="table">
+    <thead class="border">
       <tr>
-        <div class="btn-area">
-          <Button to="/" size="small">
-            <template v-slot:text>
-              <span>さんか</span>
-            </template>
-          </Button>
-        </div>
+        <th class="title">ワールドID</th>
+        <th class="title">ぼしゅうキャラ</th>
       </tr>
-    </div>
+    </thead>
+    <tbody>
+      <tr v-for="world in worlds" v-bind:key="world.index" class="world-list">
+        <td>{{ world.Id }}</td>
+        <td>{{ world.role }}</td>
+        <td>
+          <div class="btn-area">
+            <Button to="/" size="small">
+              <template v-slot:text>
+                <span>さんか</span>
+              </template>
+            </Button>
+          </div>
+        </td>
+      </tr>
+    </tbody> 
   </table>
   <div class="btn-area">
     <Button to="/" size="midiam">

@@ -10,12 +10,12 @@
 			</div>
 			<div class="charactor-name">
 				<p>
-					<Fa :icon="['far', 'check-circle']" class="charactor-icon" />
+					<Fa :icon="['far', 'check-circle']" class="charactor-icon" v-show="charaselected"/>
 					チンピラウサギ
 				</p>
 			</div>
 			<div>
-				<Button class="charactor-button" @click.native="charaSelect">
+				<Button class="charactor-button" @click.native="charaSelect" :disabled="charaselected">
 					<template v-slot:text>
 						<span>決定</span>
 					</template>
@@ -29,19 +29,23 @@
 	<div class="tab-content">
 		<div class="container">
 			<div class="charactor-select">
-				<p><a href="" class="icon-left"></a></p>
-				<img src='https://placehold.jp/430x430.png' >
-				<p><a href="" class="icon-right"></a></p>
+				<p><button class="leftandright-btn"><Fa icon="caret-left" class="leftandright-icon"/></button></p>
+				<img src='https://placehold.jp/430x430.png' alt="charaImage" >
+				<p><button class="leftandright-btn"><Fa icon="caret-right" class="leftandright-icon" /></button></p>
 			</div>
 			<div class="charactor-name">
-				<!-- アイコンを入れる -->
-				<p>ばいきんくん</p>
+				<p>
+					<Fa :icon="['far', 'check-circle']" class="charactor-icon" v-show="charaselected"/>
+					バイキンくん
+				</p>
 			</div>
-			<Button class="charactor-button">
-				<template v-slot:text>
-					<span>決定</span>
-				</template>
-			</Button>
+			<div>
+				<Button class="charactor-button" @click.native="charaSelect" :disabled="charaselected">
+					<template v-slot:text>
+						<span>決定</span>
+					</template>
+				</Button>
+			</div>
 		</div>
 	</div>
 </div>

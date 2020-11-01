@@ -4,9 +4,14 @@ export default {
   components: {
     Button,
   },
+  data() {
+    return {
+      charaselected: false,
+    }
+  },
   methods: {
     charaSelect() {
-      alert('いえい')
+      this.charaselected = true
     },
   },
 }

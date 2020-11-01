@@ -6,12 +6,12 @@ export default {
   },
   data() {
     return {
-      charaselected: false,
+      characterselected: false,
     }
   },
   methods: {
-    charaSelect() {
-      this.charaselected = true
+    isSelectCharacter() {
+      this.characterselected = true
     },
   },
 }

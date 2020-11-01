@@ -7,6 +7,7 @@ import {
   faCaretLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons'
+
 // nuxt.config.jsでCSSファイルを追加
 config.autoAddCss = false
 

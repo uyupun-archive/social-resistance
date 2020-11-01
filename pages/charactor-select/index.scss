@@ -1,12 +1,20 @@
+.container {
+	display: block;
+	text-align: center;
+	width: 100vw;
+  height: 100vh;
+}
+
 .tab {
 	&-wrap {
 		display: flex;
 		flex-wrap: wrap;
+		margin-top: 70px;
 	}
 
 	&-label {
+		cursor: pointer;
 		color: $gray;
-		margin-top: 70px;
 		padding: 30px 50px;
 		font-size: 48px;
 		border: 5px solid $white;
@@ -22,7 +30,7 @@
 		width: 100%;
 		display: none;
 		margin: -5px; //タブの下線の黒とボーダートップの白を重ねてる。黒が優先されてほしい
-		border-top: 5px solid #FFFFFF;//これでタブ下の線を作ってる
+		border-top: 5px solid $white;//これでタブ下の線を作ってる
 	}
 
 	&-switch:before {
@@ -45,10 +53,12 @@
 	}
 }
 
-.leftandright {
+.prevandnext {
 	&-btn {
+		cursor: pointer;
 		background-color: $black;
-		border-color: $black;
+		border: none;
+		outline: none;
 	}
 
 	&-icon {
@@ -57,36 +67,35 @@
 	}
 }
 
-.container {
-	display: block;
-	text-align: center;
-	margin: 50px 70px 50px 70px;
-}
-
-.charactor {
+.character {
 	&-select {
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: space-around;
 		width : auto;
 		height: 430px;
+		margin-top: 50px;
 	}
 
 	&-icon {
-		color: green;
+		color: $green;
+		margin-right: 10px;
 	}
 
 	&-name {
 		display: flex;
+		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
 		font-size: 64px;
+		margin: 64px auto;
 	}
 	
-	&-button {
+	&-btn {
 		width: 270px;
     height: 100px;
 		margin: 0 25px;
+		margin-bottom: 70px;
 	}
 }

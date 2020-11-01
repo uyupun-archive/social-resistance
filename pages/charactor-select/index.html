@@ -1,46 +1,40 @@
-<div class="tab-wrap">
-	<input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" />
-	<label class="tab-label" for="TAB-01">うさぎさん</label>
-	<div class="tab-content">
-		<div class="container">
-			<div class="charactor-select">
-				<p><button class="leftandright-btn"><Fa icon="caret-left" class="leftandright-icon"/></button></p>
-				<img src='https://placehold.jp/430x430.png' alt="charaImage" >
-				<p><button class="leftandright-btn"><Fa icon="caret-right" class="leftandright-icon" /></button></p>
+<div class="container">
+	<div class="tab-wrap">
+		<input id="characterTab-01" type="radio" name="tab" class="tab-switch" checked="checked" />
+		<label class="tab-label" for="characterTab-01">うさぎさん</label>
+		<div class="tab-content">
+			<div class="character-select">
+				<span><button class="prevandnext-btn"><Fa icon="caret-left" class="prevandnext-icon"/></button></span>
+				<img src='https://placehold.jp/430x430.png' alt="characterImage" >
+				<span><button class="prevandnext-btn"><Fa icon="caret-right" class="prevandnext-icon" /></button></span>
 			</div>
-			<div class="charactor-name">
-				<p>
-					<Fa :icon="['far', 'check-circle']" class="charactor-icon" v-show="charaselected"/>
-					チンピラウサギ
-				</p>
+			<div class="character-name">
+				<Fa :icon="['far', 'check-circle']" class="character-icon" v-show="characterselected"/>
+				<span>チンピラウサギ</span>
 			</div>
 			<div>
-				<Button class="charactor-button" @click.native="charaSelect" :disabled="charaselected">
+				<Button class="character-btn" @click.native="isSelectCharacter" :disabled="characterselected">
 					<template v-slot:text>
 						<span>決定</span>
 					</template>
 				</Button>
 			</div>
 		</div>
-	</div>
-	<!-- ここからタブ２、ばいきんくんタブ -->
-	<input id="TAB-02" type="radio" name="TAB" class="tab-switch" />
-	<label class="tab-label" for="TAB-02">ばいきんくん</label>
-	<div class="tab-content">
-		<div class="container">
-			<div class="charactor-select">
-				<p><button class="leftandright-btn"><Fa icon="caret-left" class="leftandright-icon"/></button></p>
-				<img src='https://placehold.jp/430x430.png' alt="charaImage" >
-				<p><button class="leftandright-btn"><Fa icon="caret-right" class="leftandright-icon" /></button></p>
+		<!-- ここからタブ２、ばいきんくんタブ -->
+		<input id="characterTab-02" type="radio" name="tab" class="tab-switch" />
+		<label class="tab-label" for="characterTab-02">ばいきんくん</label>
+		<div class="tab-content">
+			<div class="character-select">
+				<span><button class="prevandnext-btn"><Fa icon="caret-left" class="prevandnext-icon"/></button></span>
+				<img src='https://placehold.jp/430x430.png' alt="characterImage" >
+				<span><button class="prevandnext-btn"><Fa icon="caret-right" class="prevandnext-icon" /></button></span>
 			</div>
-			<div class="charactor-name">
-				<p>
-					<Fa :icon="['far', 'check-circle']" class="charactor-icon" v-show="charaselected"/>
-					バイキンくん
-				</p>
+			<div class="character-name">
+					<Fa :icon="['far', 'check-circle']" class="character-icon" v-show="characterselected"/>
+					<span>ばいきんくん</span>
 			</div>
 			<div>
-				<Button class="charactor-button" @click.native="charaSelect" :disabled="charaselected">
+				<Button class="character-btn" @click.native="isSelectCharacter" :disabled="characterselected">
 					<template v-slot:text>
 						<span>決定</span>
 					</template>

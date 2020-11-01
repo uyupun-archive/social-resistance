@@ -21,8 +21,8 @@
 	&-content {
 		width: 100%;
 		display: none;
-		margin: -5px;
-		border-top: 5px solid #FFFFFF;
+		margin: -5px; //タブの下線の黒とボーダートップの白を重ねてる。黒が優先されてほしい
+		border-top: 5px solid #FFFFFF;//これでタブ下の線を作ってる
 	}
 
 	&-switch:before {
@@ -33,8 +33,7 @@
 
 	&-switch:checked+.tab-label {
 		color: $white;
-		border-bottom: black ;
-		z-index: 1000;
+		border-bottom: black !important;//選択したタブ下を黒くするための記述。importantを当てているが優先されない
 	}
 
 	&-switch:checked+.tab-label+.tab-content {

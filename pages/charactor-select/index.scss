@@ -1,8 +1,10 @@
 .container {
 	display: block;
 	text-align: center;
-	width: 100vw;
-  height: 100vh;
+	width: 1000px;
+	height: 100vh;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .tab {
@@ -15,22 +17,16 @@
 	&-label {
 		cursor: pointer;
 		color: $gray;
-		padding: 30px 50px;
+		padding: 15px 30px;
 		font-size: 48px;
-		border: 5px solid $white;
 		order: -1;
-	}
-
-	&-label:first-child {
-		margin-left: 220px;
-		//効かない。助言求ム
 	}
 
 	&-content {
 		width: 100%;
 		display: none;
-		margin: -5px; //タブの下線の黒とボーダートップの白を重ねてる。黒が優先されてほしい
-		border-top: 5px solid $white;//これでタブ下の線を作ってる
+		margin: -5px; 
+		border-top: 5px solid $white;
 	}
 
 	&-switch:before {
@@ -39,13 +35,15 @@
 			bottom: 0;
 	}
 
-	&-switch:checked+.tab-label {
+	&-switch:checked + .tab-label {
 		color: $white;
-		border-bottom: black !important;//選択したタブ下を黒くするための記述。importantを当てているが優先されない
+		border: 5px solid $white;
+		border-bottom: 5px solid $black ;
+		z-index: 1000;
 	}
 
-	&-switch:checked+.tab-label+.tab-content {
-		 display: block;
+	&-switch:checked + .tab-label + .tab-content {
+		display: block;
 	}
 
 	&-switch {
@@ -53,16 +51,10 @@
 	}
 }
 
-.prevandnext {
-	&-btn {
-		cursor: pointer;
-		background-color: $black;
-		border: none;
-		outline: none;
-	}
-
+.prevAndNext {
 	&-icon {
-	font-size: 200px;
+	cursor: pointer;
+	font-size: 300px;
 	color: $white;
 	}
 }
@@ -72,10 +64,11 @@
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: center;
-		justify-content: space-around;
-		width : auto;
+		justify-content: space-between;
+		width : 70%;
+		max-width: 900px;
 		height: 430px;
-		margin-top: 50px;
+		margin: 50px auto 64px auto;
 	}
 
 	&-icon {
@@ -89,7 +82,7 @@
 		justify-content: center;
 		flex-wrap: wrap;
 		font-size: 64px;
-		margin: 64px auto;
+		margin-bottom: 64px;
 	}
 	
 	&-btn {

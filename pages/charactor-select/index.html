@@ -6,13 +6,15 @@
 		<label class="tab-label" for="characterTab-02">ばいきんくん</label>
 		<div class="tab-content">
 			<div class="character-select">
-				<Fa icon="caret-left" class="prevAndNext-icon" />
-				<img src='https://placehold.jp/430x430.png' alt="characterImage" >
-				<Fa icon="caret-right" class="prevAndNext-icon" />
+				<Fa icon="caret-left" class="prevAndNext-icon" @click="prevCharacter()" />
+				<img v-if="isPekoraTab" :src='pekoras[currentPekora].img' alt="characterImage" >
+				<img v-if="!isPekoraTab" :src='baikinkuns[currentBaikinkun].img' alt="characterImage" >
+				<Fa icon="caret-right" class='prevAndNext-icon' @click="nextCharacter()" />
 			</div>
 			<div class="character-name">
 				<Fa :icon="['far', 'check-circle']" class="character-icon" v-show="characterselected"/>
-				<span > {{ slectedTabCharacter.name }} </span>
+				<span v-if="isPekoraTab"> {{ pekoras[currentPekora].name }} </span>
+				<span v-if="!isPekoraTab"> {{ baikinkuns[currentBaikinkun].name }} </span>
 			</div>
 			<div>
 				<Button class="character-btn" @click.native="isSelectCharacter" :disabled="characterselected">

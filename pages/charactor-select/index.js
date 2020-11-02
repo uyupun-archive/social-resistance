@@ -7,10 +7,9 @@ export default {
   data() {
     return {
       isPekoraTab: true,
-      slectedTabCharacter: {
-        img: 'https://placehold.jp/430x430.png',
-        name: 'うさぎくん',
-      },
+      currentBaikinkun: 0,
+      currentPekora: 0,
+
       pekoras: [
         { img: 'https://placehold.jp/430x430.png', name: 'チンピラウサギ' },
         { img: 'https://placehold.jp/430x430.png', name: 'おはようさぎ' },
@@ -29,17 +28,33 @@ export default {
       this.characterselected = true
     },
     toggleSelectTab(isPekoraTab) {
-      if (isPekoraTab) {
-        this.slectedTabCharacter = this.pekoras[0]
+      this.isPekoraTab = isPekoraTab
+    },
+    prevCharacter() {
+      if (this.isPekoraTab) {
+        if (this.currentPekora > 0) {
+          this.currentPekora--
+        } else {
+          this.currentPekora = this.pekoras.length - 1
+        }
+      } else if (this.currentBaikinkun > 0) {
+        this.currentBaikinkun--
       } else {
-        this.slectedTabCharacter = this.baikinkuns[0]
+        this.currentBaikinkun = this.baikinkuns.length - 1
       }
     },
-    // prevCharacter() {
-    //   this.usas--
-    // },
-    // nextCharacter() {
-    //   this.baikins++
-    // },
+    nextCharacter() {
+      if (this.isPekoraTab) {
+        if (this.currentPekora < this.pekoras.length - 1) {
+          this.currentPekora++
+        } else {
+          this.currentPekora = 0
+        }
+      } else if (this.currentBaikinkun < this.baikinkuns.length - 1) {
+        this.currentBaikinkun++
+      } else {
+        this.currentBaikinkun = 0
+      }
+    },
   },
 }

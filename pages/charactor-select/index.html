@@ -1,18 +1,18 @@
 <div class="container">
 	<div class="tab-wrap">
-		<input id="characterTab-01" type="radio" name="tab" class="tab-switch" checked="checked" @click="isSelectTab(true)" />
+		<input id="characterTab-01" type="radio" name="tab" class="tab-switch" checked="checked" @click="toggleSelectTab(true)" />
 		<label class="tab-label" for="characterTab-01">うさぎさん</label>
-		<input id="characterTab-02" type="radio" name="tab" class="tab-switch" @click="isSelectTab(false)" />
+		<input id="characterTab-02" type="radio" name="tab" class="tab-switch" @click="toggleSelectTab(false)" />
 		<label class="tab-label" for="characterTab-02">ばいきんくん</label>
 		<div class="tab-content">
 			<div class="character-select">
-				<Fa icon="caret-left" class="prevAndNext-icon"/>
+				<Fa icon="caret-left" class="prevAndNext-icon" />
 				<img src='https://placehold.jp/430x430.png' alt="characterImage" >
 				<Fa icon="caret-right" class="prevAndNext-icon" />
 			</div>
 			<div class="character-name">
 				<Fa :icon="['far', 'check-circle']" class="character-icon" v-show="characterselected"/>
-				<span > {{ slectedTabCharacter }} </span>
+				<span > {{ slectedTabCharacter.name }} </span>
 			</div>
 			<div>
 				<Button class="character-btn" @click.native="isSelectCharacter" :disabled="characterselected">

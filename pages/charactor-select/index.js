@@ -7,8 +7,17 @@ export default {
   data() {
     return {
       selectTab: Boolean(true),
-      charactersUsa: ['チンピラウサギ', 'ノーマルウサギ'],
-      charactersBaikin: ['バイキンくん', '双子ばいきん'],
+      slectedTabCharacter: String('うさぎくん'),
+      usas: [
+        { name: 'チンピラウサギ' },
+        { name: 'おはようさぎ' },
+        { name: 'ぺこら' },
+      ],
+      baikins: [
+        { name: 'ばいきんくん' },
+        { name: 'ふたごばいきん' },
+        { name: 'へずまりゅう' },
+      ],
       characterselected: false,
     }
   },
@@ -18,9 +27,9 @@ export default {
     },
     isSelectTab(value) {
       if (value === true) {
-        console.log(this.charactersUsa[0])
+        this.slectedTabCharacter = this.usas[0].name
       } else {
-        console.log(this.charactersBaikin[0])
+        this.slectedTabCharacter = this.baikins[0].name
       }
     },
   },

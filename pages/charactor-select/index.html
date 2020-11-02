@@ -12,12 +12,12 @@
 				<Fa icon="caret-right" class='prevAndNext-icon' @click="nextCharacter()" />
 			</div>
 			<div class="character-name">
-				<Fa :icon="['far', 'check-circle']" class="character-icon" v-show="characterselected"/>
+				<Fa :icon="['far', 'check-circle']" class="character-icon" v-show="characterSelected"/>
 				<span v-if="isPekoraTab"> {{ pekoras[currentPekora].name }} </span>
 				<span v-if="!isPekoraTab"> {{ baikinkuns[currentBaikinkun].name }} </span>
 			</div>
 			<div>
-				<Button class="character-btn" @click.native="isSelectCharacter" :disabled="characterselected">
+				<Button class="character-btn" @click.native="isSelectCharacter" :disabled="characterSelected">
 					<template v-slot:text>
 						<span>決定</span>
 					</template>

@@ -9,7 +9,6 @@ export default {
       isPekoraTab: true,
       currentBaikinkun: 0,
       currentPekora: 0,
-
       pekoras: [
         { img: 'https://placehold.jp/430x430.png', name: 'チンピラウサギ' },
         { img: 'https://placehold.jp/430x430.png', name: 'おはようさぎ' },
@@ -20,12 +19,12 @@ export default {
         { img: 'https://placehold.jp/430x430.png', name: 'ふたごばいきん' },
         { img: 'https://placehold.jp/430x430.png', name: 'へずまりゅう' },
       ],
-      characterselected: false,
+      characterSelected: false,
     }
   },
   methods: {
     isSelectCharacter() {
-      this.characterselected = true
+      this.characterSelected = true
     },
     toggleSelectTab(isPekoraTab) {
       this.isPekoraTab = isPekoraTab

@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="tab-wrap">
-		<input id="characterTab-01" type="radio" name="tab" class="tab-switch" checked="checked" />
+		<input id="characterTab-01" type="radio" name="tab" class="tab-switch" checked="checked" @click="isSelectTab(true)" />
 		<label class="tab-label" for="characterTab-01">うさぎさん</label>
 		<div class="tab-content">
 			<div class="character-select">
@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		<!-- ここからタブ２、ばいきんくんタブ -->
-		<input id="characterTab-02" type="radio" name="tab" class="tab-switch" />
+		<input id="characterTab-02" type="radio" name="tab" class="tab-switch" @click="isSelectTab(false)" />
 		<label class="tab-label" for="characterTab-02">ばいきんくん</label>
 		<div class="tab-content">
 			<div class="character-select">

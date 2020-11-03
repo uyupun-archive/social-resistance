@@ -28,6 +28,7 @@ export default {
     onSubmit(e) {
       // TODO: 登録処理
       this.error = true
+      sessionStorage.setItem('token', 'token')
     },
   },
 }

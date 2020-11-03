@@ -40,6 +40,7 @@ export default {
       this.error.userId.state = true
       this.error.password.state = true
       this.submitError = true
+      sessionStorage.setItem('token', 'token')
     },
   },
 }

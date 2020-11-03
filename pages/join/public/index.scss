@@ -1,0 +1,41 @@
+.container {
+	font-size: 4.8rem;
+	padding: 90px 0 0 0;
+}
+
+.table {
+	width: 100%;
+	max-width: 900px;
+	white-space: nowrap;
+	border-collapse: collapse;
+	margin: 0 auto 40px;
+
+	&-header {
+		border-bottom: 5px solid $white;
+
+		&__col {
+			padding: 0 0 30px;
+		}
+	}
+
+	&-body {
+		&__col {
+			text-align: center;
+			padding: 30px 0 0;
+		}
+	}
+}
+
+.error {
+	&-message {
+		text-align: center;
+		color: $red;
+		margin: 0 0 40px;
+	}
+}
+
+.btn {
+	&-area {
+		text-align: center;
+	}
+}

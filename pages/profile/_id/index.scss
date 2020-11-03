@@ -1,0 +1,74 @@
+.container {
+  text-align: center;
+  padding: 120px 0 0;
+}
+
+.user {
+  &-icon {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+
+    &__area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 250px;
+      height: 250px;
+      background: $white;
+      border-radius: 50%;
+      margin: 0 auto 100px;;
+    }
+  }
+}
+
+.info {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 60px;
+
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 40px;
+
+    &:nth-last-of-type() {
+      margin: 0;
+    }
+  }
+
+  &-label {
+    width: 50%;
+    font-size: 4.8rem;
+    text-align: left;
+  }
+
+  &-data {
+    width: 50%;
+    font-size: 4.8rem;
+    text-align: left;
+  }
+}
+
+.question {
+  &-icon {
+    vertical-align: top;
+    font-size: 2.4rem;
+    color: $white;
+  }
+}
+
+.rate {
+  &-icon {
+    width: auto;
+    height: 4.8rem;
+  }
+}
+
+.btn {
+  &-area {
+    text-align: center;
+  }
+}

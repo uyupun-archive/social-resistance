@@ -13,7 +13,6 @@ import { faCheckCircle } from '@fortawesome/free-regular-svg-icons'
 config.autoAddCss = false
 
 // 利用するアイコンを配列に追加
-const solidIcons = [faClipboard, faCheckCircle, faCaretLeft, faCaretRight]
 const icons = [faClipboard, faCaretRight, faCaretLeft, faSync, faCheckCircle]
 
 // 利用するアイコンをlibraryに追加

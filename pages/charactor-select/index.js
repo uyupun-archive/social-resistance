@@ -7,8 +7,8 @@ export default {
   data() {
     return {
       isPekoraTab: true,
-      currentBaikinkun: 0,
-      currentPekora: 0,
+      currentBaikinkunPointer: 0,
+      currentPekoraPointer: 0,
       pekoras: [
         { img: 'https://placehold.jp/430x430.png', name: 'チンピラウサギ' },
         { img: 'https://placehold.jp/430x430.png', name: 'おはようさぎ' },
@@ -23,37 +23,31 @@ export default {
     }
   },
   methods: {
-    isSelectCharacter() {
+    selectCharacter() {
       this.characterSelected = true
     },
-    toggleSelectTab(isPekoraTab) {
+    switchTab(isPekoraTab) {
       this.isPekoraTab = isPekoraTab
     },
     prevCharacter() {
       if (this.isPekoraTab) {
-        if (this.currentPekora > 0) {
-          this.currentPekora--
-        } else {
-          this.currentPekora = this.pekoras.length - 1
-        }
-      } else if (this.currentBaikinkun > 0) {
-        this.currentBaikinkun--
-      } else {
-        this.currentBaikinkun = this.baikinkuns.length - 1
+        if (this.currentPekoraPointer > 0) this.currentPekoraPointer--
+        else this.currentPekoraPointer = this.pekoras.length - 1
+        return
       }
+      if (this.currentBaikinkunPointer > 0) this.currentBaikinkunPointer--
+      else this.currentBaikinkunPointer = this.baikinkuns.length - 1
     },
     nextCharacter() {
       if (this.isPekoraTab) {
-        if (this.currentPekora < this.pekoras.length - 1) {
-          this.currentPekora++
-        } else {
-          this.currentPekora = 0
-        }
-      } else if (this.currentBaikinkun < this.baikinkuns.length - 1) {
-        this.currentBaikinkun++
-      } else {
-        this.currentBaikinkun = 0
+        if (this.currentPekoraPointer < this.pekoras.length - 1)
+          this.currentPekoraPointer++
+        else this.currentPekoraPointer = 0
+        return
       }
+      if (this.currentBaikinkunPointer < this.baikinkuns.length - 1)
+        this.currentBaikinkunPointer++
+      else this.currentBaikinkunPointer = 0
     },
   },
 }

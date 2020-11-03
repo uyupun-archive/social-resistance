@@ -1,23 +1,23 @@
 <div class="container">
 	<div class="tab-wrap">
-		<input id="characterTab-01" type="radio" name="tab" class="tab-switch" checked="checked" @click="toggleSelectTab(true)" />
-		<label class="tab-label" for="characterTab-01">うさぎさん</label>
-		<input id="characterTab-02" type="radio" name="tab" class="tab-switch" @click="toggleSelectTab(false)" />
-		<label class="tab-label" for="characterTab-02">ばいきんくん</label>
+		<input id="Tab-Pekora" type="radio" name="tab" class="tab-switch" checked="checked" @click="switchTab(true)" />
+		<label class="tab-label" for="Tab-Pekora">うさぎさん</label>
+		<input id="Tab-Baikinkun" type="radio" name="tab" class="tab-switch" @click="switchTab(false)" />
+		<label class="tab-label" for="Tab-Baikinkun">ばいきんくん</label>
 		<div class="tab-content">
 			<div class="character-select">
 				<Fa icon="caret-left" class="prevAndNext-icon" @click="prevCharacter()" />
-				<img v-if="isPekoraTab" :src='pekoras[currentPekora].img' alt="characterImage" >
-				<img v-if="!isPekoraTab" :src='baikinkuns[currentBaikinkun].img' alt="characterImage" >
+				<img v-if="isPekoraTab" :src='pekoras[currentPekoraPointer].img' alt="characterImage" >
+				<img v-if="!isPekoraTab" :src='baikinkuns[currentBaikinkunPointer].img' alt="characterImage" >
 				<Fa icon="caret-right" class='prevAndNext-icon' @click="nextCharacter()" />
 			</div>
 			<div class="character-name">
 				<Fa :icon="['far', 'check-circle']" class="character-icon" v-show="characterSelected"/>
-				<span v-if="isPekoraTab"> {{ pekoras[currentPekora].name }} </span>
-				<span v-if="!isPekoraTab"> {{ baikinkuns[currentBaikinkun].name }} </span>
+				<span v-if="isPekoraTab">{{ pekoras[currentPekoraPointer].name }}</span>
+				<span v-if="!isPekoraTab">{{ baikinkuns[currentBaikinkunPointer].name }}</span>
 			</div>
 			<div>
-				<Button class="character-btn" @click.native="isSelectCharacter" :disabled="characterSelected">
+				<Button class="character-btn" @click.native="selectCharacter" :disabled="characterSelected">
 					<template v-slot:text>
 						<span>決定</span>
 					</template>

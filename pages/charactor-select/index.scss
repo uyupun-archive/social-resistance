@@ -1,0 +1,84 @@
+.container {
+	display: block;
+	text-align: center;
+	width: 1000px;
+	height: 100vh;
+	margin: 0 auto;
+}
+
+.tab {
+	&-wrap {
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: 70px;
+	}
+
+	&-label {
+		cursor: pointer;
+		color: $gray;
+		padding: 15px 30px;
+		font-size: 4.8rem;
+	}
+
+	&-content {
+		width: 100%;
+		margin: -5px; 
+		border-top: 5px solid $white;
+	}
+
+	&-switch {
+		display: none;
+
+		&:checked + .tab-label {
+			color: $white;
+			border: 5px solid $white;
+			border-bottom: 5px solid $black ;
+			z-index: 1000;
+		}
+
+		&:checked + .tab-label + .tab-content {
+			display: block;
+		}
+	}
+}
+
+.prevAndNext {
+	&-icon {
+		cursor: pointer;
+		font-size: 30rem;
+		color: $white;
+	}
+}
+
+.character {
+	&-select {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: space-between;
+		width : 70%;
+		max-width: 900px;
+		height: 430px;
+		margin: 50px auto 64px auto;
+	}
+
+	&-icon {
+		color: $green;
+		margin-right: 10px;
+	}
+
+	&-name {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		font-size: 6.4rem;
+		margin-bottom: 64px;
+	}
+
+	&-btn {
+		width: 270px;
+    height: 100px;
+		margin: 0 25px 70px;
+	}
+}

@@ -12,7 +12,7 @@ prod-up:
 	nohup yarn start > /dev/null 2>&1 &
 
 prod-down:
-	kill `lsof -i :3000 | awk '$$1 == "node" { print $$2 }'`
+	-kill `lsof -i :3000 | awk '$$1 == "node" { print $$2 }'`
 
 fix:
 	yarn lint --fix

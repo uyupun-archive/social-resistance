@@ -1,10 +1,3 @@
-require('dotenv').config()
-const {
-  SOCIAL_RESISTANCE_HOST,
-  SOCIAL_RESISTANCE_PORT,
-  MITSU_URL,
-} = process.env
-
 export default {
   /*
    ** Nuxt rendering mode
@@ -61,7 +54,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/style-resources', '@nuxtjs/proxy', '@nuxtjs/axios'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/dotenv', '@nuxtjs/proxy', '@nuxtjs/axios'],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
@@ -76,14 +69,9 @@ export default {
       })
     },
   },
-  env: {
-    SOCIAL_RESISTANCE_HOST,
-    SOCIAL_RESISTANCE_PORT,
-    MITSU_URL,
-  },
   server: {
-    host: SOCIAL_RESISTANCE_HOST || 'localhost',
-    port: SOCIAL_RESISTANCE_PORT || 3000,
+    host: process.env.SOCIAL_RESISTANCE_HOST || 'localhost',
+    port: process.env.SOCIAL_RESISTANCE_PORT || 3000,
   },
   styleResources: {
     scss: ['./assets/scss/*.scss'],
@@ -93,7 +81,7 @@ export default {
   },
   proxy: {
     '/api/v1/': {
-      target: MITSU_URL,
+      target: process.env.MITSU_URL,
     },
   },
 }

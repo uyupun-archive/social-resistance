@@ -6,6 +6,14 @@
   }
 }
 
+.layout-enter {
+  opacity: 0;
+
+  &-active {
+    transition: opacity 1.5s;
+  }
+}
+
 html {
   font-size: 10px;
 }

@@ -22,6 +22,12 @@ export default {
       },
       default: 'left',
     },
+    type: {
+      validator: (type) => {
+        return ['text', 'password', 'email'].includes(type)
+      },
+      default: 'text',
+    },
   },
   data() {
     return {

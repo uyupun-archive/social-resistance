@@ -1,4 +1,5 @@
 export default {
+  layout: 'menu/index',
   data() {
     return {
       rankings: [

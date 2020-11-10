@@ -14,6 +14,7 @@ export default {
     TextBoxIcon,
     Tooltip,
   },
+  layout: 'menu/index',
   data() {
     return {
       worldId: '',

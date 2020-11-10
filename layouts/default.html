@@ -1,7 +1,9 @@
 <div>
   <main>
-    <transition name="page">
-      <Nuxt />
+    <transition name="layout">
+      <transition name="page">
+        <Nuxt />
+      </transition>
     </transition>
   </main>
 </div>

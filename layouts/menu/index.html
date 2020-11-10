@@ -1,10 +1,12 @@
 <div>
   <main>
-    <transition name="page">
-      <div>
-        <Menu />
-        <Nuxt />
-      </div>
+    <transition name="layout">
+      <transition name="page">
+        <div>
+          <Menu />
+          <Nuxt />
+        </div>
+      </transition>
     </transition>
   </main>
 </div>

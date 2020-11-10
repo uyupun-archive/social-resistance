@@ -6,6 +6,7 @@ export default {
     Button,
     TextBox,
   },
+  layout: 'menu/index',
   data() {
     return {
       worldId: '',

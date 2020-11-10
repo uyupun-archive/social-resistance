@@ -17,7 +17,7 @@
         <div class="info-label">
           レート
           <nuxt-link to="/rank" class="question-link">
-            <Fa v-if="newUserIcon === currentUserIcon" :icon="['far', 'check-circle']" class="check-icon" area-hidden="true" />
+            <Fa v-if="newUserIcon === currentUserIcon" :icon="['far', 'question-circle']" class="question-icon" area-hidden="true" />
           </nuxt-link>
         </div>
         <div class="info-data">
@@ -54,7 +54,7 @@
           <Fa icon="caret-right" class="caret-icon" area-hidden="true" @click="next()" />
         </div>
         <div class="user-icon__name">
-          <Fa v-if="newUserIcon === currentUserIcon" icon="clipboard" class="check-icon" area-hidden="true" />
+          <Fa v-if="newUserIcon === currentUserIcon" :icon="['far', 'check-circle']" class="check-icon" area-hidden="true" />
           {{userIcons[currentUserIcon].name}}
         </div>
         <Button size="small" :disabled="currentUserIcon === newUserIcon" @click.native="selectIcon()">

@@ -33,10 +33,14 @@ export default {
         exists: false,
         text: 'コピーしました',
       },
-      error: {
-        state: false,
-        msg: 'ぼしゅうにしっぱいしました',
+      error: false,
+      pekoraImg: `${process.env.MITSU_URL}/images/objects/pekora.gif`,
+      baikinkunImg: `${process.env.MITSU_URL}/images/objects/baikinkun_1.gif`,
+      player: {
+        pekora: PLAYER_PEKORA,
+        baikinkun: PLAYER_BAIKINKUN,
       },
+      selectedValue: PLAYER_PEKORA,
     }
   },
   methods: {
@@ -59,18 +63,20 @@ export default {
         this.tooltip.exists = false
       }, 3000)
     },
+    onChange(value) {
+      this.selectedValue = value
+    },
     onSubmit(e) {
+      this.error = false
       this.$generateWorldId({ recruit: e.target.characterSelect.value })
         .then((res) => {
-          this.error.state = false
           this.worldId = res.worldId
           sessionStorage.worldId = res.worldId
           sessionStorage.token = res.token
           sessionStorage.role = res.role
         })
         .catch((e) => {
-          this.error.state = true
-          this.error.msg = e.data.msg
+          this.error = true
         })
     },
   },

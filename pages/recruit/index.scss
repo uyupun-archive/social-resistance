@@ -77,6 +77,30 @@
   }
 }
 
+.selected {
+  &-character {
+    display: flex;
+    align-items: center;
+    font-size: 3.6rem;
+
+    &__my {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+
+    &__your {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    &__img {
+      width: auto;
+      height: 50px;
+    }
+  }
+}
+
 .worldId {
   display: flex;
   justify-content: space-between;

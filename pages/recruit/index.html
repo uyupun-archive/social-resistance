@@ -1,13 +1,25 @@
 <div class="container">
   <div class="container-recruit">
-    <form class="form" :class="{'form-worldId': worldId, 'form-error': error.state}" @submit.prevent="onSubmit">
+    <form class="form" :class="{'form-worldId': worldId, 'form-error': error}" @submit.prevent="onSubmit">
       <div class="form-select">
-        <SelectBox :options="options" :selected="selected" name="characterSelect" />
+        <SelectBox :options="options" :selected="selected" name="characterSelect" @change="onChange" />
       </div>
       <button type="submit" class="form-btn">
         ぼしゅう
       </button>
-      <p v-if="error.state" class="error-message">{{error.msg}}</p>
+      <div class="selected-character">
+        <div class="selected-character__my">
+          じぶん：
+          <img v-if="selectedValue === player.pekora" :src="baikinkunImg" alt="baikinkun" class="selected-character__img">
+          <img v-else :src="pekoraImg" alt="usagisan" class="selected-character__img">
+        </div>
+        <div class="selected-character__your">
+          あいて：
+          <img v-if="selectedValue === player.pekora" :src="pekoraImg" alt="usagisan" class="selected-character__img">
+          <img v-else :src="baikinkunImg" alt="baikinkun" class="selected-character__img">
+        </div>
+      </div>
+      <p v-if="error" class="error-message">ぼしゅうにしっぱいしました</p>
     </form>
     <div v-if="worldId" class="worldId">
       <label class="worldId-label">

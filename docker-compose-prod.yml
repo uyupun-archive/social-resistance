@@ -14,4 +14,10 @@ services:
       - ./:/var/www
     environment:
       HOST: ${APP_HOST}
+    networks:
+      - social_resistance
     restart: always
+
+networks:
+  social_resistance:
+    external: true

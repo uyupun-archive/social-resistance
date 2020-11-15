@@ -1,4 +1,4 @@
-.PHONY: setup dev prod-up prod-down fix
+.PHONY: dev prod-down fix
 
 setup:
 	cp .env.example .env
@@ -8,12 +8,15 @@ dev:
 	yarn dev
 
 prod-up:
+	yarn
 	yarn build
-	nohup yarn start > /dev/null 2>&1 &
+	rm -rf .nuxt
+	rm -rf dist
+	yarn build
+	docker-compose -f docker-compose-prod.yml up -d
 
 prod-down:
-	-kill `lsof -i :3000 | awk '$$1 == "node" { print $$2 }'`
+	-docker-compose -f docker-compose-prod.yml down
 
 fix:
 	yarn lint --fix
-

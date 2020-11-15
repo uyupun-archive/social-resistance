@@ -78,8 +78,8 @@ export default {
     },
   },
   server: {
-    host: process.env.SOCIAL_RESISTANCE_HOST || 'localhost',
-    port: process.env.SOCIAL_RESISTANCE_PORT || 3000,
+    host: process.env.APP_HOST || 'localhost',
+    port: process.env.APP_PORT || 3000,
   },
   styleResources: {
     scss: ['./assets/scss/*.scss'],

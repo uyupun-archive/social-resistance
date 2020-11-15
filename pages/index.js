@@ -9,7 +9,7 @@ export default {
   },
   data() {
     return {
-      logo: `${process.env.MITSU_URL}/images/logo/logo_white.svg`,
+      logo: `${process.env.API_HOST}/images/logo/logo_white.svg`,
       token: sessionStorage.token,
     }
   },

@@ -30,15 +30,18 @@ export default {
    ** Global CSS
    */
   css: [
-    '~/assets/scss/_fonts.scss',
-    '~/assets/scss/_variable.scss',
+    '~/assets/scss/app.scss',
     '@fortawesome/fontawesome-svg-core/styles.css',
   ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/fontawesome', '~/plugins/axios', '~/plugins/api'],
+  plugins: [
+    '~/plugins/fontawesome',
+    '~/plugins/axios',
+    '~/plugins/api'
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -54,7 +57,12 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/style-resources', '@nuxtjs/dotenv', '@nuxtjs/proxy', '@nuxtjs/axios'],
+  modules: [
+    '@nuxtjs/dotenv',
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
+    '@nuxtjs/style-resources',
+  ],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/

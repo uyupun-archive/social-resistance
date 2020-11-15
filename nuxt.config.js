@@ -1,14 +1,8 @@
 export default {
-  /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
+  /**
+   * Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
    */
-  mode: 'spa',
-  /*
-   ** Nuxt target
-   ** See https://nuxtjs.org/api/configuration-target
-   */
-  target: 'server',
+  ssr: false,
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -89,7 +83,7 @@ export default {
   },
   proxy: {
     '/api/v1/': {
-      target: process.env.MITSU_URL,
+      target: process.env.API_HOST,
     },
   },
 }

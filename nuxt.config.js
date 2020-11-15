@@ -1,14 +1,8 @@
 export default {
-  /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
+  /**
+   * Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
    */
-  mode: 'spa',
-  /*
-   ** Nuxt target
-   ** See https://nuxtjs.org/api/configuration-target
-   */
-  target: 'server',
+  ssr: false,
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -30,15 +24,18 @@ export default {
    ** Global CSS
    */
   css: [
-    '~/assets/scss/_fonts.scss',
-    '~/assets/scss/_variable.scss',
+    '~/assets/scss/app.scss',
     '@fortawesome/fontawesome-svg-core/styles.css',
   ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/fontawesome', '~/plugins/axios', '~/plugins/api'],
+  plugins: [
+    '~/plugins/fontawesome',
+    '~/plugins/axios',
+    '~/plugins/api'
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -54,7 +51,12 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/style-resources', '@nuxtjs/dotenv', '@nuxtjs/proxy', '@nuxtjs/axios'],
+  modules: [
+    '@nuxtjs/dotenv',
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
+    '@nuxtjs/style-resources',
+  ],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
@@ -70,8 +72,8 @@ export default {
     },
   },
   server: {
-    host: process.env.SOCIAL_RESISTANCE_HOST || 'localhost',
-    port: process.env.SOCIAL_RESISTANCE_PORT || 3000,
+    host: process.env.APP_HOST || 'localhost',
+    port: process.env.APP_PORT || 3000,
   },
   styleResources: {
     scss: ['./assets/scss/*.scss'],
@@ -81,7 +83,7 @@ export default {
   },
   proxy: {
     '/api/v1/': {
-      target: process.env.MITSU_URL,
+      target: process.env.API_HOST,
     },
   },
 }

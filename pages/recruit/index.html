@@ -1,5 +1,11 @@
 <div class="container">
   <div class="container-recruit">
+    <div class="radio">
+      <input class="radio-button" type="radio" name="publicSelect" value="public" checked="checked" id="tab1">
+      <label class="radio-label" for="tab1">こうかい</label>
+      <input class="radio-button" type="radio" name="publicSelect" value="private" id="tab2">
+      <label class="radio-label" for="tab2">ひこうかい</label>
+    </div>
     <form class="form" :class="{'form-worldId': worldId, 'form-error': error}" @submit.prevent="onSubmit">
       <div class="form-select">
         <SelectBox :options="options" :selected="selected" name="characterSelect" @change="onChange" />

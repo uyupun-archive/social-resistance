@@ -4,6 +4,7 @@ export default {
   components: {
     Button,
   },
+  layout: 'menu/index',
   data() {
     return {
       rules: [],

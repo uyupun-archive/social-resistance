@@ -83,7 +83,7 @@ export default {
   },
   proxy: {
     '/api/v1/': {
-      target: process.env.API_HOST,
+      target: process.env.API_URL,
     },
   },
 }

@@ -16,6 +16,7 @@
 # 環境構築
 $ make setup
 # 開発環境のサーバの起動
+# localhost:3000
 $ make dev
 # 本番環境のサーバの起動(バックグラウンド)
 $ make prod-up

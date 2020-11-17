@@ -7,7 +7,7 @@ export default {
   layout: 'menu/index',
   data() {
     return {
-      logo: `${process.env.MITSU_URL}/images/logo/logo_white.svg`,
+      logo: `${process.env.API_URL}/images/logo/logo_white.svg`,
     }
   },
 }

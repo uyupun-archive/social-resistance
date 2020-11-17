@@ -6,7 +6,7 @@ export default {
       worldId: sessionStorage.worldId,
       token: sessionStorage.token,
       role: parseInt(sessionStorage.role, 10),
-      url: process.env.MITSU_URL,
+      url: process.env.API_URL,
       socket: null,
     }
   },

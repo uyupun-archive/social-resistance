@@ -6,9 +6,9 @@ export default {
   },
   data() {
     return {
-      pekora: `${process.env.MITSU_URL}/images/objects/pekora.gif`,
-      baikinKun1: `${process.env.MITSU_URL}/images/objects/baikinkun_1.gif`,
-      baikinKun2: `${process.env.MITSU_URL}/images/objects/baikinkun_2.gif`,
+      pekora: `${process.env.API_URL}/images/objects/pekora.gif`,
+      baikinKun1: `${process.env.API_URL}/images/objects/baikinkun_1.gif`,
+      baikinKun2: `${process.env.API_URL}/images/objects/baikinkun_2.gif`,
     }
   },
 }

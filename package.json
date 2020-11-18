@@ -53,6 +53,6 @@
   },
   "lint-staged": {
     "*.{js,vue}": "eslint --cache",
-    "*.{css,scss,vue}": "stylelint"
+    "*.{css,scss,vue}": "stylelint --cache"
   }
 }

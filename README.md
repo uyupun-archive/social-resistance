@@ -22,6 +22,6 @@ $ make up
 $ make prod-up
 # 本番環境のサーバの停止
 $ make prod-down
-# ESLint/Prettierに怒られたとき
+# ESLint/Prettier/stylelintに怒られたとき
 $ make fix
 ```

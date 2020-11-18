@@ -24,4 +24,6 @@ $ make prod-up
 $ make prod-down
 # ESLint/Prettier/stylelintに怒られたとき
 $ make fix
+# バンドルファイルの分析
+$ make analyze
 ```

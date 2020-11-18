@@ -22,3 +22,6 @@ prod-down:
 fix:
 	yarn lint:js --fix
 	yarn lint:scss --fix
+
+analyze:
+	yarn build --analyze

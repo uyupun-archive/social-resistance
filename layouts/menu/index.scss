@@ -19,14 +19,14 @@ html {
 }
 
 body {
+  box-sizing: border-box;
   padding: 0;
-  border: none;
   margin: 0;
+  font-family: 'Sawarabi-Gothic', sans-serif;
+  font-size: 1.4rem;
   color: $white;
   background: $black;
-  font-size: 1.4rem;
-  box-sizing: border-box;
-  font-family: 'Sawarabi-Gothic', sans-serif;
+  border: none;
   opacity: 1;
   animation: fadeIn 1.5s forwards;
 }

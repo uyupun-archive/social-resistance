@@ -60,7 +60,8 @@ export default {
       }, 3000)
     },
     onSubmit(e) {
-      this.$generateWorldId({ recruit: e.target.characterSelect.value })
+      const recruit = Number(e.target.characterSelect.value)
+      this.$generateWorldId({ recruit })
         .then((res) => {
           this.error.state = false
           this.worldId = res.worldId

@@ -1,5 +1,6 @@
 import SelectBox from '~/components/select-box/index.vue'
 import Button from '~/components/button/index.vue'
+import RadioButton from '~/components/radio-button/index.vue'
 import TextBoxIcon from '~/components/text-box-icon/index.vue'
 import Tooltip from '~/components/tooltip/index.vue'
 import {
@@ -10,6 +11,7 @@ import {
 export default {
   components: {
     SelectBox,
+    RadioButton,
     Button,
     TextBoxIcon,
     Tooltip,

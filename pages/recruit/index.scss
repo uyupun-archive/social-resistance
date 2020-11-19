@@ -11,52 +11,6 @@
   }
 }
 
-.radio {
-  margin: 30px auto 30px;
-
-  &-label {
-    font-size: 4.6rem;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    height: 4.6rem;
-    padding-left: 70px;
-    padding-right: 50px;
-    cursor: pointer;
-
-    &::before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 46px;
-      height: 46px;
-      box-sizing: border-box;
-      background-color: $white;
-      border-radius: 50%;
-    }
-  }
-
-  &-button {
-    display: none;
-
-    &:checked + .radio-label::after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 3px;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      background: $black;
-      box-sizing: border-box;
-      border-radius: 50%;
-    }
-  }
-}
-
 .form {
   display: flex;
   justify-content: space-between;

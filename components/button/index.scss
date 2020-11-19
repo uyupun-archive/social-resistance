@@ -1,38 +1,42 @@
 .btn {
   position: relative;
+  box-sizing: border-box;
   display: inline-block;
   min-width: 250px;
   padding: 16px 40px;
-  font-size: 3.6rem;
-  border: 5px solid $white;
-  color: $white;
-  background: $black;
   font-family: 'Sawarabi-Gothic', sans-serif;
-  text-align: center;
-  cursor: pointer;
+  font-size: 3.6rem;
   line-height: 1;
-  box-sizing: border-box;
+  color: $white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background: $black;
+  border: 5px solid $white;
   outline: none;
   transform: skewX(-30deg);
-  text-decoration: none;
 
-  &:after {
-    content: '';
+  &::after {
     position: absolute;
     top: -5px;
     left: -5px;
+    z-index: -1;
     width: 0;
     height: calc(100% + 10px);
+    content: '';
     background: $white;
-    z-index: -1;
     transition: 0.3s;
   }
 
   &:hover {
-    transition: 0.3s;
     color: $black;
+    transition: 0.3s;
 
-    &:after {
+    & span > div {
+      border: 1px solid $black;
+    }
+
+    &::after {
       width: calc(100% + 10px);
     }
   }
@@ -43,14 +47,14 @@
 
   &:disabled {
     color: $gray;
-    border-color: $gray;
     cursor: auto;
+    border-color: $gray;
 
     &:hover {
-      transition: none;
       color: $gray;
+      transition: none;
 
-      &:after {
+      &::after {
         width: 0;
       }
     }
@@ -69,22 +73,16 @@
   }
 
   & span {
-    display: inline-block;
     z-index: 1;
+    display: inline-block;
     transform: skewX(30deg);
-  }
-
-  &:hover {
-    & span > div {
-      border: 1px solid $black;
-    }
   }
 }
 
 .topLeft {
   &:hover {
     & span > div {
-      &:after {
+      &::after {
         border-left: 16px solid $black;
       }
     }
@@ -94,7 +92,7 @@
 .topRight {
   &:hover {
     & span > div {
-      &:after {
+      &::after {
         border-top: 16px solid $black;
       }
     }
@@ -104,7 +102,7 @@
 .bottomLeft {
   &:hover {
     & span > div {
-      &:after {
+      &::after {
         border-bottom: 16px solid $black;
       }
     }
@@ -114,7 +112,7 @@
 .bottomRight {
   &:hover {
     & span > div {
-      &:after {
+      &::after {
         border-right: 16px solid $black;
       }
     }

@@ -31,11 +31,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [
-    '~/plugins/fontawesome',
-    '~/plugins/axios',
-    '~/plugins/api'
-  ],
+  plugins: ['~/plugins/fontawesome', '~/plugins/axios', '~/plugins/api'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -47,6 +43,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    '@nuxtjs/stylelint-module',
   ],
   /*
    ** Nuxt.js modules
@@ -83,7 +80,7 @@ export default {
   },
   proxy: {
     '/api/v1/': {
-      target: process.env.API_HOST,
+      target: process.env.API_URL,
     },
   },
 }

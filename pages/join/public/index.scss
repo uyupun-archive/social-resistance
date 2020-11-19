@@ -1,41 +1,41 @@
 .container {
-	font-size: 4.8rem;
-	padding: 90px 0 0 0;
+  padding: 90px 0 0 0;
+  font-size: 4.8rem;
 }
 
 .table {
-	width: 100%;
-	max-width: 900px;
-	white-space: nowrap;
-	border-collapse: collapse;
-	margin: 0 auto 40px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  white-space: nowrap;
+  border-collapse: collapse;
 
-	&-header {
-		border-bottom: 5px solid $white;
+  &-header {
+    border-bottom: 5px solid $white;
 
-		&__col {
-			padding: 0 0 30px;
-		}
-	}
+    &__col {
+      padding: 0 0 30px;
+    }
+  }
 
-	&-body {
-		&__col {
-			text-align: center;
-			padding: 30px 0 0;
-		}
-	}
+  &-body {
+    &__col {
+      padding: 30px 0 0;
+      text-align: center;
+    }
+  }
 }
 
 .error {
-	&-message {
-		text-align: center;
-		color: $red;
-		margin: 0 0 40px;
-	}
+  &-message {
+    margin: 0 0 40px;
+    color: $red;
+    text-align: center;
+  }
 }
 
 .btn {
-	&-area {
-		text-align: center;
-	}
+  &-area {
+    text-align: center;
+  }
 }

@@ -9,23 +9,23 @@
 }
 
 .box {
-  margin: 40px auto;
-  border: 5px solid $white;
-  width: 1000px;
-  background: $black;
   box-sizing: border-box;
+  width: 1000px;
   padding: 40px 40px;
+  margin: 40px auto;
+  background: $black;
+  border: 5px solid $white;
 }
 
 .text {
   margin: 0 0 40px;
-  text-align: center;
   font-size: 3.6rem;
+  text-align: center;
 }
 
 .image {
-  margin: 0 0 40px;
   width: 100%;
+  margin: 0 0 40px;
 }
 
 .btns {
@@ -35,8 +35,8 @@
 }
 
 .page {
-  line-height: 70px;
   font-size: 3.6rem;
+  line-height: 70px;
 }
 
 .btn {

@@ -70,7 +70,8 @@ export default {
     },
     onSubmit(e) {
       this.error = false
-      this.$generateWorldId({ recruit: e.target.characterSelect.value })
+      const recruit = Number(e.target.characterSelect.value)
+      this.$generateWorldId({ recruit })
         .then((res) => {
           this.worldId = res.worldId
           sessionStorage.worldId = res.worldId

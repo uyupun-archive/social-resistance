@@ -1,10 +1,11 @@
-.PHONY: dev prod-down fix
+.PHONY: prod-down fix
 
 setup:
 	cp .env.example .env
+	-docker network create social_resistance
 	yarn
 
-dev:
+up:
 	yarn dev
 
 prod-up:
@@ -19,4 +20,8 @@ prod-down:
 	-docker-compose -f docker-compose-prod.yml down
 
 fix:
-	yarn lint --fix
+	yarn lint:js --fix
+	yarn lint:scss --fix
+
+analyze:
+	yarn build --analyze

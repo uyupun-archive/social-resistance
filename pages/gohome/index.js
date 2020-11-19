@@ -31,6 +31,7 @@ export default {
       selectedWord: null,
       winner: '',
       warningMsg: '',
+      second: 30,
     }
   },
   mounted() {
@@ -92,6 +93,12 @@ export default {
         case 'invalid_player':
           this.openWarningModal('むこうなプレイヤーです')
           break
+        case 'get_countdown':
+          this.getCountdown(obj.payload)
+          break
+        case 'declare_timeout':
+          this.declareTimeout(obj.payload)
+          break
         default:
           this.quitGame(obj.payload)
       }
@@ -143,11 +150,16 @@ export default {
       return ''
     },
     movePlayerRequest(word) {
+      this.second = 30
       this.$refs.dealer.attackEmitter(word)
       this.closeWordModal()
     },
     declareAttack() {
       this.closeWaitModal()
+      if (this.turn === 1) {
+        this.showTurnAnimation()
+        return
+      }
       setTimeout(() => {
         this.showTurnAnimation()
       }, 300)
@@ -171,6 +183,18 @@ export default {
       this.$refs.warningModal.open()
       setTimeout(() => {
         this.$router.push('/')
+      }, 3000)
+    },
+    getCountdown(payload) {
+      this.second = payload.second
+    },
+    declareTimeout(payload) {
+      this.selectedWord = payload.word
+      this.$refs.forceSelectWordModal.open()
+      setTimeout(() => {
+        this.second = 30
+        this.$refs.dealer.attackEmitter(payload.word)
+        this.$refs.forceSelectWordModal.close()
       }, 3000)
     },
   },

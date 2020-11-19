@@ -17,6 +17,10 @@
       </div>
       <div v-if="isStart" class="turn-info">
         <p class="turn-count">ターン数:&nbsp;{{ turn }}</p>
+        <p class="turn-countdown">
+          のこり:&nbsp;
+          <span :class="{'danger': second <= 5}">{{ second }}</span>
+        </p>
       </div>
       <div
         class="turn-which"

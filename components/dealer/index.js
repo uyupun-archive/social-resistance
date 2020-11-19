@@ -28,6 +28,8 @@ export default {
       this.updateBaseWordListener()
       this.judgeListener()
       this.invalidPlayerListener()
+      this.getCountdownListener()
+      this.declareTimeoutListener()
     },
     feedbackPositionListener() {
       this.socket.on('feedback_position', (payload) => {
@@ -72,6 +74,16 @@ export default {
     invalidPlayerListener() {
       this.socket.on('invalid_player', (payload) => {
         this.$emit('proceedGame', { payload, event: 'invalid_player' })
+      })
+    },
+    getCountdownListener() {
+      this.socket.on('get_countdown', (payload) => {
+        this.$emit('proceedGame', { payload, event: 'get_countdown' })
+      })
+    },
+    declareTimeoutListener() {
+      this.socket.on('declare_timeout', (payload) => {
+        this.$emit('proceedGame', { payload, event: 'declare_timeout' })
       })
     },
     joinWorldEmitter() {

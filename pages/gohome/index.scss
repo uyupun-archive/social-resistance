@@ -1,6 +1,6 @@
 .container {
-  margin: 0 auto 50px;
   width: 1200px;
+  margin: 0 auto 50px;
 }
 
 .world {
@@ -11,16 +11,16 @@
   padding: 100px 0 0;
 
   &_message {
-    text-align: center;
     font-size: 3.6rem;
+    text-align: center;
   }
 }
 
 .turn {
   &-box {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin: 0 0 10px;
   }
 
@@ -73,27 +73,27 @@
 }
 
 .word-wrapper {
-  margin: 0 50px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  margin: 0 50px;
 }
 
 .word {
-  margin: 0 20px 30px 20px;
   width: 20%;
+  margin: 0 20px 30px 20px;
 }
 
 .btn-pause {
-  text-align: right;
   margin: 0 25px 20px;
+  text-align: right;
 }
 
 .pause-choices {
   width: 100%;
-  text-align: center;
   margin: 0 0 30px;
+  text-align: center;
 
   &:last-of-type {
     margin: 0;
@@ -101,6 +101,6 @@
 }
 
 .danger {
-  color: $red;
   font-size: 4.8rem;
+  color: $red;
 }

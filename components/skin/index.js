@@ -37,7 +37,7 @@ export default class Skin {
    */
   _makeUrl(key, pattern = '', n) {
     if (pattern !== '') pattern = `${pattern}/`
-    const url = `${process.env.MITSU_URL}/images/objects/${key}/${pattern}${
+    const url = `${process.env.API_URL}/images/objects/${key}/${pattern}${
       n + 1
     }.png`
     return url

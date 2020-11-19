@@ -16,11 +16,14 @@
 # 環境構築
 $ make setup
 # 開発環境のサーバの起動
-$ make dev
+# localhost:3000
+$ make up
 # 本番環境のサーバの起動(バックグラウンド)
 $ make prod-up
 # 本番環境のサーバの停止
 $ make prod-down
-# ESLint/Prettierに怒られたとき
+# ESLint/Prettier/stylelintに怒られたとき
 $ make fix
+# バンドルファイルの分析
+$ make analyze
 ```

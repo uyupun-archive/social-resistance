@@ -1,18 +1,17 @@
 .container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
 }
 
 .form {
-	&-login {
-		width: 100%;
+  &-login {
+    width: 100%;
   }
-  
-  &-text {
 
+  &-text {
     &__boxes {
       width: 100%;
       max-width: 750px;
@@ -20,22 +19,22 @@
     }
   }
 
-	&-label {
-		width: 100%;
-		display: flex;
-		flex-wrap: nowrap;
-		justify-content: space-between;
-		align-items: center;
+  &-label {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     margin: 0 0 40px 0;
 
     &:last-of-type {
       margin: 0;
     }
 
-		&__text {
-			font-size: 4.8rem;
-			white-space: nowrap;
-			margin: 0 50px 0 0;
+    &__text {
+      margin: 0 50px 0 0;
+      font-size: 4.8rem;
+      white-space: nowrap;
     }
 
     & > div {
@@ -45,38 +44,37 @@
 
   &-note {
     max-width: 460px;
-    font-size: 2.4rem;
     margin: 0 0 40px auto;
+    font-size: 2.4rem;
 
     &:last-of-type {
       margin: 0 0 150px auto;
     }
   }
 
-	&-error {
+  &-error {
     margin: 0 auto 40px;
-	}
+  }
 
-	&-buttons {
-		display: flex;
+  &-buttons {
+    display: flex;
     justify-content: center;
     width: 100%;
     max-width: 750px;
     margin: 0 auto;
-	}
+  }
 
-	&-button {
-		margin: 0 25px;
-	}
+  &-button {
+    margin: 0 25px;
+  }
 }
 
 .error {
-
-	&-message {
-		width: 100%;
-		text-align: center;
-		font-size: 4.8rem;
-		color: $red;
-		margin: 0 0 40px;
-	}
+  &-message {
+    width: 100%;
+    margin: 0 0 40px;
+    font-size: 4.8rem;
+    color: $red;
+    text-align: center;
+  }
 }

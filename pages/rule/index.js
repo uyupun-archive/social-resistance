@@ -32,7 +32,7 @@ export default {
     setRule(idx) {
       const rule = this.rules[idx]
       this.rule.text = rule.text
-      this.rule.image = `${process.env.MITSU_URL}${rule.image}`
+      this.rule.image = `${process.env.API_URL}${rule.image}`
       this.rule.isFirst = this.rule.idx === 0
       this.rule.isLast = this.rules.length === this.rule.idx + 1
     },

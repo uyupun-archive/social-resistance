@@ -1,6 +1,6 @@
 .container {
-  text-align: center;
   padding: 120px 0 0;
+  text-align: center;
 }
 
 .user {
@@ -11,13 +11,13 @@
 
     &__area {
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       width: 250px;
       height: 250px;
+      margin: 0 auto 100px;
       background: $white;
       border-radius: 50%;
-      margin: 0 auto 100px;;
     }
   }
 }
@@ -29,8 +29,8 @@
 
   &-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     margin: 0 0 40px;
 
@@ -54,9 +54,9 @@
 
 .question {
   &-icon {
-    vertical-align: top;
     font-size: 2.4rem;
     color: $white;
+    vertical-align: top;
   }
 }
 

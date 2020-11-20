@@ -8,23 +8,28 @@ export default class Skin {
    */
   rotate(img, key, pattern = '') {
     let isCached = false
-    let timerId = null
     let n = 0
 
     const rotate = () => {
       if (!isCached) {
         const url = this._makeUrl(key, pattern, n)
-        this._cacheSkin(key, n, url)
+        this._cacheSkin(key, n, url).then(() => {
+          if (n === 2) isCached = true
+          nextTick()
+        })
         img.src = url
-      } else img.src = this._getCachedSkin(key, n)
+      } else {
+        img.src = this._getCachedSkin(key, n)
+        nextTick()
+      }
+    }
 
-      if (!isCached && n === 2) isCached = true
+    const nextTick = () => {
       if (n === 2) n = 0
       else ++n
-
-      clearTimeout(timerId)
-      timerId = setTimeout(rotate, 200)
+      setTimeout(rotate, 200)
     }
+
     rotate()
   }
 
@@ -54,7 +59,7 @@ export default class Skin {
     let caches = sessionStorage.getItem(key)
     if (!caches || n === 0) caches = []
     else caches = JSON.parse(caches)
-    this._onLoadCacheSkin(url).then((img) => {
+    return this._onLoadCacheSkin(url).then((img) => {
       const base64 = this._convertImgToBase64(img)
       caches.push(base64)
       caches = JSON.stringify(caches)

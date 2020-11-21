@@ -30,6 +30,7 @@ export default {
       this.invalidPlayerListener()
       this.getCountdownListener()
       this.declareTimeoutListener()
+      this.noticeDisconnectListener()
     },
     feedbackPositionListener() {
       this.socket.on('feedback_position', (payload) => {
@@ -86,6 +87,11 @@ export default {
         this.$emit('proceedGame', { payload, event: 'declare_timeout' })
       })
     },
+    noticeDisconnectListener() {
+      this.socket.on('notice_disconnect', (payload) => {
+        this.$emit('proceedGame', { payload, event: 'notice_disconnect' })
+      })
+    },
     joinWorldEmitter() {
       this.socket.emit('join_world', {
         worldId: this.worldId,
@@ -107,6 +113,7 @@ export default {
         token: this.token,
         role: this.role,
       })
+      this.socket.disconnect()
     },
   },
 }

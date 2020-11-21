@@ -99,6 +99,9 @@ export default {
         case 'declare_timeout':
           this.declareTimeout(obj.payload)
           break
+        case 'notice_disconnect':
+          this.noticeDisconnect()
+          break
         default:
           this.quitGame(obj.payload)
       }
@@ -181,9 +184,6 @@ export default {
     openWarningModal(msg) {
       this.warningMsg = msg
       this.$refs.warningModal.open()
-      setTimeout(() => {
-        this.$router.push('/')
-      }, 3000)
     },
     getCountdown(payload) {
       this.second = payload.second
@@ -196,6 +196,13 @@ export default {
         this.$refs.dealer.attackEmitter(payload.word)
         this.$refs.forceSelectWordModal.close()
       }, 3000)
+    },
+    noticeDisconnect() {
+      this.$refs.dealer.leaveWorldEmitter()
+      this.closeWaitModal()
+      if (!this.winner) {
+        this.$refs.disconnectModal.open()
+      }
     },
   },
 }

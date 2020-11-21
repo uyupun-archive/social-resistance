@@ -113,18 +113,6 @@
     pekora="うさぎさん"
     baikin-kun="ばいきんくん"
   />
-  <ModalWithButtons ref="winModal" :show-always="true">
-    <template v-slot:content>
-      <p>『{{ winner }}』のかち！</p>
-    </template>
-    <template v-slot:btns>
-      <Button size="large" @click.native="quitGame">
-        <template v-slot:text>
-          <span>おつかれ</span>
-        </template>
-      </Button>
-    </template>
-  </ModalWithButtons>
   <Modal ref="forceSelectWordModal">
     <template v-slot:content>
       <p>持ち時間が過ぎたため 『{{ selectedWord.word }}』を選択しました</p>
@@ -135,9 +123,40 @@
       <p>あいてのターンちゅうです</p>
     </template>
   </Modal>
-  <Modal ref="warningModal">
+  <ModalWithButtons ref="disconnectModal" :show-always="true">
+    <template v-slot:content>
+      <p>せつぞくがきれました</p>
+    </template>
+    <template v-slot:btns>
+      <Button @click.native="$router.push('/')">
+        <template v-slot:text>
+          <span>タイトルへ</span>
+        </template>
+      </Button>
+    </template>
+  </ModalWithButtons>
+  <ModalWithButtons ref="warningModal">
     <template v-slot:content>
       <p>{{ warningMsg }}</p>
     </template>
-  </Modal>
+    <template v-slot:btns>
+      <Button @click.native="$router.push('/')">
+        <template v-slot:text>
+          <span>タイトルへ</span>
+        </template>
+      </Button>
+    </template>
+  </ModalWithButtons>
+  <ModalWithButtons ref="winModal" :show-always="true">
+    <template v-slot:content>
+      <p>『{{ winner }}』のかち！</p>
+    </template>
+    <template v-slot:btns>
+      <Button @click.native="quitGame">
+        <template v-slot:text>
+          <span>おつかれ</span>
+        </template>
+      </Button>
+    </template>
+  </ModalWithButtons>
 </div>

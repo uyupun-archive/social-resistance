@@ -29,27 +29,12 @@ export default {
       this.judgeListener()
       this.invalidPlayerListener()
       this.getCountdownListener()
-      this.declareTimeoutListener()
+      this.noticeTurnTimeoutListener()
       this.noticeDisconnectListener()
     },
     feedbackPositionListener() {
       this.socket.on('feedback_position', (payload) => {
         this.$emit('proceedGame', { payload, event: 'feedback_position' })
-      })
-    },
-    getTurnListener() {
-      this.socket.on('get_turn', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'get_turn' })
-      })
-    },
-    declareAttackListener() {
-      this.socket.on('declare_attack', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'declare_attack' })
-      })
-    },
-    declareWaitListener() {
-      this.socket.on('declare_wait', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'declare_wait' })
       })
     },
     getWordsAndBaseWordListener() {
@@ -67,6 +52,31 @@ export default {
         this.$emit('proceedGame', { payload, event: 'update_baseword' })
       })
     },
+    getTurnListener() {
+      this.socket.on('get_turn', (payload) => {
+        this.$emit('proceedGame', { payload, event: 'get_turn' })
+      })
+    },
+    getCountdownListener() {
+      this.socket.on('get_countdown', (payload) => {
+        this.$emit('proceedGame', { payload, event: 'get_countdown' })
+      })
+    },
+    declareAttackListener() {
+      this.socket.on('declare_attack', (payload) => {
+        this.$emit('proceedGame', { payload, event: 'declare_attack' })
+      })
+    },
+    declareWaitListener() {
+      this.socket.on('declare_wait', (payload) => {
+        this.$emit('proceedGame', { payload, event: 'declare_wait' })
+      })
+    },
+    noticeTurnTimeoutListener() {
+      this.socket.on('notice_turn_timeout', (payload) => {
+        this.$emit('proceedGame', { payload, event: 'notice_turn_timeout' })
+      })
+    },
     judgeListener() {
       this.socket.on('judge', (payload) => {
         this.$emit('proceedGame', { payload, event: 'judge' })
@@ -75,16 +85,6 @@ export default {
     invalidPlayerListener() {
       this.socket.on('invalid_player', (payload) => {
         this.$emit('proceedGame', { payload, event: 'invalid_player' })
-      })
-    },
-    getCountdownListener() {
-      this.socket.on('get_countdown', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'get_countdown' })
-      })
-    },
-    declareTimeoutListener() {
-      this.socket.on('declare_timeout', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'declare_timeout' })
       })
     },
     noticeDisconnectListener() {

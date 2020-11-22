@@ -69,9 +69,6 @@ export default {
         case 'feedback_position':
           this.feedbackPosition(obj.payload)
           break
-        case 'get_turn':
-          this.getTurn(obj.payload)
-          break
         case 'get_words_and_baseword':
           this.getWordsAndBaseWord(obj.payload)
           break
@@ -81,23 +78,26 @@ export default {
         case 'update_baseword':
           this.updateBaseword(obj.payload)
           break
+        case 'get_turn':
+          this.getTurn(obj.payload)
+          break
+        case 'get_countdown':
+          this.getCountdown(obj.payload)
+          break
         case 'declare_attack':
           this.declareAttack()
           break
         case 'declare_wait':
           this.declareWait()
           break
+        case 'notice_turn_timeout':
+          this.noticeTurnTimeout(obj.payload)
+          break
         case 'judge':
           this.judge(obj.payload)
           break
         case 'invalid_player':
           this.openWarningModal('むこうなプレイヤーです')
-          break
-        case 'get_countdown':
-          this.getCountdown(obj.payload)
-          break
-        case 'declare_timeout':
-          this.declareTimeout(obj.payload)
           break
         case 'notice_disconnect':
           this.noticeDisconnect()
@@ -188,7 +188,7 @@ export default {
     getCountdown(payload) {
       this.second = payload.second
     },
-    declareTimeout(payload) {
+    noticeTurnTimeout(payload) {
       this.selectedWord = payload.word
       this.$refs.forceSelectWordModal.open()
       setTimeout(() => {

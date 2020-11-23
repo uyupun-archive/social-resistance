@@ -52,7 +52,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,vue}": "eslint --cache",
-    "*.{css,scss,vue}": "stylelint --cache"
+    "*.{js,vue}": "eslint --cache --fix",
+    "*.{css,scss,vue}": "stylelint --cache --fix"
   }
 }

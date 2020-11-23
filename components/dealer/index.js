@@ -2,114 +2,113 @@ import io from 'socket.io-client'
 
 export default class Dealer {
   constructor() {
-    this.worldId = sessionStorage.worldId
-    this.token = sessionStorage.token
-    this.role = Number(sessionStorage.role)
-    this.url = process.env.API_URL
-    this.socket = null
-
+    this._worldId = sessionStorage.worldId
+    this._token = sessionStorage.token
+    this._role = Number(sessionStorage.role)
+    this._socket = null
     this.connect()
   }
 
   connect() {
-    this.socket = io.connect(this.url)
+    const url = process.env.API_URL
+    this._socket = io.connect(url)
   }
 
   feedbackPositionListener(callback) {
-    this.socket.on('feedback_position', (payload) => {
+    this._socket.on('feedback_position', (payload) => {
       callback(payload)
     })
   }
 
   getWordsAndBaseWordListener(callback) {
-    this.socket.on('get_words_and_baseword', (payload) => {
+    this._socket.on('get_words_and_baseword', (payload) => {
       callback(payload)
     })
   }
 
   getWordsListener(callback) {
-    this.socket.on('get_words', (payload) => {
+    this._socket.on('get_words', (payload) => {
       callback(payload)
     })
   }
 
   updateBaseWordListener(callback) {
-    this.socket.on('update_baseword', (payload) => {
+    this._socket.on('update_baseword', (payload) => {
       callback(payload)
     })
   }
 
   getTurnListener(callback) {
-    this.socket.on('get_turn', (payload) => {
+    this._socket.on('get_turn', (payload) => {
       callback(payload)
     })
   }
 
   getCountdownListener(callback) {
-    this.socket.on('get_countdown', (payload) => {
+    this._socket.on('get_countdown', (payload) => {
       callback(payload)
     })
   }
 
   declareAttackListener(callback) {
-    this.socket.on('declare_attack', (payload) => {
+    this._socket.on('declare_attack', (payload) => {
       callback()
     })
   }
 
   declareWaitListener(callback) {
-    this.socket.on('declare_wait', (payload) => {
+    this._socket.on('declare_wait', (payload) => {
       callback()
     })
   }
 
   noticeTurnTimeoutListener(callback) {
-    this.socket.on('notice_turn_timeout', (payload) => {
+    this._socket.on('notice_turn_timeout', (payload) => {
       callback(payload)
     })
   }
 
   judgeListener(callback) {
-    this.socket.on('judge', (payload) => {
+    this._socket.on('judge', (payload) => {
       callback(payload)
     })
   }
 
   invalidPlayerListener(callback) {
-    this.socket.on('invalid_player', (payload) => {
+    this._socket.on('invalid_player', (payload) => {
       callback()
     })
   }
 
   noticeDisconnectListener(callback) {
-    this.socket.on('notice_disconnect', (payload) => {
+    this._socket.on('notice_disconnect', (payload) => {
       callback()
     })
   }
 
   joinWorldEmitter() {
-    this.socket.emit('join_world', {
-      worldId: this.worldId,
-      token: this.token,
-      role: this.role,
+    this._socket.emit('join_world', {
+      worldId: this._worldId,
+      token: this._token,
+      role: this._role,
     })
   }
 
   attackEmitter(word) {
-    this.socket.emit('attack', {
-      worldId: this.worldId,
-      token: this.token,
-      role: this.role,
+    this._socket.emit('attack', {
+      worldId: this._worldId,
+      token: this._token,
+      role: this._role,
       baseWord: word,
     })
   }
 
   leaveWorldEmitter() {
-    this.socket.emit('leave_world', {
-      worldId: this.worldId,
-      token: this.token,
-      role: this.role,
+    this._socket.emit('leave_world', {
+      worldId: this._worldId,
+      token: this._token,
+      role: this._role,
     })
-    this.socket.disconnect()
+    this._socket.disconnect()
   }
 }

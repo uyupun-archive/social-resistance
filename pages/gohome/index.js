@@ -55,6 +55,10 @@ export default {
     openPauseModal() {
       this.$refs.pauseModal.open()
     },
+    openWarningModal(msg) {
+      this.warningMsg = msg
+      this.$refs.warningModal.open()
+    },
     restartGame() {
       this.$refs.pauseModal.close()
     },
@@ -136,6 +140,9 @@ export default {
     getTurn(payload) {
       this.turn = payload.turn
     },
+    getCountdown(payload) {
+      this.second = payload.second
+    },
     getWordsAndBaseWord(payload) {
       this.words = payload.words
       if (payload.player === PLAYER_PEKORA) {
@@ -188,13 +195,6 @@ export default {
       setTimeout(() => {
         this.$refs.winModal.open()
       }, 300)
-    },
-    openWarningModal(msg) {
-      this.warningMsg = msg
-      this.$refs.warningModal.open()
-    },
-    getCountdown(payload) {
-      this.second = payload.second
     },
     noticeTurnTimeout(payload) {
       this.selectedWord = payload.word

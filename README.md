@@ -1,5 +1,7 @@
 # SOCIAL RESISTANCE
 
+[![Actions Status: Deploy](https://github.com/uyupun/social-resistance/workflows/Deploy/badge.svg)](https://github.com/uyupun/social-resistance/actions?query=workflow%3A"Deploy")
+
 <img src="https://mitsu.uyupun.tech/images/logo/logo_black.png" width="200px">
 
 **death is not a go home**

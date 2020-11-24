@@ -4,7 +4,7 @@ import Modal from '~/components/modal/index.vue'
 import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
-import Dealer from '~/components/dealer/index.vue'
+import Dealer from '~/components/dealer/index.js'
 import {
   PLAYER_PEKORA,
   PLAYER_BAIKINKUN,
@@ -21,20 +21,22 @@ export default {
     ModalWithButtons,
     TurnAnimation,
     Sonar,
-    Dealer,
   },
   data() {
     return {
+      dealer: new Dealer(),
       isStart: false,
       turn: 1,
       words: null,
       selectedWord: null,
       winner: '',
       warningMsg: '',
+      second: 30,
     }
   },
   mounted() {
-    this.$refs.dealer.joinWorldEmitter()
+    this.dealer.joinWorldEmitter()
+    this.proceedGame()
   },
   methods: {
     openWaitModal() {
@@ -53,48 +55,68 @@ export default {
     openPauseModal() {
       this.$refs.pauseModal.open()
     },
+    openWarningModal(msg) {
+      this.warningMsg = msg
+      this.$refs.warningModal.open()
+    },
     restartGame() {
       this.$refs.pauseModal.close()
     },
     quitGame() {
-      this.$refs.dealer.leaveWorldEmitter()
+      this.dealer.leaveWorldEmitter()
       this.$router.push('/')
     },
     showTurnAnimation() {
       this.$refs.turnAnimation.show()
     },
-    proceedGame(obj) {
-      switch (obj.event) {
-        case 'feedback_position':
-          this.feedbackPosition(obj.payload)
-          break
-        case 'get_turn':
-          this.getTurn(obj.payload)
-          break
-        case 'get_words_and_baseword':
-          this.getWordsAndBaseWord(obj.payload)
-          break
-        case 'get_words':
-          this.getWords(obj.payload)
-          break
-        case 'update_baseword':
-          this.updateBaseword(obj.payload)
-          break
-        case 'declare_attack':
-          this.declareAttack()
-          break
-        case 'declare_wait':
-          this.declareWait()
-          break
-        case 'judge':
-          this.judge(obj.payload)
-          break
-        case 'invalid_player':
-          this.openWarningModal('むこうなプレイヤーです')
-          break
-        default:
-          this.quitGame(obj.payload)
-      }
+    proceedGame() {
+      this.dealer.feedbackPositionListener((payload) => {
+        this.feedbackPosition(payload)
+      })
+
+      this.dealer.getWordsAndBaseWordListener((payload) => {
+        this.getWordsAndBaseWord(payload)
+      })
+
+      this.dealer.getWordsListener((payload) => {
+        this.getWords(payload)
+      })
+
+      this.dealer.updateBaseWordListener((payload) => {
+        this.updateBaseword(payload)
+      })
+
+      this.dealer.getTurnListener((payload) => {
+        this.getTurn(payload)
+      })
+
+      this.dealer.getCountdownListener((payload) => {
+        this.getCountdown(payload)
+      })
+
+      this.dealer.declareAttackListener(() => {
+        this.declareAttack()
+      })
+
+      this.dealer.declareWaitListener(() => {
+        this.declareWait()
+      })
+
+      this.dealer.noticeTurnTimeoutListener((payload) => {
+        this.noticeTurnTimeout(payload)
+      })
+
+      this.dealer.judgeListener((payload) => {
+        this.judge(payload)
+      })
+
+      this.dealer.invalidPlayerListener(() => {
+        this.openWarningModal('むこうなプレイヤーです')
+      })
+
+      this.dealer.noticeDisconnectListener(() => {
+        this.noticeDisconnect()
+      })
     },
     feedbackPosition(payload) {
       this.movePlayer(payload)
@@ -117,6 +139,9 @@ export default {
     },
     getTurn(payload) {
       this.turn = payload.turn
+    },
+    getCountdown(payload) {
+      this.second = payload.second
     },
     getWordsAndBaseWord(payload) {
       this.words = payload.words
@@ -143,11 +168,16 @@ export default {
       return ''
     },
     movePlayerRequest(word) {
-      this.$refs.dealer.attackEmitter(word)
+      this.second = 30
+      this.dealer.attackEmitter(word)
       this.closeWordModal()
     },
     declareAttack() {
       this.closeWaitModal()
+      if (this.turn === 1) {
+        this.showTurnAnimation()
+        return
+      }
       setTimeout(() => {
         this.showTurnAnimation()
       }, 300)
@@ -166,12 +196,21 @@ export default {
         this.$refs.winModal.open()
       }, 300)
     },
-    openWarningModal(msg) {
-      this.warningMsg = msg
-      this.$refs.warningModal.open()
+    noticeTurnTimeout(payload) {
+      this.selectedWord = payload.word
+      this.$refs.forceSelectWordModal.open()
       setTimeout(() => {
-        this.$router.push('/')
+        this.second = 30
+        this.dealer.attackEmitter(payload.word)
+        this.$refs.forceSelectWordModal.close()
       }, 3000)
+    },
+    noticeDisconnect() {
+      this.dealer.leaveWorldEmitter()
+      this.closeWaitModal()
+      if (!this.winner) {
+        this.$refs.disconnectModal.open()
+      }
     },
   },
 }

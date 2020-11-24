@@ -1,100 +1,114 @@
 import io from 'socket.io-client'
 
-export default {
-  data() {
-    return {
-      worldId: sessionStorage.worldId,
-      token: sessionStorage.token,
-      role: parseInt(sessionStorage.role, 10),
-      url: process.env.API_URL,
-      socket: null,
-    }
-  },
-  mounted() {
+export default class Dealer {
+  constructor() {
+    this._worldId = sessionStorage.worldId
+    this._token = sessionStorage.token
+    this._role = Number(sessionStorage.role)
+    this._socket = null
     this.connect()
-  },
-  methods: {
-    connect() {
-      this.socket = io.connect(this.url)
-      this.startListener()
-    },
-    startListener() {
-      this.feedbackPositionListener()
-      this.getTurnListener()
-      this.declareAttackListener()
-      this.declareWaitListener()
-      this.getWordsAndBaseWordListener()
-      this.getWordsListener()
-      this.updateBaseWordListener()
-      this.judgeListener()
-      this.invalidPlayerListener()
-    },
-    feedbackPositionListener() {
-      this.socket.on('feedback_position', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'feedback_position' })
-      })
-    },
-    getTurnListener() {
-      this.socket.on('get_turn', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'get_turn' })
-      })
-    },
-    declareAttackListener() {
-      this.socket.on('declare_attack', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'declare_attack' })
-      })
-    },
-    declareWaitListener() {
-      this.socket.on('declare_wait', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'declare_wait' })
-      })
-    },
-    getWordsAndBaseWordListener() {
-      this.socket.on('get_words_and_baseword', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'get_words_and_baseword' })
-      })
-    },
-    getWordsListener() {
-      this.socket.on('get_words', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'get_words' })
-      })
-    },
-    updateBaseWordListener() {
-      this.socket.on('update_baseword', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'update_baseword' })
-      })
-    },
-    judgeListener() {
-      this.socket.on('judge', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'judge' })
-      })
-    },
-    invalidPlayerListener() {
-      this.socket.on('invalid_player', (payload) => {
-        this.$emit('proceedGame', { payload, event: 'invalid_player' })
-      })
-    },
-    joinWorldEmitter() {
-      this.socket.emit('join_world', {
-        worldId: this.worldId,
-        token: this.token,
-        role: this.role,
-      })
-    },
-    attackEmitter(word) {
-      this.socket.emit('attack', {
-        worldId: this.worldId,
-        token: this.token,
-        role: this.role,
-        baseWord: word,
-      })
-    },
-    leaveWorldEmitter() {
-      this.socket.emit('leave_world', {
-        worldId: this.worldId,
-        token: this.token,
-        role: this.role,
-      })
-    },
-  },
+  }
+
+  connect() {
+    const url = process.env.API_URL
+    this._socket = io.connect(url)
+  }
+
+  feedbackPositionListener(callback) {
+    this._socket.on('feedback_position', (payload) => {
+      callback(payload)
+    })
+  }
+
+  getWordsAndBaseWordListener(callback) {
+    this._socket.on('get_words_and_baseword', (payload) => {
+      callback(payload)
+    })
+  }
+
+  getWordsListener(callback) {
+    this._socket.on('get_words', (payload) => {
+      callback(payload)
+    })
+  }
+
+  updateBaseWordListener(callback) {
+    this._socket.on('update_baseword', (payload) => {
+      callback(payload)
+    })
+  }
+
+  getTurnListener(callback) {
+    this._socket.on('get_turn', (payload) => {
+      callback(payload)
+    })
+  }
+
+  getCountdownListener(callback) {
+    this._socket.on('get_countdown', (payload) => {
+      callback(payload)
+    })
+  }
+
+  declareAttackListener(callback) {
+    this._socket.on('declare_attack', (payload) => {
+      callback()
+    })
+  }
+
+  declareWaitListener(callback) {
+    this._socket.on('declare_wait', (payload) => {
+      callback()
+    })
+  }
+
+  noticeTurnTimeoutListener(callback) {
+    this._socket.on('notice_turn_timeout', (payload) => {
+      callback(payload)
+    })
+  }
+
+  judgeListener(callback) {
+    this._socket.on('judge', (payload) => {
+      callback(payload)
+    })
+  }
+
+  invalidPlayerListener(callback) {
+    this._socket.on('invalid_player', (payload) => {
+      callback()
+    })
+  }
+
+  noticeDisconnectListener(callback) {
+    this._socket.on('notice_disconnect', (payload) => {
+      callback()
+    })
+  }
+
+  joinWorldEmitter() {
+    this._socket.emit('join_world', {
+      worldId: this._worldId,
+      token: this._token,
+      role: this._role,
+    })
+  }
+
+  attackEmitter(word) {
+    this._socket.emit('attack', {
+      worldId: this._worldId,
+      token: this._token,
+      role: this._role,
+      baseWord: word,
+    })
+  }
+
+  leaveWorldEmitter() {
+    this._socket.emit('leave_world', {
+      worldId: this._worldId,
+      token: this._token,
+      role: this._role,
+    })
+    this._socket.disconnect()
+  }
 }

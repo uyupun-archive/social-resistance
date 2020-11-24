@@ -1,8 +1,10 @@
 <div class="container">
   <div class="container-recruit">
     <form class="form" :class="{'form-worldId': worldId, 'form-error': error}" @submit.prevent="onSubmit">
-      <RadioButton text="こうかい" id="public" value="public" name="selectPublicPrivate" checked/>
-      <RadioButton text="ひこうかい" id="private" value="private" name="selectPublicPrivate" />
+      <div class="form-switchPrivate">
+        <RadioButton text="こうかい" id="public" value="public" name="selectPublicPrivate" :checked="true" />
+        <RadioButton text="ひこうかい" id="private" value="private" name="selectPublicPrivate" />
+      </div>
       <div class="form-select">
         <SelectBox :options="options" :selected="selected" name="characterSelect" @change="onChange" />
       </div>

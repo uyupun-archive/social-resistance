@@ -70,6 +70,7 @@ export default class Dealer {
 
   judgeListener(callback) {
     this._socket.on('judge', (payload) => {
+      this.disconnect()
       callback(payload)
     })
   }
@@ -82,6 +83,7 @@ export default class Dealer {
 
   noticeDisconnectListener(callback) {
     this._socket.on('notice_disconnect', (payload) => {
+      this.disconnect()
       callback()
     })
   }
@@ -103,12 +105,7 @@ export default class Dealer {
     })
   }
 
-  leaveWorldEmitter() {
-    this._socket.emit('leave_world', {
-      worldId: this._worldId,
-      token: this._token,
-      role: this._role,
-    })
+  disconnect() {
     this._socket.disconnect()
   }
 }

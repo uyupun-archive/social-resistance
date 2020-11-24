@@ -127,7 +127,7 @@
       <p>せつぞくがきれました</p>
     </template>
     <template v-slot:btns>
-      <Button @click.native="$router.push('/')">
+      <Button @click.native="quitGame">
         <template v-slot:text>
           <span>タイトルへ</span>
         </template>
@@ -139,7 +139,7 @@
       <p>{{ warningMsg }}</p>
     </template>
     <template v-slot:btns>
-      <Button @click.native="$router.push('/')">
+      <Button @click.native="quitGame">
         <template v-slot:text>
           <span>タイトルへ</span>
         </template>

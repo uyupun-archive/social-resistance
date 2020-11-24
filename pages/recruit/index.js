@@ -1,5 +1,6 @@
 import SelectBox from '~/components/select-box/index.vue'
 import Button from '~/components/button/index.vue'
+import RadioButton from '~/components/radio-button/index.vue'
 import TextBoxIcon from '~/components/text-box-icon/index.vue'
 import Tooltip from '~/components/tooltip/index.vue'
 import {
@@ -10,6 +11,7 @@ import {
 export default {
   components: {
     SelectBox,
+    RadioButton,
     Button,
     TextBoxIcon,
     Tooltip,
@@ -33,10 +35,14 @@ export default {
         exists: false,
         text: 'コピーしました',
       },
-      error: {
-        state: false,
-        msg: 'ぼしゅうにしっぱいしました',
+      error: false,
+      pekoraImg: `${process.env.API_URL}/images/objects/pekora.gif`,
+      baikinkunImg: `${process.env.API_URL}/images/objects/baikinkun_1.gif`,
+      player: {
+        pekora: PLAYER_PEKORA,
+        baikinkun: PLAYER_BAIKINKUN,
       },
+      selectedValue: PLAYER_PEKORA,
     }
   },
   methods: {
@@ -59,19 +65,21 @@ export default {
         this.tooltip.exists = false
       }, 3000)
     },
+    onChange(value) {
+      this.selectedValue = value
+    },
     onSubmit(e) {
+      this.error = false
       const recruit = Number(e.target.characterSelect.value)
       this.$generateWorldId({ recruit })
         .then((res) => {
-          this.error.state = false
           this.worldId = res.worldId
           sessionStorage.worldId = res.worldId
           sessionStorage.token = res.token
           sessionStorage.role = res.role
         })
         .catch((e) => {
-          this.error.state = true
-          this.error.msg = e.data.msg
+          this.error = true
         })
     },
   },

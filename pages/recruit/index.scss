@@ -20,6 +20,11 @@
   width: 100%;
   margin: 0 0 280px;
 
+  &-radio {
+    display: flex;
+    margin-bottom: 50px;
+  }
+
   &-worldId {
     margin: 0 0 60px;
   }
@@ -74,6 +79,30 @@
   &-text {
     margin: 0 0 140px;
     font-size: 4.8rem;
+  }
+}
+
+.selected {
+  &-character {
+    display: flex;
+    align-items: center;
+    font-size: 3.6rem;
+
+    &__my {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+
+    &__your {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    &__img {
+      width: auto;
+      height: 50px;
+    }
   }
 }
 

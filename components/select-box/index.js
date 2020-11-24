@@ -35,9 +35,6 @@ export default {
     document.removeEventListener('click', this.clickOutSide, false)
   },
   methods: {
-    getSelected() {
-      return this.selectedValue
-    },
     onSelect(value = this.selectedValue) {
       this.selectedData = this.options.filter(
         (option) => option.value === value
@@ -58,6 +55,7 @@ export default {
       if (this.selectedValue !== value) {
         this.onSelect(value)
         this.closeList()
+        this.$emit('change', value)
       }
     },
     closeList() {

@@ -63,7 +63,7 @@ export default {
       this.$refs.pauseModal.close()
     },
     quitGame() {
-      this.dealer.leaveWorldEmitter()
+      this.dealer.disconnect()
       this.$router.push('/')
     },
     showTurnAnimation() {
@@ -206,7 +206,6 @@ export default {
       }, 3000)
     },
     noticeDisconnect() {
-      this.dealer.leaveWorldEmitter()
       this.closeWaitModal()
       if (!this.winner) {
         this.$refs.disconnectModal.open()

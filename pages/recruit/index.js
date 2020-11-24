@@ -36,8 +36,8 @@ export default {
         text: 'コピーしました',
       },
       error: false,
-      pekoraImg: `${process.env.MITSU_URL}/images/objects/pekora.gif`,
-      baikinkunImg: `${process.env.MITSU_URL}/images/objects/baikinkun_1.gif`,
+      pekoraImg: `${process.env.API_URL}/images/objects/pekora.gif`,
+      baikinkunImg: `${process.env.API_URL}/images/objects/baikinkun_1.gif`,
       player: {
         pekora: PLAYER_PEKORA,
         baikinkun: PLAYER_BAIKINKUN,

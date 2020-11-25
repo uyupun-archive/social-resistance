@@ -8,23 +8,23 @@ const fetchRules = () => {
 }
 
 /**
- * ワールドIDの取得
+ * 募集
  *
  * @param {*} params
  */
-const generateWorldId = (params) => {
-  return axios.$get('worldId', {
+const recruit = (params) => {
+  return axios.$get('recruit', {
     params,
   })
 }
 
 /**
- * ワールドIDの正当性を確認
+ * 参加
  *
  * @param {*} params
  */
-const checkWorldId = (params) => {
-  return axios.$get('worldId/check', {
+const join = (params) => {
+  return axios.$get('join', {
     params,
   })
 }
@@ -33,8 +33,8 @@ const checkWorldId = (params) => {
 
 export default ({}, inject) => {
   inject('fetchRules', fetchRules)
-  inject('generateWorldId', generateWorldId)
-  inject('checkWorldId', checkWorldId)
+  inject('recruit', recruit)
+  inject('join', join)
 }
 
 /* eslint-enable */

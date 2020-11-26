@@ -10,4 +10,9 @@ export const mutations = {
     state.role = payload.role
     state.token = payload.token
   },
+  reset(state) {
+    state.id = ''
+    state.role = 1
+    state.token = ''
+  },
 }

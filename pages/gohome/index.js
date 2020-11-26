@@ -124,7 +124,7 @@ export default {
     },
     spawnPlayer(payload) {
       if (!this.$refs.world.isSpawned()) {
-        if (payload.player === PLAYER_PEKORA)
+        if (payload.role === PLAYER_PEKORA)
           this.$refs.world.spawnPekora({ x: payload.x, y: payload.y })
         else this.$refs.world.spawnBaikinKun({ x: payload.x, y: payload.y })
         this.isStart = true
@@ -132,7 +132,7 @@ export default {
     },
     movePlayer(payload) {
       if (this.$refs.world.isSpawned()) {
-        if (payload.player === PLAYER_PEKORA)
+        if (payload.role === PLAYER_PEKORA)
           this.$refs.world.movePekora({ x: payload.x, y: payload.y })
         else this.$refs.world.moveBaikinKun({ x: payload.x, y: payload.y })
       }
@@ -145,7 +145,7 @@ export default {
     },
     getWordsAndBaseWord(payload) {
       this.words = payload.words
-      if (payload.player === PLAYER_PEKORA) {
+      if (payload.role === PLAYER_PEKORA) {
         this.$refs.world.setBaseWord(PLAYER_PEKORA, payload.baseWord)
         return
       }
@@ -155,14 +155,14 @@ export default {
       this.words = payload.words
     },
     updateBaseword(payload) {
-      if (payload.player === PLAYER_PEKORA)
+      if (payload.role === PLAYER_PEKORA)
         this.$refs.world.setBaseWord(PLAYER_PEKORA, payload.baseWord)
       else this.$refs.world.setBaseWord(PLAYER_BAIKINKUN, payload.baseWord)
     },
-    showBaseWord(player) {
+    showBaseWord(role) {
       if (this.$refs.world) {
-        return this.$refs.world.getBaseWord(player)
-          ? this.$refs.world.getBaseWord(player).word
+        return this.$refs.world.getBaseWord(role)
+          ? this.$refs.world.getBaseWord(role).word
           : ''
       }
       return ''

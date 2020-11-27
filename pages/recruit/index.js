@@ -74,9 +74,12 @@ export default {
       this.$generateWorldId({ recruit })
         .then((res) => {
           this.worldId = res.worldId
-          sessionStorage.worldId = res.worldId
-          sessionStorage.token = res.token
-          sessionStorage.role = res.role
+          const payload = {
+            id: res.worldId,
+            token: res.token,
+            role: res.role,
+          }
+          this.$store.commit('world/update', payload)
         })
         .catch((e) => {
           this.error = true

@@ -22,9 +22,14 @@ export default {
     TurnAnimation,
     Sonar,
   },
+  layout: 'default',
   data() {
     return {
-      dealer: new Dealer(),
+      dealer: new Dealer(
+        this.$store.state.world.id,
+        this.$store.state.world.role,
+        this.$store.state.world.token
+      ),
       isStart: false,
       turn: 1,
       words: null,
@@ -64,6 +69,7 @@ export default {
     },
     quitGame() {
       this.dealer.disconnect()
+      this.$store.commit('world/reset')
       this.$router.push('/')
     },
     showTurnAnimation() {

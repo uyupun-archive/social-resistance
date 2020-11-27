@@ -4,13 +4,12 @@ export default {
   components: {
     Button,
   },
-  layout() {
-    return sessionStorage.token ? 'menu/index' : 'default'
+  layout({ store }) {
+    return store.state.auth.token ? 'menu/index' : 'default'
   },
   data() {
     return {
       logo: `${process.env.API_URL}/images/logo/logo_white.svg`,
-      token: sessionStorage.token,
     }
   },
 }

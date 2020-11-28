@@ -42,6 +42,9 @@ export default {
   mounted() {
     this.dealer.joinWorldEmitter()
     this.proceedGame()
+    this.$store.commit('dealer/update', {
+      openModal: this.$refs.confirmModal.open.bind(this.$refs.confirmModal),
+    })
   },
   methods: {
     openWaitModal() {
@@ -129,10 +132,6 @@ export default {
 
       this.dealer.noticeDisconnectListener(() => {
         this.noticeDisconnect()
-      })
-
-      this.$store.commit('dealer/update', {
-        openModal: this.$refs.confirmModal.open.bind(this.$refs.confirmModal),
       })
     },
     feedbackPosition(payload) {

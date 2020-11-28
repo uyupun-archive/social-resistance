@@ -85,6 +85,11 @@
       </template>
     </Button>
   </div>
+  <Modal ref="waitModal">
+    <template v-slot:content>
+      <p>あいてのターンちゅうです</p>
+    </template>
+  </Modal>
   <ModalWithButtons ref="pauseModal" :is-wrap="true">
     <template v-slot:content>
       <p>ポーズ</p>
@@ -106,6 +111,23 @@
       </div>
     </template>
   </ModalWithButtons>
+  <ModalWithButtons ref="confirmModal">
+    <template v-slot:content>
+      <p>ゲームを終了しますか？</p>
+    </template>
+    <template v-slot:btns>
+      <Button @click.native="closeConfirmModal">
+        <template v-slot:text>
+          <span>よくない</span>
+        </template>
+      </Button>
+      <Button @click.native="quitGame">
+        <template v-slot:text>
+          <span>よい</span>
+        </template>
+      </Button>
+    </template>
+  </ModalWithButtons>
   <TurnAnimation
     ref="turnAnimation"
     :count="turn"
@@ -115,11 +137,6 @@
   <Modal ref="forceSelectWordModal">
     <template v-slot:content>
       <p>持ち時間が過ぎたため 『{{ selectedWord.word }}』を選択しました</p>
-    </template>
-  </Modal>
-  <Modal ref="waitModal">
-    <template v-slot:content>
-      <p>あいてのターンちゅうです</p>
     </template>
   </Modal>
   <ModalWithButtons ref="disconnectModal" :show-always="true">

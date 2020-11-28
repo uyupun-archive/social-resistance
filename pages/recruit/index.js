@@ -71,7 +71,7 @@ export default {
     onSubmit(e) {
       this.error = false
       const recruit = Number(e.target.characterSelect.value)
-      this.$generateWorldId({ recruit })
+      this.$recruit({ recruit })
         .then((res) => {
           this.worldId = res.worldId
           const payload = {

@@ -24,7 +24,7 @@ export default {
   methods: {
     joinWorld(worldId) {
       this.error = false
-      this.$checkWorldId({ worldId })
+      this.$join({ worldId })
         .then((res) => {
           if (res.validity) {
             const payload = {

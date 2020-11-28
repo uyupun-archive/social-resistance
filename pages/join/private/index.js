@@ -23,7 +23,7 @@ export default {
     },
     onSubmit(e) {
       this.error = false
-      this.$checkWorldId({ worldId: e.target.worldId.value })
+      this.$join({ worldId: e.target.worldId.value })
         .then((res) => {
           if (res.validity) {
             const payload = {

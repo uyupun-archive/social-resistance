@@ -65,6 +65,7 @@ export default {
    */
   build: {},
   router: {
+    middleware: 'auth',
     extendRoutes(routes, resolve) {
       routes.push({
         name: 'custom',

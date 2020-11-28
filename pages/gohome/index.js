@@ -13,7 +13,7 @@ import {
 } from '~/components/constants/index.js'
 
 export default {
-  middleware: 'redirectToTop',
+  middleware: ['redirectToTop', 'detectBrowserBack'],
   components: {
     Button,
     World,
@@ -42,6 +42,9 @@ export default {
   mounted() {
     this.dealer.joinWorldEmitter()
     this.proceedGame()
+    this.$store.commit('dealer/update', {
+      openModal: this.$refs.confirmModal.open.bind(this.$refs.confirmModal),
+    })
   },
   methods: {
     openWaitModal() {
@@ -69,11 +72,18 @@ export default {
     },
     quitGame() {
       this.dealer.disconnect()
-      this.$store.commit('world/reset')
+      this.resetStore()
       this.$router.push('/')
     },
     showTurnAnimation() {
       this.$refs.turnAnimation.show()
+    },
+    closeConfirmModal() {
+      this.$refs.confirmModal.close()
+    },
+    resetStore() {
+      this.$store.commit('world/reset')
+      this.$store.commit('dealer/reset')
     },
     proceedGame() {
       this.dealer.feedbackPositionListener((payload) => {
@@ -117,7 +127,7 @@ export default {
       })
 
       this.dealer.invalidPlayerListener(() => {
-        this.openWarningModal('むこうなプレイヤーです')
+        this.invalidPlayer()
       })
 
       this.dealer.noticeDisconnectListener(() => {
@@ -198,9 +208,14 @@ export default {
       if (payload.winner === PLAYER_PEKORA) this.winner = PLAYER_PEKORA_NAME
       else this.winner = PLAYER_BAIKINKUN_NAME
       this.closeWaitModal()
+      this.resetStore()
       setTimeout(() => {
         this.$refs.winModal.open()
       }, 300)
+    },
+    invalidPlayer() {
+      this.resetStore()
+      this.openWarningModal('むこうなプレイヤーです')
     },
     noticeTurnTimeout(payload) {
       this.selectedWord = payload.word
@@ -213,6 +228,7 @@ export default {
     },
     noticeDisconnect() {
       this.closeWaitModal()
+      this.resetStore()
       if (!this.winner) {
         this.$refs.disconnectModal.open()
       }

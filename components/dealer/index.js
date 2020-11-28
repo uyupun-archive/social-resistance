@@ -1,10 +1,10 @@
 import io from 'socket.io-client'
 
 export default class Dealer {
-  constructor() {
-    this._worldId = sessionStorage.worldId
-    this._token = sessionStorage.token
-    this._role = Number(sessionStorage.role)
+  constructor(worldId, role, token) {
+    this._worldId = worldId
+    this._role = role
+    this._token = token
     this._socket = null
     this.connect()
   }

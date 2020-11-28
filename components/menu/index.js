@@ -54,7 +54,7 @@ export default {
       return this.$route.path === path
     },
     logout() {
-      sessionStorage.removeItem('token')
+      this.$store.commit('auth/reset')
       this.closeModal()
       this.showMenu = false
       this.$router.push('/login')

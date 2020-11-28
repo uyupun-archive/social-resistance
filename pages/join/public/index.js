@@ -27,9 +27,12 @@ export default {
       this.$checkWorldId({ worldId })
         .then((res) => {
           if (res.validity) {
-            sessionStorage.worldId = worldId
-            sessionStorage.token = res.token
-            sessionStorage.role = res.role
+            const payload = {
+              id: worldId,
+              token: res.token,
+              role: res.role,
+            }
+            this.$store.commit('world/update', payload)
             this.$router.push('/gohome')
           } else {
             this.error = true

@@ -31,7 +31,12 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/fontawesome', '~/plugins/axios', '~/plugins/api'],
+  plugins: [
+    '~/plugins/fontawesome',
+    '~/plugins/axios',
+    '~/plugins/api',
+    '~/plugins/persistedState.client.js',
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -60,6 +65,7 @@ export default {
    */
   build: {},
   router: {
+    middleware: 'auth',
     extendRoutes(routes, resolve) {
       routes.push({
         name: 'custom',

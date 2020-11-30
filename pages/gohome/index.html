@@ -90,27 +90,6 @@
       <p>あいてのターンちゅうです</p>
     </template>
   </Modal>
-  <ModalWithButtons ref="pauseModal" :is-wrap="true">
-    <template v-slot:content>
-      <p>ポーズ</p>
-    </template>
-    <template v-slot:btns>
-      <div class="pause-choices">
-        <Button @click.native="restartGame">
-          <template v-slot:text>
-            <span>さいかい</span>
-          </template>
-        </Button>
-      </div>
-      <div class="pause-choices">
-        <Button @click.native="quitGame">
-          <template v-slot:text>
-            <span>やめる</span>
-          </template>
-        </Button>
-      </div>
-    </template>
-  </ModalWithButtons>
   <ModalWithButtons ref="confirmModal">
     <template v-slot:content>
       <p>ゲームを終了しますか？</p>
@@ -173,6 +152,27 @@
           <span>おつかれ</span>
         </template>
       </Button>
+    </template>
+  </ModalWithButtons>
+  <ModalWithButtons ref="pauseModal" :is-wrap="true">
+    <template v-slot:content>
+      <p>ポーズ</p>
+    </template>
+    <template v-slot:btns>
+      <div class="pause-choices">
+        <Button @click.native="restartGame">
+          <template v-slot:text>
+            <span>さいかい</span>
+          </template>
+        </Button>
+      </div>
+      <div class="pause-choices">
+        <Button @click.native="quitGame">
+          <template v-slot:text>
+            <span>やめる</span>
+          </template>
+        </Button>
+      </div>
     </template>
   </ModalWithButtons>
 </div>

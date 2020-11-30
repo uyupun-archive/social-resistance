@@ -21,27 +21,26 @@ export default {
     onChange(e) {
       this.worldId = e.target.value
     },
-    onSubmit(e) {
+    async onSubmit(e) {
       this.error = false
-      this.$join({ worldId: e.target.worldId.value })
-        .then((res) => {
-          if (res.validity) {
-            const payload = {
-              id: e.target.worldId.value,
-              token: res.token,
-              role: res.role,
-            }
-            this.$store.commit('world/update', payload)
-            this.$router.push('/gohome')
-          } else {
-            this.error = true
-            this.errorMessage = 'さんかにしっぱいしました'
-          }
-        })
-        .catch((e) => {
+      const res = await this.$join({ worldId: e.target.worldId.value }).catch(
+        (e) => {
           this.error = true
           this.errorMessage = e.data.msg
-        })
+        }
+      )
+      if (res.validity) {
+        const payload = {
+          id: e.target.worldId.value,
+          token: res.token,
+          role: res.role,
+        }
+        this.$store.commit('world/update', payload)
+        this.$router.push('/gohome')
+      } else {
+        this.error = true
+        this.errorMessage = 'さんかにしっぱいしました'
+      }
     },
   },
 }

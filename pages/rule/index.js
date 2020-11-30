@@ -22,12 +22,11 @@ export default {
     this.initRules()
   },
   methods: {
-    initRules() {
-      this.$fetchRules().then((rules) => {
-        this.rule.len = rules.length
-        this.rules = rules
-        this.setRule(this.rule.idx)
-      })
+    async initRules() {
+      const rules = await this.$fetchRules()
+      this.rule.len = rules.length
+      this.rules = rules
+      this.setRule(this.rule.idx)
     },
     setRule(idx) {
       const rule = this.rules[idx]

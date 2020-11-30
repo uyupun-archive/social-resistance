@@ -22,29 +22,24 @@ export default {
     }
   },
   methods: {
-    joinWorld(worldId) {
+    async joinWorld(worldId) {
       this.error = false
-      this.$join({ worldId })
-        .then((res) => {
-          if (res.validity) {
-            const payload = {
-              id: worldId,
-              token: res.token,
-              role: res.role,
-            }
-            this.$store.commit('world/update', payload)
-            this.$router.push('/gohome')
-          } else {
-            this.error = true
-            this.errorMessage = 'さんかにしっぱいしました'
-          }
-        })
-        .catch((e) => {
-          this.error = true
-          this.errorMessage = e.data.msg
-            ? e.data.msg
-            : 'エラーがはっせいしました'
-        })
+      const res = await this.$join({ worldId }).catch((e) => {
+        this.error = true
+        this.errorMessage = e.data.msg ? e.data.msg : 'エラーがはっせいしました'
+      })
+      if (res.validity) {
+        const payload = {
+          id: worldId,
+          token: res.token,
+          role: res.role,
+        }
+        this.$store.commit('world/update', payload)
+        this.$router.push('/gohome')
+      } else {
+        this.error = true
+        this.errorMessage = 'さんかにしっぱいしました'
+      }
     },
   },
 }

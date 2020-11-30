@@ -46,18 +46,12 @@ export default {
     }
   },
   methods: {
-    onClickCopy() {
-      navigator.clipboard
-        .writeText(this.worldId)
-        .then(() => {
-          this.tooltip.text = 'コピーしました'
-        })
-        .catch(() => {
-          this.tooltip.text = 'コピーに失敗しました'
-        })
-        .finally(() => {
-          this.showTooltip()
-        })
+    async onClickCopy() {
+      await navigator.clipboard.writeText(this.worldId).catch(() => {
+        this.tooltip.text = 'コピーに失敗しました'
+      })
+      this.tooltip.text = 'コピーしました'
+      this.showTooltip()
     },
     showTooltip() {
       this.tooltip.exists = true
@@ -68,22 +62,19 @@ export default {
     onChange(value) {
       this.selectedValue = value
     },
-    onSubmit(e) {
+    async onSubmit(e) {
       this.error = false
       const recruit = Number(e.target.characterSelect.value)
-      this.$recruit({ recruit })
-        .then((res) => {
-          this.worldId = res.worldId
-          const payload = {
-            id: res.worldId,
-            token: res.token,
-            role: res.role,
-          }
-          this.$store.commit('world/update', payload)
-        })
-        .catch((e) => {
-          this.error = true
-        })
+      const res = await this.$recruit({ recruit }).catch(
+        (e) => (this.error = true)
+      )
+      this.worldId = res.worldId
+      const payload = {
+        id: res.worldId,
+        token: res.token,
+        role: res.role,
+      }
+      this.$store.commit('world/update', payload)
     },
   },
 }

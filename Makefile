@@ -24,6 +24,7 @@ fix:
 	yarn lint:scss --fix
 
 c:
+	git add .
 	yarn commit
 
 analyze:

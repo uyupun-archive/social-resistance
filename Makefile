@@ -1,4 +1,4 @@
-.PHONY: prod-down fix
+.PHONY: prod-down fix c
 
 setup:
 	cp .env.example .env
@@ -22,6 +22,9 @@ prod-down:
 fix:
 	yarn lint:js --fix
 	yarn lint:scss --fix
+
+c:
+	yarn commit
 
 analyze:
 	yarn build --analyze

@@ -26,6 +26,8 @@ $ make prod-up
 $ make prod-down
 # ESLint/Prettier/stylelintに怒られたとき
 $ make fix
+# git commit（Commitizen）の実行
+$ make c
 # バンドルファイルの分析
 $ make analyze
 ```

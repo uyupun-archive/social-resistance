@@ -1,7 +1,7 @@
-import CMenu from '~/components/menu/index.vue'
+import HamMenu from '~/components/menu/index.vue'
 
 export default {
   components: {
-    CMenu,
+    HamMenu,
   },
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import Button from '~/components/button/index.vue'
 
 export default {
@@ -27,19 +26,16 @@ export default {
   },
   methods: {
     selectCharacter() {
-      if (this.isPekoraTab) {
-        this.selectedPekora = this.currentPekoraPointer
-      } else {
-        this.selectedBaikinkun = this.currentBaikinkunPointer
-      }
+      if (this.isPekoraTab) this.selectedPekora = this.currentPekoraPointer
+      else this.selectedBaikinkun = this.currentBaikinkunPointer
     },
-    judgeCharacter() {
+    isSelectedCharacter() {
       if (this.isPekoraTab) {
         if (this.selectedPekora === this.currentPekoraPointer) return true
-        else return false
+        return false
       }
       if (this.selectedBaikinkun === this.currentBaikinkunPointer) return true
-      else return false
+      return false
     },
     switchTab(isPekoraTab) {
       this.isPekoraTab = isPekoraTab

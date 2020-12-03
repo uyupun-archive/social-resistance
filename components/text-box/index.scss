@@ -8,6 +8,11 @@
   text-align: left;
   border: none;
   outline: none;
+
+  @include sp() {
+    height: 50px;
+    font-size: 2.8rem;
+  }
 }
 
 .alignCenter {

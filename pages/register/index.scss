@@ -29,11 +29,11 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin: 0 0 10px 0;
+    margin: 0 0 10px;
 
     @include sp() {
       flex-wrap: wrap;
-      margin: 0 0 5px 0;
+      margin: 0 0 5px;
     }
 
     &__text {
@@ -44,6 +44,7 @@
       white-space: nowrap;
 
       @include sp() {
+        min-width: none;
         margin: 0 25px 0 0;
         font-size: 2.8rem;
       }
@@ -52,27 +53,34 @@
 
   &-note {
     padding-left: 290px;
-    margin: 0 0 40px 0;
+    margin: 0 0 40px;
     font-size: 2.4rem;
     text-align: left;
 
     @include sp() {
       padding-left: 0;
-      margin: 0 0 20px 0;
+      margin: 0 0 20px;
       font-size: 1.6rem;
     }
 
     &:last-of-type {
-      margin: 0 0 150px auto;
+      margin: 0 0 150px;
+
+      @include sp() {
+        margin: 0 0 100px;
+      }
     }
   }
 
   &-error {
-    margin: 0 0 40px 0;
     color: $red;
 
     &:last-of-type {
-      margin: 0 0 40px 0;
+      margin: 0 0 40px;
+
+      @include sp() {
+        margin: 0 0 20px;
+      }
     }
   }
 
@@ -117,7 +125,7 @@
     text-align: center;
 
     @include sp() {
-      margin: 0 0 20px;
+      margin: 0 0 38px;
       font-size: 2.8rem;
     }
   }

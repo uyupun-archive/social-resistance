@@ -29,7 +29,7 @@ export default {
           this.errorMessage = e.data.msg
         }
       )
-      if (res.validity) {
+      if (res?.validity) {
         const payload = {
           id: e.target.worldId.value,
           token: res.token,

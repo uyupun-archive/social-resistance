@@ -12,7 +12,9 @@
         :class="{'disabled': checkDisabled(item.path)}"
         @click="onClickMenuItem(item.path)"
       >
-        {{ item.name }}
+        <span class="menu-item__name">
+          {{ item.name }}
+        </span>
       </li>
     </ul>
   </nav>
@@ -21,12 +23,22 @@
       <p>ログアウトしますか？</p>
     </template>
     <template v-slot:btns>
-      <Button @click.native="closeModal">
+      <Button class="show-pc" @click.native="closeModal">
         <template v-slot:text>
           <span>いいえ</span>
         </template>
       </Button>
-      <Button @click.native="logout">
+      <Button class="show-pc" @click.native="logout">
+        <template v-slot:text>
+          <span>はい</span>
+        </template>
+      </Button>
+      <Button class="show-sp" size="small" @click.native="closeModal">
+        <template v-slot:text>
+          <span>いいえ</span>
+        </template>
+      </Button>
+      <Button class="show-sp" size="small" @click.native="logout">
         <template v-slot:text>
           <span>はい</span>
         </template>

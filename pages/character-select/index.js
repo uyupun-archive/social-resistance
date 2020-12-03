@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import Button from '~/components/button/index.vue'
 
 export default {
@@ -10,6 +11,8 @@ export default {
       isPekoraTab: true,
       currentBaikinkunPointer: 0,
       currentPekoraPointer: 0,
+      selectedBaikinkun: 0,
+      selectedPekora: 0,
       pekoras: [
         { img: 'https://placehold.jp/430x430.png', name: 'チンピラウサギ' },
         { img: 'https://placehold.jp/430x430.png', name: 'おはようさぎ' },
@@ -20,12 +23,23 @@ export default {
         { img: 'https://placehold.jp/430x430.png', name: 'ふたごばいきん' },
         { img: 'https://placehold.jp/430x430.png', name: 'へずまりゅう' },
       ],
-      characterSelected: false,
     }
   },
   methods: {
     selectCharacter() {
-      this.characterSelected = true
+      if (this.isPekoraTab) {
+        this.selectedPekora = this.currentPekoraPointer
+      } else {
+        this.selectedBaikinkun = this.currentBaikinkunPointer
+      }
+    },
+    judgeCharacter() {
+      if (this.isPekoraTab) {
+        if (this.selectedPekora === this.currentPekoraPointer) return true
+        else return false
+      }
+      if (this.selectedBaikinkun === this.currentBaikinkunPointer) return true
+      else return false
     },
     switchTab(isPekoraTab) {
       this.isPekoraTab = isPekoraTab

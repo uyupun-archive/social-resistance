@@ -4,7 +4,7 @@
 
   @include sp() {
     padding-top: 60px;
-    font-size: 2.2rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -23,12 +23,6 @@
 
     &__col {
       padding: 0 0 30px;
-
-      &:last-of-type {
-        @include sp() {
-          display: none;
-        }
-      }
     }
   }
 
@@ -36,12 +30,6 @@
     &__col {
       padding: 30px 0 0;
       text-align: center;
-
-      &:nth-of-type(3n) {
-        @include sp() {
-          display: none;
-        }
-      }
     }
   }
 }
@@ -60,7 +48,7 @@
 
 .btn {
   &-area {
-    text-align: center;
     margin: 0 0 20px;
+    text-align: center;
   }
 }

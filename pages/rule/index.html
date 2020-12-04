@@ -4,13 +4,23 @@
     <p class="text">{{ rule.text }}</p>
     <img v-if="rule.image" :src="rule.image" alt="rule image" class="image" />
     <div class="btns">
-      <Button @click.native="prevRule" :disabled="rule.isFirst">
+      <Button class="show-pc" @click.native="prevRule" :disabled="rule.isFirst">
+        <template v-slot:text>
+          <span>まえへ</span>
+        </template>
+      </Button>
+      <Button class="show-sp" @click.native="prevRule" size="small" :disabled="rule.isFirst">
         <template v-slot:text>
           <span>まえへ</span>
         </template>
       </Button>
       <div class="page">{{ rule.idx + 1 }}/{{ rule.len }}</div>
-      <Button @click.native="nextRule" :disabled="rule.isLast">
+      <Button class="show-pc" @click.native="nextRule" :disabled="rule.isLast">
+        <template v-slot:text>
+          <span>つぎへ</span>
+        </template>
+      </Button>
+      <Button class="show-sp" @click.native="nextRule" size="small" :disabled="rule.isLast">
         <template v-slot:text>
           <span>つぎへ</span>
         </template>

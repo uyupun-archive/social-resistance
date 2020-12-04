@@ -1,59 +1,59 @@
 <div class="container">
-  <div class="container-recruit">
-    <form class="form" :class="{'form-worldId': worldId, 'form-error': error}" @submit.prevent="onSubmit">
-      <div class="form-radio">
-        <RadioButton text="こうかい" id="public" value="public" name="visibility" :checked="true" />
-        <RadioButton text="ひこうかい" id="private" value="private" name="visibility" />
-      </div>
+  <form class="form" :class="{'form-world': worldId, 'form-error': error}" @submit.prevent="onSubmit">
+    <div class="form-radio">
+      <RadioButton text="こうかい" id="public" value="public" name="visibility" :checked="true" />
+      <RadioButton text="ひこうかい" id="private" value="private" name="visibility" />
+    </div>
+    <div class="form-nowrap">
       <div class="form-select">
         <SelectBox :options="options" :selected="selected" name="characterSelect" @change="onChange" />
+        <div class="selected-character">
+          <div class="selected-character__my">
+            じぶん：
+            <img v-if="selectedValue === player.pekora" :src="baikinkunImg" alt="baikinkun" class="selected-character__img">
+            <img v-else :src="pekoraImg" alt="usagisan" class="selected-character__img">
+          </div>
+          <div class="selected-character__your">
+            あいて：
+            <img v-if="selectedValue === player.pekora" :src="pekoraImg" alt="usagisan" class="selected-character__img">
+            <img v-else :src="baikinkunImg" alt="baikinkun" class="selected-character__img">
+          </div>
+        </div>
       </div>
       <button type="submit" class="form-btn">
         ぼしゅう
       </button>
-      <div class="selected-character">
-        <div class="selected-character__my">
-          じぶん：
-          <img v-if="selectedValue === player.pekora" :src="baikinkunImg" alt="baikinkun" class="selected-character__img">
-          <img v-else :src="pekoraImg" alt="usagisan" class="selected-character__img">
-        </div>
-        <div class="selected-character__your">
-          あいて：
-          <img v-if="selectedValue === player.pekora" :src="pekoraImg" alt="usagisan" class="selected-character__img">
-          <img v-else :src="baikinkunImg" alt="baikinkun" class="selected-character__img">
+    </div>
+    <p v-if="error" class="error-message">ぼしゅうにしっぱいしました</p>
+  </form>
+  <div v-if="worldId" class="world">
+    <label class="world-label">
+      <span class="world-label__text">ワールドID</span>
+      <div class="world-input">
+        <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @click="onClickCopy()" />
+        <div v-if="tooltip.exists" class="world-tooltip">
+          <Tooltip>
+            <template v-slot:text>
+              <span>
+                <Fa icon="caret-right" class="world-tooltip__icon" area-hidden="true" />
+                {{tooltip.text}}
+              </span>
+            </template>
+          </Tooltip>
         </div>
       </div>
-      <p v-if="error" class="error-message">ぼしゅうにしっぱいしました</p>
-    </form>
-    <div v-if="worldId" class="worldId">
-      <label class="worldId-label">
-        <span class="worldId-label__text">ワールドID</span>
-        <div class="worldId-input">
-          <TextBoxIcon :defaultValue="worldId" name="worldId" :readonly="true" @click="onClickCopy()" />
-          <div v-if="tooltip.exists" class="worldId-tooltip">
-            <Tooltip>
-              <template v-slot:text>
-                <span>
-                  <Fa icon="caret-right" class="worldId-tooltip__icon" area-hidden="true" />
-                  {{tooltip.text}}
-                </span>
-              </template>
-            </Tooltip>
-          </div>
-        </div>
-      </label>
-    </div>
-    <div class="btn-area">
-      <Button to="/" class="btn">
-        <template v-slot:text>
-          <span>やめる</span>
-        </template>
-      </Button>
-      <Button to="/gohome" class="btn" :disabled="!worldId">
-        <template v-slot:text>
-          <span>はじめる</span>
-        </template>
-      </Button>
-    </div>
+    </label>
+  </div>
+  <div class="btn-area">
+    <Button to="/" class="btn">
+      <template v-slot:text>
+        <span>やめる</span>
+      </template>
+    </Button>
+    <Button to="/gohome" class="btn" :disabled="!worldId">
+      <template v-slot:text>
+        <span>はじめる</span>
+      </template>
+    </Button>
   </div>
 </div>

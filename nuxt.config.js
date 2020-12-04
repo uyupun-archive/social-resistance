@@ -79,7 +79,7 @@ export default {
     port: process.env.APP_PORT || 3000,
   },
   styleResources: {
-    scss: ['./assets/scss/*.scss'],
+    scss: ['./assets/scss/app.scss'],
   },
   axios: {
     proxy: true,

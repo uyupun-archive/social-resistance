@@ -14,10 +14,17 @@ services:
       - ./:/var/www
     environment:
       HOST: ${APP_HOST}
+      VIRTUAL_PORT: ${APP_PORT}
+      VIRTUAL_HOST: ${APP_DOMAIN}
+      LETSENCRYPT_HOST: ${APP_DOMAIN}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     networks:
       - social_resistance
+      - junktion
     restart: always
 
 networks:
   social_resistance:
+    external: true
+  junktion:
     external: true

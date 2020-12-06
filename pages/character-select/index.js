@@ -10,6 +10,8 @@ export default {
       isPekoraTab: true,
       currentBaikinkunPointer: 0,
       currentPekoraPointer: 0,
+      selectedBaikinkun: 0,
+      selectedPekora: 0,
       pekoras: [
         { img: 'https://placehold.jp/430x430.png', name: 'チンピラウサギ' },
         { img: 'https://placehold.jp/430x430.png', name: 'おはようさぎ' },
@@ -20,12 +22,17 @@ export default {
         { img: 'https://placehold.jp/430x430.png', name: 'ふたごばいきん' },
         { img: 'https://placehold.jp/430x430.png', name: 'へずまりゅう' },
       ],
-      characterSelected: false,
     }
   },
   methods: {
     selectCharacter() {
-      this.characterSelected = true
+      if (this.isPekoraTab) this.selectedPekora = this.currentPekoraPointer
+      else this.selectedBaikinkun = this.currentBaikinkunPointer
+    },
+    isSelectedCharacter() {
+      if (this.isPekoraTab)
+        return this.selectedPekora === this.currentPekoraPointer
+      return this.selectedBaikinkun === this.currentBaikinkunPointer
     },
     switchTab(isPekoraTab) {
       this.isPekoraTab = isPekoraTab

@@ -30,12 +30,9 @@ export default {
       else this.selectedBaikinkun = this.currentBaikinkunPointer
     },
     isSelectedCharacter() {
-      if (this.isPekoraTab) {
-        if (this.selectedPekora === this.currentPekoraPointer) return true
-        return false
-      }
-      if (this.selectedBaikinkun === this.currentBaikinkunPointer) return true
-      return false
+      if (this.isPekoraTab)
+        return this.selectedPekora === this.currentPekoraPointer
+      return this.selectedBaikinkun === this.currentBaikinkunPointer
     },
     switchTab(isPekoraTab) {
       this.isPekoraTab = isPekoraTab

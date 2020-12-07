@@ -1,84 +1,98 @@
 .container {
-  display: block;
-  width: 1000px;
-  height: 100vh;
-  margin: 0 auto;
-  text-align: center;
+  padding-top: 50px;
 }
 
-.tab {
-  &-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 70px;
-  }
+.tabs {
+  box-sizing: border-box;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border-bottom: 5px solid $white;
 
-  &-label {
-    padding: 15px 30px;
+  &-item {
+    padding: 30px 40px;
+    margin-bottom: -5px;
     font-size: 4.8rem;
     color: $gray;
     cursor: pointer;
-  }
+    border: 5px solid transparent;
 
-  &-content {
-    width: 100%;
-    margin: -5px;
-    border-top: 5px solid $white;
-  }
-
-  &-switch {
-    display: none;
-
-    &:checked + .tab-label {
-      z-index: 1000;
-      color: $white;
-      border: 5px solid $white;
-      border-bottom: 5px solid $black;
-    }
-
-    &:checked + .tab-label + .tab-content {
-      display: block;
+    @include sp() {
+      padding: 5px 10px;
+      font-size: 2rem;
     }
   }
-}
 
-.prevAndNext {
-  &-icon {
-    font-size: 30rem;
+  & .active {
     color: $white;
-    cursor: pointer;
+    border-color: $white $white $black;
   }
 }
 
-.character {
+.content {
+  width: 100%;
+  padding-top: 50px;
+  text-align: center;
+
+  @include sp() {
+    padding-top: 25px;
+  }
+}
+
+.skin {
   &-select {
     display: flex;
-    flex-wrap: nowrap;
     align-items: center;
-    justify-content: space-between;
-    width: 70%;
-    max-width: 900px;
-    height: 430px;
-    margin: 50px auto 64px auto;
+    justify-content: space-around;
+    margin-bottom: 40px;
+
+    @include sp() {
+      margin-bottom: 20px;
+    }
   }
 
-  &-icon {
-    margin-right: 10px;
-    color: $green;
+  &-img {
+    width: 430px;
+
+    @include sp() {
+      width: 200px;
+    }
   }
 
   &-name {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin-bottom: 64px;
+    margin-bottom: 40px;
     font-size: 6.4rem;
+
+    @include sp() {
+      margin-bottom: 20px;
+      font-size: 2.8rem;
+    }
   }
 
   &-btn {
-    width: 270px;
-    height: 100px;
-    margin: 0 25px 70px;
+    margin-bottom: 20px;
+  }
+}
+
+.caret {
+  &-icon {
+    font-size: 30rem;
+    color: $white;
+    cursor: pointer;
+
+    @include sp() {
+      font-size: 6.4rem;
+    }
+  }
+}
+
+.check {
+  &-icon {
+    margin-right: 10px;
+    color: $green;
   }
 }

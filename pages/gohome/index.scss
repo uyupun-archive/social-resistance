@@ -46,7 +46,7 @@
     margin: 0 0 30px;
   }
 
-  &_message {
+  &-msg {
     margin: 0;
     font-size: 3.6rem;
     text-align: center;
@@ -124,11 +124,11 @@
       font-size: 1rem;
     }
 
-    &-player {
+    &__player {
       margin: 0;
     }
 
-    &-word {
+    &__word {
       margin: 0;
     }
   }

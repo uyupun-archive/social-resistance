@@ -11,8 +11,8 @@
           'turn-inactive': turn % 2 === 0,
         }"
       >
-        <p class="turn-which-player">うさぎさんのターン</p>
-        <p class="turn-which-word">
+        <p class="turn-which__player">うさぎさんのターン</p>
+        <p class="turn-which__word">
           [{{ showBaseWord(1) }}]
         </p>
       </div>
@@ -30,14 +30,14 @@
           'turn-inactive': turn % 2 === 1,
         }"
       >
-        <p class="turn-which-player">ばいきんくんのターン</p>
-        <p class="turn-which-word">
+        <p class="turn-which__player">ばいきんくんのターン</p>
+        <p class="turn-which__word">
           [{{ showBaseWord(2) }}]
         </p>
       </div>
     </div>
     <div v-if="!isStart" class="wait">
-      <p class="wait_message">あいてのさんかをまっています...</p>
+      <p class="wait-msg">あいてのさんかをまっています...</p>
     </div>
     <div v-else class="word-wrapper">
       <div v-for="word in words" :key="word.id" class="word">

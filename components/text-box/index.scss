@@ -15,10 +15,12 @@
   }
 }
 
-.alignCenter {
-  text-align: center;
-}
+.align {
+  &-center {
+    text-align: center;
+  }
 
-.alignRight {
-  text-align: right;
+  &-right {
+    text-align: right;
+  }
 }

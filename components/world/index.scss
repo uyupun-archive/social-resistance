@@ -12,10 +12,10 @@
   @include sp() {
     transform: scale(0.25);
   }
-}
 
-.canvas-wrapper canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
+  & canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }

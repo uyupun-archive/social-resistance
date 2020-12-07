@@ -97,56 +97,60 @@
   }
 }
 
-.topLeft {
-  &:hover {
-    & span > div {
-      &::after {
-        border-left: 16px solid $black;
+.top {
+  &-left {
+    &:hover {
+      & span > div {
+        &::after {
+          border-left: 16px solid $black;
 
-        @include sp() {
-          border-left: 8px solid $black;
+          @include sp() {
+            border-left: 8px solid $black;
+          }
+        }
+      }
+    }
+  }
+
+  &-right {
+    &:hover {
+      & span > div {
+        &::after {
+          border-top: 16px solid $black;
+
+          @include sp() {
+            border-top: 8px solid $black;
+          }
         }
       }
     }
   }
 }
 
-.topRight {
-  &:hover {
-    & span > div {
-      &::after {
-        border-top: 16px solid $black;
+.bottom {
+  &-left {
+    &:hover {
+      & span > div {
+        &::after {
+          border-bottom: 16px solid $black;
 
-        @include sp() {
-          border-top: 8px solid $black;
+          @include sp() {
+            border-bottom: 8px solid $black;
+          }
         }
       }
     }
   }
-}
 
-.bottomLeft {
-  &:hover {
-    & span > div {
-      &::after {
-        border-bottom: 16px solid $black;
+  &-right {
+    &:hover {
+      & span > div {
+        &::after {
+          border-right: 16px solid $black;
 
-        @include sp() {
-          border-bottom: 8px solid $black;
-        }
-      }
-    }
-  }
-}
-
-.bottomRight {
-  &:hover {
-    & span > div {
-      &::after {
-        border-right: 16px solid $black;
-
-        @include sp() {
-          border-right: 8px solid $black;
+          @include sp() {
+            border-right: 8px solid $black;
+          }
         }
       }
     }

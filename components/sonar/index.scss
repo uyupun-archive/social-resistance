@@ -29,42 +29,46 @@
   }
 }
 
-.top-left {
-  &::after {
-    border-left: 16px solid $white;
+.top {
+  &-left {
+    &::after {
+      border-left: 16px solid $white;
 
-    @include sp() {
-      border-left: 8px solid $white;
+      @include sp() {
+        border-left: 8px solid $white;
+      }
+    }
+  }
+
+  &-right {
+    &::after {
+      border-top: 16px solid $white;
+
+      @include sp() {
+        border-top: 8px solid $white;
+      }
     }
   }
 }
 
-.top-right {
-  &::after {
-    border-top: 16px solid $white;
+.bottom {
+  &-left {
+    &::after {
+      border-bottom: 16px solid $white;
 
-    @include sp() {
-      border-top: 8px solid $white;
+      @include sp() {
+        border-bottom: 8px solid $white;
+      }
     }
   }
-}
 
-.bottom-left {
-  &::after {
-    border-bottom: 16px solid $white;
+  &-right {
+    &::after {
+      border-right: 16px solid $white;
 
-    @include sp() {
-      border-bottom: 8px solid $white;
-    }
-  }
-}
-
-.bottom-right {
-  &::after {
-    border-right: 16px solid $white;
-
-    @include sp() {
-      border-right: 8px solid $white;
+      @include sp() {
+        border-right: 8px solid $white;
+      }
     }
   }
 }

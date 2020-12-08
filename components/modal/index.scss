@@ -32,7 +32,7 @@
 
     & p {
       margin: 0;
-      font-size: 3.6rem;
+      font-size: $medium;
       text-align: center;
 
       @include sp() {

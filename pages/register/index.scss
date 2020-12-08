@@ -39,14 +39,14 @@
     &__text {
       min-width: 240px;
       margin: 0 50px 0 0;
-      font-size: 4.8rem;
+      font-size: $large;
       text-align: left;
       white-space: nowrap;
 
       @include sp() {
         min-width: none;
         margin: 0 25px 0 0;
-        font-size: 2.8rem;
+        font-size: $small;
       }
     }
   }
@@ -60,7 +60,7 @@
     @include sp() {
       padding-left: 0;
       margin: 0 0 20px;
-      font-size: 1.6rem;
+      font-size: $xsmall;
     }
 
     &:last-of-type {
@@ -120,13 +120,13 @@
   &-message {
     width: 100%;
     margin: 0 0 40px;
-    font-size: 4.8rem;
+    font-size: $large;
     color: $red;
     text-align: center;
 
     @include sp() {
       margin: 0 0 38px;
-      font-size: 2.8rem;
+      font-size: $small;
     }
   }
 }

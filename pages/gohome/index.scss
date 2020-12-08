@@ -48,15 +48,15 @@
 
   &-msg {
     margin: 0;
-    font-size: 3.6rem;
+    font-size: $medium;
     text-align: center;
 
     @include tablet() {
-      font-size: 2.8rem;
+      font-size: $small;
     }
 
     @include sp() {
-      font-size: 1.6rem;
+      font-size: $xsmall;
     }
   }
 }
@@ -72,7 +72,7 @@
   &-info {
     display: flex;
     align-items: center;
-    font-size: 3.6rem;
+    font-size: $medium;
 
     @include tablet() {
       flex-wrap: wrap;
@@ -111,7 +111,7 @@
   &-which {
     display: inline-block;
     padding: 10px;
-    font-size: 2.8rem;
+    font-size: $small;
     text-align: center;
     border: 5px solid $gray;
 
@@ -188,11 +188,11 @@
 }
 
 .danger {
-  font-size: 4.8rem;
+  font-size: $large;
   color: $red;
 
   @include tablet() {
-    font-size: 2.8rem;
+    font-size: $small;
   }
 
   @include sp() {

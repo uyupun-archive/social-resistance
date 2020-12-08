@@ -54,21 +54,3 @@
     font-size: $small;
   }
 }
-
-.show {
-  &-pc {
-    display: inline-block;
-
-    @include sp() {
-      display: none;
-    }
-  }
-
-  &-sp {
-    display: none;
-
-    @include sp() {
-      display: inline-block;
-    }
-  }
-}

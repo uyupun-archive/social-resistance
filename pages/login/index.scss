@@ -112,21 +112,3 @@
     }
   }
 }
-
-.show {
-  &-pc {
-    display: block;
-
-    @include sp() {
-      display: none;
-    }
-  }
-
-  &-sp {
-    display: none;
-
-    @include sp() {
-      display: block;
-    }
-  }
-}

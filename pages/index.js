@@ -5,7 +5,7 @@ export default {
     Button,
   },
   layout({ store }) {
-    return store.state.auth.token ? 'menu/index' : 'default'
+    return store.state.auth.token ? 'after-login/index' : 'default'
   },
   data() {
     return {

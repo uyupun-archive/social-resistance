@@ -8,7 +8,7 @@ export default {
     TextBox,
     Modal,
   },
-  layout: 'menu/index',
+  layout: 'after-login/index',
   data() {
     return {
       user: {

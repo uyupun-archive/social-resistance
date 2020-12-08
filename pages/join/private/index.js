@@ -6,7 +6,7 @@ export default {
     Button,
     TextBox,
   },
-  layout: 'menu/index',
+  layout: 'after-login/index',
   data() {
     return {
       worldId: '',

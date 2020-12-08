@@ -1,0 +1,10 @@
+<div class="radio-group">
+	<RadioButton
+		v-for="option in options"
+		:id="option.id"
+		:name="option.name"
+		:text="option.text"
+		:value="option.value"
+		:checked="option.checked"
+	/>
+</div>

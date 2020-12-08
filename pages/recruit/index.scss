@@ -20,26 +20,10 @@
   }
 
   &-radio {
-    display: flex;
     margin-bottom: 50px;
 
     @include sp() {
-      flex-wrap: wrap;
       margin-bottom: 25px;
-    }
-
-    & div {
-      @include sp() {
-        width: 100%;
-      }
-
-      &:first-of-type {
-        margin: 0 60px 0 0;
-
-        @include sp() {
-          margin: 0 60px 10px 0;
-        }
-      }
     }
   }
 

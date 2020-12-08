@@ -1,6 +1,8 @@
 <div>
-  <div class="container">
-    <World ref="world" class="world" />
+  <div class="game-container">
+    <div class="world">
+      <World ref="world" />
+    </div>
     <div class="turn-box">
       <div
         class="turn-which"
@@ -9,8 +11,8 @@
           'turn-inactive': turn % 2 === 0,
         }"
       >
-        <p class="turn-which-player">うさぎさんのターン</p>
-        <p class="turn-which-word">
+        <p class="turn-which__player">うさぎさんのターン</p>
+        <p class="turn-which__word">
           [{{ showBaseWord(1) }}]
         </p>
       </div>
@@ -28,18 +30,19 @@
           'turn-inactive': turn % 2 === 1,
         }"
       >
-        <p class="turn-which-player">ばいきんくんのターン</p>
-        <p class="turn-which-word">
+        <p class="turn-which__player">ばいきんくんのターン</p>
+        <p class="turn-which__word">
           [{{ showBaseWord(2) }}]
         </p>
       </div>
     </div>
     <div v-if="!isStart" class="wait">
-      <p class="wait_message">あいてのさんかをまっています...</p>
+      <p class="wait-msg">あいてのさんかをまっています...</p>
     </div>
     <div v-else class="word-wrapper">
       <div v-for="word in words" :key="word.id" class="word">
         <Button
+          class="show-pc"
           :topLeft="word.direction.top_left"
           :topRight="word.direction.top_right"
           :bottomLeft="word.direction.bottom_left"
@@ -58,19 +61,62 @@
             </span>
           </template>
         </Button>
+        <Button
+          class="show-sp"
+          :topLeft="word.direction.top_left"
+          :topRight="word.direction.top_right"
+          :bottomLeft="word.direction.bottom_left"
+          :bottomRight="word.direction.bottom_right"
+          size="small"
+          @click.native="openWordModal(word)"
+        >
+          <template v-slot:text>
+            <span>
+              {{ word.word }}
+              <Sonar
+                :topLeft="word.direction.top_left"
+                :topRight="word.direction.top_right"
+                :bottomLeft="word.direction.bottom_left"
+                :bottomRight="word.direction.bottom_right"
+              />
+            </span>
+          </template>
+        </Button>
       </div>
+    </div>
+    <Modal ref="waitModal">
+      <template v-slot:content>
+        <p>あいてのターンちゅうです</p>
+      </template>
+    </Modal>
+    <div class="btn-pause">
+      <Button size="small" @click.native="openPauseModal">
+        <template v-slot:text>
+          <span>ポーズ</span>
+        </template>
+      </Button>
     </div>
     <ModalWithButtons ref="wordModal">
       <template v-slot:content>
         <p>『{{ selectedWord.word }}』でよろしいですか？</p>
       </template>
       <template v-slot:btns>
-        <Button @click.native="closeWordModal">
+        <Button class="show-pc" @click.native="closeWordModal">
           <template v-slot:text>
             <span>よくない</span>
           </template>
         </Button>
-        <Button @click.native="movePlayerRequest(selectedWord)">
+        <Button class="show-pc" @click.native="movePlayerRequest(selectedWord)">
+          <template v-slot:text>
+            <span>よい</span>
+          </template>
+        </Button>
+        <Button class="show-sp" size="small" @click.native="closeWordModal">
+          <template v-slot:text>
+            <span>よくない</span>
+          </template>
+        </Button>
+        <Button class="show-sp" size="small" @click.native="movePlayerRequest(selectedWord)">
           <template v-slot:text>
             <span>よい</span>
           </template>
@@ -78,18 +124,6 @@
       </template>
     </ModalWithButtons>
   </div>
-  <div class="btn-pause">
-    <Button size="small" @click.native="openPauseModal">
-      <template v-slot:text>
-        <span>ポーズ</span>
-      </template>
-    </Button>
-  </div>
-  <Modal ref="waitModal">
-    <template v-slot:content>
-      <p>あいてのターンちゅうです</p>
-    </template>
-  </Modal>
   <ModalWithButtons ref="confirmModal">
     <template v-slot:content>
       <p>ゲームを終了しますか？</p>
@@ -130,7 +164,7 @@
       </Button>
     </template>
   </ModalWithButtons>
-  <ModalWithButtons ref="warningModal">
+  <ModalWithButtons ref="warningModal" :show-always="true">
     <template v-slot:content>
       <p>{{ warningMsg }}</p>
     </template>

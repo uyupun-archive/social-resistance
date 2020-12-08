@@ -1,15 +1,21 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 45px 0 0 0;
+  padding-top: 55px;
+
+  @include sp() {
+    margin: 0 0 30px;
+    font-size: $large;
+  }
 }
 
 .title {
   margin: 0 0 60px;
-  font-size: 6.4rem;
+  font-size: $xlarge;
   text-align: center;
+
+  @include sp() {
+    margin: 0 0 30px;
+    font-size: $large;
+  }
 }
 
 .question {
@@ -17,41 +23,59 @@
     font-size: 2.6rem;
     color: $white;
     vertical-align: top;
+
+    @include sp() {
+      font-size: 2rem;
+    }
   }
 }
 
 .ranking {
-  width: 1100px;
   padding: 0;
   margin: 0;
-  font-size: 4.8rem;
+  font-size: $medium;
+
+  @include sp() {
+    font-size: 2.4rem;
+  }
 
   &-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     margin: 0 0 40px;
 
     &:nth-of-type(1) {
-      font-size: 9.6rem;
+      font-size: $xlarge;
+
+      @include sp() {
+        font-size: 2.4rem;
+      }
     }
 
     &:nth-of-type(2) {
-      font-size: 7.2rem;
+      font-size: 5.6rem;
+
+      @include sp() {
+        font-size: 2.4rem;
+      }
     }
 
     &:nth-of-type(3) {
-      font-size: 6.4rem;
+      font-size: $large;
+
+      @include sp() {
+        font-size: 2.4rem;
+      }
     }
   }
 
   &-rank {
-    flex-basis: 20%;
+    flex-basis: 15%;
   }
 
   &-user {
     &__id {
-      flex-basis: 45%;
+      flex-basis: 50%;
     }
   }
 
@@ -62,21 +86,38 @@
       width: auto;
       height: 48px;
       margin: 0 10px 0 0;
+
+      @include sp() {
+        height: 24px;
+        margin: 0 5px 0 0;
+      }
     }
 
     & .first {
       width: auto;
-      height: 96px;
+      height: 64px;
+
+      @include sp() {
+        height: 24px;
+      }
     }
 
     & .second {
       width: auto;
-      height: 72px;
+      height: 56px;
+
+      @include sp() {
+        height: 24px;
+      }
     }
 
     & .third {
       width: auto;
-      height: 64px;
+      height: 48px;
+
+      @include sp() {
+        height: 24px;
+      }
     }
   }
 }

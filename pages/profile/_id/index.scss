@@ -1,6 +1,9 @@
 .container {
-  padding: 120px 0 0;
-  text-align: center;
+  padding-top: 120px;
+
+  @include sp() {
+    padding-top: 60px;
+  }
 }
 
 .user {
@@ -8,6 +11,11 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
+
+    @include sp() {
+      width: 150px;
+      height: 150px;
+    }
 
     &__area {
       display: flex;
@@ -18,14 +26,29 @@
       margin: 0 auto 100px;
       background: $white;
       border-radius: 50%;
+
+      @include sp() {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 50px;
+      }
     }
   }
 }
 
 .info {
+  box-sizing: border-box;
   width: 100%;
   max-width: 700px;
   margin: 0 auto 60px;
+  font-size: $large;
+
+  @include sp() {
+    max-width: 600px;
+    padding: 0 15px;
+    margin: 0 auto 40px;
+    font-size: $small;
+  }
 
   &-item {
     display: flex;
@@ -34,6 +57,11 @@
     width: 100%;
     margin: 0 0 40px;
 
+    @include sp() {
+      flex-wrap: wrap;
+      margin: 0 0 30px;
+    }
+
     &:nth-last-of-type() {
       margin: 0;
     }
@@ -41,14 +69,19 @@
 
   &-label {
     width: 50%;
-    font-size: 4.8rem;
-    text-align: left;
+
+    @include sp() {
+      width: 100%;
+      margin: 0 0 5px;
+    }
   }
 
   &-data {
     width: 50%;
-    font-size: 4.8rem;
-    text-align: left;
+
+    @include sp() {
+      width: 100%;
+    }
   }
 }
 
@@ -63,12 +96,13 @@
 .rate {
   &-icon {
     width: auto;
-    height: 4.8rem;
+    height: 48px;
   }
 }
 
 .btn {
   &-area {
+    margin: 0 0 20px;
     text-align: center;
   }
 }

@@ -1,34 +1,56 @@
 .container {
-  width: 60%;
-  margin: 5% auto 0;
+  padding-top: 150px;
   text-align: center;
+
+  @include sp() {
+    padding-top: 100px;
+  }
 }
 
-.images {
+.imgs {
   display: flex;
+  align-items: center;
 }
 
-.image {
+.img {
   width: auto;
   height: 100px;
+
+  @include sp() {
+    height: 50px;
+  }
 
   &:nth-of-type(2) {
     margin: 0 0 0 auto;
   }
 }
 
-.title {
-  margin: 0 0 50px;
-  font-size: 9.6rem;
-  line-height: 1;
-}
-
 .box {
   padding: 60px 40px;
   border: 5px solid $white;
+
+  @include sp() {
+    padding: 30px 20px;
+  }
+}
+
+.message {
+  margin: 0 0 50px;
+  font-size: 9.6rem;
+  line-height: 1;
+
+  @include sp() {
+    margin: 0 0 25px;
+    font-size: $large;
+  }
 }
 
 .subtitle {
   margin: 0 0 50px;
-  font-size: 4.8rem;
+  font-size: $large;
+
+  @include sp() {
+    margin: 0 0 25px;
+    font-size: $small;
+  }
 }

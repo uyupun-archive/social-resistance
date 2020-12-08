@@ -7,6 +7,11 @@
   border: 1px solid $white;
   border-radius: 50%;
 
+  @include sp() {
+    width: 16px;
+    height: 16px;
+  }
+
   &::after {
     position: absolute;
     top: -1px;
@@ -17,29 +22,53 @@
     border: 16px solid transparent;
     border-radius: 50%;
     transform: rotate(45deg);
+
+    @include sp() {
+      border: 8px solid transparent;
+    }
   }
 }
 
-.top-left {
-  &::after {
-    border-left: 16px solid $white;
+.top {
+  &-left {
+    &::after {
+      border-left: 16px solid $white;
+
+      @include sp() {
+        border-left: 8px solid $white;
+      }
+    }
+  }
+
+  &-right {
+    &::after {
+      border-top: 16px solid $white;
+
+      @include sp() {
+        border-top: 8px solid $white;
+      }
+    }
   }
 }
 
-.top-right {
-  &::after {
-    border-top: 16px solid $white;
-  }
-}
+.bottom {
+  &-left {
+    &::after {
+      border-bottom: 16px solid $white;
 
-.bottom-left {
-  &::after {
-    border-bottom: 16px solid $white;
+      @include sp() {
+        border-bottom: 8px solid $white;
+      }
+    }
   }
-}
 
-.bottom-right {
-  &::after {
-    border-right: 16px solid $white;
+  &-right {
+    &::after {
+      border-right: 16px solid $white;
+
+      @include sp() {
+        border-right: 8px solid $white;
+      }
+    }
   }
 }

@@ -4,16 +4,23 @@
   height: 100px;
   padding: 0 20px 0;
   margin: 0;
-  font-size: 4.8rem;
+  font-size: $large;
   text-align: left;
   border: none;
   outline: none;
+
+  @include sp() {
+    height: 50px;
+    font-size: $small;
+  }
 }
 
-.alignCenter {
-  text-align: center;
-}
+.align {
+  &-center {
+    text-align: center;
+  }
 
-.alignRight {
-  text-align: right;
+  &-right {
+    text-align: right;
+  }
 }

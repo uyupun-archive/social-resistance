@@ -5,4 +5,9 @@
   color: $white;
   background: $black;
   border: 5px solid $white;
+
+  @include sp() {
+    padding: 5px 10px;
+    font-size: $xsmall;
+  }
 }

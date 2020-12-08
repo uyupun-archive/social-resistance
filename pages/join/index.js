@@ -4,7 +4,7 @@ export default {
   components: {
     Button,
   },
-  layout: 'menu/index',
+  layout: 'after-login/index',
   data() {
     return {
       logo: `${process.env.API_URL}/images/logo/logo_white.svg`,

@@ -1,0 +1,22 @@
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  & div {
+    margin: 0 60px 10px 0;
+
+    @include sp() {
+      width: 100%;
+      margin: 0 0 10px;
+    }
+
+    &:last-of-type {
+      margin: 0 0 10px;
+
+      @include sp() {
+        margin: 0;
+      }
+    }
+  }
+}

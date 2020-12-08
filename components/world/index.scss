@@ -3,10 +3,19 @@
   width: 1200px;
   height: 500px;
   background: $white;
-}
+  transform-origin: 0 0;
 
-.canvas-wrapper canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include tablet() {
+    transform: scale(0.62);
+  }
+
+  @include sp() {
+    transform: scale(0.25);
+  }
+
+  & canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }

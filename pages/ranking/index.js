@@ -1,5 +1,5 @@
 export default {
-  layout: 'menu/index',
+  layout: 'after-login/index',
   data() {
     return {
       rankings: [

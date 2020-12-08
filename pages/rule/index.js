@@ -4,7 +4,7 @@ export default {
   components: {
     Button,
   },
-  layout: 'menu/index',
+  layout: 'after-login/index',
   data() {
     return {
       rules: [],

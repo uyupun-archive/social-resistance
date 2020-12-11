@@ -1,5 +1,5 @@
-import Button from '~/components/button/index.vue'
-import TextBox from '~/components/text-box/index.vue'
+import Button from '~/components/inputs/button/index.vue'
+import TextBox from '~/components/inputs/text-box/index.vue'
 
 export default {
   components: {

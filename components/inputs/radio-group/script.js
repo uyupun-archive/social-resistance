@@ -1,4 +1,4 @@
-import RadioButton from '~/components/radio-button/index.vue'
+import RadioButton from '~/components/inputs/radio-button/index.vue'
 
 export default {
   props: {

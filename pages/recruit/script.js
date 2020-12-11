@@ -1,8 +1,8 @@
-import SelectBox from '~/components/select-box/index.vue'
-import Button from '~/components/button/index.vue'
-import RadioGroup from '~/components/radio-group/index.vue'
-import TextBoxIcon from '~/components/text-box-icon/index.vue'
-import Tooltip from '~/components/tooltip/index.vue'
+import SelectBox from '~/components/inputs/select-box/index.vue'
+import Button from '~/components/inputs/button/index.vue'
+import RadioGroup from '~/components/inputs/radio-group/index.vue'
+import TextBoxIcon from '~/components/inputs/text-box-icon/index.vue'
+import Tooltip from '~/components/data-display/tooltip/index.vue'
 import { PLAYER_PEKORA, PLAYER_BAIKINKUN } from '~/objects/constants/script.js'
 
 export default {

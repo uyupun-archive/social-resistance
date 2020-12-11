@@ -1,4 +1,4 @@
-import Button from '~/components/button/index.vue'
+import Button from '~/components/inputs/button/index.vue'
 
 export default {
   components: {

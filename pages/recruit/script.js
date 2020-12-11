@@ -3,10 +3,7 @@ import Button from '~/components/button/index.vue'
 import RadioGroup from '~/components/radio-group/index.vue'
 import TextBoxIcon from '~/components/text-box-icon/index.vue'
 import Tooltip from '~/components/tooltip/index.vue'
-import {
-  PLAYER_PEKORA,
-  PLAYER_BAIKINKUN,
-} from '~/components/constants/index.js'
+import { PLAYER_PEKORA, PLAYER_BAIKINKUN } from '~/objects/constants/script.js'
 
 export default {
   components: {

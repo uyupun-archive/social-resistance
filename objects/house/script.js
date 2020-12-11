@@ -1,9 +1,9 @@
-import Skin from '~/components/skin/index.js'
+import Skin from '~/objects/skin/script.js'
 import {
   FIELD_HEIGHT,
   PLAYER_MOVABLE_FIELD_WIDTH,
   PLAYER_SIZE_SCALE,
-} from '~/components/constants/index.js'
+} from '~/objects/constants/script.js'
 
 export default class House {
   constructor(ctx) {

@@ -87,7 +87,7 @@ export default {
     },
     onSubmit(e) {
       // TODO: API通信
-      console.log(e.target.userId.value, this.newUserIcon)
+      // e.target.userId.value, this.newUserIcon
     },
   },
 }

@@ -1,8 +1,8 @@
-import Field from '~/components/field/index.js'
-import Pekora from '~/components/pekora/index.js'
-import BaikinKun from '~/components/baikin-kun/index.js'
-import House from '~/components/house/index.js'
-import { PLAYER_PEKORA } from '~/components/constants/index.js'
+import Field from '~/objects/field/script.js'
+import Pekora from '~/objects/pekora/script.js'
+import BaikinKun from '~/objects/baikin-kun/script.js'
+import House from '~/objects/house/script.js'
+import { PLAYER_PEKORA } from '~/objects/constants/script.js'
 
 export default {
   data() {

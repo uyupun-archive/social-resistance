@@ -2,7 +2,7 @@ import {
   FIELD_HEIGHT,
   FIELD_GRID_INTERVAL,
   PLAYER_MOVABLE_FIELD_WIDTH,
-} from '~/components/constants/index.js'
+} from '~/objects/constants/script.js'
 
 export default class Field {
   constructor(ctx) {

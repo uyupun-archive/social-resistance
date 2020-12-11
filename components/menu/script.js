@@ -16,7 +16,7 @@ export default {
         },
         {
           name: 'プロフィール',
-          path: '/profile',
+          path: '/profile/ABCDEF', // TODO: user idの取得
         },
         {
           name: 'スキン',

@@ -1,5 +1,5 @@
-import Player from '~/components/player/index.js'
-import { PLAYER_BAIKINKUN } from '~/components/constants/index.js'
+import Player from '~/objects/player/script.js'
+import { PLAYER_BAIKINKUN } from '~/objects/constants/script.js'
 
 export default class BaikinKun extends Player {
   /**

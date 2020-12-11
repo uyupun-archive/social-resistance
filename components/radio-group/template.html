@@ -1,6 +1,7 @@
 <div class="radio-group">
 	<RadioButton
 		v-for="option in options"
+		:key="option.id"
 		:id="option.id"
 		:name="option.name"
 		:text="option.text"

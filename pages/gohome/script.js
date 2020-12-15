@@ -4,13 +4,13 @@ import Modal from '~/components/modal/index.vue'
 import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
 import TurnAnimation from '~/components/turn-animation/index.vue'
 import Sonar from '~/components/sonar/index.vue'
-import Dealer from '~/components/dealer/index.js'
+import Dealer from '~/objects/dealer/script.js'
 import {
   PLAYER_PEKORA,
   PLAYER_BAIKINKUN,
   PLAYER_PEKORA_NAME,
   PLAYER_BAIKINKUN_NAME,
-} from '~/components/constants/index.js'
+} from '~/objects/constants/script.js'
 
 export default {
   middleware: ['redirectToTop', 'detectBrowserBack'],

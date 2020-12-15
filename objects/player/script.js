@@ -1,9 +1,9 @@
-import Skin from '~/components/skin/index.js'
+import Skin from '~/objects/skin/script.js'
 import {
   SOCIAL_DISTANCE_ZONE_RADIUS,
   PLAYER_SIZE_SCALE,
   PLAYER_BAIKINKUN,
-} from '~/components/constants/index.js'
+} from '~/objects/constants/script.js'
 
 export default class Player {
   constructor(ctx, position) {

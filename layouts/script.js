@@ -1,4 +1,4 @@
-import AA from '~/components/utils/aa/index.vue'
+import AA from '~/components/aa/index.vue'
 
 export default {
   components: {

@@ -1,5 +1,5 @@
-import Button from '~/components/inputs/button/index.vue'
-import ModalWithButtons from '~/components/utils/modal-with-buttons/index.vue'
+import Button from '~/components/button/index.vue'
+import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
 
 export default {
   components: {

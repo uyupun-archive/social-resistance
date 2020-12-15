@@ -1,9 +1,9 @@
-import Button from '~/components/inputs/button/index.vue'
-import World from '~/components/surfaces/world/index.vue'
-import Modal from '~/components/utils/modal/index.vue'
-import ModalWithButtons from '~/components/utils/modal-with-buttons/index.vue'
-import TurnAnimation from '~/components/utils/turn-animation/index.vue'
-import Sonar from '~/components/data-display/sonar/index.vue'
+import Button from '~/components/button/index.vue'
+import World from '~/components/world/index.vue'
+import Modal from '~/components/modal/index.vue'
+import ModalWithButtons from '~/components/modal-with-buttons/index.vue'
+import TurnAnimation from '~/components/turn-animation/index.vue'
+import Sonar from '~/components/sonar/index.vue'
 import Dealer from '~/objects/dealer/script.js'
 import {
   PLAYER_PEKORA,

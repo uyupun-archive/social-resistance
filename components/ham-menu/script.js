@@ -50,7 +50,7 @@ export default {
         this.$refs.logoutModal.open()
       }
     },
-    isPathSame(path) {
+    isSamePath(path) {
       return this.$route.path === path
     },
     logout() {

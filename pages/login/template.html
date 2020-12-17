@@ -20,7 +20,7 @@
         </Button>
       </div>
       <div class="form-button">
-        <Button type="submit" :disabled="checkDisabled()">
+        <Button type="submit" :disabled="canLogin()">
           <template v-slot:text>
             <span>ログイン</span>
           </template>

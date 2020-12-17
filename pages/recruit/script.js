@@ -76,7 +76,7 @@ export default {
     onChange(value) {
       this.selectedValue = value
     },
-    checkDisabled() {
+    canStart() {
       return !(this.worldId || this.successMsg)
     },
     initBeforeSubmit() {
@@ -84,7 +84,7 @@ export default {
       this.worldId = ''
       this.successMsg = ''
     },
-    validation(role, visibility) {
+    validate(role, visibility) {
       if (![PLAYER_PEKORA, PLAYER_BAIKINKUN].includes(role)) return true
       if (!['public', 'private'].includes(visibility)) return true
       return false
@@ -93,7 +93,7 @@ export default {
       this.initBeforeSubmit()
       const role = Number(e.target.role.value)
       const visibility = e.target.visibility.value
-      if (this.validation(role, visibility)) {
+      if (this.validate(role, visibility)) {
         this.error = true
         return
       }

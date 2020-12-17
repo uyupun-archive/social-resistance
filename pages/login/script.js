@@ -22,8 +22,8 @@ export default {
       if (this.error) this.error = false
       this.password = e.target.value
     },
-    checkDisabled() {
-      return !this.userId.length || !this.password.length
+    canLogin() {
+      return !this.userId || !this.password
     },
     onSubmit(e) {
       // TODO: 登録処理

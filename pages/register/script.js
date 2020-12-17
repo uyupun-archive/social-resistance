@@ -32,8 +32,8 @@ export default {
       if (this.submitError) this.submitError = false
       this.password = e.target.value
     },
-    checkDisabled() {
-      return !this.userId.length || !this.password.length
+    canRegister() {
+      return !this.userId || !this.password
     },
     onSubmit(e) {
       // TODO: 登録処理

@@ -62,7 +62,7 @@ export default {
     onChange(e) {
       this.newUserId = e.target.value
     },
-    checkDisabled() {
+    canSave() {
       return (
         this.user.id === this.newUserId && this.user.icon === this.newUserIcon
       )

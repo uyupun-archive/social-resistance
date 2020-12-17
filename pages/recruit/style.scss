@@ -246,6 +246,21 @@
   }
 }
 
+.success {
+  &-message {
+    padding: 15px 0;
+    margin: 0 0 120px;
+    font-size: $large;
+    text-align: center;
+
+    @include sp() {
+      padding: 0;
+      margin: 0 0 80px;
+      font-size: $small;
+    }
+  }
+}
+
 @keyframes tooltip {
   0% {
     opacity: 0;

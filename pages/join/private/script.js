@@ -15,14 +15,15 @@ export default {
     }
   },
   methods: {
-    checkDisabled() {
-      return !this.worldId.length
+    canStart() {
+      return !this.worldId
     },
     onChange(e) {
       this.worldId = e.target.value
     },
     async onSubmit(e) {
       this.error = false
+      this.worldId = ''
       const res = await this.$join({ worldId: e.target.worldId.value }).catch(
         (e) => {
           this.error = true

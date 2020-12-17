@@ -1,9 +1,9 @@
 <div class="container">
-  <form class="form" :class="{'form-world': worldId, 'form-error': error}" @submit.prevent="onSubmit">
+  <form class="form" :class="{'form-world': worldId || successMsg, 'form-error': error}" @submit.prevent="onSubmit">
     <RadioGroup class="form-radio" :options="radioOptions" />
     <div class="form-nowrap">
       <div class="form-select">
-        <SelectBox :options="options" :selected="selected" name="characterSelect" @change="onChange" />
+        <SelectBox :options="options" :selected="selected" name="role" @change="onChange" />
         <div class="selected-character">
           <div class="selected-character__my">
             じぶん：
@@ -41,13 +41,14 @@
       </div>
     </label>
   </div>
+  <p v-if="successMsg" class="success-message">{{successMsg}}</p>
   <div class="btn-area">
     <Button to="/" class="btn">
       <template v-slot:text>
         <span>やめる</span>
       </template>
     </Button>
-    <Button to="/gohome" class="btn" :disabled="!worldId">
+    <Button to="/gohome" class="btn" :disabled="canStart()">
       <template v-slot:text>
         <span>はじめる</span>
       </template>

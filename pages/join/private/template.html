@@ -16,7 +16,7 @@
         </Button>
       </div>
       <div class="form-button">
-        <Button type="submit" :disabled="checkDisabled()">
+        <Button type="submit" :disabled="canStart()">
           <template v-slot:text>
             <span>はじめる</span>
           </template>

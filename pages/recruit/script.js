@@ -56,6 +56,7 @@ export default {
           checked: false,
         },
       ],
+      successMsg: '',
     }
   },
   methods: {
@@ -75,13 +76,34 @@ export default {
     onChange(value) {
       this.selectedValue = value
     },
-    async onSubmit(e) {
+    canStart() {
+      return !(this.worldId || this.successMsg)
+    },
+    initBeforeSubmit() {
       this.error = false
-      const recruit = Number(e.target.characterSelect.value)
-      const res = await this.$recruit({ recruit }).catch(
+      this.worldId = ''
+      this.successMsg = ''
+    },
+    validate(role, visibility) {
+      if (![PLAYER_PEKORA, PLAYER_BAIKINKUN].includes(role)) return true
+      if (!['public', 'private'].includes(visibility)) return true
+      return false
+    },
+    async onSubmit(e) {
+      this.initBeforeSubmit()
+      const role = Number(e.target.role.value)
+      const visibility = e.target.visibility.value
+      if (this.validate(role, visibility)) {
+        this.error = true
+        return
+      }
+
+      const isPublic = visibility === 'public'
+      const res = await this.$recruit({ role, isPublic }).catch(
         (e) => (this.error = true)
       )
-      this.worldId = res.worldId
+      if (isPublic) this.successMsg = 'ワールドをこうかいしました！'
+      else this.worldId = res.worldId
       const payload = {
         id: res.worldId,
         token: res.token,

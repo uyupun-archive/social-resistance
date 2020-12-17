@@ -50,7 +50,7 @@ export default {
         this.$refs.logoutModal.open()
       }
     },
-    isMenuItemDisabled(path) {
+    isPathSame(path) {
       return this.$route.path === path
     },
     logout() {

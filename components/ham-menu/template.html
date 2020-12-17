@@ -9,7 +9,7 @@
       <li
         v-for="item in menu"
         class="menu-item"
-        :class="{'disabled': isMenuItemDisabled(item.path)}"
+        :class="{'disabled': isPathSame(item.path)}"
         @click="onClickMenuItem(item.path)"
       >
         <span class="menu-item__name">

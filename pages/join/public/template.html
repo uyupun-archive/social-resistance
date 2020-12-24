@@ -8,11 +8,11 @@
       </tr>
     </thead>
     <tbody class="table-body">
-      <tr v-for="world in worlds" v-bind:key="world.id" class="table-body__row">
-        <td class="table-body__col">{{ world.id }}</td>
+      <tr v-for="world in worlds" v-bind:key="world.worldId" class="table-body__row">
+        <td class="table-body__col">{{ world.worldId }}</td>
         <td class="table-body__col">{{ world.role === 1 ? 'うさぎさん' : 'ばいきんくん' }}</td>
         <td class="table-body__col">
-          <Button size="small" @click.native="joinWorld(world.id)">
+          <Button size="small" @click.native="joinWorld(world.worldId)">
             <template v-slot:text>
               <span>さんか</span>
             </template>
@@ -21,6 +21,14 @@
       </tr>
     </tbody> 
   </table>
+  <Pagination
+    class="pagination"
+    :page="page"
+    :limit="limit"
+    :total="total"
+    :pages="pages"
+    @search="searchWorld"
+  />
   <p v-if="error" class="error-message">{{ errorMessage }}</p>
   <div class="btn-area">
     <Button to="/join" size="middle">

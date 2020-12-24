@@ -1,0 +1,31 @@
+.pagination {
+  text-align: center;
+}
+
+.num {
+  display: inline-block;
+  padding: 0 20px;
+  font-size: $medium;
+  cursor: pointer;
+
+  @include sp() {
+    font-size: $xsmall;
+    padding: 0 7.5px;
+  }
+}
+
+.active {
+  color: $gray;
+  cursor: auto;
+}
+
+.icon {
+  padding: 0 10px;
+  font-size: $medium;
+  cursor: pointer;
+
+  @include sp() {
+    font-size: $xsmall;
+    padding: 0 7.5px;
+  }
+}

@@ -9,8 +9,8 @@
   cursor: pointer;
 
   @include sp() {
-    font-size: $xsmall;
     padding: 0 7.5px;
+    font-size: $xsmall;
   }
 }
 
@@ -25,7 +25,7 @@
   cursor: pointer;
 
   @include sp() {
-    font-size: $xsmall;
     padding: 0 7.5px;
+    font-size: $xsmall;
   }
 }

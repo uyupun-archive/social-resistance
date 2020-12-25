@@ -60,3 +60,14 @@
     margin-bottom: 20px;
   }
 }
+
+.not-world {
+  padding: 20px;
+  margin: 0 0 20px;
+  font-size: $large;
+  text-align: center;
+
+  @include sp() {
+    font-size: $xsmall;
+  }
+}

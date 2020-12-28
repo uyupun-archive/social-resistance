@@ -26,18 +26,16 @@ export default {
       return showPages
     },
     getMinAndMaxValue(pages) {
-      if (this.page <= 3) {
-        return { min: 1, max: pages <= 5 ? pages : 5 }
-      } else if (pages < this.page + 2) {
+      if (this.page <= 3) return { min: 1, max: pages <= 5 ? pages : 5 }
+      if (pages < this.page + 2) {
         if (this.page <= 5) return { min: 1, max: pages }
         else
           return {
             min: pages === this.page ? this.page - 4 : this.page - 3,
             max: pages,
           }
-      } else {
-        return { min: this.page - 2, max: this.page + 2 }
       }
+      return { min: this.page - 2, max: this.page + 2 }
     },
     onClickIndex(i) {
       this.$emit('search', i)

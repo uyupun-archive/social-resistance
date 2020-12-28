@@ -18,14 +18,14 @@ export default {
       if (this.total === 0) return [1]
       const showPages = []
       const pages = Math.ceil(this.total / this.limit)
-      const values = this.getMinValueAndMaxValue(pages)
+      const values = this.getMinAndMaxValue(pages)
       for (let i = 0; i < 5; i++) {
         const num = values.min + i
         if (num <= values.max) showPages.push(num)
       }
       return showPages
     },
-    getMinValueAndMaxValue(pages) {
+    getMinAndMaxValue(pages) {
       if (this.page <= 3) {
         return { min: 1, max: pages <= 5 ? pages : 5 }
       } else if (pages < this.page + 2) {

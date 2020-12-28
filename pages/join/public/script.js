@@ -29,7 +29,7 @@ export default {
       if (res) {
         this.page = res.page
         this.total = res.total
-        this.worlds = res.list
+        this.worlds = res.worlds
       }
     },
     async joinWorld(worldId) {

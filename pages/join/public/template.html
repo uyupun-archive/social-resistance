@@ -8,11 +8,11 @@
       </tr>
     </thead>
     <tbody class="table-body">
-      <tr v-for="world in worlds" :key="world.worldId" class="table-body__row">
-        <td class="table-body__col">{{ world.worldId }}</td>
+      <tr v-for="world in worlds" :key="world.id" class="table-body__row">
+        <td class="table-body__col">{{ world.id }}</td>
         <td class="table-body__col">{{ world.role === 1 ? 'うさぎさん' : 'ばいきんくん' }}</td>
         <td class="table-body__col">
-          <Button size="small" @click.native="joinWorld(world.worldId)">
+          <Button size="small" @click.native="joinWorld(world.id)">
             <template v-slot:text>
               <span>さんか</span>
             </template>

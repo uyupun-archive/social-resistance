@@ -1,27 +1,37 @@
 import Button from '~/components/button/index.vue'
+import Paginator from '~/components/paginator/index.vue'
 
 export default {
   components: {
     Button,
+    Paginator,
   },
   layout: 'after-login/index',
   data() {
     return {
-      worlds: [
-        { id: 'AAAAAA', role: 1 },
-        { id: 'BBBBBB', role: 2 },
-        { id: 'CCCCCC', role: 1 },
-        { id: 'DDDDDD', role: 2 },
-        { id: 'EEEEEE', role: 1 },
-        { id: 'FFFFFF', role: 2 },
-        { id: 'GGGGGG', role: 1 },
-        { id: 'HHHHHH', role: 2 },
-      ],
+      page: 1,
+      limit: 10,
+      total: 0,
+      worlds: [],
       error: false,
       errorMessage: 'さんかにしっぱいしました',
     }
   },
+  mounted() {
+    this.searchWorld(this.page)
+  },
   methods: {
+    async searchWorld(page) {
+      const res = await this.$search({ page, limit: this.limit }).catch((e) => {
+        this.error = true
+        this.errorMessage = e.data.msg
+      })
+      if (res) {
+        this.page = res.page
+        this.total = res.total
+        this.worlds = res.worlds
+      }
+    },
     async joinWorld(worldId) {
       this.error = false
       const res = await this.$join({ worldId }).catch((e) => {

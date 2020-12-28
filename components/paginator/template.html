@@ -1,0 +1,17 @@
+<div>
+  <div class="pagination">
+    <Fa icon="angle-double-left" class="icon" @click="toBegin()" />
+    <Fa icon="angle-left" class="icon" @click="prev()" />
+    <span
+      v-for="num in getPages()"
+      :key="num"
+      class="num"
+      :class="{active: page === num}"
+      @click="onClickIndex(num)"
+    >
+      {{ num }}
+    </span>
+    <Fa icon="angle-right" class='icon' @click="next()" />
+    <Fa icon="angle-double-right" class="icon" @click="toEnd()" />
+  </div>
+</div>

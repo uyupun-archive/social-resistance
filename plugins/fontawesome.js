@@ -6,8 +6,11 @@ import {
   faCaretRight,
   faCaretLeft,
   faSync,
+  faAngleLeft,
+  faAngleRight,
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
 } from '@fortawesome/free-solid-svg-icons'
-
 import {
   faCheckCircle,
   faQuestionCircle,
@@ -24,6 +27,10 @@ const icons = [
   faSync,
   faCheckCircle,
   faQuestionCircle,
+  faAngleLeft,
+  faAngleRight,
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
 ]
 
 // 利用するアイコンをlibraryに追加

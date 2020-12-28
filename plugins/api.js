@@ -29,12 +29,24 @@ const join = (params) => {
   })
 }
 
+/**
+ * 検索
+ *
+ * @param {*} params
+ */
+const search = (params) => {
+  return axios.$get('search', {
+    params,
+  })
+}
+
 /* eslint-disable */
 
 export default ({}, inject) => {
   inject('fetchRules', fetchRules)
   inject('recruit', recruit)
   inject('join', join)
+  inject('search', search)
 }
 
 /* eslint-enable */

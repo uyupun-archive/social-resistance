@@ -10,12 +10,12 @@
 
 .table {
   width: 100%;
-  margin: 0 auto 40px;
+  margin: 0 auto 30px;
   white-space: nowrap;
   border-collapse: collapse;
 
   @include sp() {
-    margin: 0 auto 20px;
+    margin: 0 auto 15px;
   }
 
   &-header {
@@ -50,5 +50,24 @@
   &-area {
     margin: 0 0 20px;
     text-align: center;
+  }
+}
+
+.pagination {
+  margin-bottom: 40px;
+
+  @include sp() {
+    margin-bottom: 20px;
+  }
+}
+
+.not-world {
+  padding: 20px;
+  margin: 0 0 20px;
+  font-size: $large;
+  text-align: center;
+
+  @include sp() {
+    font-size: $xsmall;
   }
 }

@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody class="table-body">
-      <tr v-for="world in worlds" v-bind:key="world.id" class="table-body__row">
+      <tr v-for="world in worlds" :key="world.id" class="table-body__row">
         <td class="table-body__col">{{ world.id }}</td>
         <td class="table-body__col">{{ world.role === 1 ? 'うさぎさん' : 'ばいきんくん' }}</td>
         <td class="table-body__col">
@@ -21,6 +21,14 @@
       </tr>
     </tbody> 
   </table>
+  <p v-if="!total" class="not-world">さんかできるワールドがありません</p>
+  <Paginator
+    class="pagination"
+    :page="page"
+    :limit="limit"
+    :total="total"
+    @search="searchWorld"
+  />
   <p v-if="error" class="error-message">{{ errorMessage }}</p>
   <div class="btn-area">
     <Button to="/join" size="middle">

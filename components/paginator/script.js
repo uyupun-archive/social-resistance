@@ -18,10 +18,10 @@ export default {
       if (this.total === 0) return [1]
       const showPages = []
       const pages = Math.ceil(this.total / this.limit)
-      const values = this.getMinAndMaxValue(pages)
+      const { min, max } = this.getMinAndMaxValue(pages)
       for (let i = 0; i < 5; i++) {
-        const num = values.min + i
-        if (num <= values.max) showPages.push(num)
+        const num = min + i
+        if (num <= max) showPages.push(num)
       }
       return showPages
     },

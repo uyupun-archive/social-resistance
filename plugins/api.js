@@ -10,6 +10,15 @@ const register = (data) => {
 }
 
 /**
+ * ログイン
+ *
+ * @param {*} data
+ */
+const login = (data) => {
+  return axios.$post('login', data)
+}
+
+/**
  * ルールの取得
  */
 const fetchRules = () => {
@@ -53,6 +62,7 @@ const search = (params) => {
 
 export default ({}, inject) => {
   inject('register', register)
+  inject('login', login)
   inject('fetchRules', fetchRules)
   inject('recruit', recruit)
   inject('join', join)

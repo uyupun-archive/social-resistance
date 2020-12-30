@@ -7,10 +7,10 @@
       </label>
       <label class="form-label">
         <span class="form-label__text">パスワード</span>
-        <TextBox class="form-text__box" name="userId" type="password" align="center" @input="onChangePassword" />
+        <TextBox class="form-text__box" name="password" type="password" align="center" @input="onChangePassword" />
       </label>
     </div>
-    <p v-if="error" class="error-message">ユーザーIDまたはパスワードがちがいます</p>
+    <p v-if="error" class="error-message">{{ errorMsg }}</p>
     <div class="form-buttons">
       <div class="form-button">
         <Button to="/">

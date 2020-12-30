@@ -1,6 +1,15 @@
 import { axios } from './axios'
 
 /**
+ * 登録
+ *
+ * @param {*} data
+ */
+const register = (data) => {
+  return axios.$post('register', data)
+}
+
+/**
  * ルールの取得
  */
 const fetchRules = () => {
@@ -43,6 +52,7 @@ const search = (params) => {
 /* eslint-disable */
 
 export default ({}, inject) => {
+  inject('register', register)
   inject('fetchRules', fetchRules)
   inject('recruit', recruit)
   inject('join', join)

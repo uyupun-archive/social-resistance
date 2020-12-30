@@ -8,11 +8,11 @@
       <p class="form-note" :class="{'form-error': error.userId.state}">※1文字以上13文字以下の英小文字、英大文字、数字</p>
       <label class="form-label">
         <span class="form-label__text">パスワード</span>
-        <TextBox class="form-text__box" name="userId" type="password" align="center" @input="onChangePassword" />
+        <TextBox class="form-text__box" name="password" type="password" align="center" @input="onChangePassword" />
       </label>
       <p class="form-note" :class="{'form-error': error.password.state}">※8文字以上の英小文字、英大文字、数字、記号（@_-/）</p>
     </div>
-    <p v-if="submitError" class="error-message">すでにそのユーザーIDは存在します</p>
+    <p v-if="submitError" class="error-message">{{ errorMsg }}</p>
     <div class="form-buttons">
       <div class="form-button">
         <Button to="/">

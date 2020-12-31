@@ -28,7 +28,7 @@ export default {
       dealer: new Dealer(
         this.$store.state.world.id,
         this.$store.state.world.role,
-        this.$store.state.world.token
+        this.$store.state.auth.token
       ),
       isStart: false,
       turn: 1,

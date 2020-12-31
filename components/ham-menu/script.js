@@ -16,7 +16,7 @@ export default {
         },
         {
           name: 'プロフィール',
-          path: '/profile/ABCDEF', // TODO: user idの取得
+          path: `/profile/${this.$store.state.auth.userId}`,
         },
         {
           name: 'スキン',

@@ -25,12 +25,10 @@ export default {
   methods: {
     onChangeUserId(e) {
       if (this.error.userId.state) this.error.userId.state = false
-      if (this.submitError) this.submitError = false
       this.userId = e.target.value
     },
     onChangePassword(e) {
       if (this.error.password.state) this.error.password.state = false
-      if (this.submitError) this.submitError = false
       this.password = e.target.value
     },
     canRegister() {

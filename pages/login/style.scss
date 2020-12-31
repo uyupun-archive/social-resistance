@@ -10,6 +10,7 @@
 .form {
   &-login {
     width: 100%;
+    margin-bottom: 40px;
   }
 
   &-text {
@@ -110,5 +111,20 @@
       margin: 0 0 38px;
       font-size: $small;
     }
+  }
+}
+
+.link {
+  font-size: $small;
+  color: $white;
+  text-decoration: underline;
+
+  @include sp() {
+    font-size: $xsmall;
+  }
+
+  &-area {
+    margin-bottom: 20px;
+    text-align: center;
   }
 }

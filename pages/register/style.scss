@@ -10,6 +10,7 @@
 .form {
   &-register {
     width: 100%;
+    margin-bottom: 40px;
   }
 
   &-text {
@@ -88,7 +89,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    margin: 0 auto 20px;
+    margin: 0 auto;
 
     @include sp() {
       justify-content: space-between;
@@ -128,5 +129,20 @@
       margin: 0 0 38px;
       font-size: $small;
     }
+  }
+}
+
+.link {
+  font-size: $small;
+  color: $white;
+  text-decoration: underline;
+
+  @include sp() {
+    font-size: $xsmall;
+  }
+
+  &-area {
+    margin-bottom: 20px;
+    text-align: center;
   }
 }

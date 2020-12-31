@@ -4,7 +4,7 @@ export let axios
 
 /* eslint-enable */
 
-export default ({ store, $axios }) => {
+export default ({ store, redirect, $axios }) => {
   $axios.defaults.baseURL = '/api/v1/'
 
   $axios.onRequest((config) => {
@@ -18,6 +18,10 @@ export default ({ store, $axios }) => {
   })
 
   $axios.onError((error) => {
+    if (error.response.status === 401) {
+      store.commit('auth/reset')
+      redirect('/login')
+    }
     return Promise.reject(error.response)
   })
 

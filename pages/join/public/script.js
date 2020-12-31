@@ -38,18 +38,14 @@ export default {
         this.error = true
         this.errorMessage = e.data.msg ? e.data.msg : 'エラーがはっせいしました'
       })
-      if (res.validity) {
-        const payload = {
-          id: worldId,
-          token: res.token,
-          role: res.role,
-        }
-        this.$store.commit('world/update', payload)
-        this.$router.push('/gohome')
-      } else {
-        this.error = true
-        this.errorMessage = 'さんかにしっぱいしました'
+      if (!res) return
+      const payload = {
+        id: worldId,
+        token: res.token,
+        role: res.role,
       }
+      this.$store.commit('world/update', payload)
+      this.$router.push('/gohome')
     },
   },
 }

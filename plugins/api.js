@@ -58,6 +58,65 @@ const search = (params) => {
   })
 }
 
+/**
+ * ランクの取得
+ */
+const fetchRanks = () => {
+  return axios.$get('ranks')
+}
+
+/**
+ * ランキングの取得
+ */
+const fetchRanking = () => {
+  return axios.$get('ranking')
+}
+
+/**
+ * アバターの取得
+ */
+const fetchAvatar = () => {
+  return axios.$get('avatar')
+}
+
+/**
+ * プロフィールの取得
+ *
+ * @param {*} data
+ */
+const fetchProfile = (data) => {
+  return axios.$get('profile', data)
+}
+
+/**
+ * プロフィールの変更
+ *
+ * @param {*} data
+ */
+const updateProfile = (data) => {
+  return axios.$patch('profile', data)
+}
+
+/**
+ * スキンの取得
+ *
+ * @param {*} params
+ */
+const fetchSkins = (params) => {
+  return axios.$get('skins', {
+    params,
+  })
+}
+
+/**
+ * スキンの変更
+ *
+ * @param {*} data
+ */
+const updateSkins = (data) => {
+  return axios.$patch('skins', data)
+}
+
 /* eslint-disable */
 
 export default ({}, inject) => {
@@ -67,6 +126,13 @@ export default ({}, inject) => {
   inject('recruit', recruit)
   inject('join', join)
   inject('search', search)
+  inject('fetchRanks', fetchRanks)
+  inject('fetchRanking', fetchRanking)
+  inject('fetchAvatar', fetchAvatar)
+  inject('fetchProfile', fetchProfile)
+  inject('updateProfile', updateProfile)
+  inject('fetchSkins', fetchSkins)
+  inject('updateSkins', updateSkins)
 }
 
 /* eslint-enable */

@@ -82,10 +82,12 @@ const fetchAvatar = () => {
 /**
  * プロフィールの取得
  *
- * @param {*} data
+ * @param {*} params
  */
-const fetchProfile = (data) => {
-  return axios.$get('profile', data)
+const fetchProfile = (params) => {
+  return axios.$get('profile', {
+    params,
+  })
 }
 
 /**

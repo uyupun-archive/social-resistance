@@ -3,10 +3,14 @@ export default {
   data() {
     return {
       rankings: [],
+      errorMsg: '',
     }
   },
   async mounted() {
-    this.rankings = await this.$fetchRanking()
+    const res = await this.$fetchRanking().catch((e) => {
+      this.errorMsg = 'ランキングのしゅとくにしっぱいしました'
+    })
+    if (res) this.rankings = res
   },
   methods: {
     retRank(num) {

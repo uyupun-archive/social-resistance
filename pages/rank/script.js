@@ -13,7 +13,7 @@ export default {
     if (res) this.ranks = res.reverse()
   },
   methods: {
-    retImage(path) {
+    makeFullImagePath(path) {
       return `${process.env.API_URL + path}`
     },
   },

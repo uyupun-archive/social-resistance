@@ -1,6 +1,6 @@
 <div class="container">
 	<div v-for="(rank, index) in ranks" :key="index" class="rank-box">
-		<img class="rank-img" :src="retImage(rank.image)" alt="rank image">
+		<img class="rank-img" :src="makeFullImagePath(rank.image)" alt="rank image">
 		<div>
 			<p class="rank-name">{{ rank.name }}</p>
 			<p class="rank-rate">{{ rank.rate.lower }}〜{{ rank.rate.upper }}</p>

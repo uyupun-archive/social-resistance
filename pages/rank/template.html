@@ -6,4 +6,5 @@
 			<p class="rank-rate">{{ rank.rate.lower }}〜{{ rank.rate.upper }}</p>
 		</div>
 	</div>
+	<p v-if="errorMsg" class="error-message">{{ errorMsg }}</p>
 </div>

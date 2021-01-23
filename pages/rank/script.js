@@ -3,10 +3,14 @@ export default {
   data() {
     return {
       ranks: [],
+      errorMsg: '',
     }
   },
   async mounted() {
-    this.ranks = (await this.$fetchRanks()).reverse()
+    const res = await this.$fetchRanks().catch((e) => {
+      this.errorMsg = 'ランクのしゅとくにしっぱいしました'
+    })
+    if (res) this.ranks = res.reverse()
   },
   methods: {
     retImage(path) {

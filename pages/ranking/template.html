@@ -7,11 +7,11 @@
   </p>
   <ul class="ranking">
     <li v-for="(ranking, index) in rankings" :key="ranking.userId" class="ranking-item">
-      <span class="ranking-rank">{{ retRank(index + 1) }}</span>
+      <span class="ranking-rank">{{ makeOrdinalRank(index + 1) }}</span>
       <span class="ranking-user__id">{{ ranking.userId }}</span>
       <span class="ranking-rate">
         <img
-          :src="retImage(ranking.image)"
+          :src="makeFullImagePath(ranking.image)"
           alt="rate icon"
           class="ranking-rate__icon"
           :class="{

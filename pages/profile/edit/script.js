@@ -11,83 +11,71 @@ export default {
   layout: 'after-login/index',
   data() {
     return {
-      user: {
-        id: '',
-        icon: 0,
-        rate: 0,
-        history: '',
-      },
-      newUserId: '',
-      newUserIcon: 0,
-      userIcons: [
-        {
-          name: 'チンピラウサギ_1',
-          url: 'http://placehold.it/200',
-        },
-        {
-          name: 'チンピラウサギ_2',
-          url: 'http://placehold.it/200/ff0000/ffffff',
-        },
-        {
-          name: 'チンピラウサギ_3',
-          url: 'http://placehold.it/200/00ff00/ffffff',
-        },
-        {
-          name: 'チンピラウサギ_4',
-          url: 'http://placehold.it/200/0000ff/ffffff',
-        },
-      ],
-      currentUserIcon: 0,
+      user: null,
+      userId: this.$store.state.auth.userId,
+      avatars: null,
+      selectedAvatarId: 0,
+      currentAvatarId: 0,
+      avatarIndex: 0,
       showModal: false,
+      errorMsg: '',
     }
   },
-  mounted() {
-    this.getUserInfo()
+  async mounted() {
+    this.user = await this.$fetchProfile({ userId: this.userId })
+    this.avatars = await this.$fetchAvatar()
+    this.selectedAvatarId = this.avatars.find(
+      (avatar) => avatar.id === this.user.avatarId
+    ).id
+    this.currentAvatarId = this.avatars[0].id
   },
   methods: {
-    getUserInfo() {
-      // TODO: ユーザー情報の取得
-      this.user.id = this.newUserId = 'ABCDEF'
-      this.user.icon = this.newUserIcon = this.currentUserIcon = 0
-      this.user.rate = 1200
-      this.user.history = '10勝5敗(50%)'
+    retAvatar(id) {
+      const { image } = this.avatars.find((avatar) => avatar.id === id)
+      return `${process.env.API_URL + image}`
     },
-    getRateIcon() {
-      // TODO: レート数に応じたアイコン(画像)を返す
-      return 'http://placehold.it/100'
+    retRank() {
+      return `${process.env.API_URL + this.user.rank}`
+    },
+    retHistory() {
+      return `${this.user.history.win}勝${this.user.history.lose}負`
     },
     onClick() {
-      this.$refs.userIconModal.open()
-    },
-    onChange(e) {
-      this.newUserId = e.target.value
+      this.$refs.avatarsModal.open()
     },
     canSave() {
-      return (
-        this.user.id === this.newUserId && this.user.icon === this.newUserIcon
-      )
+      return this.user.avatarId === this.selectedAvatarId
     },
-    selectIcon() {
-      this.newUserIcon = this.currentUserIcon
-      this.$refs.userIconModal.close()
+    selectAvatar() {
+      this.selectedAvatarId = this.currentAvatarId
+      this.$refs.avatarsModal.close()
     },
     prev() {
-      if (this.currentUserIcon === 0) {
-        this.currentUserIcon = this.userIcons.length - 1
-      } else {
-        this.currentUserIcon -= 1
-      }
+      if (this.avatarIndex === 0) this.avatarIndex = this.avatars.length - 1
+      else this.avatarIndex -= 1
+      this.currentAvatarId = this.avatars[this.avatarIndex].id
     },
     next() {
-      if (this.currentUserIcon === this.userIcons.length - 1) {
-        this.currentUserIcon = 0
-      } else {
-        this.currentUserIcon += 1
-      }
+      if (this.avatarIndex === this.avatars.length - 1) this.avatarIndex = 0
+      else this.avatarIndex += 1
+      this.currentAvatarId = this.avatars[this.avatarIndex].id
     },
-    onSubmit(e) {
-      // TODO: API通信
-      // e.target.userId.value, this.newUserIcon
+    validate(avatarId) {
+      if (!this.avatars.some((avatar) => avatar.id === avatarId)) {
+        this.errorMsg = 'ただしいアバターをせんたくしてください'
+        return true
+      }
+      return false
+    },
+    async onSubmit() {
+      this.errorMsg = ''
+      if (this.validate(this.selectedAvatarId)) return
+      const res = await this.$updateProfile({
+        avatarId: this.selectedAvatarId,
+      }).catch((e) => {
+        this.errorMsg = e.data.msg
+      })
+      if (res) this.$router.push(`/profile/${this.userId}`)
     },
   },
 }

@@ -1,68 +1,69 @@
 <div class="container">
-  <form @submit.prevent="onSubmit">
-    <div class="user-icon__area">
-      <img :src="userIcons[newUserIcon].url" alt="user icon" class="user-icon" />
-      <div class="user-icon__filter" @click="onClick()">
-        <Fa icon="sync" class="sync-icon" area-hidden="true" />
-      </div>
-    </div>
-    <div class="info">
-      <div class="info-item">
-        <div class="info-label">ユーザーID</div>
-        <div class="info-data">
-          <TextBox name="userId" :defaultValue="user.id" @input="onChange" />
+  <div v-if="user && avatars">
+    <form @submit.prevent="onSubmit">
+      <div class="user-icon__area">
+        <img :src="retAvatar(selectedAvatarId)" alt="user icon" class="user-icon" />
+        <div class="user-icon__filter" @click="onClick()">
+          <Fa icon="sync" class="sync-icon" area-hidden="true" />
         </div>
       </div>
-      <div class="info-item">
-        <div class="info-label">
-          レート
-          <nuxt-link to="/rank" class="question-link">
-            <Fa :icon="['far', 'question-circle']" class="question-icon" area-hidden="true" />
-          </nuxt-link>
+      <div class="info">
+        <div class="info-item">
+          <div class="info-label">ユーザーID</div>
+          <div class="info-data">{{ userId }}</div>
         </div>
-        <div class="info-data">
-          <img :src="getRateIcon()" alt="rate icon" class="rate-icon" />
-          {{ user.rate }}
-        </div>
-      </div>
-      <div class="info-item">
-        <div class="info-label">戦績</div>
-        <div class="info-data">{{ user.history }}</div>
-      </div>
-    </div>
-    <div class="btn-area">
-      <Button :to="`/profile/${user.id}`" size="middle">
-        <template v-slot:text>
-          <span>やめる</span>
-        </template>
-      </Button>
-      <Button size="middle" type="submit" :disabled="canSave()">
-        <template v-slot:text>
-          <span>ほぞん</span>
-        </template>
-      </Button>
-    </div>
-  </form>
-  <Modal ref="userIconModal" :isClickSelf="true">
-    <template v-slot:content>
-      <div class="user-icon__content">
-        <div class="user-icon__select">
-          <Fa icon="caret-left" class="caret-icon" area-hidden="true" @click="prev()" />
-          <div class="user-icon__area">
-            <img :src="userIcons[currentUserIcon].url" alt="user icon" class="user-icon" />
+        <div class="info-item">
+          <div class="info-label">
+            レート
+            <nuxt-link to="/rank" class="question-link">
+              <Fa :icon="['far', 'question-circle']" class="question-icon" area-hidden="true" />
+            </nuxt-link>
           </div>
-          <Fa icon="caret-right" class="caret-icon" area-hidden="true" @click="next()" />
+          <div class="info-data">
+            <img :src="retRank()" alt="rate icon" class="rate-icon" />
+            {{ user.rate }}
+          </div>
         </div>
-        <div class="user-icon__name">
-          <Fa v-if="newUserIcon === currentUserIcon" :icon="['far', 'check-circle']" class="check-icon" area-hidden="true" />
-          {{userIcons[currentUserIcon].name}}
+        <div class="info-item">
+          <div class="info-label">戦績</div>
+          <div class="info-data">{{ retHistory() }}</div>
         </div>
-        <Button size="small" :disabled="currentUserIcon === newUserIcon" @click.native="selectIcon()">
+      </div>
+      <p v-if="errorMsg" class="error-message">{{ errorMsg }}</p>
+      <div class="btn-area">
+        <Button :to="`/profile/${userId}`" size="middle">
           <template v-slot:text>
-            <span>けってい</span>
+            <span>やめる</span>
+          </template>
+        </Button>
+        <Button size="middle" type="submit" :disabled="canSave()">
+          <template v-slot:text>
+            <span>ほぞん</span>
           </template>
         </Button>
       </div>
-    </template>
-  </Modal>
+    </form>
+    <Modal ref="avatarsModal" :isClickSelf="true">
+      <template v-slot:content>
+        <div class="user-icon__content">
+          <div class="user-icon__select">
+            <Fa icon="caret-left" class="caret-icon" area-hidden="true" @click="prev()" />
+            <div class="user-icon__area">
+              <img :src="retAvatar(currentAvatarId)" alt="user icon" class="user-icon" />
+            </div>
+            <Fa icon="caret-right" class="caret-icon" area-hidden="true" @click="next()" />
+          </div>
+          <div class="user-icon__name">
+            <Fa v-if="selectedAvatarId === currentAvatarId" :icon="['far', 'check-circle']" class="check-icon" area-hidden="true" />
+            {{avatars[avatarIndex].name}}
+          </div>
+          <Button size="small" :disabled="selectedAvatarId === currentAvatarId" @click.native="selectAvatar()">
+            <template v-slot:text>
+              <span>けってい</span>
+            </template>
+          </Button>
+        </div>
+      </template>
+    </Modal>
+  </div>
 </div>

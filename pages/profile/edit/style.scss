@@ -214,3 +214,17 @@
     }
   }
 }
+
+.error {
+  &-message {
+    margin-bottom: 60px;
+    font-size: $large;
+    color: $red;
+    text-align: center;
+
+    @include sp() {
+      margin-bottom: 40px;
+      font-size: $small;
+    }
+  }
+}

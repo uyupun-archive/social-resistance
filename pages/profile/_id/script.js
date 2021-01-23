@@ -9,10 +9,14 @@ export default {
     return {
       user: null,
       userId: this.$store.state.auth.userId,
+      errorMsg: '',
     }
   },
   async mounted() {
-    this.user = await this.$fetchProfile({ userId: this.userId })
+    const res = await this.$fetchProfile({ userId: this.userId }).catch((e) => {
+      this.errorMsg = e.data.msg
+    })
+    if (res) this.user = res
   },
   methods: {
     makeFullImagePath(path) {

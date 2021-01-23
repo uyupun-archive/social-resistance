@@ -106,3 +106,15 @@
     text-align: center;
   }
 }
+
+.error {
+  &-message {
+    font-size: $large;
+    color: $red;
+    text-align: center;
+
+    @include sp() {
+      font-size: $small;
+    }
+  }
+}

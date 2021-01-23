@@ -15,13 +15,10 @@ export default {
     this.user = await this.$fetchProfile({ userId: this.userId })
   },
   methods: {
-    retAvatar() {
-      return `${process.env.API_URL + this.user.avatar}`
+    makeFullImagePath(path) {
+      return `${process.env.API_URL + path}`
     },
-    retRank() {
-      return `${process.env.API_URL + this.user.rank}`
-    },
-    retHistory() {
+    makeBattleHistory() {
       return `${this.user.history.win}勝${this.user.history.lose}負`
     },
   },

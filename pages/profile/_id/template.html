@@ -1,7 +1,7 @@
 <div class="container">
   <div v-if="user">
     <div class="user-icon__area">
-      <img :src="retAvatar()" alt="user icon" class="user-icon" />
+      <img :src="makeFullImagePath(user.avatar)" alt="user icon" class="user-icon" />
     </div>
     <div class="info">
       <div class="info-item">
@@ -16,13 +16,13 @@
           </nuxt-link>
         </div>
         <div class="info-data">
-          <img :src="retRank()" alt="rate icon" class="rate-icon" />
+          <img :src="makeFullImagePath(user.rank)" alt="rate icon" class="rate-icon" />
           {{ user.rate }}
         </div>
       </div>
       <div class="info-item">
         <div class="info-label">戦績</div>
-        <div class="info-data">{{ retHistory() }}</div>
+        <div class="info-data">{{ makeBattleHistory() }}</div>
       </div>
     </div>
     <div class="btn-area">

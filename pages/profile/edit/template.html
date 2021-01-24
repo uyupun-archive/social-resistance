@@ -1,9 +1,9 @@
 <div class="container">
   <div v-if="user && avatars">
     <form @submit.prevent="onSubmit">
-      <div class="user-icon__area">
-        <img :src="makeFullImagePath(selectedAvatar.image)" alt="user icon" class="user-icon" />
-        <div class="user-icon__filter" @click="onClick()">
+      <div class="avatar-area">
+        <img :src="makeFullImagePath(selectedAvatar.image)" alt="avatar" class="avatar" />
+        <div class="avatar-filter" @click="onClick()">
           <Fa icon="sync" class="sync-icon" area-hidden="true" />
         </div>
       </div>
@@ -20,7 +20,7 @@
             </nuxt-link>
           </div>
           <div class="info-data">
-            <img :src="makeFullImagePath(user.rank)" alt="rate icon" class="rate-icon" />
+            <img :src="makeFullImagePath(user.rank)" alt="rank" class="rank" />
             {{ user.rate }}
           </div>
         </div>
@@ -45,15 +45,15 @@
     </form>
     <Modal ref="avatarsModal" :isClickSelf="true">
       <template v-slot:content>
-        <div class="user-icon__content">
-          <div class="user-icon__select">
+        <div class="avatar-content">
+          <div class="avatar-select">
             <Fa icon="caret-left" class="caret-icon" area-hidden="true" @click="prev()" />
-            <div class="user-icon__area">
-              <img :src="makeFullImagePath(currentAvatar.image)" alt="user icon" class="user-icon" />
+            <div class="avatar-area">
+              <img :src="makeFullImagePath(currentAvatar.image)" alt="avatar" class="avatar" />
             </div>
             <Fa icon="caret-right" class="caret-icon" area-hidden="true" @click="next()" />
           </div>
-          <div class="user-icon__name">
+          <div class="avatar-name">
             <Fa v-if="selectedAvatar.id === currentAvatar.id" :icon="['far', 'check-circle']" class="check-icon" area-hidden="true" />
             {{avatars[avatarIndex].name}}
           </div>

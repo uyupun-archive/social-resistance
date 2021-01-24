@@ -12,18 +12,21 @@ export default {
       errorMsg: '',
     }
   },
-  async mounted() {
-    const res = await this.$fetchProfile({ userId: this.userId }).catch((e) => {
-      this.errorMsg = e.data.msg
-    })
-    if (res) this.user = res
+  mounted() {
+    this.fetchProfile(this.userId)
   },
   methods: {
-    makeFullImagePath(path) {
-      return `${process.env.API_URL + path}`
+    async fetchProfile(userId) {
+      const res = await this.$fetchProfile({ userId }).catch((e) => {
+        this.errorMsg = e.data.msg
+      })
+      if (res) this.user = res
     },
-    makeBattleHistory() {
-      return `${this.user.history.win}勝${this.user.history.lose}負`
+    getFullImagePath(path) {
+      return process.env.API_URL + path
+    },
+    formatHistory() {
+      return `${this.user.history.win}勝${this.user.history.lose}敗`
     },
   },
 }

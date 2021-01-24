@@ -1,7 +1,7 @@
 <div class="container">
   <div v-if="user">
     <div class="avatar-area">
-      <img :src="makeFullImagePath(user.avatar)" alt="avatar" class="avatar" />
+      <img :src="getFullImagePath(user.avatar)" alt="avatar" class="avatar" />
     </div>
     <div class="info">
       <div class="info-item">
@@ -16,13 +16,13 @@
           </nuxt-link>
         </div>
         <div class="info-data">
-          <img :src="makeFullImagePath(user.rank)" alt="rank" class="rank" />
+          <img :src="getFullImagePath(user.rank)" alt="rank" class="rank" />
           {{ user.rate }}
         </div>
       </div>
       <div class="info-item">
         <div class="info-label">戦績</div>
-        <div class="info-data">{{ makeBattleHistory() }}</div>
+        <div class="info-data">{{ formatHistory() }}</div>
       </div>
     </div>
     <div class="btn-area">

@@ -7,17 +7,27 @@
 			ばいきんくん
 		</li>
 	</ul>
-	<div class="content">
+	<div v-if="pekoraSkins && baikinkunSkins" class="content">
 		<div class="skin-select">
 			<Fa icon="caret-left" class="caret-icon" @click="prevCharacter()" />
-			<img v-if="isPekoraTab" class="skin-img" :src='pekoras[currentPekoraPointer].img' :alt="`${pekoras[currentPekoraPointer].name} スキン`" >
-			<img v-if="!isPekoraTab" class="skin-img" :src='baikinkuns[currentBaikinkunPointer].img' :alt="`${baikinkuns[currentBaikinkunPointer].name} スキン`" >
+			<img
+				v-if="isPekoraTab"
+				class="skin-img"
+				:src='makeFullImagePath(pekoraSkins[currentPekoraPointer].image)'
+				:alt="`${pekoraSkins[currentPekoraPointer].name} スキン`"
+			>
+			<img
+				v-if="!isPekoraTab"
+				class="skin-img"
+				:src='makeFullImagePath(baikinkunSkins[currentBaikinkunPointer].image)'
+				:alt="`${baikinkunSkins[currentBaikinkunPointer].name} スキン`"
+			>
 			<Fa icon="caret-right" class='caret-icon' @click="nextCharacter()" />
 		</div>
 		<div class="skin-name">
 			<Fa :icon="['far', 'check-circle']" class="check-icon" v-show="isSelectedCharacter()" />
-			<span v-if="isPekoraTab">{{ pekoras[currentPekoraPointer].name }}</span>
-			<span v-if="!isPekoraTab">{{ baikinkuns[currentBaikinkunPointer].name }}</span>
+			<span v-if="isPekoraTab">{{ pekoraSkins[currentPekoraPointer].name }}</span>
+			<span v-if="!isPekoraTab">{{ baikinkunSkins[currentBaikinkunPointer].name }}</span>
 		</div>
 		<div class="skin-btn">
 			<Button @click.native="selectCharacter" :disabled="isSelectedCharacter()">

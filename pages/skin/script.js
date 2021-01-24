@@ -1,4 +1,5 @@
 import Button from '~/components/button/index.vue'
+import { PLAYER_PEKORA, PLAYER_BAIKINKUN } from '~/objects/constants/script.js'
 
 export default {
   components: {
@@ -12,16 +13,25 @@ export default {
       currentPekoraPointer: 0,
       selectedBaikinkun: 0,
       selectedPekora: 0,
-      pekoras: [
-        { img: 'https://placehold.jp/430x430.png', name: 'チンピラウサギ' },
-        { img: 'https://placehold.jp/430x430.png', name: 'おはようさぎ' },
-        { img: 'https://placehold.jp/430x430.png', name: 'ぺこら' },
-      ],
-      baikinkuns: [
-        { img: 'https://placehold.jp/430x430.png', name: 'ばいきんくん' },
-        { img: 'https://placehold.jp/430x430.png', name: 'ふたごばいきん' },
-        { img: 'https://placehold.jp/430x430.png', name: 'へずまりゅう' },
-      ],
+      pekoraSkins: null,
+      baikinkunSkins: null,
+      errorMsg: '',
+    }
+  },
+  async mounted() {
+    const resPekoraSkins = await this.$fetchSkins({
+      role: PLAYER_PEKORA,
+    }).catch((e) => {
+      this.errorMsg = e.data.msg
+    })
+    const resBaikinkunSkins = await this.$fetchSkins({
+      role: PLAYER_BAIKINKUN,
+    }).catch((e) => {
+      this.errorMsg = e.data.msg
+    })
+    if (resPekoraSkins && resBaikinkunSkins) {
+      this.pekoraSkins = resPekoraSkins
+      this.baikinkunSkins = resBaikinkunSkins
     }
   },
   methods: {
@@ -40,22 +50,25 @@ export default {
     prevCharacter() {
       if (this.isPekoraTab) {
         if (this.currentPekoraPointer > 0) this.currentPekoraPointer--
-        else this.currentPekoraPointer = this.pekoras.length - 1
+        else this.currentPekoraPointer = this.pekoraSkins.length - 1
         return
       }
       if (this.currentBaikinkunPointer > 0) this.currentBaikinkunPointer--
-      else this.currentBaikinkunPointer = this.baikinkuns.length - 1
+      else this.currentBaikinkunPointer = this.baikinkunSkins.length - 1
     },
     nextCharacter() {
       if (this.isPekoraTab) {
-        if (this.currentPekoraPointer < this.pekoras.length - 1)
+        if (this.currentPekoraPointer < this.pekoraSkins.length - 1)
           this.currentPekoraPointer++
         else this.currentPekoraPointer = 0
         return
       }
-      if (this.currentBaikinkunPointer < this.baikinkuns.length - 1)
+      if (this.currentBaikinkunPointer < this.baikinkunSkins.length - 1)
         this.currentBaikinkunPointer++
       else this.currentBaikinkunPointer = 0
+    },
+    makeFullImagePath(path) {
+      return `${process.env.API_URL + path}`
     },
   },
 }

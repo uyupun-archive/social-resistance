@@ -43,10 +43,6 @@ export default {
         this.errorMsgs.fetch = e.data.msg
       })
     },
-    selectSkin() {
-      if (this.isPekoraTab) this.selectedPekora = this.currentPekoraPointer
-      else this.selectedBaikinkun = this.currentBaikinkunPointer
-    },
     isSelectedSkin() {
       if (this.isPekoraTab)
         return this.selectedPekora === this.currentPekoraPointer
@@ -77,6 +73,31 @@ export default {
     },
     makeFullImagePath(path) {
       return `${process.env.API_URL + path}`
+    },
+    validate(id, role) {
+      if (![PLAYER_PEKORA, PLAYER_BAIKINKUN].includes(role)) return true
+      if (this.isPekoraTab)
+        return !this.pekoraSkins.find((skin) => skin.id === id)
+      else return !this.baikinkunSkins.find((skin) => skin.id === id)
+    },
+    async updateSkins(id, role) {
+      return await this.$updateSkins({ id, role }).catch((e) => {
+        this.errorMsgs.submit = e.data.msg
+      })
+    },
+    async selectSkin() {
+      const id = this.isPekoraTab
+        ? this.pekoraSkins[this.selectedPekora].id
+        : this.baikinkunSkins[this.selectedPekora].id
+      const role = this.isPekoraTab ? PLAYER_PEKORA : PLAYER_BAIKINKUN
+      if (this.validate(id, role)) {
+        this.errorMsgs.submit = 'ただしいスキンをせんたくしてください'
+        return
+      }
+      const res = await this.updateSkins(id, role)
+      if (!res) return
+      if (this.isPekoraTab) this.selectedPekora = this.currentPekoraPointer
+      else this.selectedBaikinkun = this.currentBaikinkunPointer
     },
   },
 }

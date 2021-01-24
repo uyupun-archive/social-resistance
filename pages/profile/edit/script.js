@@ -18,12 +18,24 @@ export default {
       currentAvatar: null,
       avatarIndex: 0,
       showModal: false,
-      errorMsg: '',
+      errorMsgs: {
+        fetch: '',
+        submit: '',
+      },
     }
   },
   async mounted() {
-    this.user = await this.$fetchProfile({ userId: this.userId })
-    this.avatars = await this.$fetchAvatar()
+    const resUser = await this.$fetchProfile({ userId: this.userId }).catch(
+      (e) => {
+        this.errorMsgs.fetch = e.data.msg
+      }
+    )
+    const resAvatars = await this.$fetchAvatar().catch(() => {
+      this.errorMsgs.fetch = 'アバターのしゅとくにしっぱいしました'
+    })
+    if (!resUser || !resAvatars) return
+    this.user = resUser
+    this.avatars = resAvatars
     this.selectedAvatar = this.avatars.find(
       (avatar) => avatar.id === this.user.avatarId
     )
@@ -58,13 +70,13 @@ export default {
     },
     validate(avatarId) {
       if (!this.avatars.some((avatar) => avatar.id === avatarId)) {
-        this.errorMsg = 'ただしいアバターをせんたくしてください'
+        this.errorMsgs.submit = 'ただしいアバターをせんたくしてください'
         return true
       }
       return false
     },
     async onSubmit() {
-      this.errorMsg = ''
+      this.errorMsgs.submit = ''
       if (this.validate(this.selectedAvatar.id)) return
       const res = await this.$updateProfile({
         avatarId: this.selectedAvatar.id,

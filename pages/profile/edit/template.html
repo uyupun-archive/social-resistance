@@ -29,7 +29,7 @@
           <div class="info-data">{{ makeBattleHistory() }}</div>
         </div>
       </div>
-      <p v-if="errorMsg" class="error-message">{{ errorMsg }}</p>
+      <p v-if="errorMsgs.submit" class="error-message">{{ errorMsgs.submit }}</p>
       <div class="btn-area">
         <Button :to="`/profile/${userId}`" size="middle">
           <template v-slot:text>
@@ -66,4 +66,5 @@
       </template>
     </Modal>
   </div>
+  <p v-if="errorMsgs.fetch" class="error-message">{{ errorMsgs.fetch }}</p>
 </div>

@@ -2,7 +2,7 @@
   <div v-if="user && avatars">
     <form @submit.prevent="onSubmit">
       <div class="user-icon__area">
-        <img :src="retAvatar(selectedAvatarId)" alt="user icon" class="user-icon" />
+        <img :src="makeFullImagePath(selectedAvatar.image)" alt="user icon" class="user-icon" />
         <div class="user-icon__filter" @click="onClick()">
           <Fa icon="sync" class="sync-icon" area-hidden="true" />
         </div>
@@ -20,13 +20,13 @@
             </nuxt-link>
           </div>
           <div class="info-data">
-            <img :src="retRank()" alt="rate icon" class="rate-icon" />
+            <img :src="makeFullImagePath(user.rank)" alt="rate icon" class="rate-icon" />
             {{ user.rate }}
           </div>
         </div>
         <div class="info-item">
           <div class="info-label">戦績</div>
-          <div class="info-data">{{ retHistory() }}</div>
+          <div class="info-data">{{ makeBattleHistory() }}</div>
         </div>
       </div>
       <p v-if="errorMsg" class="error-message">{{ errorMsg }}</p>
@@ -49,15 +49,15 @@
           <div class="user-icon__select">
             <Fa icon="caret-left" class="caret-icon" area-hidden="true" @click="prev()" />
             <div class="user-icon__area">
-              <img :src="retAvatar(currentAvatarId)" alt="user icon" class="user-icon" />
+              <img :src="makeFullImagePath(currentAvatar.image)" alt="user icon" class="user-icon" />
             </div>
             <Fa icon="caret-right" class="caret-icon" area-hidden="true" @click="next()" />
           </div>
           <div class="user-icon__name">
-            <Fa v-if="selectedAvatarId === currentAvatarId" :icon="['far', 'check-circle']" class="check-icon" area-hidden="true" />
+            <Fa v-if="selectedAvatar.id === currentAvatar.id" :icon="['far', 'check-circle']" class="check-icon" area-hidden="true" />
             {{avatars[avatarIndex].name}}
           </div>
-          <Button size="small" :disabled="selectedAvatarId === currentAvatarId" @click.native="selectAvatar()">
+          <Button size="small" :disabled="selectedAvatar.id === currentAvatar.id" @click.native="selectAvatar()">
             <template v-slot:text>
               <span>けってい</span>
             </template>

@@ -14,8 +14,8 @@ export default {
       user: null,
       userId: this.$store.state.auth.userId,
       avatars: null,
-      selectedAvatarId: 0,
-      currentAvatarId: 0,
+      selectedAvatar: null,
+      currentAvatar: null,
       avatarIndex: 0,
       showModal: false,
       errorMsg: '',
@@ -24,41 +24,37 @@ export default {
   async mounted() {
     this.user = await this.$fetchProfile({ userId: this.userId })
     this.avatars = await this.$fetchAvatar()
-    this.selectedAvatarId = this.avatars.find(
+    this.selectedAvatar = this.avatars.find(
       (avatar) => avatar.id === this.user.avatarId
-    ).id
-    this.currentAvatarId = this.avatars[0].id
+    )
+    this.currentAvatar = this.avatars[0]
   },
   methods: {
-    retAvatar(id) {
-      const { image } = this.avatars.find((avatar) => avatar.id === id)
-      return `${process.env.API_URL + image}`
+    makeFullImagePath(path) {
+      return `${process.env.API_URL + path}`
     },
-    retRank() {
-      return `${process.env.API_URL + this.user.rank}`
-    },
-    retHistory() {
+    makeBattleHistory() {
       return `${this.user.history.win}勝${this.user.history.lose}負`
     },
     onClick() {
       this.$refs.avatarsModal.open()
     },
     canSave() {
-      return this.user.avatarId === this.selectedAvatarId
+      return this.user.avatarId === this.selectedAvatar.id
     },
     selectAvatar() {
-      this.selectedAvatarId = this.currentAvatarId
+      this.selectedAvatar = this.currentAvatar
       this.$refs.avatarsModal.close()
     },
     prev() {
       if (this.avatarIndex === 0) this.avatarIndex = this.avatars.length - 1
       else this.avatarIndex -= 1
-      this.currentAvatarId = this.avatars[this.avatarIndex].id
+      this.currentAvatar = this.avatars[this.avatarIndex]
     },
     next() {
       if (this.avatarIndex === this.avatars.length - 1) this.avatarIndex = 0
       else this.avatarIndex += 1
-      this.currentAvatarId = this.avatars[this.avatarIndex].id
+      this.currentAvatar = this.avatars[this.avatarIndex]
     },
     validate(avatarId) {
       if (!this.avatars.some((avatar) => avatar.id === avatarId)) {
@@ -69,9 +65,9 @@ export default {
     },
     async onSubmit() {
       this.errorMsg = ''
-      if (this.validate(this.selectedAvatarId)) return
+      if (this.validate(this.selectedAvatar.id)) return
       const res = await this.$updateProfile({
-        avatarId: this.selectedAvatarId,
+        avatarId: this.selectedAvatar.id,
       }).catch((e) => {
         this.errorMsg = e.data.msg
       })

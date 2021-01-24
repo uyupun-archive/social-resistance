@@ -14,11 +14,11 @@ export default {
   },
   methods: {
     makeOrdinalRank(num) {
-      const div10 = num % 10
-      const div100 = num % 100
-      if (div10 === 1 && div100 !== 11) return `${num}st`
-      if (div10 === 2 && div100 !== 12) return `${num}nd`
-      if (div10 === 3 && div100 !== 13) return `${num}rd`
+      const mod10 = num % 10
+      const mod100 = num % 100
+      if (mod10 === 1 && mod100 !== 11) return `${num}st`
+      if (mod10 === 2 && mod100 !== 12) return `${num}nd`
+      if (mod10 === 3 && mod100 !== 13) return `${num}rd`
       return `${num}th`
     },
     makeFullImagePath(path) {

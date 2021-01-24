@@ -14,14 +14,12 @@ export default {
   },
   methods: {
     makeOrdinalRank(num) {
-      const remainder = {
-        10: num % 10,
-        100: num % 100,
-      }
-      if (remainder[10] === 1 && remainder[100] !== 11) return `${num}st`
-      else if (remainder[10] === 2 && remainder[100] !== 12) return `${num}nd`
-      else if (remainder[10] === 3 && remainder[100] !== 13) return `${num}rd`
-      else return `${num}th`
+      const div10 = num % 10
+      const div100 = num % 100
+      if (div10 === 1 && div100 !== 11) return `${num}st`
+      if (div10 === 2 && div100 !== 12) return `${num}nd`
+      if (div10 === 3 && div100 !== 13) return `${num}rd`
+      return `${num}th`
     },
     makeFullImagePath(path) {
       return `${process.env.API_URL + path}`

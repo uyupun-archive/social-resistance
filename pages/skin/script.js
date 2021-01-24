@@ -8,6 +8,8 @@ export default {
   layout: 'after-login/index',
   data() {
     return {
+      user: null,
+      userId: this.$store.state.auth.userId,
       isPekoraTab: true,
       currentBaikinkunPointer: 0,
       currentPekoraPointer: 0,
@@ -15,31 +17,37 @@ export default {
       selectedPekora: 0,
       pekoraSkins: null,
       baikinkunSkins: null,
-      errorMsg: '',
+      errorMsgs: {
+        fetch: '',
+        submit: '',
+      },
     }
   },
   async mounted() {
-    const resPekoraSkins = await this.$fetchSkins({
-      role: PLAYER_PEKORA,
-    }).catch((e) => {
-      this.errorMsg = e.data.msg
-    })
-    const resBaikinkunSkins = await this.$fetchSkins({
-      role: PLAYER_BAIKINKUN,
-    }).catch((e) => {
-      this.errorMsg = e.data.msg
-    })
-    if (resPekoraSkins && resBaikinkunSkins) {
-      this.pekoraSkins = resPekoraSkins
-      this.baikinkunSkins = resBaikinkunSkins
-    }
+    const resUser = await this.fetchProfile(this.userId)
+    const resPekoraSkins = await this.fetchSkins(PLAYER_PEKORA)
+    const resBaikinkunSkins = await this.fetchSkins(PLAYER_BAIKINKUN)
+    if (!resUser || !resPekoraSkins || !resBaikinkunSkins) return
+    this.user = resUser
+    this.pekoraSkins = resPekoraSkins
+    this.baikinkunSkins = resBaikinkunSkins
   },
   methods: {
-    selectCharacter() {
+    async fetchProfile(userId) {
+      return await this.$fetchProfile({ userId }).catch((e) => {
+        this.errorMsgs.fetch = e.data.msg
+      })
+    },
+    async fetchSkins(role) {
+      return await this.$fetchSkins({ role }).catch((e) => {
+        this.errorMsgs.fetch = e.data.msg
+      })
+    },
+    selectSkin() {
       if (this.isPekoraTab) this.selectedPekora = this.currentPekoraPointer
       else this.selectedBaikinkun = this.currentBaikinkunPointer
     },
-    isSelectedCharacter() {
+    isSelectedSkin() {
       if (this.isPekoraTab)
         return this.selectedPekora === this.currentPekoraPointer
       return this.selectedBaikinkun === this.currentBaikinkunPointer
@@ -47,7 +55,7 @@ export default {
     switchTab(isPekoraTab) {
       this.isPekoraTab = isPekoraTab
     },
-    prevCharacter() {
+    prevSkin() {
       if (this.isPekoraTab) {
         if (this.currentPekoraPointer > 0) this.currentPekoraPointer--
         else this.currentPekoraPointer = this.pekoraSkins.length - 1
@@ -56,7 +64,7 @@ export default {
       if (this.currentBaikinkunPointer > 0) this.currentBaikinkunPointer--
       else this.currentBaikinkunPointer = this.baikinkunSkins.length - 1
     },
-    nextCharacter() {
+    nextSkin() {
       if (this.isPekoraTab) {
         if (this.currentPekoraPointer < this.pekoraSkins.length - 1)
           this.currentPekoraPointer++

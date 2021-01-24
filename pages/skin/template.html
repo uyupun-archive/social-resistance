@@ -1,40 +1,44 @@
 <div class="container">
-	<ul class="tabs">
-		<li class="tabs-item" :class="{active: isPekoraTab}" @click="switchTab(true)">
-			うさぎさん
-		</li>
-		<li class="tabs-item" :class="{active: !isPekoraTab}" @click="switchTab(false)">
-			ばいきんくん
-		</li>
-	</ul>
-	<div v-if="pekoraSkins && baikinkunSkins" class="content">
-		<div class="skin-select">
-			<Fa icon="caret-left" class="caret-icon" @click="prevCharacter()" />
-			<img
-				v-if="isPekoraTab"
-				class="skin-img"
-				:src='makeFullImagePath(pekoraSkins[currentPekoraPointer].image)'
-				:alt="`${pekoraSkins[currentPekoraPointer].name} スキン`"
-			>
-			<img
-				v-if="!isPekoraTab"
-				class="skin-img"
-				:src='makeFullImagePath(baikinkunSkins[currentBaikinkunPointer].image)'
-				:alt="`${baikinkunSkins[currentBaikinkunPointer].name} スキン`"
-			>
-			<Fa icon="caret-right" class='caret-icon' @click="nextCharacter()" />
-		</div>
-		<div class="skin-name">
-			<Fa :icon="['far', 'check-circle']" class="check-icon" v-show="isSelectedCharacter()" />
-			<span v-if="isPekoraTab">{{ pekoraSkins[currentPekoraPointer].name }}</span>
-			<span v-if="!isPekoraTab">{{ baikinkunSkins[currentBaikinkunPointer].name }}</span>
-		</div>
-		<div class="skin-btn">
-			<Button @click.native="selectCharacter" :disabled="isSelectedCharacter()">
-				<template v-slot:text>
-					<span>決定</span>
-				</template>
-			</Button>
+	<div v-if="pekoraSkins && baikinkunSkins">
+		<ul class="tabs">
+			<li class="tabs-item" :class="{active: isPekoraTab}" @click="switchTab(true)">
+				うさぎさん
+			</li>
+			<li class="tabs-item" :class="{active: !isPekoraTab}" @click="switchTab(false)">
+				ばいきんくん
+			</li>
+		</ul>
+		<div class="content">
+			<div class="skin-select">
+				<Fa icon="caret-left" class="caret-icon" @click="prevSkin()" />
+				<img
+					v-if="isPekoraTab"
+					class="skin-img"
+					:src='makeFullImagePath(pekoraSkins[currentPekoraPointer].image)'
+					:alt="`${pekoraSkins[currentPekoraPointer].name} スキン`"
+				>
+				<img
+					v-if="!isPekoraTab"
+					class="skin-img"
+					:src='makeFullImagePath(baikinkunSkins[currentBaikinkunPointer].image)'
+					:alt="`${baikinkunSkins[currentBaikinkunPointer].name} スキン`"
+				>
+				<Fa icon="caret-right" class='caret-icon' @click="nextSkin()" />
+			</div>
+			<div class="skin-name">
+				<Fa :icon="['far', 'check-circle']" class="check-icon" v-show="isSelectedSkin()" />
+				<span v-if="isPekoraTab">{{ pekoraSkins[currentPekoraPointer].name }}</span>
+				<span v-if="!isPekoraTab">{{ baikinkunSkins[currentBaikinkunPointer].name }}</span>
+			</div>
+			<p v-if="errorMsgs.fetch" class="error-message">{{ errorMsgs.fetch }}</p>
+			<div class="skin-btn">
+				<Button @click.native="selectSkin" :disabled="isSelectedSkin()">
+					<template v-slot:text>
+						<span>決定</span>
+					</template>
+				</Button>
+			</div>
 		</div>
 	</div>
+	<p v-if="errorMsgs.fetch" class="error-message">{{ errorMsgs.fetch }}</p>
 </div>

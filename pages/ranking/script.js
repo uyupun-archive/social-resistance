@@ -6,14 +6,17 @@ export default {
       errorMsg: '',
     }
   },
-  async mounted() {
-    const res = await this.$fetchRanking().catch((e) => {
-      this.errorMsg = 'ランキングのしゅとくにしっぱいしました'
-    })
-    if (res) this.rankings = res
+  mounted() {
+    this.fetchRanking()
   },
   methods: {
-    makeOrdinalRank(num) {
+    async fetchRanking() {
+      const res = await this.$fetchRanking().catch(() => {
+        this.errorMsg = 'ランキングのしゅとくにしっぱいしました'
+      })
+      if (res) this.rankings = res
+    },
+    convertNumberToOrdinal(num) {
       const mod10 = num % 10
       const mod100 = num % 100
       if (mod10 === 1 && mod100 !== 11) return `${num}st`
@@ -21,8 +24,8 @@ export default {
       if (mod10 === 3 && mod100 !== 13) return `${num}rd`
       return `${num}th`
     },
-    makeFullImagePath(path) {
-      return `${process.env.API_URL + path}`
+    getFullImagePath(path) {
+      return process.env.API_URL + path
     },
   },
 }

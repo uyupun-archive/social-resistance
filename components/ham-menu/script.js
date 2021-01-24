@@ -20,7 +20,7 @@ export default {
         },
         {
           name: 'スキン',
-          path: '/character-select',
+          path: '/skin',
         },
         {
           name: 'ランキング',

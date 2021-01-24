@@ -2,7 +2,7 @@
   <div v-if="user && avatars">
     <form @submit.prevent="onSubmit">
       <div class="avatar-area">
-        <img :src="makeFullImagePath(selectedAvatar.image)" alt="avatar" class="avatar" />
+        <img :src="getFullImagePath(selectedAvatar.image)" alt="avatar" class="avatar" />
         <div class="avatar-filter" @click="onClick()">
           <Fa icon="sync" class="sync-icon" area-hidden="true" />
         </div>
@@ -20,13 +20,13 @@
             </nuxt-link>
           </div>
           <div class="info-data">
-            <img :src="makeFullImagePath(user.rank)" alt="rank" class="rank" />
+            <img :src="getFullImagePath(user.rank)" alt="rank" class="rank" />
             {{ user.rate }}
           </div>
         </div>
         <div class="info-item">
           <div class="info-label">戦績</div>
-          <div class="info-data">{{ makeBattleHistory() }}</div>
+          <div class="info-data">{{ formatHistory() }}</div>
         </div>
       </div>
       <p v-if="errorMsgs.submit" class="error-message">{{ errorMsgs.submit }}</p>
@@ -49,7 +49,7 @@
           <div class="avatar-select">
             <Fa icon="caret-left" class="caret-icon" area-hidden="true" @click="prev()" />
             <div class="avatar-area">
-              <img :src="makeFullImagePath(currentAvatar.image)" alt="avatar" class="avatar" />
+              <img :src="getFullImagePath(currentAvatar.image)" alt="avatar" class="avatar" />
             </div>
             <Fa icon="caret-right" class="caret-icon" area-hidden="true" @click="next()" />
           </div>

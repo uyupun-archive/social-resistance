@@ -24,29 +24,34 @@ export default {
       },
     }
   },
-  async mounted() {
-    const resUser = await this.$fetchProfile({ userId: this.userId }).catch(
-      (e) => {
-        this.errorMsgs.fetch = e.data.msg
-      }
-    )
-    const resAvatars = await this.$fetchAvatar().catch(() => {
-      this.errorMsgs.fetch = 'アバターのしゅとくにしっぱいしました'
-    })
-    if (!resUser || !resAvatars) return
-    this.user = resUser
-    this.avatars = resAvatars
-    this.selectedAvatar = this.avatars.find(
-      (avatar) => avatar.id === this.user.avatarId
-    )
-    this.currentAvatar = this.avatars[0]
+  mounted() {
+    this.init()
   },
   methods: {
-    makeFullImagePath(path) {
-      return `${process.env.API_URL + path}`
+    async init() {
+      this.user = await this.fetchProfile(this.userId)
+      this.avatars = await this.fetchAvatar()
+      if (!this.user || !this.avatars) return
+      this.selectedAvatar = this.avatars.find(
+        (avatar) => avatar.id === this.user.avatarId
+      )
+      this.currentAvatar = this.avatars[0]
     },
-    makeBattleHistory() {
-      return `${this.user.history.win}勝${this.user.history.lose}負`
+    async fetchProfile(userId) {
+      return await this.$fetchProfile({ userId }).catch((e) => {
+        this.errorMsgs.fetch = e.data.msg
+      })
+    },
+    async fetchAvatar() {
+      return await this.$fetchAvatar().catch(() => {
+        this.errorMsgs.fetch = 'アバターのしゅとくにしっぱいしました'
+      })
+    },
+    getFullImagePath(path) {
+      return process.env.API_URL + path
+    },
+    formatHistory() {
+      return `${this.user.history.win}勝${this.user.history.lose}敗`
     },
     onClick() {
       this.$refs.avatarsModal.open()

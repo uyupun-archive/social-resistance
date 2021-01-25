@@ -1,9 +1,10 @@
 <div class="container">
-	<div v-for="rank in ranks" v-bind:key="rank.index" class="rank-box">
-		<img class="rank-img" src='https://placehold.jp/120x120.png' alt="rank image">
+	<div v-for="(rank, index) in ranks" :key="index" class="rank-box">
+		<img class="rank-img" :src="getFullImagePath(rank.image)" alt="rank image">
 		<div>
 			<p class="rank-name">{{ rank.name }}</p>
-			<p class="rank-rate">{{ rank.rate }}</p>
+			<p class="rank-rate">{{ rank.rate.lower }}〜{{ rank.rate.upper }}</p>
 		</div>
 	</div>
+	<p v-if="errorMsg" class="error-message">{{ errorMsg }}</p>
 </div>

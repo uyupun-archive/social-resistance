@@ -13,8 +13,8 @@ export default {
       isPekoraTab: true,
       currentPekoraPointer: 0,
       currentBaikinkunPointer: 0,
-      selectedPekora: 0,
-      selectedBaikinkun: 0,
+      selectedPekoraPointer: 0,
+      selectedBaikinkunPointer: 0,
       pekoraSkins: null,
       baikinkunSkins: null,
       errorMsgs: {
@@ -46,19 +46,19 @@ export default {
     setSkin() {
       this.pekoraSkins.some((skin, index) => {
         if (skin.id !== this.user?.skin.pekoraId) return false
-        this.selectedPekora = index
+        this.selectedPekoraPointer = index
         return true
       })
       this.baikinkunSkins.some((skin, index) => {
         if (skin.id !== this.user?.skin.baikinkunId) return false
-        this.selectedBaikinkun = index
+        this.selectedBaikinkunPointer = index
         return true
       })
     },
     isSelectedSkin() {
       if (this.isPekoraTab)
-        return this.selectedPekora === this.currentPekoraPointer
-      return this.selectedBaikinkun === this.currentBaikinkunPointer
+        return this.selectedPekoraPointer === this.currentPekoraPointer
+      return this.selectedBaikinkunPointer === this.currentBaikinkunPointer
     },
     switchTab(isPekoraTab) {
       this.isPekoraTab = isPekoraTab
@@ -98,18 +98,24 @@ export default {
       })
     },
     async selectSkin() {
+      if (this.isPekoraTab)
+        this.selectedPekoraPointer = this.currentPekoraPointer
+      else this.selectedBaikinkunPointer = this.currentBaikinkunPointer
+
       const id = this.isPekoraTab
-        ? this.pekoraSkins[this.selectedPekora].id
-        : this.baikinkunSkins[this.selectedPekora].id
+        ? this.pekoraSkins[this.selectedPekoraPointer].id
+        : this.baikinkunSkins[this.selectedBaikinkunPointer].id
       const role = this.isPekoraTab ? PLAYER_PEKORA : PLAYER_BAIKINKUN
       if (this.validate(id, role)) {
         this.errorMsgs.submit = 'ただしいスキンをせんたくしてください'
         return
       }
+
       const res = await this.updateSkins(id, role)
       if (!res) return
-      if (this.isPekoraTab) this.selectedPekora = this.currentPekoraPointer
-      else this.selectedBaikinkun = this.currentBaikinkunPointer
+      if (this.isPekoraTab)
+        this.selectedPekoraPointer = this.currentPekoraPointer
+      else this.selectedBaikinkunPointer = this.currentBaikinkunPointer
     },
   },
 }

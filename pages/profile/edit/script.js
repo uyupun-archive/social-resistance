@@ -32,10 +32,7 @@ export default {
       this.user = await this.fetchProfile(this.userId)
       this.avatars = await this.fetchAvatar()
       if (!this.user || !this.avatars) return
-      this.selectedAvatar = this.avatars.find(
-        (avatar) => avatar.id === this.user.avatarId
-      )
-      this.currentAvatar = this.avatars[0]
+      this.setAvatar()
     },
     async fetchProfile(userId) {
       return await this.$fetchProfile({ userId }).catch((e) => {
@@ -46,6 +43,12 @@ export default {
       return await this.$fetchAvatar().catch(() => {
         this.errorMsgs.fetch = 'アバターのしゅとくにしっぱいしました'
       })
+    },
+    setAvatar() {
+      this.selectedAvatar = this.avatars.find(
+        (avatar) => avatar.id === this.user.avatarId
+      )
+      this.currentAvatar = this.avatars[0]
     },
     getFullImagePath(path) {
       return process.env.API_URL + path

@@ -11,10 +11,10 @@ export default {
       user: null,
       userId: this.$store.state.auth.userId,
       isPekoraTab: true,
-      currentBaikinkunPointer: 0,
       currentPekoraPointer: 0,
-      selectedBaikinkun: 0,
+      currentBaikinkunPointer: 0,
       selectedPekora: 0,
+      selectedBaikinkun: 0,
       pekoraSkins: null,
       baikinkunSkins: null,
       errorMsgs: {
@@ -24,15 +24,15 @@ export default {
     }
   },
   async mounted() {
-    const resUser = await this.fetchProfile(this.userId)
-    const resPekoraSkins = await this.fetchSkins(PLAYER_PEKORA)
-    const resBaikinkunSkins = await this.fetchSkins(PLAYER_BAIKINKUN)
-    if (!resUser || !resPekoraSkins || !resBaikinkunSkins) return
-    this.user = resUser
-    this.pekoraSkins = resPekoraSkins
-    this.baikinkunSkins = resBaikinkunSkins
+    await this.init()
+    this.setSkin()
   },
   methods: {
+    async init() {
+      this.user = await this.fetchProfile(this.userId)
+      this.pekoraSkins = await this.fetchSkins(PLAYER_PEKORA)
+      this.baikinkunSkins = await this.fetchSkins(PLAYER_BAIKINKUN)
+    },
     async fetchProfile(userId) {
       return await this.$fetchProfile({ userId }).catch((e) => {
         this.errorMsgs.fetch = e.data.msg
@@ -41,6 +41,18 @@ export default {
     async fetchSkins(role) {
       return await this.$fetchSkins({ role }).catch((e) => {
         this.errorMsgs.fetch = e.data.msg
+      })
+    },
+    setSkin() {
+      this.pekoraSkins.some((skin, index) => {
+        if (skin.id !== this.user?.skin.pekoraId) return false
+        this.selectedPekora = index
+        return true
+      })
+      this.baikinkunSkins.some((skin, index) => {
+        if (skin.id !== this.user?.skin.baikinkunId) return false
+        this.selectedBaikinkun = index
+        return true
       })
     },
     isSelectedSkin() {

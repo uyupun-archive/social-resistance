@@ -7,46 +7,26 @@ export default {
   layout: 'after-login/index',
   data() {
     return {
-      user: {
-        id: '',
-        icon: 0,
-        rate: 0,
-        history: '',
-      },
-      userIcons: [
-        {
-          name: 'チンピラウサギ_1',
-          url: 'http://placehold.it/200',
-        },
-        {
-          name: 'チンピラウサギ_2',
-          url: 'http://placehold.it/200/ff0000/ffffff',
-        },
-        {
-          name: 'チンピラウサギ_3',
-          url: 'http://placehold.it/200/00ff00/ffffff',
-        },
-        {
-          name: 'チンピラウサギ_4',
-          url: 'http://placehold.it/200/0000ff/ffffff',
-        },
-      ],
+      user: null,
+      userId: this.$store.state.auth.userId,
+      errorMsg: '',
     }
   },
   mounted() {
-    this.getUserInfo()
+    this.fetchProfile(this.userId)
   },
   methods: {
-    getUserInfo() {
-      // TODO: ユーザー情報の取得
-      this.user.id = 'ABCDEF'
-      this.user.icon = 0
-      this.user.rate = 1200
-      this.user.history = '10勝5敗(50%)'
+    async fetchProfile(userId) {
+      const res = await this.$fetchProfile({ userId }).catch((e) => {
+        this.errorMsg = e.data.msg
+      })
+      if (res) this.user = res
     },
-    getRateIcon() {
-      // TODO: レート数に応じたアイコン(画像)を返す
-      return 'http://placehold.it/100'
+    getFullImagePath(path) {
+      return process.env.API_URL + path
+    },
+    formatHistory() {
+      return `${this.user.history.win}勝${this.user.history.lose}敗`
     },
   },
 }

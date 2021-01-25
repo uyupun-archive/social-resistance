@@ -1,5 +1,5 @@
 <div class="container">
-  <div v-if="user && avatars">
+  <div v-if="user && avatars && selectedAvatar">
     <form @submit.prevent="onSubmit">
       <div class="avatar-area">
         <img :src="getFullImagePath(selectedAvatar.image)" alt="avatar" class="avatar" />

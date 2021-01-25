@@ -24,15 +24,14 @@ export default {
       },
     }
   },
-  mounted() {
-    this.init()
+  async mounted() {
+    await this.init()
+    this.setAvatar()
   },
   methods: {
     async init() {
       this.user = await this.fetchProfile(this.userId)
       this.avatars = await this.fetchAvatar()
-      if (!this.user || !this.avatars) return
-      this.setAvatar()
     },
     async fetchProfile(userId) {
       return await this.$fetchProfile({ userId }).catch((e) => {

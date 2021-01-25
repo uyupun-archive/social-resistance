@@ -7,13 +7,13 @@
   </p>
   <ul class="ranking">
     <li v-for="(ranking, index) in rankings" :key="ranking.userId" class="ranking-item">
-      <span class="ranking-rank">{{ ranking.rank }}</span>
+      <span class="ranking-rank">{{ convertNumberToOrdinal(index + 1) }}</span>
       <span class="ranking-user__id">{{ ranking.userId }}</span>
       <span class="ranking-rate">
         <img
-          src='https://placehold.jp/100x100.png'
-          alt="rate icon"
-          class="ranking-rate__icon"
+          :src="getFullImagePath(ranking.image)"
+          alt="rank"
+          class="ranking-rank__image"
           :class="{
             'first': index === 0,
             'second': index === 1,
@@ -23,4 +23,5 @@
       </span>
     </li>
   </ul>
+  <p v-if="errorMsg" class="error-message">{{ errorMsg }}</p>
 </div>

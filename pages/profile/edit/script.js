@@ -11,83 +11,86 @@ export default {
   layout: 'after-login/index',
   data() {
     return {
-      user: {
-        id: '',
-        icon: 0,
-        rate: 0,
-        history: '',
-      },
-      newUserId: '',
-      newUserIcon: 0,
-      userIcons: [
-        {
-          name: 'チンピラウサギ_1',
-          url: 'http://placehold.it/200',
-        },
-        {
-          name: 'チンピラウサギ_2',
-          url: 'http://placehold.it/200/ff0000/ffffff',
-        },
-        {
-          name: 'チンピラウサギ_3',
-          url: 'http://placehold.it/200/00ff00/ffffff',
-        },
-        {
-          name: 'チンピラウサギ_4',
-          url: 'http://placehold.it/200/0000ff/ffffff',
-        },
-      ],
-      currentUserIcon: 0,
+      user: null,
+      userId: this.$store.state.auth.userId,
+      avatars: null,
+      selectedAvatar: null,
+      currentAvatar: null,
+      avatarIndex: 0,
       showModal: false,
+      errorMsgs: {
+        fetch: '',
+        submit: '',
+      },
     }
   },
-  mounted() {
-    this.getUserInfo()
+  async mounted() {
+    await this.init()
+    this.setAvatar()
   },
   methods: {
-    getUserInfo() {
-      // TODO: ユーザー情報の取得
-      this.user.id = this.newUserId = 'ABCDEF'
-      this.user.icon = this.newUserIcon = this.currentUserIcon = 0
-      this.user.rate = 1200
-      this.user.history = '10勝5敗(50%)'
+    async init() {
+      this.user = await this.fetchProfile(this.userId)
+      this.avatars = await this.fetchAvatar()
     },
-    getRateIcon() {
-      // TODO: レート数に応じたアイコン(画像)を返す
-      return 'http://placehold.it/100'
+    async fetchProfile(userId) {
+      return await this.$fetchProfile({ userId }).catch((e) => {
+        this.errorMsgs.fetch = e.data.msg
+      })
+    },
+    async fetchAvatar() {
+      return await this.$fetchAvatar().catch(() => {
+        this.errorMsgs.fetch = 'アバターのしゅとくにしっぱいしました'
+      })
+    },
+    setAvatar() {
+      this.selectedAvatar = this.avatars.find(
+        (avatar) => avatar.id === this.user.avatarId
+      )
+      this.currentAvatar = this.avatars[0]
+    },
+    getFullImagePath(path) {
+      return process.env.API_URL + path
+    },
+    formatHistory() {
+      return `${this.user.history.win}勝${this.user.history.lose}敗`
     },
     onClick() {
-      this.$refs.userIconModal.open()
-    },
-    onChange(e) {
-      this.newUserId = e.target.value
+      this.$refs.avatarsModal.open()
     },
     canSave() {
-      return (
-        this.user.id === this.newUserId && this.user.icon === this.newUserIcon
-      )
+      return this.user.avatarId === this.selectedAvatar.id
     },
-    selectIcon() {
-      this.newUserIcon = this.currentUserIcon
-      this.$refs.userIconModal.close()
+    selectAvatar() {
+      this.selectedAvatar = this.currentAvatar
+      this.$refs.avatarsModal.close()
     },
     prev() {
-      if (this.currentUserIcon === 0) {
-        this.currentUserIcon = this.userIcons.length - 1
-      } else {
-        this.currentUserIcon -= 1
-      }
+      if (this.avatarIndex === 0) this.avatarIndex = this.avatars.length - 1
+      else this.avatarIndex -= 1
+      this.currentAvatar = this.avatars[this.avatarIndex]
     },
     next() {
-      if (this.currentUserIcon === this.userIcons.length - 1) {
-        this.currentUserIcon = 0
-      } else {
-        this.currentUserIcon += 1
-      }
+      if (this.avatarIndex === this.avatars.length - 1) this.avatarIndex = 0
+      else this.avatarIndex += 1
+      this.currentAvatar = this.avatars[this.avatarIndex]
     },
-    onSubmit(e) {
-      // TODO: API通信
-      // e.target.userId.value, this.newUserIcon
+    validate(avatarId) {
+      if (!this.avatars.some((avatar) => avatar.id === avatarId)) {
+        this.errorMsgs.submit = 'ただしいアバターをせんたくしてください'
+        return true
+      }
+      return false
+    },
+    async onSubmit() {
+      this.errorMsgs.submit = ''
+      if (this.validate(this.selectedAvatar.id)) return
+      const res = await this.$updateProfile({
+        avatarId: this.selectedAvatar.id,
+      }).catch((e) => {
+        this.errorMsg = e.data.msg
+      })
+      if (res) this.$router.push(`/profile/${this.userId}`)
     },
   },
 }

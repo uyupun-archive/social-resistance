@@ -76,7 +76,7 @@ const fetchRanking = () => {
  * アバターの取得
  */
 const fetchAvatar = () => {
-  return axios.$get('avatar')
+  return axios.$get('avatars')
 }
 
 /**

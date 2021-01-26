@@ -6,32 +6,30 @@
   }
 }
 
-.user {
-  &-icon {
-    width: 200px;
-    height: 200px;
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+  @include sp() {
+    width: 150px;
+    height: 150px;
+  }
+
+  &-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 100px;
+    background: $white;
     border-radius: 50%;
 
     @include sp() {
-      width: 150px;
-      height: 150px;
-    }
-
-    &__area {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 250px;
-      height: 250px;
-      margin: 0 auto 100px;
-      background: $white;
-      border-radius: 50%;
-
-      @include sp() {
-        width: 200px;
-        height: 200px;
-        margin: 0 auto 50px;
-      }
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 50px;
     }
   }
 }
@@ -93,16 +91,26 @@
   }
 }
 
-.rate {
-  &-icon {
-    width: auto;
-    height: 48px;
-  }
+.rank {
+  width: auto;
+  height: 48px;
 }
 
 .btn {
   &-area {
     margin: 0 0 20px;
     text-align: center;
+  }
+}
+
+.error {
+  &-message {
+    font-size: $large;
+    color: $red;
+    text-align: center;
+
+    @include sp() {
+      font-size: $small;
+    }
   }
 }

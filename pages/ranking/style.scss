@@ -71,6 +71,17 @@
 
   &-rank {
     flex-basis: 15%;
+
+    &__image {
+      width: auto;
+      height: 48px;
+      margin: 0 10px 0 0;
+
+      @include sp() {
+        height: 24px;
+        margin: 0 5px 0 0;
+      }
+    }
   }
 
   &-user {
@@ -81,17 +92,6 @@
 
   &-rate {
     flex-basis: 35%;
-
-    &__icon {
-      width: auto;
-      height: 48px;
-      margin: 0 10px 0 0;
-
-      @include sp() {
-        height: 24px;
-        margin: 0 5px 0 0;
-      }
-    }
 
     & .first {
       width: auto;
@@ -118,6 +118,18 @@
       @include sp() {
         height: 24px;
       }
+    }
+  }
+}
+
+.error {
+  &-message {
+    font-size: $large;
+    color: $red;
+    text-align: center;
+
+    @include sp() {
+      font-size: $small;
     }
   }
 }

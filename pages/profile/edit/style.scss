@@ -6,89 +6,87 @@
   }
 }
 
-.user {
-  &-icon {
-    width: 200px;
-    height: 200px;
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+  @include sp() {
+    width: 150px;
+    height: 150px;
+  }
+
+  &-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 100px;
+    background: $white;
     border-radius: 50%;
 
     @include sp() {
-      width: 150px;
-      height: 150px;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 50px;
     }
+  }
 
-    &__area {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 250px;
-      height: 250px;
-      margin: 0 auto 100px;
-      background: $white;
-      border-radius: 50%;
+  &-filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+    background: $filter;
+    border-radius: 50%;
+
+    @include sp() {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  &-content {
+    text-align: center;
+  }
+
+  &-select {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 0 10px;
+
+    & .avatar-area {
+      margin: 0;
 
       @include sp() {
-        width: 200px;
-        height: 200px;
-        margin: 0 auto 50px;
+        width: 150px;
+        height: 150px;
       }
     }
 
-    &__filter {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 250px;
-      height: 250px;
-      cursor: pointer;
-      background: $filter;
-      border-radius: 50%;
-
+    & .avatar {
       @include sp() {
-        width: 200px;
-        height: 200px;
+        width: 100px;
+        height: 100px;
       }
     }
+  }
 
-    &__content {
-      text-align: center;
-    }
+  &-name {
+    margin: 0 0 40px;
+    font-size: $medium;
 
-    &__select {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      margin: 0 0 10px;
-
-      & .user-icon__area {
-        margin: 0;
-
-        @include sp() {
-          width: 150px;
-          height: 150px;
-        }
-      }
-
-      & .user-icon {
-        @include sp() {
-          width: 100px;
-          height: 100px;
-        }
-      }
-    }
-
-    &__name {
-      margin: 0 0 40px;
-      font-size: $medium;
-
-      @include sp() {
-        margin: 0 0 20px;
-        font-size: 2rem;
-      }
+    @include sp() {
+      margin: 0 0 20px;
+      font-size: 2rem;
     }
   }
 }
@@ -160,14 +158,12 @@
   }
 }
 
-.rate {
-  &-icon {
-    width: auto;
-    height: 48px;
+.rank {
+  width: auto;
+  height: 48px;
 
-    @include sp() {
-      height: 28px;
-    }
+  @include sp() {
+    height: 28px;
   }
 }
 
@@ -211,6 +207,20 @@
       &:last-of-type {
         margin-right: 14px;
       }
+    }
+  }
+}
+
+.error {
+  &-message {
+    margin-bottom: 60px;
+    font-size: $large;
+    color: $red;
+    text-align: center;
+
+    @include sp() {
+      margin-bottom: 40px;
+      font-size: $small;
     }
   }
 }

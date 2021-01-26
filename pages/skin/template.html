@@ -14,21 +14,21 @@
 				<img
 					v-if="isPekoraTab"
 					class="skin-img"
-					:src='makeFullImagePath(pekoraSkins[currentPekoraPointer].image)'
-					:alt="`${pekoraSkins[currentPekoraPointer].name} スキン`"
+					:src='makeFullImagePath(pekoraSkins[currentPekoraIndex].image)'
+					:alt="`${pekoraSkins[currentPekoraIndex].name} スキン`"
 				>
 				<img
 					v-if="!isPekoraTab"
 					class="skin-img"
-					:src='makeFullImagePath(baikinkunSkins[currentBaikinkunPointer].image)'
-					:alt="`${baikinkunSkins[currentBaikinkunPointer].name} スキン`"
+					:src='makeFullImagePath(baikinkunSkins[currentBaikinkunIndex].image)'
+					:alt="`${baikinkunSkins[currentBaikinkunIndex].name} スキン`"
 				>
 				<Fa icon="caret-right" class='caret-icon' @click="nextSkin()" />
 			</div>
 			<div class="skin-name">
 				<Fa :icon="['far', 'check-circle']" class="check-icon" v-show="isSelectedSkin()" />
-				<span v-if="isPekoraTab">{{ pekoraSkins[currentPekoraPointer].name }}</span>
-				<span v-if="!isPekoraTab">{{ baikinkunSkins[currentBaikinkunPointer].name }}</span>
+				<span v-if="isPekoraTab">{{ pekoraSkins[currentPekoraIndex].name }}</span>
+				<span v-if="!isPekoraTab">{{ baikinkunSkins[currentBaikinkunIndex].name }}</span>
 			</div>
 			<p v-if="errorMsgs.fetch" class="error-message">{{ errorMsgs.fetch }}</p>
 			<div class="skin-btn">
